@@ -1,0 +1,44 @@
+﻿@model pis.Models.Animal
+
+<h2>Добавление пользователя</h2>
+<form asp-action="create" asp-controller="home">
+    <p>
+        <label asp-for="RegistrationNumber">RegistrationNumber</label><br />
+        <input type="number" asp-for="RegistrationNumber" />
+    </p>
+    <p>
+        <label asp-for="Locality">Locality</label><br />
+        <input type="text" asp-for="Locality" />
+    </p>
+    <p>
+        <label asp-for="AnimalCategory">AnimalCategory</label><br />
+        <input type="text" asp-for="AnimalCategory" />
+    </p>
+    <p>
+        <label asp-for="Gender">Gender</label><br />
+        <input type="text" asp-for="Gender" />
+    </p>
+    <p>
+        <label asp-for="YearOfBirth">YearOfBirth</label><br />
+        <input type="number" asp-for="YearOfBirth" />
+    </p>
+    <p>
+        <label asp-for="ElectronicChipNumber">ElectronicChipNumber</label><br />
+        <input type="number" asp-for="ElectronicChipNumber" />
+    </p>
+    <p>
+        <label asp-for="AnimalName">AnimalName</label><br />
+        <input type="text" asp-for="AnimalName" />
+    </p>
+    <p>
+        <label asp-for="Photos">Photos</label><br />
+        <input type="text" asp-for="Photos" />
+    </p>
+    <p>
+        <label asp-for="SpecialSigns">SpecialSigns</label><br />
+        <input type="text" asp-for="SpecialSigns" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>

@@ -1,12 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<pis.Models.Animal>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>s
-    <p>Learn <a href="https://docs.microsoft.com/aspnet/core">!!!!!!!!!!!!тут была Ева!!!!!!!!!!!!!!!</a>.</p>s
-
-    <h1 class="display-4">Welcome</h1>
-    <h1 class="display-4">Welcome</h1>
-</div>
-
+<h2>Список пользователей</h2>
+<p><a asp-action="Create">Добавить животное</a></p>
+<table class="table">
+    <tr><th>Имя</th><th>Возраст</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.RegistrationNumber</td>
+            <td>@item.Locality</td>
+            <td>@item.AnimalCategory</td>
+            <td>@item.Gender</td>
+            <td>@item.YearOfBirth</td>
+            <td>@item.ElectronicChipNumber</td>
+            <td>@item.AnimalName</td>
+            <td>@item.Photos</td>
+            <td>@item.SpecialSigns</td>
+            <td>
+                <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.RegistrationNumber">Изменить</a>
+            </td>
+            <td>
+                <form asp-controller="Home" asp-action="Delete" method="post" asp-route-id="@item.RegistrationNumber">
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
