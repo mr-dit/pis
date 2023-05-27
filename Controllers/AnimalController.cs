@@ -2,14 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using pis.Models;
 using pis.Repositorys;
+using pis.Services;
 
 namespace pis.Controllers;
 
-public class HomeController : Controller
+public class AnimalController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<AnimalController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public AnimalController(ILogger<AnimalController> logger)
     {
         _logger = logger;
     }
@@ -19,16 +20,24 @@ public class HomeController : Controller
         return View(AnimalRepositorys.animals);
     }
 
-    public IActionResult Create()
+    public IActionResult AddEntry()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult Create(Animal animal)
+    public IActionResult AddEntry(Animal animal)
     {
-        AnimalRepositorys.animals.Add(animal);
-        return RedirectToAction("Index");
+        bool status = AnimalService.FillData(animal);
+        if (status)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return Error();
+        }
+        
     }
 
     [HttpPost]

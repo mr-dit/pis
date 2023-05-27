@@ -12,6 +12,13 @@ namespace pis.Repositorys
             new Animal(3, "Omsk", "Dog", "Boy", 2021, 3, "kot", "photo", "tail")
         };
 
+
+		public static bool NewEntry(Animal animal)
+		{
+            animals.Add(animal);
+			return true;
+        }
+
 		public AnimalRepositorys()
 		{
 		}
