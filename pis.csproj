@@ -11,9 +11,11 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Repositorys\" />
+    <None Remove="Views\Organisation\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Repositorys\" />
+    <Folder Include="Views\Organisation\" />
   </ItemGroup>
 </Project>
