@@ -20,8 +20,12 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0FkZEVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0luZGV4LmNzaHRtbA==
+[/Users/dmitriy/Projects/pis/pis/Views/Animal/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0NoYW5nZUVudHJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Animal/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL09wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dmitriy/Projects/pis/pis/Views/Animal/Privacy.cshtml]
@@ -32,8 +36,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0luZGV4LmNzaHRtbA==
+[/Users/dmitriy/Projects/pis/pis/Views/Organisation/AddEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0FkZEVudHJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Organisation/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0NoYW5nZUVudHJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Organisation/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL09wZW5zUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Organisation/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dmitriy/Projects/pis/pis/Views/Shared/Error.cshtml]

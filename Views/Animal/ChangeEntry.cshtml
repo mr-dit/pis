@@ -1,11 +1,10 @@
 ﻿@model pis.Models.Animal
 
-
-<h2>Добавление животного</h2>
-<form asp-action="AddEntry" asp-controller="Animal">
+<h2>Редактирование животного</h2>
+<form asp-action="ChangeEntry" asp-controller="Animal" asp-route-id="@Model.RegistrationNumber">
     <p>
         <label asp-for="RegistrationNumber">Регистрационный номер </label><br />
-        <input type="number" asp-for="RegistrationNumber" />
+        <input type="number" readonly="readonly" asp-for="RegistrationNumber" />
     </p>
     <p>
         <label asp-for="Locality">Населённый пункт</label><br />
@@ -40,6 +39,6 @@
         <input type="text" asp-for="SpecialSigns" />
     </p>
     <p>
-        <input type="submit" value="Отправить" />
+        <input type="submit" value="Сохранить" />
     </p>
 </form>
