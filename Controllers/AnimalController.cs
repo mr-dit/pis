@@ -15,9 +15,10 @@ public class AnimalController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult OpensRegister()
     {
-        return View(AnimalRepositorys.animals);
+        var animals = AnimalService.GetAnimals();
+        return View(animals);
     }
 
     public IActionResult AddEntry()
@@ -31,7 +32,7 @@ public class AnimalController : Controller
         bool status = AnimalService.FillData(animal);
         if (status)
         {
-            return RedirectToAction("Index");
+            return RedirectToAction("OpensRegister");
         }
         else
         {
@@ -41,23 +42,48 @@ public class AnimalController : Controller
     }
 
     [HttpPost]
-    public IActionResult Delete(int? id)
+    public IActionResult DeleteEntry(int? id)
     {
         if (id != null)
         {
-            var foundAnimal = AnimalRepositorys.animals.FirstOrDefault(a => a.RegistrationNumber == id);
-            if (foundAnimal != null)
+            var status = AnimalService.DeleteEntry((int)id);
+
+            if (status)
             {
-                AnimalRepositorys.animals.Remove(foundAnimal);
                 Console.WriteLine("Объект Animal удален.");
-            }
-            else
-            {
-                Console.WriteLine("Объект Animal не найден.");
-            }
-            return RedirectToAction("Index");
+                return RedirectToAction("OpensRegister");
+            }  
+            return Error();
+            
         }
         return NotFound();
+    }
+
+
+    public async Task<IActionResult> ChangeEntry(int? id)
+    {
+        if (id != null)
+        {
+            var animal = AnimalService.GetEntry((int)id);
+    
+             return View(animal);
+        }
+        return NotFound();
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> ChangeEntry(Animal animal)
+    {
+        
+        bool status = AnimalService.ChangeEntry(animal);
+        if (status)
+        {
+            return RedirectToAction("OpensRegister");
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 
 

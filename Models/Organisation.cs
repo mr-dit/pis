@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Reflection;
+using pis.Services;
 
 namespace pis.Models
 {
 	public class Organisation
 	{
-        public string OrgName { get; set; } = "";
+		public int OrgId { get; set; }
+		public string OrgName { get; set; } = "";
 
-        public int INN { get; set; } 
+        public long INN { get; set; } 
 
-        public int KPP { get; set; }
+        public long KPP { get; set; }
 
         public string AdressReg { get; set; } = "";
 
@@ -18,9 +20,10 @@ namespace pis.Models
         public string OrgAttribute { get; set; } = "";//ИП/Юр.лицо
 
         public string Locality { get; set; } = "";
-
-        public Organisation(string orgName, int inn, int kpp, string adressReg, string typeOrg, string orgAttribute, string locality)
+        
+        public Organisation(int orgId, string orgName, long inn, int kpp, string adressReg, string typeOrg, string orgAttribute, string locality)
         {
+	        OrgId = orgId;
             OrgName = orgName;
             INN = inn;
             KPP = kpp;
