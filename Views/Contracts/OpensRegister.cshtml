@@ -1,0 +1,25 @@
+﻿@model IEnumerable<pis.Models.Contracts>
+
+<h2>Реестр муниципальных конктрактов</h2>
+<p><a asp-action="FillData">Добавить контракт</a></p>
+<table class="table">
+    <tr><th>Номер контракта</th><th>Дата заключения</th><th>Дата действия</th><th>Исполнитель</th><th>Заказчик</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ContractsId</td>
+            <td>@item.ConclusionDate.ToShortDateString()</td>
+            <td>@item.ExpirationDate.ToShortDateString()</td>
+            <td>@item.Performer</td>
+            <td>@item.Customer</td>
+            <td>
+                <a asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@item.ContractsId">Изменить</a>
+            </td>
+            <td>
+                <form asp-controller="Contracts" asp-action="DeleteEntry" method="post" asp-route-id="@item.ContractsId">
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
