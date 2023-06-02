@@ -1,3 +1,14 @@
+
+﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{BFD21E55-72EC-49A8-AA92-135392EDB34A}|https">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.pis PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="wwwroot/css/site.css">
+    <Files>
+      <File FileName="wwwroot/css/site.css" Line="20" Column="7" />
+
 ﻿<Properties StartupConfiguration="{BFD21E55-72EC-49A8-AA92-135392EDB34A}|https" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AnimalController.cs">
     <Files>
@@ -7,6 +18,7 @@
       <File FileName="Services/OrganizationService.cs" />
       <File FileName="Controllers/OrganisationController.cs" />
       <File FileName="Views/Animal/ChangeEntry.cshtml" />
+
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,11 +28,26 @@
               <Node name="Controllers" expanded="True">
                 <Node name="AnimalController.cs" selected="True" />
               </Node>
+
+              <Node name="Controllers" expanded="True">
+                <Node name="OrganisationController.cs" selected="True" />
+              </Node>
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+
+              <Node name="Models" expanded="True" />
+
               <Node name="Repositorys" expanded="True" />
               <Node name="Services" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Animal" expanded="True" />
+
+                <Node name="Organisation" expanded="True" />
+                <Node name="Shared" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+
               </Node>
             </Node>
           </Node>
@@ -28,6 +55,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
@@ -35,4 +66,5 @@
   <MonoDevelop.Ide.ItemProperties.pis PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+
 </Properties>
