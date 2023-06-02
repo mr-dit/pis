@@ -17,7 +17,7 @@ namespace pis.Models
 
         public string TypeOrg { get; set; } = "";
 
-        public string OrgAttribute { get; set; } = "";//ИП/Юр.лицо
+        public string OrgAttribute { get; set; } = "";
 
         public string Locality { get; set; } = "";
         

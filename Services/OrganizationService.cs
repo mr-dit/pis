@@ -36,13 +36,12 @@ namespace pis.Services
 		{
 			var entry = OrganisationsRepository.GetEntry(id);
 			return entry;
-
 		}
+
 		public static List<Organisation>? GetOrganisations()
 		{
 			var entry = OrganisationsRepository.GetOrganizations();
 			return entry;
-
 		}
         
         
