@@ -17,7 +17,14 @@ namespace pis.Repositorys
         
         public static bool NewEntry(Organisation organisation)
         {
-            org.Add(organisation);
+            try
+            {
+                org.Add(organisation);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -29,11 +36,8 @@ namespace pis.Repositorys
                 org.Remove(foundOrg);
                 Console.WriteLine("Объект Organisation удален.");
                 return true;
-            }
-            else
-            {
-                Console.WriteLine("Объект Organisation не найден.");
-            }
+            } 
+            Console.WriteLine("Объект Organisation не найден.");
             return false;
         }
 
@@ -54,10 +58,13 @@ namespace pis.Repositorys
             var foundOrg = org.FirstOrDefault(a => a.OrgId == organisation.OrgId);
             if (foundOrg != null)
             {
-                foundOrg = organisation;
-		        
-                org.RemoveAll(a => a.OrgId == organisation.OrgId);
-                org.Add(foundOrg);
+                foundOrg.OrgName = organisation.OrgName;
+                foundOrg.INN = organisation.INN;
+                foundOrg.KPP = organisation.KPP;
+                foundOrg.AdressReg = organisation.AdressReg;
+                foundOrg.TypeOrg = organisation.TypeOrg;
+                foundOrg.OrgAttribute = organisation.OrgAttribute;
+                foundOrg.Locality = organisation.Locality;
                 return true;
             }
             return false;

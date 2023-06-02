@@ -60,6 +60,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/AddEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9BZGRFbnRyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9DaGFuZ2VFbnRyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9PcGVuc1JlZ2lzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9fVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/dmitriy/Projects/pis/pis/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

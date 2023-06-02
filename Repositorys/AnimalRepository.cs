@@ -52,10 +52,14 @@ namespace pis.Repositorys
 	        var foundAnimal = AnimalRepository.animals.FirstOrDefault(a => a.RegistrationNumber == animal.RegistrationNumber);
 	        if (foundAnimal != null)
 	        {
-		        foundAnimal = animal;
-		        
-		        animals.RemoveAll(a => a.RegistrationNumber == animal.RegistrationNumber);
-		        animals.Add(foundAnimal);
+		        foundAnimal.Locality = animal.Locality;
+		        foundAnimal.AnimalCategory = animal.AnimalCategory;
+		        foundAnimal.Gender = animal.Gender;
+		        foundAnimal.YearOfBirth = animal.YearOfBirth;
+		        foundAnimal.ElectronicChipNumber = animal.ElectronicChipNumber;
+		        foundAnimal.AnimalName = animal.AnimalName;
+		        foundAnimal.Photos = animal.Photos;
+		        foundAnimal.SpecialSigns = animal.SpecialSigns;
 		        return true;
 	        }
 	        return false;

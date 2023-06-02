@@ -13,8 +13,4 @@
     <None Remove="Repositorys\" />
     <None Remove="Views\Organisation\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Repositorys\" />
-  </ItemGroup>
 </Project>

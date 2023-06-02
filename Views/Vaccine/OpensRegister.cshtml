@@ -1,0 +1,29 @@
+﻿@model IEnumerable<pis.Models.Vaccination>
+
+<h2>Реестр вакцинаций</h2>
+<p><a asp-action="AddEntry">Добавить вакцинацию</a></p>
+<table class="table">
+    <tr><th>Код вакцины</th><th>Имя животного</th><th>Дата вакцинации</th><th>Вид вакцины</th><th>Номер серии</th><th>Дата, до которой действительна вакцина</th><th>ФИО ветеринарного специалиста</th><th>Должность ветеринарного специалиста</th><th>Название организации</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.VaccineId</td>
+            <td>@item.Animal.AnimalName</td>
+            <td>@item.VaccinationDate.ToShortDateString()</td>
+            <td>@item.VaccineType</td>
+            <td>@item.BatchNumber</td>
+            <td>@item.ValidUntil.ToShortDateString()</td>
+            <td>@item.VeterinarianFullName</td>
+            <td>@item.VeterinarianPosition</td>
+            <td>@item.Organisation.OrgName</td>
+            <td>
+                <a asp-action="ChangeEntry" asp-controller="Vaccine" asp-route-id="@item.VaccineId">Изменить</a>
+            </td>
+            <td>
+                <form asp-controller="Vaccine" asp-action="DeleteEntry" method="post" asp-route-id="@item.VaccineId">
+                    <input type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
