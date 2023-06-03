@@ -1,10 +1,10 @@
 ﻿@model pis.Models.Contracts
 
-<h2>Добавление контракта</h2>
-<form asp-action="FillData" asp-controller="Contracts">
+<h2>Редактирование животного</h2>
+<form asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@Model.ContractsId">
     <p>
-        <label asp-for="ContractsId">Номер Контракта</label><br />
-        <input type="number" asp-for="ContractsId" />
+        <label asp-for="ContractsId">Номер контракта </label><br />
+        <input type="number" readonly="readonly" asp-for="ContractsId" />
     </p>
     <p>
         <label asp-for="ConclusionDate">Дата заключения</label><br />
@@ -21,8 +21,7 @@
     <p>
         <label asp-for="Customer">Заказчик</label><br />
         <input type="text" asp-for="Customer" />
-    </p>
-    <div class="text-right">
+    <p>
         <input type="submit" value="Сохранить" />
-    </div>
+    </p>
 </form>

@@ -36,12 +36,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL0NoYW5nZUVudHJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/FillData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL0ZpbGxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/OpensRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL09wZW5zUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/evakharchenko/Desktop/ПИС/pis/Views/Organisation/AddEntry.cshtml]
