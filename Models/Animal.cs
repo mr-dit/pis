@@ -20,6 +20,13 @@ namespace pis.Models
         public string Photos { get; set; } = "";
 
         public string SpecialSigns { get; set; } = "";
+        
+        public string FilterName { get; set; }
+        public string SortBy { get; set; }
+        public bool IsAscending { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        // public List<Vaccination> Vaccinations { get; set; }
 
 
         public Animal(int id, string locality, string animalCategory, string gender, int yearOfBirth, int electronicChipNumber, string animalName, string photos, string specialSigns)
@@ -33,12 +40,14 @@ namespace pis.Models
             AnimalName = animalName;
             Photos = photos;
             SpecialSigns = specialSigns;
+            
         }
 
         public Animal()
         {
-            
         }
+        
+        
     }
 }
 

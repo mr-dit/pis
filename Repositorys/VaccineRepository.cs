@@ -37,6 +37,10 @@ namespace pis.Repositorys
 
         public static bool NewEntry(Vaccination vaccine)
         {
+            int maxRegistrationNumber = vaccines.Max(a => a.VaccineId);
+            int nextRegistrationNumber = maxRegistrationNumber + 1;
+
+            vaccine.VaccineId = nextRegistrationNumber;
             vaccines.Add(vaccine);
             return true;
         }

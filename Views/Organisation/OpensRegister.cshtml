@@ -1,9 +1,52 @@
-﻿@model IEnumerable<pis.Models.Organisation>
+﻿@model List<pis.Models.Organisation>
 
 <h2>Реестр организаций</h2>
-<p><a asp-action="AddEntry">Добавить организацию</a></p>
+<p>
+    <a asp-action="AddEntry">Добавить организацию</a>
+</p>
+
+<!-- Форма фильтрации -->
+<form method="get" action="@Url.Action("OpensRegister")">
+    <select name="filterField">
+         <option value="orgname" selected="@(ViewBag.FilterField == "orgname")">Наименование</option>
+            <option value="inn" selected="@(ViewBag.FilterField == "inn")">ИНН</option>
+            <option value="kpp" selected="@(ViewBag.FilterField == "kpp")">КПП</option>
+        <!-- Добавьте остальные поля в соответствии с вашими требованиями -->
+    </select>
+    <input type="text" name="filterValue" value="@ViewBag.FilterValue" placeholder="Значение фильтра">
+    <input type="submit" value="Фильтрация">
+</form>
+
+<!-- Таблица с организациями -->
 <table class="table">
-    <tr><th>Код организации</th><th>Наименование</th><th>ИНН</th><th>КПП</th><th>Адрес регистрации</th><th>Тип организации</th><th>Форма организации</th><th>Населённый пункт</th></tr>
+    <tr>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "OrgId", isAscending = !ViewBag.IsAscending })">Код организации</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "OrgName", isAscending = !ViewBag.IsAscending })">Наименование</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "INN", isAscending = !ViewBag.IsAscending })">ИНН</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "KPP", isAscending = !ViewBag.IsAscending })">КПП</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "AdressReg", isAscending = !ViewBag.IsAscending })">Адрес регистрации</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "TypeOrg", isAscending = !ViewBag.IsAscending })">Тип организации</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "OrgAttribute", isAscending = !ViewBag.IsAscending })">Форма организации</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "Locality", isAscending = !ViewBag.IsAscending })">Населённый пункт</a>
+        </th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+    </tr>
     @foreach (var item in Model)
     {
         <tr>
@@ -20,9 +63,80 @@
             </td>
             <td>
                 <form asp-controller="Organisation" asp-action="DeleteEntry" method="post" asp-route-id="@item.OrgId">
-                    <input type="submit" value="Удалить" />
+                    <input type="submit" value="Удалить"/>
                 </form>
             </td>
         </tr>
     }
 </table>
+
+<!-- Пагинация -->
+@if (ViewBag.TotalPages > 1)
+{
+    <div>
+        @if (ViewBag.PageNumber > 1)
+        {
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a>
+
+            @* <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a> *@
+
+            @* <a href="@Url.Action("OpensRegister", new { filterName = ViewBag.FilterName, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a> *@
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            if (i == ViewBag.PageNumber)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
+
+                @* <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a> *@
+            }
+        }
+
+        @if (ViewBag.PageNumber < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a>
+
+            @* <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a> *@
+        }
+    </div>
+}
+
+
+
+
+
+
+
+@* @model IEnumerable<pis.Models.Organisation> *@
+@* *@
+@* <h2>Реестр организаций</h2> *@
+@* <p><a asp-action="AddEntry">Добавить организацию</a></p> *@
+@* <table class="table"> *@
+@*     <tr><th>Код организации</th><th>Наименование</th><th>ИНН</th><th>КПП</th><th>Адрес регистрации</th><th>Тип организации</th><th>Форма организации</th><th>Населённый пункт</th></tr> *@
+@*     @foreach (var item in Model) *@
+@*     { *@
+@*         <tr> *@
+@*             <td>@item.OrgId</td> *@
+@*             <td>@item.OrgName</td> *@
+@*             <td>@item.INN</td> *@
+@*             <td>@item.KPP</td> *@
+@*             <td>@item.AdressReg</td> *@
+@*             <td>@item.TypeOrg</td> *@
+@*             <td>@item.OrgAttribute</td> *@
+@*             <td>@item.Locality</td> *@
+@*             <td> *@
+@*                 <a asp-action="ChangeEntry" asp-controller="Organisation" asp-route-id="@item.OrgId">Изменить</a> *@
+@*             </td> *@
+@*             <td> *@
+@*                 <form asp-controller="Organisation" asp-action="DeleteEntry" method="post" asp-route-id="@item.OrgId"> *@
+@*                     <input type="submit" value="Удалить" /> *@
+@*                 </form> *@
+@*             </td> *@
+@*         </tr> *@
+@*     } *@
+@* </table> *@
