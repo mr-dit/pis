@@ -1,10 +1,6 @@
 {
   "Version": 1,
-
   "Hash": "SAmOcZnfdfhcrHKD212AvroFTDvlAASQL/WPePgWPwI=",
-
-  "Hash": "r0aCLK83wiwz0NZ2nvXbd4HTgI80m149TNU0SFOzyDk=",
-
   "Source": "pis",
   "BasePath": "_content/pis",
   "Mode": "Default",
@@ -14,17 +10,17 @@
     {
       "Name": "pis/wwwroot",
       "Source": "pis",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/obj/Debug/net7.0/scopedcss/bundle/pis.styles.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/bundle/pis.styles.css",
       "SourceId": "pis",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/obj/Debug/net7.0/scopedcss/bundle/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/bundle/",
       "BasePath": "_content/pis",
       "RelativePath": "pis.styles.css",
       "AssetKind": "All",
@@ -35,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/dmitriy/Projects/pis/pis/obj/Debug/net7.0/scopedcss/bundle/pis.styles.css"
+      "OriginalItemSpec": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/bundle/pis.styles.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/obj/Debug/net7.0/scopedcss/projectbundle/pis.bundle.scp.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/projectbundle/pis.bundle.scp.css",
       "SourceId": "pis",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/obj/Debug/net7.0/scopedcss/projectbundle/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/projectbundle/",
       "BasePath": "_content/pis",
       "RelativePath": "pis.bundle.scp.css",
       "AssetKind": "All",
@@ -52,7 +48,7 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/dmitriy/Projects/pis/pis/obj/Debug/net7.0/scopedcss/projectbundle/pis.bundle.scp.css"
+      "OriginalItemSpec": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/projectbundle/pis.bundle.scp.css"
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/.DS_Store",
@@ -73,12 +69,9 @@
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/Buttons.css",
-
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/css/Buttons.css",
-
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "css/Buttons.css",
       "AssetKind": "All",
@@ -92,10 +85,10 @@
       "OriginalItemSpec": "wwwroot/css/Buttons.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/css/ChangeEntry.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/ChangeEntry.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "css/ChangeEntry.css",
       "AssetKind": "All",
@@ -109,10 +102,10 @@
       "OriginalItemSpec": "wwwroot/css/ChangeEntry.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/css/login-form.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/login-form.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "css/login-form.css",
       "AssetKind": "All",
@@ -126,10 +119,10 @@
       "OriginalItemSpec": "wwwroot/css/login-form.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/css/site.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/site.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -143,10 +136,10 @@
       "OriginalItemSpec": "wwwroot/css/site.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/favicon.ico",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/favicon.ico",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -160,10 +153,10 @@
       "OriginalItemSpec": "wwwroot/favicon.ico"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/images/2527324.png",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/2527324.png",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "images/2527324.png",
       "AssetKind": "All",
@@ -177,14 +170,10 @@
       "OriginalItemSpec": "wwwroot/images/2527324.png"
     },
     {
-
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo.png",
-
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/images/собачка.png",
-
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "images/photo.png",
       "AssetKind": "All",
@@ -198,10 +187,10 @@
       "OriginalItemSpec": "wwwroot/images/photo.png"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/js/site.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/js/site.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -215,7 +204,6 @@
       "OriginalItemSpec": "wwwroot/js/site.js"
     },
     {
-
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/.DS_Store",
       "SourceId": "pis",
       "SourceType": "Discovered",
@@ -234,12 +222,9 @@
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
-
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
-
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
       "AssetKind": "All",
@@ -253,10 +238,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "AssetKind": "All",
@@ -270,10 +255,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "AssetKind": "All",
@@ -287,10 +272,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "AssetKind": "All",
@@ -304,10 +289,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "AssetKind": "All",
@@ -321,10 +306,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "AssetKind": "All",
@@ -338,10 +323,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "AssetKind": "All",
@@ -355,10 +340,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "AssetKind": "All",
@@ -372,10 +357,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
       "AssetKind": "All",
@@ -389,10 +374,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "AssetKind": "All",
@@ -406,10 +391,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "AssetKind": "All",
@@ -423,10 +408,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "AssetKind": "All",
@@ -440,10 +425,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "AssetKind": "All",
@@ -457,10 +442,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "AssetKind": "All",
@@ -474,10 +459,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "AssetKind": "All",
@@ -491,10 +476,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "AssetKind": "All",
@@ -508,10 +493,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
       "AssetKind": "All",
@@ -525,10 +510,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "AssetKind": "All",
@@ -542,10 +527,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "AssetKind": "All",
@@ -559,10 +544,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "AssetKind": "All",
@@ -576,10 +561,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "AssetKind": "All",
@@ -593,10 +578,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "AssetKind": "All",
@@ -610,10 +595,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "AssetKind": "All",
@@ -627,10 +612,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "AssetKind": "All",
@@ -644,10 +629,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetKind": "All",
@@ -661,10 +646,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
       "AssetKind": "All",
@@ -678,10 +663,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -695,10 +680,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -712,10 +697,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
       "AssetKind": "All",
@@ -729,10 +714,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "AssetKind": "All",
@@ -746,10 +731,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "AssetKind": "All",
@@ -763,10 +748,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "AssetKind": "All",
@@ -780,10 +765,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
       "AssetKind": "All",
@@ -797,10 +782,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "AssetKind": "All",
@@ -814,10 +799,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -831,10 +816,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "AssetKind": "All",
@@ -848,10 +833,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
       "AssetKind": "All",
@@ -865,10 +850,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "AssetKind": "All",
@@ -882,10 +867,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "AssetKind": "All",
@@ -899,10 +884,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "AssetKind": "All",
@@ -916,10 +901,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
       "AssetKind": "All",
@@ -933,10 +918,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
       "AssetKind": "All",
@@ -950,10 +935,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.js.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
       "AssetKind": "All",
@@ -967,10 +952,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
       "AssetKind": "All",
@@ -984,10 +969,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/bootstrap/LICENSE",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/LICENSE",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -1001,10 +986,10 @@
       "OriginalItemSpec": "wwwroot/lib/bootstrap/LICENSE"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -1018,10 +1003,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1035,10 +1020,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -1052,10 +1037,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation/dist/additional-methods.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -1069,10 +1054,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/additional-methods.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -1086,10 +1071,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/additional-methods.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -1103,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/jquery.validate.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1120,10 +1105,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery-validation/LICENSE.md",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery-validation/LICENSE.md",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -1137,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery-validation/LICENSE.md"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery/dist/jquery.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery/dist/jquery.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -1154,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery/dist/jquery.min.js",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery/dist/jquery.min.js",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -1171,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.min.js"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery/dist/jquery.min.map",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery/dist/jquery.min.map",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -1188,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot/lib/jquery/dist/jquery.min.map"
     },
     {
-      "Identity": "/Users/dmitriy/Projects/pis/pis/wwwroot/lib/jquery/LICENSE.txt",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/jquery/LICENSE.txt",
       "SourceId": "pis",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/dmitriy/Projects/pis/pis/wwwroot/",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
