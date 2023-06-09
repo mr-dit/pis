@@ -60,3 +60,12 @@
 /Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/pis.pdb
 /Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/pis.genruntimeconfig.cache
 /Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/ref/pis.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/EPPlus.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/EPPlus.Interfaces.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/EPPlus.System.Drawing.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/Microsoft.IO.RecyclableMemoryStream.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/Microsoft.Win32.SystemEvents.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/System.Drawing.Common.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll
+/Users/evakharchenko/Desktop/ПИС/pis/bin/Debug/net7.0/runtimes/win/lib/net7.0/System.Drawing.Common.dll
+/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/pis.csproj.CopyComplete

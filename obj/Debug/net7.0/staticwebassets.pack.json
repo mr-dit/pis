@@ -29,12 +29,52 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
-      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/2527324.png",
-      "PackagePath": "staticwebassets/images/2527324.png"
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/.DS_Store",
+      "PackagePath": "staticwebassets/images/.DS_Store"
     },
     {
       "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo.png",
       "PackagePath": "staticwebassets/images/photo.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo1.png",
+      "PackagePath": "staticwebassets/images/photo1.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo10.png",
+      "PackagePath": "staticwebassets/images/photo10.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo11.png",
+      "PackagePath": "staticwebassets/images/photo11.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo2.png",
+      "PackagePath": "staticwebassets/images/photo2.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo3.png",
+      "PackagePath": "staticwebassets/images/photo3.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo4.png",
+      "PackagePath": "staticwebassets/images/photo4.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo5.png",
+      "PackagePath": "staticwebassets/images/photo5.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo7.png",
+      "PackagePath": "staticwebassets/images/photo7.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo8.png",
+      "PackagePath": "staticwebassets/images/photo8.png"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo9.png",
+      "PackagePath": "staticwebassets/images/photo9.png"
     },
     {
       "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/js/site.js",

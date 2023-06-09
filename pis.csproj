@@ -12,12 +12,18 @@
     <None Remove="Services\" />
     <None Remove="Repositorys\" />
     <None Remove="Views\Organisation\" />
+    <None Remove="EPPlus" />
+    <None Remove="Views\Statistica\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Contracts\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="Views\Statistica\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.3" />
   </ItemGroup>
 </Project>
