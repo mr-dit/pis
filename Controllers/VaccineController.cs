@@ -19,6 +19,23 @@ namespace pis.Controllers
             var vaccination = VaccineService.GetOrganisations();
             return View(vaccination);
         }
+        
+        // public ActionResult AddVaccination(int registrationNumber)
+        // {
+        //     ViewBag.RegistrationNumber = registrationNumber;
+        //     return View();
+        // }
+        //
+        //
+        // // Действие для обработки отправки формы добавления вакцинации
+        // [HttpPost]
+        // public ActionResult AddVaccination(int registrationNumber, Vaccine vaccine)
+        // {
+        //     // Vaccination vaccination = new Vaccination { Date = date, Type = type };
+        //     VaccineService.AddVaccination(registrationNumber, vaccine);
+        //
+        //     return RedirectToAction("OpensRegister", "Vaccine");  // Перенаправление на другую страницу после добавления вакцинации
+        // }
 
         public IActionResult AddEntry()
         {

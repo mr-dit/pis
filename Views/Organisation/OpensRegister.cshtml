@@ -77,10 +77,6 @@
         @if (ViewBag.PageNumber > 1)
         {
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a>
-
-            @* <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a> *@
-
-            @* <a href="@Url.Action("OpensRegister", new { filterName = ViewBag.FilterName, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a> *@
         }
 
         @for (int i = 1; i <= ViewBag.TotalPages; i++)
@@ -92,16 +88,12 @@
             else
             {
                 <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
-
-                @* <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a> *@
             }
         }
 
         @if (ViewBag.PageNumber < ViewBag.TotalPages)
         {
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a>
-
-            @* <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a> *@
         }
     </div>
 }

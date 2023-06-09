@@ -20,9 +20,24 @@ namespace pis.Controllers
             _logger = logger;
         }
 
-        public IActionResult OpensRegister()
+        public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber = 1, int pageSize = 10)
         {
-            var contracts = ContractsService.GetContracts();
+            filterValue = filterValue?.ToLower();
+            
+            var contracts = ContractsService.GetContracts(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var totalItems = ContractsService.GetTotalContracts(filterField, filterValue);
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (filterValue != null) ViewBag.FilterValue = filterValue;
+            ViewBag.FilterField = filterField;
+            ViewBag.SortBy = sortBy;
+            ViewBag.IsAscending = isAscending;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.TotalPages = totalPages;
+            
+            // var contracts = ContractsService.GetContracts();
             return View(contracts);
         }
 
@@ -37,12 +52,9 @@ namespace pis.Controllers
             bool status = ContractsService.CreateContract(contracts);
             if (status)
             {
-                return RedirectToAction("OpensRegister");
-            }
-            else
-            {
-                return Error();
-            }
+                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
+            } 
+            return Error();
         }
 
         
@@ -56,7 +68,7 @@ namespace pis.Controllers
                 if (status)
                 {
                     Console.WriteLine("Объект Contracts удален.");
-                    return RedirectToAction("OpensRegister");
+                    return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
                 }
 
                 return Error();
@@ -83,12 +95,9 @@ namespace pis.Controllers
             bool status = ContractsService.ChangeEntry(contracts);
             if (status)
             {
-                return RedirectToAction("OpensRegister");
-            }
-            else
-            {
-                return NotFound();
-            }
+                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
+            } 
+            return NotFound();
         }
 
 
