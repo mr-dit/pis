@@ -22,7 +22,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSession();
 
-
+app.UseStaticFiles();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");

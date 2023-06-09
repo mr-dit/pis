@@ -1,7 +1,14 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{BFD21E55-72EC-49A8-AA92-135392EDB34A}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Vaccine/AddEntry.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Views/Vaccine/AddEntry.cshtml" Line="45" Column="8" />
+      <File FileName="Views/Animal/ChangeEntry.cshtml" Line="33" Column="5" />
+      <File FileName="Controllers/AnimalController.cs" Line="95" Column="46" />
+      <File FileName="Views/Animal/OpensRegister.cshtml" Line="64" Column="67" />
+      <File FileName="Program.cs" Line="38" Column="1" />
+      <File FileName="Views/Account/Login.cshtml" Line="11" Column="28" />
+      <File FileName="Services/AnimalService.cs" Line="84" Column="25" />
+      <File FileName="Models/Animal.cs" Line="20" Column="7" />
+      <File FileName="Repositorys/AnimalRepository.cs" Line="22" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

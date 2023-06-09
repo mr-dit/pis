@@ -7,24 +7,20 @@ namespace pis.Repositorys
 
 		private static List<Animal> animals = new List<Animal>
 		{
-			new Animal(1, "Omsk", "Cat", "Boy", 2020, 1, "kot", "photo", "tail"),
-            new Animal(2, "Tyumen", "Cat", "Girl", 2022, 2, "kot", "photo", "tail"),
-            new Animal(3, "Omsk", "Dog", "Boy", 2021, 3, "kot", "photo", "tail"),
-            new Animal(4, "Omsk", "Cat", "Boy", 2020, 1, "kot", "photo", "tail"),
-            new Animal(5, "Tyumen", "Cat", "Girl", 2022, 2, "kot", "photo", "tail"),
-            new Animal(6, "Omsk", "Dog", "Boy", 2021, 3, "kot", "photo", "tail"),
-            new Animal(7, "Omsk", "Cat", "Boy", 2020, 1, "kot", "photo", "tail"),
-            new Animal(8, "Tyumen", "Cat", "Girl", 2022, 2, "kot", "photo", "tail"),
-            new Animal(9, "Omsk", "Dog", "Boy", 2021, 3, "kot", "photo", "tail"),
-            new Animal(10, "Omsk", "Cat", "Boy", 2020, 1, "kot", "photo", "tail"),
-            new Animal(11, "Tyumen", "Cat", "Girl", 2022, 2, "kot", "photo", "tail"),
-            new Animal(12, "Omsk", "Dog", "Boy", 2021, 3, "kot", "photo", "tail"),
-            new Animal(13, "Omsk", "Cat", "Boy", 2020, 1, "kot", "photo", "tail"),
-            new Animal(14, "Tyumen", "Cat", "Girl", 2022, 2, "kot", "photo", "tail"),
-            new Animal(15, "Omsk", "Dog", "Boy", 2021, 3, "kot", "photo", "tail")
+            new Animal(1, "Омск", "Кот", "Мальчик", 2019, 12345, "Кот", "photo.png", "очень маленькая"),
+            new Animal(2, "Ишим", "Собака", "Девочка", 2020, 67890, "Лайка", "photo.png", "нет особых примет"),
+            new Animal(3, "Тобольск", "Кот", "Мальчик", 2018, 54321, "Мурзик","photo.png", "большая лапа"),
+            new Animal(4, "Тюмень", "Собака", "Мальчик", 2021, 98765, "Рекс", "photo.png", "шрам на ухе"),
+            new Animal(5, "Тюмень", "Кот", "Девочка", 2017, 24680, "Матильда", "photo.png", "белые лапки"),
+            new Animal(6, "Екатеринбург", "Собака", "Мальчик", 2022, 13579, "Шарик", "photo.png", "пятно на спине"),
+            new Animal(7, "Омск", "Кот", "Девочка", 2016, 86420, "Мурка", "photo.png", "на носу сердечко"),
+            new Animal(8, "Омск", "Собака", "Девочка", 2023, 97531, "Бобик", "photo.png", "длинный хвост"),
+            new Animal(9, "Омск", "Кот", "Мальчик", 2020, 12345, "Вася", "photo.png", "круглые глаза"),
+            new Animal(10, "Тюмень", "Собака", "Девочка", 2019, 67890, "Белка", "photo.png", "черная мордашка")
+
         };
 
-
+        
 		public static bool NewEntry(Animal animal)
 		{
 			int maxRegistrationNumber = animals.Max(a => a.RegistrationNumber);

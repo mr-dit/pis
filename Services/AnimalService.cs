@@ -22,8 +22,8 @@ namespace pis.Services
         {
             var entry = AnimalRepository.GetEntry(id);
             return entry;
-
         }
+
         public static List<Animal> GetAnimals(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
         {
 	        filterValue = filterValue?.ToLower();
