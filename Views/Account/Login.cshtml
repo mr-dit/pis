@@ -1,0 +1,24 @@
+﻿@model Login
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/login-form.css" />
+
+<div class="login-form">
+    <div class="login-form-header">
+        <img src="~/images/2527324.png" alt="Logo">
+    </div>
+    <form method="post" action="/Account/Authenticate">
+        <p>
+            <label for="username">Логин:</label><br />
+            <input type="text" id="username" name="Username" />
+        </p>
+        <p>
+            <label for="password">Пароль:</label><br />
+            <input type="password" id="password" name="Password" />
+        </p>
+        <button type="submit">Войти</button>
+    </form>
+</div>
