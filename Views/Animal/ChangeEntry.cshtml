@@ -1,9 +1,9 @@
 ﻿@model pis.Models.Animal
 
 <h2>Редактирование животного</h2>
-<form asp-action="ChangeEntry" asp-controller="Animal" asp-route-id="@Model.RegistrationNumber">
+<form asp-action="ChangeEntry" asp-controller="Animal" asp-route-id="@Model.RegistrationNumber" enctype="multipart/form-data">
     <p>
-        <label asp-for="RegistrationNumber">Регистрационный номер </label><br />
+        <label asp-for="RegistrationNumber">Регистрационный номер</label><br />
         <input type="number" readonly="readonly" asp-for="RegistrationNumber" />
     </p>
     <p>
@@ -32,7 +32,7 @@
     </p>
     <p>
         <label asp-for="Photos">Фотографии</label><br />
-        <input type="text" asp-for="Photos" />
+        <input type="file" name="Photos" accept="image/*" />
     </p>
     <p>
         <label asp-for="SpecialSigns">Особые приметы</label><br />
