@@ -2,7 +2,7 @@
 
 <h2>Реестр вакцинаций</h2>
 <p>
-    <a asp-action="AddEntry">Добавить вакцинацию</a>
+    @* <a asp-action="AddEntry">Добавить вакцинацию</a> *@
 </p>
 
 <!-- Форма фильтрации -->
@@ -18,7 +18,7 @@
     <input type="submit" value="Фильтрация">
 </form>
 
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "VaccineId", isAscending = !ViewBag.IsAscending })">Код вакцины</a>
@@ -47,19 +47,21 @@
         <th>
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "OrgName", isAscending = !ViewBag.IsAscending })">Название организации</a>
         </th>
+        <th>Изменение</th>
+        <th>Удаление</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@item.VaccineId</td>
-            <td>@item.Animal.AnimalName</td>
+            <td>@item.Animal?.AnimalName</td>
             <td>@item.VaccinationDate.ToShortDateString()</td>
             <td>@item.VaccineType</td>
             <td>@item.BatchNumber</td>
             <td>@item.ValidUntil.ToShortDateString()</td>
             <td>@item.VeterinarianFullName</td>
             <td>@item.VeterinarianPosition</td>
-            <td>@item.Organisation.OrgName</td>
+            <td>@item.Organisation?.OrgName</td>
             <td>
                 <a asp-action="ChangeEntry" asp-controller="Vaccine" asp-route-id="@item.VaccineId">Изменить</a>
             </td>

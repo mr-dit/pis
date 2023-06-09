@@ -36,9 +36,15 @@ namespace pis.Controllers
             return View(vaccination);
         }
 
-        public IActionResult AddEntry()
+        public IActionResult AddEntry(Animal animal)
         {
-            return View();
+            Vaccination vaccination = new Vaccination();
+            vaccination.VaccineId = VaccineService.GetTotalVaccines(null, null) + 1;
+            vaccination.Animal = animal;
+            vaccination.VaccinationDate = DateTime.Now.Date;
+            vaccination.ValidUntil = DateTime.Now.Date;
+
+            return View(vaccination);
         }
 
         [HttpPost]
