@@ -14,28 +14,27 @@ namespace pis.Controllers
     public class VaccineController : Controller
     {
         // GET: /<controller>/
-        public IActionResult OpensRegister()
+        public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending,
+            int pageNumber = 1, int pageSize = 10)
         {
-            var vaccination = VaccineService.GetOrganisations();
+            filterValue = filterValue?.ToLower();
+
+            var vaccination =
+                VaccineService.GetVaccines(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var totalItems = VaccineService.GetTotalVaccines(filterField, filterValue);
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (filterValue != null) ViewBag.FilterValue = filterValue;
+            ViewBag.FilterField = filterField;
+            ViewBag.SortBy = sortBy;
+            ViewBag.IsAscending = isAscending;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.TotalPages = totalPages;
+
             return View(vaccination);
         }
-        
-        // public ActionResult AddVaccination(int registrationNumber)
-        // {
-        //     ViewBag.RegistrationNumber = registrationNumber;
-        //     return View();
-        // }
-        //
-        //
-        // // Действие для обработки отправки формы добавления вакцинации
-        // [HttpPost]
-        // public ActionResult AddVaccination(int registrationNumber, Vaccine vaccine)
-        // {
-        //     // Vaccination vaccination = new Vaccination { Date = date, Type = type };
-        //     VaccineService.AddVaccination(registrationNumber, vaccine);
-        //
-        //     return RedirectToAction("OpensRegister", "Vaccine");  // Перенаправление на другую страницу после добавления вакцинации
-        // }
 
         public IActionResult AddEntry()
         {
@@ -48,12 +47,15 @@ namespace pis.Controllers
             bool status = VaccineService.FillData(vaccination);
             if (status)
             {
-                return RedirectToAction("OpensRegister");
+                return RedirectToAction("OpensRegister",
+                    new
+                    {
+                        filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy,
+                        isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
+                    });
             }
-            else
-            {
-                return Error();
-            }
+
+            return Error();
         }
 
         [HttpPost]
@@ -62,11 +64,16 @@ namespace pis.Controllers
             if (id != null)
             {
                 var status = VaccineService.DeleteEntry((int)id);
-
                 if (status)
                 {
                     Console.WriteLine("Объект Organisation удален.");
-                    return RedirectToAction("OpensRegister");
+                    return RedirectToAction("OpensRegister",
+                        new
+                        {
+                            filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue,
+                            sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber,
+                            pageSize = ViewBag.PageSize
+                        });
                 }
 
                 return Error();
@@ -94,12 +101,15 @@ namespace pis.Controllers
             bool status = VaccineService.ChangeEntry(vaccination);
             if (status)
             {
-                return RedirectToAction("OpensRegister");
+                return RedirectToAction("OpensRegister",
+                    new
+                    {
+                        filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy,
+                        isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
+                    });
             }
-            else
-            {
-                return NotFound();
-            }
+
+            return NotFound();
         }
 
 

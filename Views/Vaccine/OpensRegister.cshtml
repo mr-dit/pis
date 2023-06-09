@@ -1,9 +1,53 @@
 ﻿@model IEnumerable<pis.Models.Vaccination>
 
 <h2>Реестр вакцинаций</h2>
-<p><a asp-action="AddEntry">Добавить вакцинацию</a></p>
+<p>
+    <a asp-action="AddEntry">Добавить вакцинацию</a>
+</p>
+
+<!-- Форма фильтрации -->
+<form method="get" action="@Url.Action("OpensRegister")">
+    <select name="filterField">
+        <option value="animalname" selected="@(ViewBag.FilterField == "orgname")">Кличка животного</option>
+        <option value="vaccinationdate" selected="@(ViewBag.FilterField == "vaccinationdate")">Дата вакцинации</option>
+        <option value="veterinarianfullname" selected="@(ViewBag.FilterField == "veterinarianfullname")">ФИО врача</option>
+        <option value="orgname" selected="@(ViewBag.FilterField == "orgname")">Название организации</option>
+        <!-- Добавьте остальные поля в соответствии с вашими требованиями -->
+    </select>
+    <input type="text" name="filterValue" value="@ViewBag.FilterValue" placeholder="Значение фильтра">
+    <input type="submit" value="Фильтрация">
+</form>
+
 <table class="table">
-    <tr><th>Код вакцины</th><th>Имя животного</th><th>Дата вакцинации</th><th>Вид вакцины</th><th>Номер серии</th><th>Дата, до которой действительна вакцина</th><th>ФИО ветеринарного специалиста</th><th>Должность ветеринарного специалиста</th><th>Название организации</th></tr>
+    <tr>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "VaccineId", isAscending = !ViewBag.IsAscending })">Код вакцины</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "AnimalName", isAscending = !ViewBag.IsAscending })">Кличка животного</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "VaccinationDate", isAscending = !ViewBag.IsAscending })">Дата вакцинации</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "VaccineType", isAscending = !ViewBag.IsAscending })">Вид вакцины</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "BatchNumber", isAscending = !ViewBag.IsAscending })">Номер серии</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ValidUntil", isAscending = !ViewBag.IsAscending })">Дата, до которой действительна</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "VeterinarianFullName", isAscending = !ViewBag.IsAscending })">ФИО ветеринарного специалиста</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "VeterinarianPosition", isAscending = !ViewBag.IsAscending })">Должность ветеринарного специалиста</a>
+        </th>
+        <th>
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "OrgName", isAscending = !ViewBag.IsAscending })">Название организации</a>
+        </th>
+    </tr>
     @foreach (var item in Model)
     {
         <tr>
@@ -21,9 +65,37 @@
             </td>
             <td>
                 <form asp-controller="Vaccine" asp-action="DeleteEntry" method="post" asp-route-id="@item.VaccineId">
-                    <input type="submit" value="Удалить" />
+                    <input type="submit" value="Удалить"/>
                 </form>
             </td>
         </tr>
     }
 </table>
+
+<!-- Пагинация -->
+@if (ViewBag.TotalPages > 1)
+{
+    <div>
+        @if (ViewBag.PageNumber > 1)
+        {
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            if (i == ViewBag.PageNumber)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
+            }
+        }
+
+        @if (ViewBag.PageNumber < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a>
+        }
+    </div>
+}
