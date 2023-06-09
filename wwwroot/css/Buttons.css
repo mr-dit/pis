@@ -1,0 +1,46 @@
+﻿/*изменение*/
+.change-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+    .change-button:hover {
+        background-color: #0056b3;
+    }
+
+
+.delete-button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .delete-button:hover {
+        background-color: #0056b3;
+    }
+
+/*добавление*/
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+    float: right; /* Добавляем свойство float со значением right */
+}
+
+
+
+

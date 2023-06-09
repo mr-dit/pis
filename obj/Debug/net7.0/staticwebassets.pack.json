@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets/pis.bundle.scp.css"
     },
     {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/Buttons.css",
+      "PackagePath": "staticwebassets/css/Buttons.css"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/ChangeEntry.css",
+      "PackagePath": "staticwebassets/css/ChangeEntry.css"
+    },
+    {
       "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/login-form.css",
       "PackagePath": "staticwebassets/css/login-form.css"
     },

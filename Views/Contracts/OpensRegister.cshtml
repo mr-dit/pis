@@ -1,84 +1,91 @@
 ﻿@model List<pis.Models.Contracts>
 
-<h2>Реестр муниципальных конктрактов</h2>
-<p>
-    <a asp-action="FillData">Добавить контракт</a>
-</p>
+    <link rel="stylesheet" href="~/css/Buttons.css" />
 
-<!-- Форма фильтрации -->
-<form method="get" action="@Url.Action("OpensRegister")">
-    <select name="filterField">
-        <option value="customer" selected="@(ViewBag.FilterField == "customer")">Заказчик</option>
-        <option value="performer" selected="@(ViewBag.FilterField == "performer")">Исполнитель</option>
-        <option value="conclusiondate" selected="@(ViewBag.FilterField == "conclusiondate")">Дата заключения</option>
-        <!-- Добавьте остальные поля в соответствии с вашими требованиями -->
-    </select>
-    <input type="text" name="filterValue" value="@ViewBag.FilterValue" placeholder="Значение фильтра">
-    <input type="submit" value="Фильтрация">
-</form>
-
-<table class="table">
-    <tr>
-        <th>
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ContractsId", isAscending = !ViewBag.IsAscending })">Номер контракта</a>
-        </th>
-        <th>
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ConclusionDate", isAscending = !ViewBag.IsAscending })">Дата заключения</a>
-        </th>
-        <th>
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ExpirationDate", isAscending = !ViewBag.IsAscending })">Дата действия</a>
-        </th>
-        <th>
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "Performer", isAscending = !ViewBag.IsAscending })">Исполнитель</a>
-        </th>
-        <th>
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "Customer", isAscending = !ViewBag.IsAscending })">Заказчик</a>
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.ContractsId</td>
-            <td>@item.ConclusionDate.ToShortDateString()</td>
-            <td>@item.ExpirationDate.ToShortDateString()</td>
-            <td>@item.Performer</td>
-            <td>@item.Customer</td>
-            <td>
-                <a asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@item.ContractsId">Изменить</a>
-            </td>
-            <td>
-                <form asp-controller="Contracts" asp-action="DeleteEntry" method="post" asp-route-id="@item.ContractsId">
-                    <input type="submit" value="Удалить"/>
-                </form>
-            </td>
-        </tr>
-    }
-</table>
-
-<!-- Пагинация -->
-@if (ViewBag.TotalPages > 1)
-{
-    <div>
-        @if (ViewBag.PageNumber > 1)
-        {
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a>
-        }
-
-        @for (int i = 1; i <= ViewBag.TotalPages; i++)
-        {
-            if (i == ViewBag.PageNumber)
-            {
-                <span>@i</span>
-            }
-            else
-            {
-                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
-            }
-        }
-
-        @if (ViewBag.PageNumber < ViewBag.TotalPages)
-        {
-            <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a>
-        }
+    <div align="center">
+        <h2>Реестр контрактов</h2>
     </div>
-}
+
+    <p>
+        <a asp-action="FillData" class="button-link">Добавить контракт</a>
+    </p>
+
+
+    <!-- Форма фильтрации -->
+    <form method="get" action="@Url.Action("OpensRegister")">
+        <select name="filterField">
+            <option value="customer" selected="@(ViewBag.FilterField == "customer")">Заказчик</option>
+            <option value="performer" selected="@(ViewBag.FilterField == "performer")">Исполнитель</option>
+            <option value="conclusiondate" selected="@(ViewBag.FilterField == "conclusiondate")">Дата заключения</option>
+        </select>
+        <input type="text" name="filterValue" value="@ViewBag.FilterValue" placeholder="Значение фильтра">
+        <input type="submit" value="Фильтрация">
+    </form>
+
+    <table class="table">
+        <tr>
+            <th>
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ContractsId", isAscending = !ViewBag.IsAscending })">Номер контракта</a>
+            </th>
+            <th>
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ConclusionDate", isAscending = !ViewBag.IsAscending })">Дата заключения</a>
+            </th>
+            <th>
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "ExpirationDate", isAscending = !ViewBag.IsAscending })">Дата действия</a>
+            </th>
+            <th>
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "Performer", isAscending = !ViewBag.IsAscending })">Исполнитель</a>
+            </th>
+            <th>
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "Customer", isAscending = !ViewBag.IsAscending })">Заказчик</a>
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ContractsId</td>
+                <td>@item.ConclusionDate.ToShortDateString()</td>
+                <td>@item.ExpirationDate.ToShortDateString()</td>
+                <td>@item.Performer</td>
+                <td>@item.Customer</td>
+                <td>
+                    <a asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@item.ContractsId" class="change-button">Изменить</a>
+                </td>
+                <td>
+                    <div class="delete-button">
+                        <form asp-controller="Contracts" asp-action="DeleteEntry" method="post" asp-route-id="@item.ContractsId">
+                            <input type="submit" value="Удалить" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <!-- Пагинация -->
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div>
+            @if (ViewBag.PageNumber > 1)
+            {
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                if (i == ViewBag.PageNumber)
+                {
+                    <span>@i</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
+                }
+            }
+
+            @if (ViewBag.PageNumber < ViewBag.TotalPages)
+            {
+                <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a>
+            }
+        </div>
+    }

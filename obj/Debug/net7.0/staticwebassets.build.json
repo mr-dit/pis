@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WYyte4eIH6eOnfxGuDi0E4DReGQBf9InU5wW7tj3644=",
+  "Hash": "aHixLm7ZJpTg7JW2CRNWscvAn4VABUpNe7GPC55MQTo=",
   "Source": "pis",
   "BasePath": "_content/pis",
   "Mode": "Default",
@@ -49,6 +49,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/projectbundle/pis.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/Buttons.css",
+      "SourceId": "pis",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
+      "BasePath": "_content/pis",
+      "RelativePath": "css/Buttons.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Buttons.css"
+    },
+    {
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/ChangeEntry.css",
+      "SourceId": "pis",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
+      "BasePath": "_content/pis",
+      "RelativePath": "css/ChangeEntry.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/ChangeEntry.css"
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/login-form.css",

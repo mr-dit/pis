@@ -1,16 +1,21 @@
 ﻿@model List<pis.Models.Organisation>
 
-<h2>Реестр организаций</h2>
+<link rel="stylesheet" href="~/css/Buttons.css" />
+
+<div align="center">
+    <h2>Реестр организаций</h2>
+</div>
+
 <p>
-    <a asp-action="AddEntry">Добавить организацию</a>
+    <a asp-action="AddEntry" class="button-link">Добавить организацию</a>
 </p>
 
 <!-- Форма фильтрации -->
 <form method="get" action="@Url.Action("OpensRegister")">
     <select name="filterField">
-         <option value="orgname" selected="@(ViewBag.FilterField == "orgname")">Наименование</option>
-            <option value="inn" selected="@(ViewBag.FilterField == "inn")">ИНН</option>
-            <option value="kpp" selected="@(ViewBag.FilterField == "kpp")">КПП</option>
+        <option value="orgname" selected="@(ViewBag.FilterField == "orgname")">Наименование</option>
+        <option value="inn" selected="@(ViewBag.FilterField == "inn")">ИНН</option>
+        <option value="kpp" selected="@(ViewBag.FilterField == "kpp")">КПП</option>
         <!-- Добавьте остальные поля в соответствии с вашими требованиями -->
     </select>
     <input type="text" name="filterValue" value="@ViewBag.FilterValue" placeholder="Значение фильтра">
@@ -59,12 +64,14 @@
             <td>@item.OrgAttribute</td>
             <td>@item.Locality</td>
             <td>
-                <a asp-action="ChangeEntry" asp-controller="Organisation" asp-route-id="@item.OrgId">Изменить</a>
+                <a asp-action="ChangeEntry" asp-controller="Organisation" asp-route-id="@item.OrgId" class="change-button">Изменить</a>
             </td>
             <td>
-                <form asp-controller="Organisation" asp-action="DeleteEntry" method="post" asp-route-id="@item.OrgId">
-                    <input type="submit" value="Удалить"/>
-                </form>
+                <div class="delete-button">
+                    <form asp-controller="Organisation" asp-action="DeleteEntry" method="post" asp-route-id="@item.OrgId">
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </div>
             </td>
         </tr>
     }

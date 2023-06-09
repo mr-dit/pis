@@ -1,52 +1,42 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{BFD21E55-72EC-49A8-AA92-135392EDB34A}|https">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.pis PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AnimalController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Vaccine/AddEntry.cshtml">
     <Files>
-      <File FileName="Controllers/ContractsController.cs" Line="35" Column="35" />
-      <File FileName="Repositorys/ContractsRepository.cs" Line="1" Column="1" />
-      <File FileName="Services/ContractsService.cs" Line="1" Column="1" />
-      <File FileName="Views/Contracts/FillData.cshtml" Line="4" Column="27" />
-      <File FileName="Views/Contracts/OpensRegister.cshtml" Line="16" Column="42" />
-      <File FileName="Models/Contracts.cs" Line="12" Column="31" />
-      <File FileName="Views/Contracts/ChangeEntry.cshtml" Line="23" Column="49" />
-      <File FileName="Views/Animal/ChangeEntry.cshtml" Line="38" Column="64" />
-      <File FileName="Views/Organisation/_ViewImports.cshtml" Line="1" Column="1" />
-      <File FileName="Controllers/AnimalController.cs" Line="45" Column="50" />
+      <File FileName="Views/Vaccine/AddEntry.cshtml" Line="45" Column="8" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="pis" expanded="True">
             <Node name="pis" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="FrameworkReferences" expanded="True" />
-              </Node>
-              <Node name="Controllers" expanded="True">
-                <Node name="AnimalController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Properties" expanded="True" />
               <Node name="Repositorys" expanded="True" />
               <Node name="Services" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Account" expanded="True" />
                 <Node name="Animal" expanded="True" />
                 <Node name="Contracts" expanded="True" />
                 <Node name="Organisation" expanded="True" />
                 <Node name="Shared" expanded="True" />
+                <Node name="Vaccine" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="css" expanded="True" />
+                <Node name="images" expanded="True" />
+                <Node name="js" expanded="True" />
               </Node>
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.pis PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
