@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aHixLm7ZJpTg7JW2CRNWscvAn4VABUpNe7GPC55MQTo=",
+  "Hash": "SAmOcZnfdfhcrHKD212AvroFTDvlAASQL/WPePgWPwI=",
   "Source": "pis",
   "BasePath": "_content/pis",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/evakharchenko/Desktop/ПИС/pis/obj/Debug/net7.0/scopedcss/projectbundle/pis.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/.DS_Store",
+      "SourceId": "pis",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
+      "BasePath": "_content/pis",
+      "RelativePath": ".DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/.DS_Store"
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/Buttons.css",
@@ -153,12 +170,12 @@
       "OriginalItemSpec": "wwwroot/images/2527324.png"
     },
     {
-      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/собачка.png",
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo.png",
       "SourceId": "pis",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
       "BasePath": "_content/pis",
-      "RelativePath": "images/собачка.png",
+      "RelativePath": "images/photo.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -167,7 +184,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/images/собачка.png"
+      "OriginalItemSpec": "wwwroot/images/photo.png"
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/js/site.js",
@@ -185,6 +202,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/site.js"
+    },
+    {
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/.DS_Store",
+      "SourceId": "pis",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
+      "BasePath": "_content/pis",
+      "RelativePath": "lib/.DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/.DS_Store"
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

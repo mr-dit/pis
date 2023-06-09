@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/pis.bundle.scp.css"
     },
     {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/.DS_Store",
+      "PackagePath": "staticwebassets/.DS_Store"
+    },
+    {
       "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/css/Buttons.css",
       "PackagePath": "staticwebassets/css/Buttons.css"
     },
@@ -29,12 +33,16 @@
       "PackagePath": "staticwebassets/images/2527324.png"
     },
     {
-      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/собачка.png",
-      "PackagePath": "staticwebassets/images/собачка.png"
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo.png",
+      "PackagePath": "staticwebassets/images/photo.png"
     },
     {
       "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/.DS_Store",
+      "PackagePath": "staticwebassets/lib/.DS_Store"
     },
     {
       "Id": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/lib/bootstrap/LICENSE",

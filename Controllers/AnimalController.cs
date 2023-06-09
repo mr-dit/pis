@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using pis.Models;
 using pis.Repositorys;
@@ -10,9 +11,14 @@ public class AnimalController : Controller
 {
     private readonly ILogger<AnimalController> _logger;
 
-    public AnimalController(ILogger<AnimalController> logger)
+    
+    IWebHostEnvironment _appEnvironment;
+
+    public AnimalController(ILogger<AnimalController> logger, IWebHostEnvironment appEnvironment)
     {
         _logger = logger;
+        _appEnvironment = appEnvironment;
+
     }
 
     public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber = 1, int pageSize = 10)
@@ -87,9 +93,37 @@ public class AnimalController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> ChangeEntry(Animal animal)
+    public async Task<IActionResult> ChangeEntry(Animal animal, IFormFile photo)
     {
-        
+        if (photo != null)
+        {
+            // путь к папке Files
+            string path = "/images/" + photo.FileName;
+            // сохраняем файл в папку Files в каталоге wwwroot
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await photo.CopyToAsync(fileStream);
+            }
+            animal.Photos = path;
+        }
+
+        //if (photo != null && photo.Length > 0)
+        //{
+        //    // Save the photo to the wwwroot/images directory
+        //    string uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+
+        //    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", uniqueFileName);
+
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        await photo.CopyToAsync(stream);
+        //    }
+
+        //    // Set the photo file name in the animal object
+        //    animal.Photos = uniqueFileName;
+
+        //}
+
         bool status = AnimalService.ChangeEntry(animal);
         if (status)
         {
