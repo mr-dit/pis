@@ -7,10 +7,16 @@
         <label asp-for="VaccineId">Код вакцины</label><br/>
         <input readonly="readonly" asp-for="VaccineId"/>
     </p>
-    <p>
-        <label asp-for="Animal.AnimalName">Имя животного</label><br/>
-        <input type="text" readonly="readonly" asp-for="Animal.AnimalName"/>
-    </p>
+    <div class="d-flex flex-row ">
+        <div>
+            <label asp-for="Animal.RegistrationNumber">Регистрационный номер</label><br/>
+            <input type="number" readonly="readonly" asp-for="Animal.RegistrationNumber"/>
+        </div>
+        <div style="margin-left: 20px">
+            <label asp-for="Animal.AnimalName">Имя животного</label><br/>
+            <input type="text" readonly="readonly" asp-for="Animal.AnimalName"/>
+        </div>
+    </div>
     <p>
         <label asp-for="VaccinationDate">Дата вакцинации</label><br/>
         <input type="date" asp-for="VaccinationDate"/>

@@ -3,42 +3,50 @@
 <h2>Редактирование животного</h2>
 <form asp-action="ChangeEntry" asp-controller="Animal" asp-route-id="@Model.RegistrationNumber" enctype="multipart/form-data">
     <p>
-        <label asp-for="RegistrationNumber">Регистрационный номер</label><br />
-        <input type="number" readonly="readonly" asp-for="RegistrationNumber" />
+        <label asp-for="RegistrationNumber">Регистрационный номер</label><br/>
+        <input type="number" readonly="readonly" asp-for="RegistrationNumber"/>
     </p>
     <p>
-        <label asp-for="Locality">Населённый пункт</label><br />
-        <input type="text" asp-for="Locality" />
+        <label asp-for="Locality">Населённый пункт</label><br/>
+        <input type="text" asp-for="Locality"/>
     </p>
     <p>
-        <label asp-for="AnimalCategory">Категория животного</label><br />
-        <input type="text" asp-for="AnimalCategory" />
+        <label asp-for="AnimalCategory">Категория животного</label><br/>
+        <input type="text" asp-for="AnimalCategory"/>
     </p>
     <p>
-        <label asp-for="Gender">Пол животного</label><br />
-        <input type="text" asp-for="Gender" />
+        <label asp-for="Gender">Пол животного</label><br/>
+        <input type="text" asp-for="Gender"/>
     </p>
     <p>
-        <label asp-for="YearOfBirth">Год рождения</label><br />
-        <input type="number" asp-for="YearOfBirth" />
+        <label asp-for="YearOfBirth">Год рождения</label><br/>
+        <input type="number" asp-for="YearOfBirth"/>
     </p>
     <p>
-        <label asp-for="ElectronicChipNumber">Номер электронного чипа</label><br />
-        <input type="number" asp-for="ElectronicChipNumber" />
+        <label asp-for="ElectronicChipNumber">Номер электронного чипа</label><br/>
+        <input type="number" asp-for="ElectronicChipNumber"/>
     </p>
     <p>
-        <label asp-for="AnimalName">Кличка животного</label><br />
-        <input type="text" asp-for="AnimalName" />
+        <label asp-for="AnimalName">Кличка животного</label><br/>
+        <input type="text" asp-for="AnimalName"/>
     </p>
     <p>
-        <label asp-for="Photos">Фотографии</label><br />
-        <input type="file" name="Photos" accept="image/*" />
+        <label asp-for="Photos">Фотографии</label><br/>
+        <input type="file" name="Photos" accept="image/*"/>
     </p>
     <p>
-        <label asp-for="SpecialSigns">Особые приметы</label><br />
-        <input type="text" asp-for="SpecialSigns" />
+        <label asp-for="SpecialSigns">Особые приметы</label><br/>
+        <input type="text" asp-for="SpecialSigns"/>
     </p>
     <p>
-        <input type="submit" value="Сохранить" />
+        <input type="submit" value="Сохранить"/>
+    </p>
+</form>
+
+<form asp-action="AddEntry" asp-controller="Vaccine" method="get">
+    <input type="hidden" name="registrationNumber" value="@Model.RegistrationNumber"/>
+    <input type="hidden" name="AnimalName" value="@Model.AnimalName"/>
+    <p>
+        <input type="submit" value="Добавить вакцинацию"/>
     </p>
 </form>

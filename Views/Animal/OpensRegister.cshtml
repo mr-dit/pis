@@ -1,14 +1,14 @@
 ﻿@model List<Animal>
 
-    <link rel="stylesheet" href="~/css/Buttons.css" />
+<link rel="stylesheet" href="~/css/Buttons.css"/>
 
 
-    <div align="center">
-        <h2>Реестр животных</h2>
-    </div>
-    <p>
-        <a asp-action="AddEntry" class="button-link">Добавить животное</a>
-    </p>
+<div align="center">
+    <h2>Реестр животных</h2>
+</div>
+<p>
+    <a asp-action="AddEntry" class="button-link">Добавить животное</a>
+</p>
 
 
 <form method="get" action="@Url.Action("OpensRegister")">
@@ -22,7 +22,7 @@
 </form>
 
 <!-- Таблица с животными -->
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             <a href="@Url.Action("OpensRegister", new { filterName = ViewBag.FilterName, sortBy = "RegistrationNumber", isAscending = !ViewBag.IsAscending })">Регистрационный номер</a>
@@ -68,7 +68,7 @@
             <td>
                 <div class="delete-button">
                     <form asp-controller="Animal" asp-action="DeleteEntry" method="post" asp-route-id="@animal.RegistrationNumber">
-                        <input type="submit" value="Удалить" />
+                        <input type="submit" value="Удалить"/>
                     </form>
                 </div>
 
