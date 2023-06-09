@@ -5,8 +5,6 @@
     @* <a asp-action="AddEntry">Добавить вакцинацию</a> *@
 </p>
 
-<a href="@Url.Action("ExportStatisticsToExcel", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue })">Export to Excel</a>
-
 <!-- Форма фильтрации -->
 <form method="get" action="@Url.Action("OpensRegister")">
     <select name="filterField">
