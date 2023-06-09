@@ -1,0 +1,44 @@
+﻿@model pis.Models.Vaccination
+
+<h2>Редактирование вакцины</h2>
+<form asp-action="ChangeEntry" asp-controller="Vaccine" asp-route-id="@Model.VaccineId">
+    <p>
+        <label asp-for="VaccineId">Код вакцины</label><br/>
+        <input readonly="readonly" asp-for="VaccineId"/>
+    </p>
+    <p>
+        <label asp-for="Animal.AnimalName">Имя животного</label><br/>
+        <input type="text" readonly="readonly" asp-for="Animal.AnimalName"/>
+    </p>
+    <p>
+        <label asp-for="VaccinationDate">Дата вакцинации</label><br/>
+        <input type="date" asp-for="VaccinationDate"/>
+    </p>
+    <p>
+        <label asp-for="VaccineType">Вид вакцины</label><br/>
+        <input type="text" asp-for="VaccineType"/>
+    </p>
+    <p>
+        <label asp-for="BatchNumber">Номер серии</label><br/>
+        <input type="number" asp-for="BatchNumber"/>
+    </p>
+    <p>
+        <label asp-for="ValidUntil">Дата, до которой действительна вакцина</label><br/>
+        <input type="date" asp-for="ValidUntil"/>
+    </p>
+    <p>
+        <label asp-for="VeterinarianFullName">ФИО ветеринарного специалиста</label><br/>
+        <input type="text" asp-for="VeterinarianFullName"/>
+    </p>
+    <p>
+        <label asp-for="VeterinarianPosition">Должность ветеринарного специалиста</label><br/>
+        <input type="text" asp-for="VeterinarianPosition"/>
+    </p>
+    <p>
+        <label asp-for="Organisation.OrgName">Название организации</label><br/>
+        <input type="text" readonly="readonly" asp-for="Organisation.OrgName"/>
+    </p>
+    <p>
+        <input type="submit" value="Сохранить"/>
+    </p>
+</form>

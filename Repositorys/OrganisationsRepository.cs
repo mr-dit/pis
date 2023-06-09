@@ -11,13 +11,35 @@ namespace pis.Repositorys
             new Organisation(2, "ЧИП", 987654321, 123456789, "Основная улица, 456", "ИП", "Юр.лицо", "Тобольск"),
             new Organisation(3, "Братья наши меньшие", 555555555, 111111111, "Центральная площадь, 789", "ООО", "Юр.лицо", "Ишим"),
             new Organisation(4, "Без Бродяжек", 777777777, 222222222, "Перспективный проспект, 5", "ООО", "Юр.лицо", "Тюмень"),
+            new Organisation(5, "Вет Свобода", 12345678901, 333333333, "Innovation Avenue, 100", "ПАО", "Юр.лицо", "Тюмень"),
+            new Organisation(1, "Без Вшей", 1234567890, 987654321, "Примерная, 123", "OOO", "Юр.лицо", "Москва"),
+            new Organisation(2, "ЧИП", 987654321, 123456789, "Основная улица, 456", "ИП", "Юр.лицо", "Тобольск"),
+            new Organisation(3, "Братья наши меньшие", 555555555, 111111111, "Центральная площадь, 789", "ООО", "Юр.лицо", "Ишим"),
+            new Organisation(4, "Без Бродяжек", 777777777, 222222222, "Перспективный проспект, 5", "ООО", "Юр.лицо", "Тюмень"),
+            new Organisation(5, "Вет Свобода", 12345678901, 333333333, "Innovation Avenue, 100", "ПАО", "Юр.лицо", "Тюмень"),
+            new Organisation(1, "Без Вшей", 1234567890, 987654321, "Примерная, 123", "OOO", "Юр.лицо", "Москва"),
+            new Organisation(2, "ЧИП", 987654321, 123456789, "Основная улица, 456", "ИП", "Юр.лицо", "Тобольск"),
+            new Organisation(3, "Братья наши меньшие", 555555555, 111111111, "Центральная площадь, 789", "ООО", "Юр.лицо", "Ишим"),
+            new Organisation(4, "Без Бродяжек", 777777777, 222222222, "Перспективный проспект, 5", "ООО", "Юр.лицо", "Тюмень"),
             new Organisation(5, "Вет Свобода", 12345678901, 333333333, "Innovation Avenue, 100", "ПАО", "Юр.лицо", "Тюмень")
 
+            
         };
         
         public static bool NewEntry(Organisation organisation)
         {
-            org.Add(organisation);
+            try
+            {
+                int maxRegistrationNumber = org.Max(a => a.OrgId);
+                int nextRegistrationNumber = maxRegistrationNumber + 1;
+
+                organisation.OrgId = nextRegistrationNumber;
+                org.Add(organisation);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -29,11 +51,8 @@ namespace pis.Repositorys
                 org.Remove(foundOrg);
                 Console.WriteLine("Объект Organisation удален.");
                 return true;
-            }
-            else
-            {
-                Console.WriteLine("Объект Organisation не найден.");
-            }
+            } 
+            Console.WriteLine("Объект Organisation не найден.");
             return false;
         }
 
@@ -54,10 +73,13 @@ namespace pis.Repositorys
             var foundOrg = org.FirstOrDefault(a => a.OrgId == organisation.OrgId);
             if (foundOrg != null)
             {
-                foundOrg = organisation;
-		        
-                org.RemoveAll(a => a.OrgId == organisation.OrgId);
-                org.Add(foundOrg);
+                foundOrg.OrgName = organisation.OrgName;
+                foundOrg.INN = organisation.INN;
+                foundOrg.KPP = organisation.KPP;
+                foundOrg.AdressReg = organisation.AdressReg;
+                foundOrg.TypeOrg = organisation.TypeOrg;
+                foundOrg.OrgAttribute = organisation.OrgAttribute;
+                foundOrg.Locality = organisation.Locality;
                 return true;
             }
             return false;

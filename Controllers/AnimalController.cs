@@ -15,11 +15,26 @@ public class AnimalController : Controller
         _logger = logger;
     }
 
-    public IActionResult OpensRegister()
+    public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber = 1, int pageSize = 10)
     {
-        var animals = AnimalService.GetAnimals();
+        filterValue = filterValue?.ToLower();
+        
+        var animals = AnimalService.GetAnimals(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+        var totalItems = AnimalService.GetTotalAnimals(filterField, filterValue);
+        var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+        if (filterValue != null) ViewBag.FilterValue = filterValue;
+        ViewBag.FilterField = filterField;
+        ViewBag.SortBy = sortBy;
+        ViewBag.IsAscending = isAscending;
+        ViewBag.PageNumber = pageNumber;
+        ViewBag.PageSize = pageSize;
+        ViewBag.TotalItems = totalItems;
+        ViewBag.TotalPages = totalPages;
+        
         return View(animals);
     }
+
 
     public IActionResult AddEntry()
     {
@@ -32,7 +47,7 @@ public class AnimalController : Controller
         bool status = AnimalService.FillData(animal);
         if (status)
         {
-            return RedirectToAction("OpensRegister");
+            return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
         }
         else
         {
@@ -51,7 +66,7 @@ public class AnimalController : Controller
             if (status)
             {
                 Console.WriteLine("Объект Animal удален.");
-                return RedirectToAction("OpensRegister");
+                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
             }  
             return Error();
             
@@ -78,13 +93,15 @@ public class AnimalController : Controller
         bool status = AnimalService.ChangeEntry(animal);
         if (status)
         {
-            return RedirectToAction("OpensRegister");
+            return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
         }
         else
         {
             return NotFound();
         }
     }
+    
+    
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
