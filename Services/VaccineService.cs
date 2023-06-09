@@ -164,6 +164,16 @@ namespace pis.Services
             return status;
         }
 
+        public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
+        {
+            // Получение вакцинаций из базы данных по регистрационному номеру животного
+            var previousVaccinations = VaccineRepository.GetVaccines()
+                .Where(v => v.Animal.RegistrationNumber == registrationNumber)
+                .ToList();
+
+            return previousVaccinations;
+        }
+
 
         public VaccineService()
         {
