@@ -47,6 +47,8 @@
         <th>
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = "OrgName", isAscending = !ViewBag.IsAscending })">Название организации</a>
         </th>
+        <th>Изменение</th>
+        <th>Удаление</th>
     </tr>
     @foreach (var item in Model)
     {

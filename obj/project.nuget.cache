@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dGWaGEz9x3Yjy1ivD1KFqnBa87PO5Iq44O0gjEXjH8d+rBtFjGP+Py7X0cRqO9Xri7dPOEdEhHdOVKE7zqUzSw==",
+  "dgSpecHash": "hyH2AM4mgIR6VsQkljt6YjFbKe66w0JTVH6hPFM+mwqFiOkfII76E1YcWFGnvrMJ++0Dl2GsGABudP3QNHEtJg==",
   "success": true,
-  "projectFilePath": "/Users/evakharchenko/Desktop/ПИС/pis/pis.csproj",
+  "projectFilePath": "/Users/dmitriy/Projects/pis/pis/pis.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
