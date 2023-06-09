@@ -57,7 +57,7 @@ public class AnimalController : Controller
     }
 
     [HttpPost]
-    public IActionResult DeleteEntry(int? id)
+    public IActionResult DeleteEntry(int? id) 
     {
         if (id != null)
         {

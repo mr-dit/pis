@@ -9,97 +9,101 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = pis
 build_property.RootNamespace = pis
-build_property.ProjectDir = /Users/dmitriy/Projects/pis/pis/
+build_property.ProjectDir = /Users/evakharchenko/Desktop/ПИС/pis/
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/dmitriy/Projects/pis/pis
+build_property.MSBuildProjectDirectory = /Users/evakharchenko/Desktop/ПИС/pis
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/AddEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Animal/AddEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0FkZEVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/ChangeEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Animal/ChangeEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0NoYW5nZUVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/OpensRegister.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Animal/OpensRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL09wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/_ViewImports.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Animal/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/ChangeEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/ChangeEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL0NoYW5nZUVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/FillData.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/FillData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL0ZpbGxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/OpensRegister.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/OpensRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL09wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/_ViewImports.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Contracts/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/AddEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Organisation/AddEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0FkZEVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/ChangeEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Organisation/ChangeEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0NoYW5nZUVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/OpensRegister.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Organisation/OpensRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL09wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/_ViewImports.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Organisation/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL19WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Shared/Error.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/AddEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Vaccine/AddEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9BZGRFbnRyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/AddVaccination.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Vaccine/AddVaccination.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9BZGRWYWNjaW5hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/ChangeEntry.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Vaccine/ChangeEntry.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9DaGFuZ2VFbnRyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/OpensRegister.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Vaccine/OpensRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9PcGVuc1JlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/_ViewImports.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Vaccine/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9fVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/_ViewImports.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/_ViewStart.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Shared/_Layout.cshtml]
+[/Users/evakharchenko/Desktop/ПИС/pis/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-rsd855722q
