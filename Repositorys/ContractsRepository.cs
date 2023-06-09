@@ -30,11 +30,8 @@ using pis.Repositorys;
                 contracts.Remove(foundContr);
                 Console.WriteLine("Объект Contracts удален.");
                 return true;
-            }
-            else
-            {
-                Console.WriteLine("Объект Contracts не найден.");
-            }
+            } 
+            Console.WriteLine("Объект Contracts не найден.");
             return false;
         }
 
@@ -49,10 +46,10 @@ using pis.Repositorys;
             var foundContr = contracts.FirstOrDefault(a => a.ContractsId == newcontracts.ContractsId);
             if (foundContr != null)
             {
-                foundContr = newcontracts;
-
-                contracts.RemoveAll(a => a.ContractsId == newcontracts.ContractsId);
-                contracts.Add(foundContr);
+                foundContr.ConclusionDate = newcontracts.ConclusionDate;
+                foundContr.ExpirationDate = newcontracts.ExpirationDate;
+                foundContr.Performer = newcontracts.Performer;
+                foundContr.Customer = newcontracts.Customer;
                 return true;
             }
             return false;

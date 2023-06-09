@@ -7,12 +7,6 @@
     </p>
 </div>
 
-<!-- Форма фильтрации -->
-@* <form method="get" action="@Url.Action("OpensRegister")"> *@
-@*     <input type="text" name="filterName" value="@ViewBag.FilterName" placeholder="Фильтрация по имени"> *@
-@*     <input type="submit" value="Фильтрация"> *@
-@* </form> *@
-
 <form method="get" action="@Url.Action("OpensRegister")">
     <select name="filterField">
         <option value="AnimalCategory" selected="@(ViewBag.FilterField == "AnimalCategory")">Категория животного</option>
@@ -49,6 +43,8 @@
         </th>
         <th>Фотографии</th>
         <th>Особые приметы</th>
+        <th>Изменение</th>
+        <th>Удаление</th>
     </tr>
     @foreach (var animal in Model)
     {
@@ -81,7 +77,6 @@
         @if (ViewBag.PageNumber > 1)
         {
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a>
-            @* <a href="@Url.Action("OpensRegister", new { filterName = ViewBag.FilterName, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber - 1, pageSize = ViewBag.PageSize })">Назад</a> *@
         }
 
         @for (int i = 1; i <= ViewBag.TotalPages; i++)
@@ -93,44 +88,12 @@
             else
             {
                 <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
-                @* <a href="@Url.Action("OpensRegister", new { filterName = ViewBag.FilterName, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a> *@
             }
         }
 
         @if (ViewBag.PageNumber < ViewBag.TotalPages)
         {
             <a href="@Url.Action("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a>
-            @* <a href="@Url.Action("OpensRegister", new { filterName = ViewBag.FilterName, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber + 1, pageSize = ViewBag.PageSize })">Далее</a> *@
         }
     </div>
 }
-
-@* @model IEnumerable<pis.Models.Animal> *@
-@* *@
-@* <h2>Реестр животных</h2> *@
-@* <p><a asp-action="AddEntry">Добавить животное</a></p> *@
-@* <table class="table"> *@
-@*     <tr><th>Регистрационный номер</th><th>Населённый пункт</th><th>Категория животного</th><th>Пол животного</th><th>Год рождения</th><th>Номер электронного чипа</th><th>Кличка животного</th><th>Фотографии</th><th>Особые приметы</th></tr> *@
-@*     @foreach (var item in Model) *@
-@*     { *@
-@*         <tr> *@
-@*             <td>@item.RegistrationNumber</td> *@
-@*             <td>@item.Locality</td> *@
-@*             <td>@item.AnimalCategory</td> *@
-@*             <td>@item.Gender</td> *@
-@*             <td>@item.YearOfBirth</td> *@
-@*             <td>@item.ElectronicChipNumber</td> *@
-@*             <td>@item.AnimalName</td> *@
-@*             <td>@item.Photos</td> *@
-@*             <td>@item.SpecialSigns</td> *@
-@*             <td> *@
-@*                 <a asp-action="ChangeEntry" asp-controller="Animal" asp-route-id="@item.RegistrationNumber">Изменить</a> *@
-@*             </td> *@
-@*             <td> *@
-@*                 <form asp-controller="Animal" asp-action="DeleteEntry" method="post" asp-route-id="@item.RegistrationNumber"> *@
-@*                     <input type="submit" value="Удалить" /> *@
-@*                 </form> *@
-@*             </td> *@
-@*         </tr> *@
-@*     } *@
-@* </table> *@

@@ -44,11 +44,8 @@ namespace pis.Repositorys
                 AnimalRepository.animals.Remove(foundAnimal);
                 Console.WriteLine("Объект Animal удален.");
                 return true;
-            }
-            else
-            {
-                Console.WriteLine("Объект Animal не найден.");
-            }
+            } 
+            Console.WriteLine("Объект Animal не найден.");
             return false;
         }
 
