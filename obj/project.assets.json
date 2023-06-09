@@ -8,26 +8,24 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/Users/dmitriy/.nuget/packages/": {}
+    "/Users/evakharchenko/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dmitriy/Projects/pis/pis/pis.csproj",
+      "projectUniqueName": "/Users/evakharchenko/Desktop/ПИС/pis/pis.csproj",
       "projectName": "pis",
-      "projectPath": "/Users/dmitriy/Projects/pis/pis/pis.csproj",
-      "packagesPath": "/Users/dmitriy/.nuget/packages/",
-      "outputPath": "/Users/dmitriy/Projects/pis/pis/obj/",
+      "projectPath": "/Users/evakharchenko/Desktop/ПИС/pis/pis.csproj",
+      "packagesPath": "/Users/evakharchenko/.nuget/packages/",
+      "outputPath": "/Users/evakharchenko/Desktop/ПИС/pis/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/dmitriy/.nuget/NuGet/NuGet.Config"
+        "/Users/evakharchenko/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
-        "/usr/local/share/dotnet/sdk/7.0.302/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -64,7 +62,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.103/RuntimeIdentifierGraph.json"
       }
     }
   }
