@@ -51,6 +51,7 @@
         <form asp-action="AddEntry" asp-controller="Vaccine" method="get">
             <input type="hidden" name="registrationNumber" value="@Model.RegistrationNumber"/>
             <input type="hidden" name="AnimalName" value="@Model.AnimalName"/>
+            <input type="hidden" name="Locality" value="@Model.Locality"/>
             <p>
                 <input type="submit" value="Добавить вакцинацию"/>
             </p>

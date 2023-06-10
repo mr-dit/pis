@@ -20,11 +20,13 @@ namespace pis.Controllers
             _logger = logger;
         }
 
-        public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending,
+            int pageNumber = 1, int pageSize = 10)
         {
             filterValue = filterValue?.ToLower();
-            
-            var contracts = ContractsService.GetContracts(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+
+            var contracts =
+                ContractsService.GetContracts(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalItems = ContractsService.GetTotalContracts(filterField, filterValue);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
@@ -36,13 +38,16 @@ namespace pis.Controllers
             ViewBag.PageSize = pageSize;
             ViewBag.TotalItems = totalItems;
             ViewBag.TotalPages = totalPages;
-            
+
             // var contracts = ContractsService.GetContracts();
             return View(contracts);
         }
 
         public IActionResult FillData()
         {
+            var organizations = OrganisationsRepository.GetOrganizations();
+            ViewBag.Organizations = organizations;
+
             return View();
         }
 
@@ -52,12 +57,18 @@ namespace pis.Controllers
             bool status = ContractsService.CreateContract(contracts);
             if (status)
             {
-                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
-            } 
+                return RedirectToAction("OpensRegister",
+                    new
+                    {
+                        filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy,
+                        isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
+                    });
+            }
+
             return Error();
         }
 
-        
+
         [HttpPost]
         public IActionResult DeleteEntry(int? id)
         {
@@ -68,7 +79,13 @@ namespace pis.Controllers
                 if (status)
                 {
                     Console.WriteLine("Объект Contracts удален.");
-                    return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
+                    return RedirectToAction("OpensRegister",
+                        new
+                        {
+                            filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue,
+                            sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber,
+                            pageSize = ViewBag.PageSize
+                        });
                 }
 
                 return Error();
@@ -81,6 +98,8 @@ namespace pis.Controllers
         {
             if (id != null)
             {
+                var organizations = OrganisationsRepository.GetOrganizations();
+                ViewBag.Organizations = organizations;
                 var newcontracts = ContractsService.GetEntry((int)id);
 
                 return View(newcontracts);
@@ -95,8 +114,14 @@ namespace pis.Controllers
             bool status = ContractsService.ChangeEntry(contracts);
             if (status)
             {
-                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
-            } 
+                return RedirectToAction("OpensRegister",
+                    new
+                    {
+                        filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy,
+                        isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
+                    });
+            }
+
             return NotFound();
         }
 
@@ -108,4 +133,3 @@ namespace pis.Controllers
         }
     }
 }
-

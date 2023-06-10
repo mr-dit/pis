@@ -3,26 +3,30 @@
 <h2>Добавление контракта</h2>
 <form asp-action="FillData" asp-controller="Contracts">
     <p>
-        <label asp-for="ContractsId">Номер Контракта</label><br />
-        <input type="number" asp-for="ContractsId" />
+        <label asp-for="ContractsId">Номер Контракта</label><br/>
+        <input readonly="readonly" type="number" asp-for="ContractsId"/>
     </p>
     <p>
-        <label asp-for="ConclusionDate">Дата заключения</label><br />
-        <input type="date" asp-for="ConclusionDate" />
+        <label asp-for="ConclusionDate">Дата заключения</label><br/>
+        <input type="date" asp-for="ConclusionDate"/>
     </p>
     <p>
-        <label asp-for="ExpirationDate">Дата действия</label><br />
-        <input type="date" asp-for="ExpirationDate" />
+        <label asp-for="ExpirationDate">Дата действия</label><br/>
+        <input type="date" asp-for="ExpirationDate"/>
     </p>
     <p>
-        <label asp-for="Performer">Исполнитель</label><br />
-        <input type="text" asp-for="Performer" />
+        <label asp-for="Performer.OrgId">Исполнитель</label><br/>
+        <select asp-for="Performer.OrgId" asp-items="@(new SelectList(ViewBag.Organizations, "OrgId", "OrgName"))"></select>
     </p>
+    @* <p> *@
+    @*     <label asp-for="Performer">Исполнитель</label><br /> *@
+    @*     <input type="text" asp-for="Performer" /> *@
+    @* </p> *@
     <p>
-        <label asp-for="Customer">Заказчик</label><br />
-        <input type="text" asp-for="Customer" />
+        <label asp-for="Customer">Заказчик</label><br/>
+        <input type="text" asp-for="Customer"/>
     </p>
     <div class="text-right">
-        <input type="submit" value="Сохранить" />
+        <input type="submit" value="Сохранить"/>
     </div>
 </form>
