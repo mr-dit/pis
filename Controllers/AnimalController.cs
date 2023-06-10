@@ -110,7 +110,7 @@ public class AnimalController : Controller
         if (photo != null && photo.Length > 0)
         {
             // путь к папке Files
-            string path = "wwwroot/images/" + photo.FileName;
+            string path = "~/images/" + photo.FileName;
             // сохраняем файл в папку Files в каталоге wwwroot
             using (var fileStream = new FileStream(path, FileMode.Create))
             {

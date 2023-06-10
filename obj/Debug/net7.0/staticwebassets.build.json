@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "a8xP/WP5sZMkRabKHHJceWpms/LeM3+ehKkXP371V4s=",
+  "Hash": "W9RmDz3mT8uu9YpbTU/yrMyMVnlPj/Urp5Dis3T8t5I=",
   "Source": "pis",
   "BasePath": "_content/pis",
   "Mode": "Default",
@@ -168,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/.DS_Store"
+    },
+    {
+      "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/2527324.png",
+      "SourceId": "pis",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/",
+      "BasePath": "_content/pis",
+      "RelativePath": "images/2527324.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/2527324.png"
     },
     {
       "Identity": "/Users/evakharchenko/Desktop/ПИС/pis/wwwroot/images/photo.png",

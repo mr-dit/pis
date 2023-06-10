@@ -8,7 +8,8 @@ namespace pis.Models
         public int TotalVaccines { get; set; }
         public decimal TotalCost { get; set; }
         public DateTime StartDate { get; set; } 
-        public DateTime EndDate { get; set; } 
+        public DateTime EndDate { get; set; }
+
     }
     //public StatisticsItem()
     //{
