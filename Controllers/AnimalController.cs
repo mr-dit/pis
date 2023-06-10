@@ -11,13 +11,14 @@ public class AnimalController : Controller
 {
     private readonly ILogger<AnimalController> _logger;
 
-
+    
     IWebHostEnvironment _appEnvironment;
 
     public AnimalController(ILogger<AnimalController> logger, IWebHostEnvironment appEnvironment)
     {
         _logger = logger;
         _appEnvironment = appEnvironment;
+
     }
 
     public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending,
@@ -60,8 +61,10 @@ public class AnimalController : Controller
                     isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
                 });
         }
-
-        return Error();
+        else
+        {
+            return Error();
+        }
     }
 
     [HttpPost]
@@ -104,16 +107,15 @@ public class AnimalController : Controller
     [HttpPost]
     public async Task<IActionResult> ChangeEntry(Animal animal, IFormFile photo)
     {
-        if (photo != null)
+        if (photo != null && photo.Length > 0)
         {
             // путь к папке Files
-            string path = "/images/" + photo.FileName;
+            string path = "wwwroot/images/" + photo.FileName;
             // сохраняем файл в папку Files в каталоге wwwroot
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await photo.CopyToAsync(fileStream);
             }
-
             animal.Photos = path;
         }
 

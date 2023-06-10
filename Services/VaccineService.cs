@@ -6,6 +6,18 @@ namespace pis.Services
 {
     public class VaccineService
     {
+
+        private static bool FilterVaccination(Vaccination vaccination, string filterField, string? filterValue)
+        {
+            if (filterField == "Locality")
+            {
+                return vaccination.Animal?.Locality == filterValue;
+            }
+
+            // Другие возможные параметры фильтрации
+
+            return true;
+        }
         public static bool FillData(Vaccination vaccination)
         {
             bool status = VaccineRepository.NewEntry(vaccination);

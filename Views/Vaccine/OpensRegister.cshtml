@@ -49,6 +49,7 @@
         </th>
         <th>Изменение</th>
         <th>Удаление</th>
+
     </tr>
     @foreach (var item in Model)
     {
@@ -67,7 +68,7 @@
             </td>
             <td>
                 <form asp-controller="Vaccine" asp-action="DeleteEntry" method="post" asp-route-id="@item.VaccineId">
-                    <input type="submit" value="Удалить"/>
+                    <input type="submit" value="Удалить" />
                 </form>
             </td>
         </tr>
