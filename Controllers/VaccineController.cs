@@ -90,6 +90,10 @@ namespace pis.Controllers
             vaccination.Animal = animal;
             vaccination.VaccinationDate = DateTime.Now.Date;
             vaccination.ValidUntil = DateTime.Now.Date;
+            vaccination.Organisation = OrganisationsRepository.GetOrganizations()
+                .FirstOrDefault(o => o.Locality == animal.Locality);
+            vaccination.Contract = ContractsRepository.GetContracts().FirstOrDefault(c =>
+                c.ConclusionDate <= vaccination.VaccinationDate && c.ExpirationDate >= vaccination.VaccinationDate);
 
             return View(vaccination);
         }

@@ -7,7 +7,8 @@ namespace pis.Repositorys
 {
     public class VaccineRepository
     {
-        private static List<Vaccination> vaccines = new List<Vaccination>{
+        private static List<Vaccination> vaccines = new List<Vaccination>
+        {
             new Vaccination
             {
                 VaccineId = 1,
@@ -19,7 +20,7 @@ namespace pis.Repositorys
                 VeterinarianFullName = "Иванов Иван Иванович",
                 VeterinarianPosition = "Ветеринарный врач",
                 Organisation = OrganisationsRepository.GetEntry(1),
-                // MunicipalContract = new MunicipalContract { /* Заполните свойства для объекта "Муниципальный контракт" */ }
+                Contract = ContractsRepository.GetEntry(1)
             },
             new Vaccination
             {
@@ -32,8 +33,9 @@ namespace pis.Repositorys
                 VeterinarianFullName = "Петров Петр Петрович",
                 VeterinarianPosition = "Ветеринарный специалист",
                 Organisation = OrganisationsRepository.GetEntry(2),
-                // MunicipalContract = new MunicipalContract { /* Заполните свойства для объекта "Муниципальный контракт" */ }
-            }};
+                Contract = ContractsRepository.GetEntry(2)
+            }
+        };
 
         public static bool NewEntry(Vaccination vaccine)
         {

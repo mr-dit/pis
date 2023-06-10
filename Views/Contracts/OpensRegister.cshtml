@@ -46,7 +46,7 @@
             <td>@item.ContractsId</td>
             <td>@item.ConclusionDate.ToShortDateString()</td>
             <td>@item.ExpirationDate.ToShortDateString()</td>
-            <td>@item.Performer</td>
+            <td>@item.Performer.OrgName</td>
             <td>@item.Customer</td>
             <td>
                 <a asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@item.ContractsId" class="change-button">Изменить</a>

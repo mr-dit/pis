@@ -45,6 +45,20 @@
         <label asp-for="Organisation.OrgName">Название организации</label><br/>
         <input type="text" readonly="readonly" asp-for="Organisation.OrgName"/>
     </p>
+    <div class="d-flex flex-row ">
+        <div>
+            <label asp-for="Contract.ContractsId">Номер контракта</label><br/>
+            <input type="number" readonly="readonly" asp-for="Contract.ContractsId"/>
+        </div>
+        <div style="margin-left: 20px">
+            <label asp-for="Contract.ConclusionDate">Дата начала</label><br/>
+            <input type="text" readonly="readonly" asp-for="Contract.ConclusionDate"/>
+        </div>
+        <div style="margin-left: 20px">
+            <label asp-for="Contract.ExpirationDate">Дата окончания</label><br/>
+            <input type="text" readonly="readonly" asp-for="Contract.ExpirationDate"/>
+        </div>
+    </div>
     <p>
         <input type="submit" value="Отправить"/>
     </p>
