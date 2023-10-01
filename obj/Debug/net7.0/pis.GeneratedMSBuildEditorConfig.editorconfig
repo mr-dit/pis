@@ -9,101 +9,101 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = pis
 build_property.RootNamespace = pis
-build_property.ProjectDir = /Users/dmitriy/Projects/pis/pis/
+build_property.ProjectDir = C:\Users\Mikhail\Documents\GitHub\pis\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/dmitriy/Projects/pis/pis
+build_property.MSBuildProjectDirectory = C:\Users\Mikhail\Documents\GitHub\pis
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Account/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/AddEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0FkZEVudHJ5LmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Animal/AddEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5pbWFsXEFkZEVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/ChangeEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL0NoYW5nZUVudHJ5LmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Animal/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5pbWFsXENoYW5nZUVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/OpensRegister.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL09wZW5zUmVnaXN0ZXIuY3NodG1s
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Animal/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5pbWFsXE9wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Animal/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5pbWFsL19WaWV3SW1wb3J0cy5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Animal/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5pbWFsXF9WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/ChangeEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL0NoYW5nZUVudHJ5LmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Contracts/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhY3RzXENoYW5nZUVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/FillData.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL0ZpbGxEYXRhLmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Contracts/FillData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhY3RzXEZpbGxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/OpensRegister.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL09wZW5zUmVnaXN0ZXIuY3NodG1s
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Contracts/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhY3RzXE9wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Contracts/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udHJhY3RzL19WaWV3SW1wb3J0cy5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Contracts/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhY3RzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/AddEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0FkZEVudHJ5LmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Organisation/AddEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc2F0aW9uXEFkZEVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/ChangeEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL0NoYW5nZUVudHJ5LmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Organisation/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc2F0aW9uXENoYW5nZUVudHJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/OpensRegister.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL09wZW5zUmVnaXN0ZXIuY3NodG1s
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Organisation/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc2F0aW9uXE9wZW5zUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Organisation/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3JnYW5pc2F0aW9uL19WaWV3SW1wb3J0cy5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Organisation/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc2F0aW9uXF9WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Statistica/Statistica.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhdGlzdGljYS9TdGF0aXN0aWNhLmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Statistica/Statistica.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdGlzdGljYVxTdGF0aXN0aWNhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/AddEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9BZGRFbnRyeS5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Vaccine/AddEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZVxBZGRFbnRyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/ChangeEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9DaGFuZ2VFbnRyeS5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Vaccine/ChangeEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZVxDaGFuZ2VFbnRyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/OpensRegister.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9PcGVuc1JlZ2lzdGVyLmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Vaccine/OpensRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZVxPcGVuc1JlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Vaccine/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmFjY2luZS9fVmlld0ltcG9ydHMuY3NodG1s
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Vaccine/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFjY2luZVxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dmitriy/Projects/pis/pis/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-rsd855722q
+[C:/Users/Mikhail/Documents/GitHub/pis/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-upsl9j7f5i

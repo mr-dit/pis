@@ -5,26 +5,27 @@ namespace pis.Models
 	{
         public int RegistrationNumber { get; set; }
 
-        public string Locality { get; set; } = "";
+        public string Locality { get; set; }
 
-        public string AnimalCategory { get; set; } = "";
+        public AnimalCategory AnimalCategory { get; set; }
 
-        public string Gender { get; set; } = "";
+        public Gender Gender { get; set; }
 
         public int YearOfBirth { get; set; }
 
-        public int ElectronicChipNumber { get; set; }
+        public string ElectronicChipNumber { get; set; }
 
-        public string AnimalName { get; set; } = "";
+        public string AnimalName { get; set; }
 
-        public string Photos { get; set; } = "";
+        public byte[] Photo { get; set; }
 
-        public string SpecialSigns { get; set; } = "";
+        public string SpecialSigns { get; set; }
         
         public List<Vaccination> Vaccinations { get; set; }
 
 
-        public Animal(int id, string locality, string animalCategory, string gender, int yearOfBirth, int electronicChipNumber, string animalName, string photos, string specialSigns)
+        public Animal(int id, string locality, AnimalCategory animalCategory, Gender gender,
+            int yearOfBirth, string electronicChipNumber, string animalName, byte[] photo, string specialSigns)
 		{
             RegistrationNumber = id;
             Locality = locality;
@@ -33,7 +34,7 @@ namespace pis.Models
             YearOfBirth = yearOfBirth;
             ElectronicChipNumber = electronicChipNumber;
             AnimalName = animalName;
-            Photos = photos;
+            Photo = photo;
             SpecialSigns = specialSigns;
         }
 
