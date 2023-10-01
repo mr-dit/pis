@@ -1,8 +1,14 @@
 ﻿namespace pis.Models
 {
-    public enum Gender
+    public class Gender
     {
-        Man,
-        Woman
+        public int IdGender { get; set; }
+        public string NameGender { get; set; }
+
+        public Gender(int idGender, string nameGender) 
+        {
+            IdGender = idGender;
+            NameGender = nameGender;
+        }
     }
 }

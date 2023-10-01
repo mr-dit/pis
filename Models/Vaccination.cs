@@ -1,37 +1,26 @@
 using System.Diagnostics.Contracts;
+using System.Drawing;
 
 namespace pis.Models;
 
 public class Vaccination
 {
-    public int VaccineId { get; set; }
-    public Animal? Animal { get; set; }
+    public int IdVactination { get; set; }
+    public Animal Animal { get; set; }
     public DateTime VaccinationDate { get; set; }
-    public string VaccineType { get; set; }
-    public string BatchNumber { get; set; }
-    public DateTime ValidUntil { get; set; }
-    public string VeterinarianFullName { get; set; }
-    public string VeterinarianPosition { get; set; }
-    public Organisation? Organisation { get; set; }
-    public Contracts Contract { get; set; }
+    public VaccinePriceListByLocality VaccinePriceListByLocality { get; set; }
+    public Vaccine Vaccine { get { return VaccinePriceListByLocality.Vaccine; } }
+    public User Doctor { get; set; }
+    public Organisation Vetclinic { get { return Doctor.Organisation; } }
+    public Contract Contract { get; set; }
 
-    public Vaccination(int vaccineId, Animal? animal, DateTime vaccinationDate, string vaccineType, string batchNumber,
-        DateTime validUntil, string veterinarianFullName, string veterinarianPosition, Organisation? organisation,
-        Contracts contract)
+    public Vaccination(int idVactination, Animal animal, DateTime vaccinationDate, VaccinePriceListByLocality vaccinePriceListByLocality, User doctor, Contract contract)
     {
-        VaccineId = vaccineId;
+        IdVactination = idVactination;
         Animal = animal;
         VaccinationDate = vaccinationDate;
-        VaccineType = vaccineType;
-        BatchNumber = batchNumber;
-        ValidUntil = validUntil;
-        VeterinarianFullName = veterinarianFullName;
-        VeterinarianPosition = veterinarianPosition;
-        Organisation = organisation;
+        VaccinePriceListByLocality = vaccinePriceListByLocality;
+        Doctor = doctor;
         Contract = contract;
-    }
-
-    public Vaccination()
-    {
     }
 }

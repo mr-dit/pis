@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Reflection;
+using NUnit.Framework;
 using pis.Services;
 
 namespace pis.Models
 {
 	public class Organisation
 	{
-		public int OrgId { get; set; }
+        public int OrgId { get; set; }
+
 		public string OrgName { get; set; }
 
         public string INN { get; set; } 
@@ -17,25 +19,27 @@ namespace pis.Models
 
         public OrgType OrgType { get; set; }
 
-        public string OrgAttribute { get; set; }
+        public Locality Locality { get; set; }
 
-        public string Locality { get; set; }
-        
-        public Organisation(int orgId, string orgName, string inn, string kpp, string adressReg, OrgType orgType, string orgAttribute, string locality)
+
+        public List<User> Users { get; set; }
+
+        public List<Contract> Contracts { get; set; }
+
+
+        public Organisation(int orgId, string orgName, string iNN, string kPP, 
+            string adressReg, OrgType orgType, Locality locality, List<User> users, List<Contract> contracts)
         {
-	        OrgId = orgId;
+            OrgId = orgId;
             OrgName = orgName;
-            INN = inn;
-            KPP = kpp;
+            INN = iNN;
+            KPP = kPP;
             AdressReg = adressReg;
             OrgType = orgType;
-            OrgAttribute = orgAttribute;
             Locality = locality;
+            Users = users;
+            Contracts = contracts;
         }
-
-        public Organisation()
-		{
-		}
-	}
+    }
 }
 

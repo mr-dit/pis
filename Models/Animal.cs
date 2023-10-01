@@ -5,7 +5,7 @@ namespace pis.Models
 	{
         public int RegistrationNumber { get; set; }
 
-        public string Locality { get; set; }
+        public Locality Locality { get; set; }
 
         public AnimalCategory AnimalCategory { get; set; }
 
@@ -24,7 +24,7 @@ namespace pis.Models
         public List<Vaccination> Vaccinations { get; set; }
 
 
-        public Animal(int id, string locality, AnimalCategory animalCategory, Gender gender,
+        public Animal(int id, Locality locality, AnimalCategory animalCategory, Gender gender,
             int yearOfBirth, string electronicChipNumber, string animalName, byte[] photo, string specialSigns)
 		{
             RegistrationNumber = id;

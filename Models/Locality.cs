@@ -2,11 +2,14 @@
 {
     public class Locality
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Type { get; set; }
-        public Locality() { }
+        public int IdLocality { get; set; }
+        public string NameLocality { get; set; }
+
+        public Locality(int idLocality, string nameLocality) 
+        {
+            IdLocality = idLocality;
+            NameLocality = nameLocality;
+        }
             
     }
 }

@@ -1,16 +1,14 @@
 ﻿namespace pis.Models
 {
-    public enum OrgType
+    public class OrgType
     {
-        GovPower,
-        Shelter,
-        Trapping,
-        TrappingAndShelter,
-        Transportation,
-        VetclinicGov,
-        VetclinicMun,
-        VetclinicPrivate,
-        Foundation,
-        SellServiceAndGoods
+        public int IdOrgType { get; set; }
+        public string NameOrgType { get; set; }
+
+        public OrgType(int idOrgType, string nameOrgType)
+        {
+            IdOrgType = idOrgType;
+            NameOrgType = nameOrgType;
+        }
     }
 }
