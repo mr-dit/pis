@@ -37,12 +37,6 @@ namespace pis.Models
             Photo = photo;
             SpecialSigns = specialSigns;
         }
-
-        public Animal()
-        {
-        }
-        
-        
     }
 }
 

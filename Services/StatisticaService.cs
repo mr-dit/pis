@@ -8,7 +8,7 @@ namespace pis.Services
 	{
         public static List<StatisticsItem> GetStatistics(DateTime startDate, DateTime endDate)
         {
-            var vaccines = VaccineRepository.GetVaccines();
+            var vaccines = VaccinationRepository.GetVaccines();
             // Фильтрация записей вакцинации по указанным параметрам фильтра
             var filteredVaccinations = vaccines.Where(v => FilterVaccination(v, startDate, endDate));
 

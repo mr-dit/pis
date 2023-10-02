@@ -20,7 +20,7 @@ namespace pis.Services
         }
         public static bool FillData(Vaccination vaccination)
         {
-            bool status = VaccineRepository.NewEntry(vaccination);
+            bool status = VaccinationRepository.NewEntry(vaccination);
             if (status)
             {
                 return true;
@@ -31,7 +31,7 @@ namespace pis.Services
 
         public static bool DeleteEntry(int id)
         {
-            bool status = VaccineRepository.DeleteEntry(id);
+            bool status = VaccinationRepository.DeleteEntry(id);
             if (status)
             {
                 return true;
@@ -42,7 +42,7 @@ namespace pis.Services
 
         public static Vaccination? GetEntry(int id)
         {
-            var entry = VaccineRepository.GetEntry(id);
+            var entry = VaccinationRepository.GetEntry(id);
             return entry;
         }
 
@@ -51,7 +51,7 @@ namespace pis.Services
         {
             filterValue = filterValue?.ToLower();
 
-            var vaccines = VaccineRepository.GetVaccines();
+            var vaccines = VaccinationRepository.GetVaccines();
 
             // Применение фильтрации в зависимости от поля
             if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
@@ -140,7 +140,7 @@ namespace pis.Services
         {
             filterValue = filterValue?.ToLower();
 
-            var vaccines = VaccineRepository.GetVaccines();
+            var vaccines = VaccinationRepository.GetVaccines();
 
             // Применение фильтрации в зависимости от поля
             if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
@@ -172,14 +172,14 @@ namespace pis.Services
 
         public static bool ChangeEntry(Vaccination vaccination)
         {
-            bool status = VaccineRepository.ChangeEntry(vaccination);
+            bool status = VaccinationRepository.ChangeEntry(vaccination);
             return status;
         }
 
         public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
         {
             // Получение вакцинаций из базы данных по регистрационному номеру животного
-            var previousVaccinations = VaccineRepository.GetVaccines()
+            var previousVaccinations = VaccinationRepository.GetVaccines()
                 .Where(v => v.Animal.RegistrationNumber == registrationNumber)
                 .ToList();
 
