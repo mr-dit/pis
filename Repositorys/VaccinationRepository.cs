@@ -1,17 +1,153 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
+using AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using pis.Models;
 
 namespace pis.Repositorys
 {
     public class VaccinationRepository
     {
-        private static List<Vaccination> vaccinations = new List<Vaccination>
+        public static bool AddVacciantion(Vaccination vac)
         {
-            
-        };
+            using (var db = new Context())
+            {
+                try
+                {
+                    db.Vaccinations.Add(vac);
+                    db.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
 
+        public static bool RemoveVacciantion(Vaccination vac)
+        {
+            using (var db = new Context())
+            {
+                try
+                {
+                    db.Vaccinations.Remove(vac);
+                    db.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        public static void UpdateVaccination(Vaccination vac)
+        {
+            using (var db = new Context())
+            {
+                db.Vaccinations.Update(vac);
+                db.SaveChangesAsync();
+            }
+        }
+
+        public static Vaccination GetVaccinationById(int id)
+        {
+            using (var db = new Context())
+            {
+                var vac = db.Vaccinations
+                    .Include(x => x.Animal)
+                    .Include(x => x.Contract)
+                        .ThenInclude(x => x.Customer)
+                    .Include(x => x.Doctor)
+                        .ThenInclude(x => x.Organisation)
+                    .Include(x => x.VaccinePriceListByLocality)
+                        .ThenInclude(x => x.Vaccine)
+                    .Single();
+                if (vac == null)
+                    throw new ArgumentNullException($"Не существует вакцинации с id {id}");
+                return vac;
+            }
+        }
+
+        public static IQueryable<Vaccination> GetVaccinationsByAnimalName(string name)
+        {
+            using (var db = new Context())
+            {
+                var vac = db.Vaccinations
+                    .Include(x => x.Animal)
+                    .Include(x => x.Contract)
+                        .ThenInclude(x => x.Customer)
+                    .Include(x => x.Doctor)
+                        .ThenInclude(x => x.Organisation)
+                    .Include(x => x.VaccinePriceListByLocality)
+                        .ThenInclude(x => x.Vaccine)
+                    .Where(x => x.Animal.AnimalName.ToLower().Contains(name));
+                //if (vac == null)
+                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
+                return vac;
+            }
+        }
+
+        public static IQueryable<Vaccination> GetVaccinationsByDate(DateTime date)
+        {
+            using (var db = new Context())
+            {
+                var vac = db.Vaccinations
+                    .Include(x => x.Animal)
+                    .Include(x => x.Contract)
+                        .ThenInclude(x => x.Customer)
+                    .Include(x => x.Doctor)
+                        .ThenInclude(x => x.Organisation)
+                    .Include(x => x.VaccinePriceListByLocality)
+                        .ThenInclude(x => x.Vaccine)
+                    .Where(x => x.VaccinationDate.Date.Equals(date.Date));
+                //if (vac == null)
+                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
+                return vac;
+            }
+        }
+
+        public static IQueryable<Vaccination> GetVaccinationsByDoctorName(string name)
+        {
+            using (var db = new Context())
+            {
+                var vac = db.Vaccinations
+                    .Include(x => x.Animal)
+                    .Include(x => x.Contract)
+                        .ThenInclude(x => x.Customer)
+                    .Include(x => x.Doctor)
+                        .ThenInclude(x => x.Organisation)
+                    .Include(x => x.VaccinePriceListByLocality)
+                        .ThenInclude(x => x.Vaccine)
+                    .Where(x => x.Doctor.LastName.Contains(name));
+                //if (vac == null)
+                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
+                return vac;
+            }
+        }
+
+        public static IQueryable<Vaccination> GetVaccinationsByOrgName(string name)
+        {
+            using (var db = new Context())
+            {
+                var vac = db.Vaccinations
+                    .Include(x => x.Animal)
+                    .Include(x => x.Contract)
+                        .ThenInclude(x => x.Customer)
+                    .Include(x => x.Doctor)
+                        .ThenInclude(x => x.Organisation)
+                    .Include(x => x.VaccinePriceListByLocality)
+                        .ThenInclude(x => x.Vaccine)
+                    .Where(x => x.Contract.Customer.OrgName.ToLower().Contains(name.ToLower()) ||
+                                    x.Doctor.Organisation.OrgName.ToLower().Contains(name.ToLower()));
+                //if (vac == null)
+                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
+                return vac;
+            }
+        }
         //public static bool NewEntry(Vaccination vaccine)
         //{
         //    int maxRegistrationNumber = vaccines.Max(a => a.VaccineId);

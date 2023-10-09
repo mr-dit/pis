@@ -1,13 +1,22 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace pis.Models
 {
 	public class Animal
 	{
+        [Key]
         public int RegistrationNumber { get; set; }
+
+        public int LocalityId { get; set; }
 
         public Locality Locality { get; set; }
 
+        public int AnimalCategoryId { get; set; }
+
         public AnimalCategory AnimalCategory { get; set; }
+
+        public int GenderId { get; set; }
 
         public Gender Gender { get; set; }
 
@@ -17,26 +26,11 @@ namespace pis.Models
 
         public string AnimalName { get; set; }
 
-        public byte[] Photo { get; set; }
+        public string? PhotoPath { get; set; }
 
-        public string SpecialSigns { get; set; }
-        
+        public string? SpecialSigns { get; set; }
+
         public List<Vaccination> Vaccinations { get; set; }
-
-
-        public Animal(int id, Locality locality, AnimalCategory animalCategory, Gender gender,
-            int yearOfBirth, string electronicChipNumber, string animalName, byte[] photo, string specialSigns)
-		{
-            RegistrationNumber = id;
-            Locality = locality;
-            AnimalCategory = animalCategory;
-            Gender = gender;
-            YearOfBirth = yearOfBirth;
-            ElectronicChipNumber = electronicChipNumber;
-            AnimalName = animalName;
-            Photo = photo;
-            SpecialSigns = specialSigns;
-        }
     }
 }
 

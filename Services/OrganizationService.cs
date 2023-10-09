@@ -6,29 +6,29 @@ namespace pis.Services
 {
 	public class OrganizationService
 	{
+		private static List<Organisation> Organisations { get; set; } = new List<Organisation>();
+
 		public static bool FillData(Organisation organisation)
 		{
-			bool status = OrganisationsRepository.NewEntry(organisation);
+			bool status = OrganisationsRepository.AddOrganisation(organisation);
 			return status;
 		}
 
 		public static bool DeleteEntry(int id)
 		{
-			bool status = OrganisationsRepository.DeleteEntry(id);
+			bool status = OrganisationsRepository.DeleteOrganisation(OrganisationsRepository.GetOrganisationById(id));
 			return status;
 		}
 
 		public static Organisation? GetEntry(int id)
 		{
-			var entry = OrganisationsRepository.GetEntry(id);
+			var entry = OrganisationsRepository.GetOrganisationById(id);
 			return entry;
 		}
 
 		public static List<Organisation>? GetOrganisations(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
 		{
 			filterValue = filterValue?.ToLower();
-			
-			var organisations = OrganisationsRepository.GetOrganizations();
 
 			// Применение фильтрации в зависимости от поля
 			if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
@@ -36,14 +36,14 @@ namespace pis.Services
 				switch (filterField.ToLower())
 				{
 					case "orgname":
-						organisations = organisations.Where(o => o.OrgName.ToLower().Contains(filterValue)).ToList();
+						Organisations = OrganisationsRepository.GetOrganisationsByName(filterValue).ToList();
 						break;
 					case "inn":
-						organisations = organisations.Where(o => o.INN.ToString().Contains(filterValue)).ToList();
+						Organisations = OrganisationsRepository.GetOrganisationsByINN(filterValue).ToList();
 						break;
 					case "kpp":
-						organisations = organisations.Where(o => o.KPP.ToString().Contains(filterValue)).ToList();
-						break;
+                        Organisations = OrganisationsRepository.GetOrganisationsByKPP(filterValue).ToList();
+                        break;
 					// Добавьте остальные варианты полей
 					default:
 						break;
@@ -56,72 +56,45 @@ namespace pis.Services
 				switch (sortBy)
 				{
 					case "OrgId":
-						organisations = isAscending ? organisations.OrderBy(a => a.OrgId).ToList() : organisations.OrderByDescending(a => a.OrgId).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.OrgId).ToList() : Organisations.OrderByDescending(a => a.OrgId).ToList();
 						break;
 					case "OrgName":
-						organisations = isAscending ? organisations.OrderBy(a => a.OrgName).ToList() : organisations.OrderByDescending(a => a.OrgName).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.OrgName).ToList() : Organisations.OrderByDescending(a => a.OrgName).ToList();
 						break;
 					case "INN":
-						organisations = isAscending ? organisations.OrderBy(a => a.INN).ToList() : organisations.OrderByDescending(a => a.INN).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.INN).ToList() : Organisations.OrderByDescending(a => a.INN).ToList();
 						break;
 					case "KPP":
-						organisations = isAscending ? organisations.OrderBy(a => a.KPP).ToList() : organisations.OrderByDescending(a => a.KPP).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.KPP).ToList() : Organisations.OrderByDescending(a => a.KPP).ToList();
 						break;
 					case "AdressReg":
-						organisations = isAscending ? organisations.OrderBy(a => a.AdressReg).ToList() : organisations.OrderByDescending(a => a.AdressReg).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.AdressReg).ToList() : Organisations.OrderByDescending(a => a.AdressReg).ToList();
 						break;
 					case "TypeOrg":
-						organisations = isAscending ? organisations.OrderBy(a => a.TypeOrg).ToList() : organisations.OrderByDescending(a => a.TypeOrg).ToList();
-						break;
-					case "OrgAttribute":
-						organisations = isAscending ? organisations.OrderBy(a => a.OrgAttribute).ToList() : organisations.OrderByDescending(a => a.OrgAttribute).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.OrgType.NameOrgType).ToList() : Organisations.OrderByDescending(a => a.OrgType.NameOrgType).ToList();
 						break;
 					case "Locality":
-						organisations = isAscending ? organisations.OrderBy(a => a.Locality).ToList() : organisations.OrderByDescending(a => a.Locality).ToList();
+                        Organisations = isAscending ? Organisations.OrderBy(a => a.Locality.NameLocality).ToList() : Organisations.OrderByDescending(a => a.Locality.NameLocality).ToList();
 						break;
 				}
 			}
         
 			// Пагинация
-			organisations = organisations.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+			var organisationsPag = Organisations.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         
-			return organisations;
+			return organisationsPag;
 		}
         
         
 		public static bool ChangeEntry(Organisation organisation)
 		{
-			bool status = OrganisationsRepository.ChangeEntry(organisation);
+			bool status = OrganisationsRepository.UpdateOrganisaton(organisation);
 			return status;
 		}
 		
 		public static int GetTotalOrganisations(string filterField, string? filterValue)
 		{
-			filterValue = filterValue?.ToLower();
-			
-			var organisations = OrganisationsRepository.GetOrganizations();
-
-			// Применение фильтрации в зависимости от поля
-			if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
-			{
-				switch (filterField.ToLower())
-				{
-					case "orgname":
-						organisations = organisations.Where(o => o.OrgName.ToLower().Contains(filterValue)).ToList();
-						break;
-					case "inn":
-						organisations = organisations.Where(o => o.INN.ToString().Contains(filterValue)).ToList();
-						break;
-					case "kpp":
-						organisations = organisations.Where(o => o.KPP.ToString().Contains(filterValue)).ToList();
-						break;
-					// Добавьте остальные варианты полей
-					default:
-						break;
-				}
-			}
-
-			return organisations.Count;
+			return Organisations.Count();
 		}
 
 

@@ -1,46 +1,121 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 using pis.Models;
 namespace pis.Repositorys
 {
 	public class AnimalRepository
 	{
-
-		private static List<Animal> animals = new List<Animal>
-		{
-			new Animal(1, LocalityRepository.GetLocalityByName("Тюмень"), 
-				AnimalCategoryRepository.GetAnimalCategoryByName("Кошка"), 
-				GenderRepository.GetGenderByName("Муж"),
-				3, "000076", "ГавГав", ImageToByte("C:\\Users\\Mikhail\\Documents\\GitHub\\pis\\wwwroot\\images\\photo1.png"),
-                "Шрам"),
-
-            new Animal(2, LocalityRepository.GetLocalityByName("Зубарева"),
-                AnimalCategoryRepository.GetAnimalCategoryByName("Собака"),
-                GenderRepository.GetGenderByName("Муж"),
-                4, "000072", "МяуМяу", ImageToByte("C:\\Users\\Mikhail\\Documents\\GitHub\\pis\\wwwroot\\images\\photo2.png"),
-                "Шрам")
-
-            //new Animal(1, "Омск", "Кот", "Мальчик", 2019, 12345, "Кот", "photo1.png", "очень маленькая"),
-            //new Animal(2, "Ишим", "Собака", "Девочка", 2020, 67890, "Лайка", "photo2.png", "нет особых примет"),
-            //new Animal(3, "Тобольск", "Кот", "Мальчик", 2018, 54321, "Мурзик","photo3.png", "большая лапа"),
-            //new Animal(4, "Тюмень", "Собака", "Мальчик", 2021, 98765, "Рекс", "photo4.png", "шрам на ухе"),
-            //new Animal(5, "Тюмень", "Кот", "Девочка", 2017, 24680, "Матильда", "photo5.png", "белые лапки"),
-            //new Animal(6, "Екатеринбург", "Собака", "Мальчик", 2022, 13579, "Шарик", "photo.png", "пятно на спине"),
-            //new Animal(7, "Омск", "Кот", "Девочка", 2016, 86420, "Мурка", "photo7.png", "на носу сердечко"),
-            //new Animal(8, "Омск", "Собака", "Девочка", 2023, 97531, "Бобик", "photo8.png", "длинный хвост"),
-            //new Animal(9, "Омск", "Кот", "Мальчик", 2020, 12345, "Вася", "photo9.png", "круглые глаза"),
-            //new Animal(10, "Тюмень", "Собака", "Девочка", 2019, 67890, "Белка", "photo10.png", "длинные уши"),
-            //new Animal(11, "Тюмень", "Кот", "Мальчик", 2019, 27990, "Пухляш", "photo11.png", "черная мордашка")
-        };
-
-        private static byte[] ImageToByte(string v)
+        public static bool CreateAnimal(Animal animal)
         {
-            Image image = Image.FromFile(v);
-            MemoryStream memoryStream = new System.IO.MemoryStream();
-            image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-            byte[] b = memoryStream.ToArray();
-            return b;
+            using (Context db = new Context())
+            {
+                try
+                {
+                    db.Animals.Add(animal);
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+                db.SaveChangesAsync();
+                return true;
+            }
+        }
+
+        public static Animal GetAnimalById(int animalId) 
+        {
+            using (Context db = new Context())
+            {
+                var animal = db.Animals
+                    .Where(animal => animal.RegistrationNumber == animalId)
+                    .Include(x => x.Gender)
+                    .Include(x => x.AnimalCategory)
+                    .Include(x => x.Locality)
+                    .Include(x => x.Vaccinations)
+                    .Single();
+                if (animal == null) 
+                    throw new ArgumentException($"Не существует животного с Id {animalId}");
+                return animal;
+            }
+        }
+
+        public static IQueryable<Animal> GetAnimalsByName(string animalName)
+        {
+            using (Context db = new Context())
+            {
+                var animal = db.Animals.Where(animal => animal.AnimalName == animalName);
+                if (animal.Count() == 0)
+                    throw new ArgumentException($"Не существует животного с именем {animalName}");
+                return animal;
+            }
+        }
+
+        public static IQueryable<Animal> GetAnimalsByAnimalCategory(AnimalCategory animalCategory)
+        {
+            using (Context db = new Context())
+            {
+                var animal = db.Animals.Where(animal => animal.AnimalCategory.Equals(animalCategory));
+                if (animal.Count() == 0)
+                    throw new ArgumentException($"Не существует животного с именем {animalCategory}");
+                return animal;
+            }
+        }
+
+        public static IQueryable<Animal> GetAnimalByChipNymber(string chipNumber)
+        {
+            using (Context db = new Context())
+            {
+                var animal = db.Animals.Where(animal => animal.ElectronicChipNumber == chipNumber);
+                if (animal.Count() == 0)
+                    throw new ArgumentException($"Не существует животного с чипом {chipNumber}");
+                return animal;
+            }
+        }
+
+        public static bool DeleteAnimal(Animal animal)
+        {
+            using (Context db = new Context())
+            {
+                try
+                {
+                    db.Animals.Remove(animal);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                db.SaveChangesAsync();
+                return true;
+            }
+        }
+
+        public static void DeleteAnimal(int animalId)
+        {
+            using (Context db = new Context()) 
+            {
+                var animal = GetAnimalById(animalId);
+                DeleteAnimal(animal);
+            }
+        }
+
+        public static bool ChangeAnimal(Animal animal)
+        {
+            using (Context db = new Context()) 
+            {
+                try
+                {
+                    db.Animals.Update(animal);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                db.SaveChangesAsync();
+                return true;
+            }
         }
 
         //public static bool NewEntry(Animal animal)

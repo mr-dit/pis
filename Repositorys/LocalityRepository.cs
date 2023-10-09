@@ -1,25 +1,58 @@
 ﻿using NUnit.Framework;
 using pis.Models;
+using System.Xml.Linq;
 
 namespace pis.Repositorys
 {
     public class LocalityRepository
     {
-        private static List<Locality> localitys = new List<Locality> 
+        public static void AddLocality(Locality locality)
         {
-            new Locality (1, "Тюмень"),
-            new Locality (2, "Зубарева"),
-            new Locality (3, "Патрушева"),
-            new Locality (4, "Боровский"),
-            new Locality (5, "Луговое"),
-        };
+            using (var db = new Context())
+            {
+                db.Add(locality);
+                db.SaveChangesAsync();
+            }
+        }
+
+        public static Locality GetLocalityById(int id)
+        {
+            using (var db = new Context())
+            {
+                var locality = db.Localitis.Where(x => x.IdLocality == id).Single();
+                if (locality == null)
+                    throw new ArgumentException($"Нет населенного пункта с id \"{id}\"");
+                return locality;
+            }
+        }
 
         public static Locality GetLocalityByName(string name)
         {
-            var locality = localitys.Where(locality => locality.NameLocality == name).FirstOrDefault();
-            if (locality == null)
-                throw new ArgumentException($"Нет населенного пункта с названием \"{name}\"");
-            return locality;
+            using (var db = new Context())
+            {
+                var locality = db.Localitis.Where(x => x.NameLocality == name).Single();
+                if (locality == null)
+                    throw new ArgumentException($"Нет населенного пункта с названием \"{name}\"");
+                return locality;
+            }
+        }
+
+        public static void UpdateLocality(Locality locality)
+        {
+            using (var db = new Context())
+            {
+                db.Localitis.Update(locality);
+                db.SaveChangesAsync();
+            }
+        }
+
+        public static void DeleteLocality(Locality locality) 
+        {
+            using (var db = new Context())
+            {
+                db.Localitis.Remove(locality);
+                db.SaveChangesAsync();
+            }
         }
     }
 }
