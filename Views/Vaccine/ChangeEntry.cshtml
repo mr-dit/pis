@@ -1,10 +1,10 @@
 ﻿@model pis.Models.Vaccination
 
 <h2>Редактирование вакцины</h2>
-<form asp-action="ChangeEntry" asp-controller="Vaccine" asp-route-id="@Model.VaccineId">
+<form asp-action="ChangeEntry" asp-controller="Vaccine" asp-route-id="@Model.IdVactination">
     <p>
-        <label asp-for="VaccineId">Код вакцины</label><br/>
-        <input readonly="readonly" asp-for="VaccineId"/>
+        <label asp-for="IdVactination">Код вакцины</label><br/>
+        <input readonly="readonly" asp-for="IdVactination" />
     </p>
     <p>
         <label asp-for="Animal.AnimalName">Имя животного</label><br/>
@@ -14,29 +14,29 @@
         <label asp-for="VaccinationDate">Дата вакцинации</label><br/>
         <input type="date" asp-for="VaccinationDate"/>
     </p>
-    <p>
+@*    <p>
         <label asp-for="VaccineType">Вид вакцины</label><br/>
         <input type="text" asp-for="VaccineType"/>
-    </p>
-    <p>
+    </p>*@
+@*    <p>
         <label asp-for="BatchNumber">Номер серии</label><br/>
         <input type="number" asp-for="BatchNumber"/>
+    </p>*@
+    <p>
+        <label asp-for="VaccinationDate">Дата, до которой действительна вакцина</label><br/>
+        <input type="date" asp-for="VaccinationDate" />
     </p>
     <p>
-        <label asp-for="ValidUntil">Дата, до которой действительна вакцина</label><br/>
-        <input type="date" asp-for="ValidUntil"/>
+        <label asp-for="Doctor.LastName">ФИО ветеринарного специалиста</label><br/>
+        <input type="text" asp-for="Doctor.LastName" />
     </p>
-    <p>
-        <label asp-for="VeterinarianFullName">ФИО ветеринарного специалиста</label><br/>
-        <input type="text" asp-for="VeterinarianFullName"/>
-    </p>
-    <p>
+@*    <p>
         <label asp-for="VeterinarianPosition">Должность ветеринарного специалиста</label><br/>
         <input type="text" asp-for="VeterinarianPosition"/>
-    </p>
+    </p>*@
     <p>
-        <label asp-for="Organisation.OrgName">Название организации</label><br/>
-        <input type="text" readonly="readonly" asp-for="Organisation.OrgName"/>
+        <label asp-for="Doctor.Organisation.OrgName">Название организации</label><br/>
+        <input type="text" readonly="readonly" asp-for="Doctor.Organisation.OrgName" />
     </p>
     <p>
         <input type="submit" value="Сохранить"/>

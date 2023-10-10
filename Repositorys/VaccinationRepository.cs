@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.Xml;
-using AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using pis.Models;
 
@@ -44,12 +43,20 @@ namespace pis.Repositorys
             }
         }
 
-        public static void UpdateVaccination(Vaccination vac)
+        public static bool UpdateVaccination(Vaccination vac)
         {
             using (var db = new Context())
             {
-                db.Vaccinations.Update(vac);
-                db.SaveChangesAsync();
+                try
+                {
+                    db.Vaccinations.Update(vac);
+                    db.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -68,6 +75,25 @@ namespace pis.Repositorys
                     .Single();
                 if (vac == null)
                     throw new ArgumentNullException($"Не существует вакцинации с id {id}");
+                return vac;
+            }
+        }
+
+        public static IQueryable<Vaccination> GetVaccinationsByAnimal(Animal animal)
+        {
+            using (var db = new Context())
+            {
+                var vac = db.Vaccinations
+                    .Include(x => x.Animal)
+                    .Include(x => x.Contract)
+                        .ThenInclude(x => x.Customer)
+                    .Include(x => x.Doctor)
+                        .ThenInclude(x => x.Organisation)
+                    .Include(x => x.VaccinePriceListByLocality)
+                        .ThenInclude(x => x.Vaccine)
+                    .Where(x => x.Animal.AnimalName.ToLower().Contains(animal.AnimalName));
+                //if (vac == null)
+                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
                 return vac;
             }
         }

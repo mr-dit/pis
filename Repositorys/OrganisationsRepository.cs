@@ -22,6 +22,15 @@ namespace pis.Repositorys
         //        LocalityRepository.GetLocalityByName("Зубарева"), new List<User>(), new List<Contract>())
         //};
 
+        public static IQueryable<Organisation> GetOrganisations()
+        {
+            using (var db = new Context())
+            {
+                var organisations = db.Organisations.Take(3);
+                return organisations;
+            }
+        }
+
         public static Organisation GetOrganisationByName(string name)
         {
             using (var db = new Context())

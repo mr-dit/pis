@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using pis.Services;
 using pis.Models;
+using pis.Repositorys;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,29 +19,31 @@ namespace pis.Controllers
         {
             return View();
         }
-        public IActionResult ExportStatisticsToExcel(StatisticsItem model)
+        public IActionResult ExportStatisticsToExcel(/*StatisticsItem model*/)
         {
-          
+
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-           
-            var statistics = StatisticaService.GetStatistics(model.StartDate, model.EndDate);
-       
+
+            //var statistics = StatisticaService.GetStatistics(model.StartDate, model.EndDate);
+
+            var vaccinations = VaccinationRepository.GetVaccinationsByDate(DateTime.Today);
+
             using (var package = new ExcelPackage())
             {
-                
+
                 var worksheet = package.Workbook.Worksheets.Add("Statistics");
 
                 worksheet.Cells[1, 1].Value = "Locality";
                 worksheet.Cells[1, 2].Value = "Total Vaccines";
                 worksheet.Cells[1, 3].Value = "Total Cost";
 
-               
+
                 int row = 2;
-                foreach (var item in statistics)
+                foreach (var item in vaccinations)
                 {
-                    worksheet.Cells[row, 1].Value = item.Locality;
-                    worksheet.Cells[row, 2].Value = item.TotalVaccines;
-                    worksheet.Cells[row, 3].Value = item.TotalCost;
+                    worksheet.Cells[row, 1].Value = "Locality";
+                    worksheet.Cells[row, 2].Value = 4;
+                    worksheet.Cells[row, 3].Value = 300;
                     row++;
                 }
 
@@ -51,12 +54,12 @@ namespace pis.Controllers
                 MemoryStream stream = new MemoryStream();
                 package.SaveAs(stream);
                 stream.Position = 0;
-               
+
                 string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 string fileName = "Statistics.xlsx";
-               
+
                 return File(stream, contentType, fileName);
-            }
+        }
         }
         public IActionResult Statistica()
         {

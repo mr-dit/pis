@@ -21,8 +21,8 @@ namespace pis.Controllers
             filterValue = filterValue?.ToLower();
 
             var vaccination =
-                VaccineService.GetVaccines(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
-            var totalItems = VaccineService.GetTotalVaccines(filterField, filterValue);
+                VaccinationService.GetVaccinations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var totalItems = VaccinationService.GetTotalVaccines(filterField, filterValue);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             if (filterValue != null) ViewBag.FilterValue = filterValue;
@@ -86,13 +86,11 @@ namespace pis.Controllers
         public IActionResult AddEntry(Animal animal)
         {
             Vaccination vaccination = new Vaccination();
-            vaccination.VaccineId = VaccineService.GetTotalVaccines(null, null) + 1;
+            vaccination.IdVactination = VaccinationService.GetTotalVaccines(null, null) + 1;
             vaccination.Animal = animal;
             vaccination.VaccinationDate = DateTime.Now.Date;
-            vaccination.ValidUntil = DateTime.Now.Date;
-            vaccination.Organisation = OrganisationsRepository.GetOrganizations()
-                .FirstOrDefault(o => o.Locality == animal.Locality);
-            vaccination.Contract = ContractsRepository.GetContracts().FirstOrDefault(c =>
+            vaccination.Doctor = new User();
+            vaccination.Contract = ContractsRepository.Get GetContracts().FirstOrDefault(c =>
                 c.ConclusionDate <= vaccination.VaccinationDate && c.ExpirationDate >= vaccination.VaccinationDate);
 
             return View(vaccination);

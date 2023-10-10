@@ -12,3 +12,4 @@ VaccinationService:
 3. Фильтр с датой сделать диапазоном
 4. Из сортировки убран BatchNumber
 5. Что значит в сортировке ValidUntil
+6. Из сортировки убран VeterinarianPosition

@@ -45,14 +45,14 @@ namespace pis.Controllers
 
         public IActionResult FillData()
         {
-            var organizations = OrganisationsRepository.GetOrganizations();
+            var organizations = OrganisationsRepository.GetOrganisations().ToList();
             ViewBag.Organizations = organizations;
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult FillData(Contracts contracts)
+        public IActionResult FillData(Contract contracts)
         {
             bool status = ContractsService.CreateContract(contracts);
             if (status)
@@ -98,7 +98,7 @@ namespace pis.Controllers
         {
             if (id != null)
             {
-                var organizations = OrganisationsRepository.GetOrganizations();
+                var organizations = OrganisationsRepository.GetOrganisations();
                 ViewBag.Organizations = organizations;
                 var newcontracts = ContractsService.GetEntry((int)id);
 
@@ -109,7 +109,7 @@ namespace pis.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeEntry(Contracts contracts)
+        public async Task<IActionResult> ChangeEntry(Contract contracts)
         {
             bool status = ContractsService.ChangeEntry(contracts);
             if (status)

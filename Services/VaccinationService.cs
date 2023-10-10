@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using pis.Models;
 using pis.Repositorys;
 
@@ -8,18 +9,6 @@ namespace pis.Services
     {
         private static List<Vaccination> Vaccinations { get; set; } = new List<Vaccination>(); 
 
-        // ??????????????????????????????????????????????????
-        private static bool FilterVaccination(Vaccination vaccination, string filterField, string? filterValue)
-        {
-            if (filterField == "Locality")
-            {
-                return vaccination.Animal?.Locality == filterValue;
-            }
-
-            // Другие возможные параметры фильтрации
-
-            return true;
-        }
         public static bool FillData(Vaccination vaccination)
         {
             bool status = VaccinationRepository.AddVacciantion(vaccination);
@@ -98,81 +87,45 @@ namespace pis.Services
                     //    break;
                     case "VeterinarianFullName":
                         Vaccinations = isAscending
-                            ? Vaccinations.OrderBy(v => v.VeterinarianFullName).ToList()
-                            : Vaccinations.OrderByDescending(v => v.VeterinarianFullName).ToList();
+                            ? Vaccinations.OrderBy(v => v.Doctor.LastName).ToList()
+                            : Vaccinations.OrderByDescending(v => v.Doctor.LastName).ToList();
                         break;
-                    case "VeterinarianPosition":
-                        Vaccinations = isAscending
-                            ? Vaccinations.OrderBy(v => v.VeterinarianPosition).ToList()
-                            : Vaccinations.OrderByDescending(v => v.VeterinarianPosition).ToList();
-                        break;
+                    //case "VeterinarianPosition":
+                    //    Vaccinations = isAscending
+                    //        ? Vaccinations.OrderBy(v => v. VeterinarianPosition).ToList()
+                    //        : Vaccinations.OrderByDescending(v => v.VeterinarianPosition).ToList();
+                    //    break;
                     case "OrgName":
                         Vaccinations = isAscending
-                            ? Vaccinations.OrderBy(v => v.Organisation.OrgName).ToList()
-                            : Vaccinations.OrderByDescending(v => v.Organisation.OrgName).ToList();
+                            ? Vaccinations.OrderBy(v => v.Contract.Customer.OrgName).ToList()
+                            : Vaccinations.OrderByDescending(v => v.Contract.Customer.OrgName).ToList();
                         break;
                 }
             }
 
             // Пагинация
-            vaccines = vaccines.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var vaccinesPag = Vaccinations.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
-            return vaccines;
+            return vaccinesPag;
         }
 
         public static int GetTotalVaccines(string filterField, string? filterValue)
         {
-            filterValue = filterValue?.ToLower();
-
-            var vaccines = VaccinationRepository.GetVaccines();
-
-            // Применение фильтрации в зависимости от поля
-            if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
-            {
-                switch (filterField.ToLower())
-                {
-                    case "animalname":
-                        vaccines = vaccines.Where(v => v.Animal.AnimalName.ToLower().Contains(filterValue)).ToList();
-                        break;
-                    case "vaccinationdate":
-                        vaccines = vaccines.Where(v => v.VaccinationDate.ToShortDateString().Contains(filterValue))
-                            .ToList();
-                        break;
-                    case "veterinarianfullname":
-                        vaccines = vaccines.Where(v => v.VeterinarianFullName.ToLower().Contains(filterValue)).ToList();
-                        break;
-                    case "orgname":
-                        vaccines = vaccines.Where(v => v.Organisation.OrgName.ToLower().Contains(filterValue)).ToList();
-                        break;
-                    // Добавьте остальные варианты полей
-                    default:
-                        break;
-                }
-            }
-
-            return vaccines.Count;
+            return Vaccinations.Count();
         }
 
 
         public static bool ChangeEntry(Vaccination vaccination)
         {
-            bool status = VaccinationRepository.ChangeEntry(vaccination);
+            bool status = VaccinationRepository.UpdateVaccination(vaccination);
             return status;
         }
 
         public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
         {
             // Получение вакцинаций из базы данных по регистрационному номеру животного
-            var previousVaccinations = VaccinationRepository.GetVaccines()
-                .Where(v => v.Animal.RegistrationNumber == registrationNumber)
-                .ToList();
-
+            var previousVaccinations = VaccinationRepository.GetVaccinationsByAnimal(AnimalService.GetEntry(registrationNumber)).ToList();
             return previousVaccinations;
-        }
-
-
-        public VaccineService()
-        {
         }
     }
 }

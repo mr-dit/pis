@@ -107,17 +107,17 @@ public class AnimalController : Controller
     [HttpPost]
     public async Task<IActionResult> ChangeEntry(Animal animal, IFormFile photo)
     {
-        if (photo != null && photo.Length > 0)
-        {
-            // путь к папке Files
-            string path = "~/images/" + photo.FileName;
-            // сохраняем файл в папку Files в каталоге wwwroot
-            using (var fileStream = new FileStream(path, FileMode.Create))
-            {
-                await photo.CopyToAsync(fileStream);
-            }
-            animal.Photos = path;
-        }
+        //if (photo != null && photo.Length > 0)
+        //{
+        //    // путь к папке Files
+        //    string path = "~/images/" + photo.FileName;
+        //    // сохраняем файл в папку Files в каталоге wwwroot
+        //    using (var fileStream = new FileStream(path, FileMode.Create))
+        //    {
+        //        await photo.CopyToAsync(fileStream);
+        //    }
+        //    animal.Photos = path;
+        //}
 
         //if (photo != null && photo.Length > 0)
         //{

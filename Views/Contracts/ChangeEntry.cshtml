@@ -1,10 +1,10 @@
-﻿@model pis.Models.Contracts
+﻿@model pis.Models.Contract
 
 <h2>Редактирование животного</h2>
-<form asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@Model.ContractsId">
+<form asp-action="ChangeEntry" asp-controller="Contracts" asp-route-id="@Model.IdContract">
     <p>
-        <label asp-for="ContractsId">Номер контракта </label><br/>
-        <input type="number" readonly="readonly" asp-for="ContractsId"/>
+        <label asp-for="IdContract">Номер контракта </label><br />
+        <input type="number" readonly="readonly" asp-for="IdContract" />
     </p>
     <p>
         <label asp-for="ConclusionDate">Дата заключения</label><br/>

@@ -1771,8 +1771,7 @@
   },
   "packageFolders": {
     "C:\\Users\\Mikhail\\.nuget\\packages\\": {},
-    "C:\\Users\\Mikhail\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder": {},
-    "D:\\Program Files (x86)\\Visual Stusio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Mikhail\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -1784,13 +1783,11 @@
       "outputPath": "C:\\Users\\Mikhail\\Documents\\GitHub\\pis\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Users\\Mikhail\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
-        "D:\\Program Files (x86)\\Visual Stusio\\Shared\\NuGetPackages"
+        "C:\\Users\\Mikhail\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\Mikhail\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Users\\Mikhail\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1856,7 +1853,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

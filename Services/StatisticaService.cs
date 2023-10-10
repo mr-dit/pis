@@ -6,23 +6,23 @@ namespace pis.Services
 {
 	public class StatisticaService
 	{
-        public static List<StatisticsItem> GetStatistics(DateTime startDate, DateTime endDate)
+        public static void /*List<StatisticsItem>*/ GetStatistics(DateTime startDate, DateTime endDate)
         {
-            var vaccines = VaccinationRepository.GetVaccines();
-            // Фильтрация записей вакцинации по указанным параметрам фильтра
-            var filteredVaccinations = vaccines.Where(v => FilterVaccination(v, startDate, endDate));
+            //var vaccines = VaccinationRepository.GetVaccines();
+            //// Фильтрация записей вакцинации по указанным параметрам фильтра
+            //var filteredVaccinations = vaccines.Where(v => FilterVaccination(v, startDate, endDate));
 
-            // Группировка записей по населённым пунктам
-            var groupedByLocality = filteredVaccinations.GroupBy(v => v.Animal?.Locality)
-                                                       .Select(g => new StatisticsItem
-                                                       {
-                                                           Locality = g.Key,
-                                                           TotalVaccines = g.Count(),
-                                                           TotalCost = g.Sum(v => CalculateVaccinationCost(v))                                                           
-                                                       })
-                                                       .ToList();
+            //// Группировка записей по населённым пунктам
+            //var groupedByLocality = filteredVaccinations.GroupBy(v => v.Animal?.Locality)
+            //                                           .Select(g => new StatisticsItem
+            //                                           {
+            //                                               Locality = g.Key,
+            //                                               TotalVaccines = g.Count(),
+            //                                               TotalCost = g.Sum(v => CalculateVaccinationCost(v))                                                           
+            //                                           })
+            //                                           .ToList();
 
-            return groupedByLocality;
+            //return groupedByLocality;
         }
 
         private static bool FilterVaccination(Vaccination vaccination, DateTime startDate, DateTime endDate)
