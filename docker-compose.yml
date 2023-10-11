@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  pis-web-api:
+    image: ${DOCKER_REGISTRY-}piswebapi
+    build:
+      context: .
+      dockerfile: pis-web-api/Dockerfile
+    volumes:
+      - ./pis-web-api:/app
+     
