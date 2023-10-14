@@ -11,7 +11,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Add(locality);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -42,7 +42,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Localitis.Update(locality);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -51,7 +51,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Localitis.Remove(locality);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
     }

@@ -19,7 +19,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Vaccines.Add(vaccine);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -28,7 +28,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Vaccines.Remove(vaccine);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -37,7 +37,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Vaccines.Update(vaccine);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 

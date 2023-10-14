@@ -20,10 +20,10 @@ namespace pis.Repositorys
             using (Context db = new Context())
             {
                 db.AnimalCategories.Add(animalCategory);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
-        public static AnimalCategory CAT() => GetAnimalCategoryByName("Кот");
-        public static AnimalCategory DOG() => GetAnimalCategoryByName("Собака");
+        public static AnimalCategory CAT => GetAnimalCategoryByName("Кот");
+        public static AnimalCategory DOG => GetAnimalCategoryByName("Собака");
     }
 }

@@ -15,7 +15,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Genders.Add(name);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -30,7 +30,7 @@ namespace pis.Repositorys
             }
         }
 
-        public static Gender MALE() => GetGenderByName("Мужской");
-        public static Gender FEMALE() => GetGenderByName("Женский");
+        public static Gender MALE => GetGenderByName("Мужской");
+        public static Gender FEMALE => GetGenderByName("Женский");
     }
 }

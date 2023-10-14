@@ -19,7 +19,35 @@ namespace pis
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"host=mks-server.tplinkdns.com;port=5432;Database=vaccinations;Username=mksti;Password=mks");
+            optionsBuilder.UseNpgsql(@"host=mks-server.tplinkdns.com;port=5432;Database=vaccinations;Username=mksti;Password=mks;Include Error Detail=true");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Contract>()
+                .HasOne(x => x.Customer)
+                .WithMany(x => x.Contracts)
+                .HasForeignKey(x => x.CustomerId);
+
+            modelBuilder.Entity<Post>()
+                .HasIndex(x => x.NamePost)
+                .IsUnique();
+
+            modelBuilder.Entity<Gender>()
+                .HasIndex(x => x.NameGender)
+                .IsUnique();
+
+            modelBuilder.Entity<Locality>()
+                .HasIndex(x => x.NameLocality)
+                .IsUnique();
+
+            modelBuilder.Entity<AnimalCategory>()
+                .HasIndex(x => x.NameAnimalCategory)
+                .IsUnique();
+
+            modelBuilder.Entity<OrgType>()
+                .HasIndex(x => x.NameOrgType)
+                .IsUnique();
         }
 
         public DbSet<Locality> Localitis { get; set; }

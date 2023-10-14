@@ -8,10 +8,11 @@ namespace pis.Models
         public int IdGender { get; set; }
         public string NameGender { get; set; }
 
-        public Gender(int idGender, string nameGender) 
+        public Gender(string nameGender)
         {
-            IdGender = idGender;
             NameGender = nameGender;
         }
+
+        public Gender() {}
     }
 }

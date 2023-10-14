@@ -8,10 +8,11 @@ namespace pis.Models
         public int IdOrgType { get; set; }
         public string NameOrgType { get; set; }
 
-        //public OrgType(int idOrgType, string nameOrgType)
-        //{
-        //    IdOrgType = idOrgType;
-        //    NameOrgType = nameOrgType;
-        //}
+        public OrgType(string nameOrgType)
+        {
+            NameOrgType = nameOrgType;
+        }
+
+        public OrgType() { }
     }
 }

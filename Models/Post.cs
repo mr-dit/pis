@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pis.Models
 {
@@ -8,5 +10,12 @@ namespace pis.Models
         public int IdPost { get; set; }
 
         public string NamePost { get; set; }
+
+        public Post (string namePost)
+        {
+            NamePost = namePost;
+        }
+
+        public Post() { }
     }
 }

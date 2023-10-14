@@ -10,7 +10,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Users.Add(user);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -19,7 +19,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.Users.Update(user);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -28,7 +28,7 @@ namespace pis.Repositorys
             using(var db = new Context())
             {
                 db.Users.Remove(user);
-                db.SaveChangesAsync();
+                db.SaveChanges();  
             }
         }
 

@@ -39,7 +39,7 @@ namespace pis.Services
 						Animals = AnimalRepository.GetAnimalsByAnimalCategory(AnimalCategoryRepository.GetAnimalCategoryByName(filterValue)).ToList();
 						break;
 					case "electronicchipnumber":
-                        Animals = AnimalRepository.GetAnimalByChipNymber(filterValue).ToList();
+                        Animals = AnimalRepository.GetAnimalsByChipNymber(filterValue).ToList();
 						break;
 					case "animalname":
                         Animals = AnimalRepository.GetAnimalsByName(filterValue).ToList();

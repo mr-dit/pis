@@ -20,7 +20,7 @@ namespace pis.Repositorys
 
                     return false;
                 }
-                db.SaveChangesAsync();
+                db.SaveChanges();
                 return true;
             }
         }
@@ -42,36 +42,53 @@ namespace pis.Repositorys
             }
         }
 
-        public static IQueryable<Animal> GetAnimalsByName(string animalName)
+        public static Animal GetAnimalByChipNumber(string chipNumber)
         {
             using (Context db = new Context())
             {
-                var animal = db.Animals.Where(animal => animal.AnimalName == animalName);
-                if (animal.Count() == 0)
-                    throw new ArgumentException($"Не существует животного с именем {animalName}");
+                var animal = db
+                    .Animals
+                    .Where(animal => animal.ElectronicChipNumber == chipNumber)
+                    .Include(x => x.Gender)
+                    .Include (x => x.AnimalCategory)
+                    .Include(x => x.Locality)
+                    .Single();
+                if (animal is null)
+                    throw new ArgumentException($"Не существует животного с чипом {chipNumber}");
                 return animal;
             }
         }
 
-        public static IQueryable<Animal> GetAnimalsByAnimalCategory(AnimalCategory animalCategory)
+        public static List<Animal> GetAnimalsByName(string animalName)
+        {
+            using (Context db = new Context())
+            {
+                var animal = db.Animals.Where(animal => animal.AnimalName.Contains(animalName));
+                if (animal.Count() == 0)
+                    throw new ArgumentException($"Не существует животных с именем {animalName}");
+                return animal.ToList();
+            }
+        }
+
+        public static List<Animal> GetAnimalsByAnimalCategory(AnimalCategory animalCategory)
         {
             using (Context db = new Context())
             {
                 var animal = db.Animals.Where(animal => animal.AnimalCategory.Equals(animalCategory));
                 if (animal.Count() == 0)
                     throw new ArgumentException($"Не существует животного с именем {animalCategory}");
-                return animal;
+                return animal.ToList();
             }
         }
 
-        public static IQueryable<Animal> GetAnimalByChipNymber(string chipNumber)
+        public static List<Animal> GetAnimalsByChipNymber(string chipNumber)
         {
             using (Context db = new Context())
             {
                 var animal = db.Animals.Where(animal => animal.ElectronicChipNumber == chipNumber);
                 if (animal.Count() == 0)
                     throw new ArgumentException($"Не существует животного с чипом {chipNumber}");
-                return animal;
+                return animal.ToList();
             }
         }
 
@@ -87,7 +104,7 @@ namespace pis.Repositorys
                 {
                     return false;
                 }
-                db.SaveChangesAsync();
+                db.SaveChanges();
                 return true;
             }
         }
@@ -113,7 +130,7 @@ namespace pis.Repositorys
                 {
                     return false;
                 }
-                db.SaveChangesAsync();
+                db.SaveChanges();
                 return true;
             }
         }

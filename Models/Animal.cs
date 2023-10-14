@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace pis.Models
 {
@@ -31,6 +32,28 @@ namespace pis.Models
         public string? SpecialSigns { get; set; }
 
         public List<Vaccination> Vaccinations { get; set; }
+
+        public Animal(string animalName, Locality locality, AnimalCategory animalCategory, 
+            Gender gender, int yearOfBirth, string electronicChipNumber)
+        {
+            AnimalName = animalName;
+            Locality = locality;
+            AnimalCategory = animalCategory;
+            Gender = gender;
+            YearOfBirth = yearOfBirth;
+            ElectronicChipNumber = electronicChipNumber;
+        }
+
+        public Animal(string animalName, int localityId, int animalCategoryId,
+            int genderId, int yearOfBirth, string electronicChipNumber)
+        {
+            AnimalName = animalName;
+            LocalityId = localityId;
+            AnimalCategoryId = animalCategoryId;
+            GenderId = genderId;
+            YearOfBirth = yearOfBirth;
+            ElectronicChipNumber = electronicChipNumber;
+        }
     }
 }
 

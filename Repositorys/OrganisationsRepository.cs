@@ -105,7 +105,7 @@ namespace pis.Repositorys
                 try
                 {
                     db.Organisations.Add(org);
-                    db.SaveChangesAsync();
+                    db.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -122,7 +122,7 @@ namespace pis.Repositorys
                 try
                 {
                     db.Organisations.Remove(org);
-                    db.SaveChangesAsync();
+                    db.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -139,7 +139,7 @@ namespace pis.Repositorys
                 try
                 {
                     db.Organisations.Update(org);
-                    db.SaveChangesAsync();
+                    db.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -148,67 +148,6 @@ namespace pis.Repositorys
                 return true;
             }
         }
-        //public static bool NewEntry(Organisation organisation)
-        //{
-        //    try
-        //    {
-        //        int maxRegistrationNumber = org.Max(a => a.OrgId);
-        //        int nextRegistrationNumber = maxRegistrationNumber + 1;
-
-        //        organisation.OrgId = nextRegistrationNumber;
-        //        org.Add(organisation);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
-
-        //public static bool DeleteEntry(int id)
-        //{
-        //    var foundOrg = org.FirstOrDefault(a => a.OrgId == id);
-        //    if (foundOrg != null)
-        //    {
-        //        org.Remove(foundOrg);
-        //        Console.WriteLine("Объект Organisation удален.");
-        //        return true;
-        //    }
-
-        //    Console.WriteLine("Объект Organisation не найден.");
-        //    return false;
-        //}
-
-        //public static Organisation? GetEntry(int id)
-        //{
-        //    var foundOrg = org.FirstOrDefault(a => a.OrgId == id);
-        //    return foundOrg;
-        //}
-
-        //public static List<Organisation> GetOrganizations()
-        //{
-        //    var foundOrg = org;
-        //    return foundOrg;
-        //}
-
-        //public static bool ChangeEntry(Organisation organisation)
-        //{
-        //    var foundOrg = org.FirstOrDefault(a => a.OrgId == organisation.OrgId);
-        //    if (foundOrg != null)
-        //    {
-        //        foundOrg.OrgName = organisation.OrgName;
-        //        foundOrg.INN = organisation.INN;
-        //        foundOrg.KPP = organisation.KPP;
-        //        foundOrg.AdressReg = organisation.AdressReg;
-        //        foundOrg.TypeOrg = organisation.TypeOrg;
-        //        foundOrg.OrgAttribute = organisation.OrgAttribute;
-        //        foundOrg.Locality = organisation.Locality;
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
 
     }
 }

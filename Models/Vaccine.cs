@@ -9,11 +9,10 @@ namespace pis.Models
         public string NameVaccine { get; set; }
         public int ValidDaysVaccine { get; set; }
 
-        //public Vaccine(int idVaccine, string nameVaccine, int validDaysVaccine) 
-        //{
-        //    IdVaccine = idVaccine;
-        //    NameVaccine = nameVaccine;
-        //    ValidDaysVaccine = validDaysVaccine;
-        //}
+        public Vaccine(string nameVaccine, int validDaysVaccine)
+        {
+            NameVaccine = nameVaccine;
+            ValidDaysVaccine = validDaysVaccine;
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.PriceList.Add(price);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -53,7 +53,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.PriceList.Remove(price);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -62,7 +62,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.PriceList.Update(price);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
     }

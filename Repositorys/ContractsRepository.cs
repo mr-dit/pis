@@ -19,7 +19,7 @@ public class ContractsRepository
             try
             {
                 db.Contracts.Add(contract);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (Exception)
             {
@@ -36,7 +36,7 @@ public class ContractsRepository
             try
             {
                 db.Contracts.Update(con);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (Exception)
             {
@@ -53,7 +53,7 @@ public class ContractsRepository
             try
             {
                 db.Contracts.Remove(con);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (Exception)
             {

@@ -26,7 +26,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.OrgTypes.Add(orgType);
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -35,7 +35,7 @@ namespace pis.Repositorys
             using (var db = new Context())
             {
                 db.OrgTypes.Remove(orgType); 
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
@@ -44,7 +44,7 @@ namespace pis.Repositorys
             using (var db = new Context()) 
             { 
                 db.OrgTypes.Update(orgType); 
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
         }
 
