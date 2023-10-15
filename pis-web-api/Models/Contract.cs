@@ -13,14 +13,16 @@ namespace pis.Models
         public DateTime ExpirationDate { get; set; }
 
         public int PerformerId { get; set; }
-        public Organisation Performer { get; set; }
+        public Organisation? Performer { get; set; }
 
         public int CustomerId { get; set; }
-        public Organisation Customer { get; set; }
+        public Organisation? Customer { get; set; }
 
-        public List<VaccinePriceListByLocality> VacinePriceByLocality { get; set; }
+        //public List<Locality> Localities { get; set; }
 
-        public List<Vaccination> Vaccinations { get; set; }
+        public List<VaccinePriceListByLocality> VaccinePriceListByLocality { get; set; }
+
+        public List<Vaccination>? Vaccinations { get; set; }
 
         //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
         //    DateTime expirationDate, Organisation performer, Organisation customer,

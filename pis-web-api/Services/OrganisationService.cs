@@ -49,6 +49,10 @@ namespace pis.Services
 						break;
 				}
 			}
+			else
+			{
+                Organisations = OrganisationsRepository.GetOrganisations(pageSize);
+			}
         
 			// Сортировка
 			if (!string.IsNullOrEmpty(sortBy))

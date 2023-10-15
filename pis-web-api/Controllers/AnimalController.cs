@@ -92,16 +92,9 @@ namespace pis.Controllers;
         [HttpPost("ChangeEntry/{id}")]
         public IActionResult ChangeEntry(int id, [FromBody] Animal animal)
         {
-            var existingAnimal = AnimalService.GetEntry(id);
-
-            if (existingAnimal == null)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                bool status = AnimalService.ChangeEntry(existingAnimal);
+                bool status = AnimalService.ChangeEntry(animal);
 
                 if (status)
                 {

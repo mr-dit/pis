@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 using pis.Models;
 namespace pis.Repositorys
 {
@@ -22,6 +23,20 @@ namespace pis.Repositorys
                 }
                 db.SaveChanges();
                 return true;
+            }
+        }
+
+        public static List<Animal> GetFirstAnimals(int limit)
+        {
+            using (Context db = new Context())
+            {
+                var animals = db.Animals.Take(limit)
+                    .Include(x => x.Gender)
+                    .Include(x => x.AnimalCategory)
+                    .Include(x => x.Locality);
+                if (animals.Count() == 0)
+                    throw new ArgumentException($"Не существует животных");
+                return animals.ToList();
             }
         }
 

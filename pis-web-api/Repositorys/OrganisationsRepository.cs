@@ -22,11 +22,15 @@ namespace pis.Repositorys
         //        LocalityRepository.GetLocalityByName("Зубарева"), new List<User>(), new List<Contract>())
         //};
 
-        public static IQueryable<Organisation> GetOrganisations()
+        public static List<Organisation> GetOrganisations(int limit)
         {
             using (var db = new Context())
             {
-                var organisations = db.Organisations.Take(3);
+                var organisations = db.Organisations
+                    .Take(limit)
+                    .Include(x => x.OrgType)
+                    .Include(x => x.Locality)
+                    .ToList();
                 return organisations;
             }
         }
@@ -38,6 +42,7 @@ namespace pis.Repositorys
                 var organisation = db.Organisations
                     .Where(organisation => organisation.OrgName == name)
                     .Include(x => x.OrgType)
+                    .Include(x => x.Locality)
                     .Single();
                 if (organisation == null)
                     throw new ArgumentException($"Нет организации с названием \"{name}\"");
@@ -45,42 +50,45 @@ namespace pis.Repositorys
             }
         }
 
-        public static IQueryable<Organisation> GetOrganisationsByName(string name)
+        public static List<Organisation> GetOrganisationsByName(string name)
         {
             using (var db = new Context())
             {
                 var organisations = db.Organisations
                     .Where(organisation => organisation.OrgName.Contains(name))
-                    .Include(x => x.OrgType);
+                    .Include(x => x.OrgType)
+                    .Include(x => x.Locality);
                 //if (organisations.Count() == 0)
                 //    throw new ArgumentException($"Нет организаций с названием \"{name}\"");
-                return organisations;
+                return organisations.ToList();
             }
         }
 
-        public static IQueryable<Organisation> GetOrganisationsByINN(string inn)
+        public static List<Organisation> GetOrganisationsByINN(string inn)
         {
             using (var db = new Context())
             {
                 var organisations = db.Organisations
                     .Where(organisation => organisation.INN.Contains(inn))
-                    .Include(x => x.OrgType);
+                    .Include(x => x.OrgType)
+                    .Include(x => x.Locality);
                 //if (organisations.Count() == 0)
                 //    throw new ArgumentException($"Нет организаций с названием \"{name}\"");
-                return organisations;
+                return organisations.ToList();
             }
         }
 
-        public static IQueryable<Organisation> GetOrganisationsByKPP(string kpp)
+        public static List<Organisation> GetOrganisationsByKPP(string kpp)
         {
             using (var db = new Context())
             {
                 var organisations = db.Organisations
                     .Where(organisation => organisation.KPP.Contains(kpp))
-                    .Include(x => x.OrgType);
+                    .Include(x => x.OrgType)
+                    .Include(x => x.Locality);
                 //if (organisations.Count() == 0)
                 //    throw new ArgumentException($"Нет организаций с названием \"{name}\"");
-                return organisations;
+                return organisations.ToList();
             }
         }
 
@@ -91,6 +99,7 @@ namespace pis.Repositorys
                 var organisation = db.Organisations
                     .Where(organisation => organisation.OrgId == id)
                     .Include(x => x.OrgType)
+                    .Include(x => x.Locality)
                     .Single();
                 if (organisation == null)
                     throw new ArgumentException($"Нет организации с id \"{id}\"");

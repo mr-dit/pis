@@ -30,6 +30,7 @@ namespace pis.Services
 		public static List<Animal> GetAnimals(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
 		{
 			filterValue = filterValue?.ToLower();
+			
 
 			if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
 			{
@@ -49,6 +50,10 @@ namespace pis.Services
 						break;
 				}
 			}
+			else
+			{
+                Animals = AnimalRepository.GetFirstAnimals(pageSize);
+            }
 
 			// Сортировка
 			if (!string.IsNullOrEmpty(sortBy))

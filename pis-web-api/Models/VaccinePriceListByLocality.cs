@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NUnit.Framework;
+using System.ComponentModel.DataAnnotations;
 
 namespace pis.Models
 {
@@ -13,6 +14,7 @@ namespace pis.Models
         public DateTime Date { get; set; }
         public decimal Price { get; set; }
 
+        //public List<Contract> Contracts { get; set; }
         //public VaccinePriceListByLocality(int idVaccinePriceListByLocality, Vaccine vaccine, Locality locality, DateTime date, decimal price)
         //{
         //    IdVaccinePriceListByLocality = idVaccinePriceListByLocality;

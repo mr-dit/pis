@@ -14,30 +14,54 @@ namespace pis.Repositorys
         //    new Vaccine (2, "Блошинка", 90)
         //};
 
-        public static void AddVaccine(Vaccine vaccine)
+        public static bool AddVaccine(Vaccine vaccine)
         {
             using (var db = new Context())
             {
-                db.Vaccines.Add(vaccine);
-                db.SaveChanges();
+                try
+                {
+                    db.Vaccines.Add(vaccine);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
-        public static void DeleteVaccine(Vaccine vaccine)
+        public static bool DeleteVaccine(Vaccine vaccine)
         {
             using (var db = new Context())
             {
-                db.Vaccines.Remove(vaccine);
-                db.SaveChanges();
+                try
+                {
+                    db.Vaccines.Remove(vaccine);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
-        public static void UpdateVaccine(Vaccine vaccine)
+        public static bool UpdateVaccine(Vaccine vaccine)
         {
             using (var db = new Context())
             {
-                db.Vaccines.Update(vaccine);
-                db.SaveChanges();
+                try
+                {
+                    db.Vaccines.Update(vaccine);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -52,13 +76,35 @@ namespace pis.Repositorys
             }
         }
 
-        public static Vaccine GetVaccineByName(string name)
+        //public static Vaccine GetVaccineByName(string name)
+        //{
+        //    using (var db = new Context())
+        //    {
+        //        var vaccine = db.Vaccines.Where(x => x.NameVaccine == name).Single();
+        //        if (vaccine == null)
+        //            throw new ArgumentNullException($"Нет вакцины с названием \"{name}\"");
+        //        return vaccine;
+        //    }
+        //}
+
+        public static List<Vaccine> GetVaccinesByName(string name, int pageNumber, int pageSize)
         {
             using (var db = new Context())
             {
-                var vaccine = db.Vaccines.Where(x => x.NameVaccine == name).Single();
-                if (vaccine == null)
-                    throw new ArgumentNullException($"Нет вакцины с названием \"{name}\"");
+                var vaccine = db.Vaccines
+                .Where(x => string.IsNullOrEmpty(name) || x.NameVaccine.Contains(name))
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+                return vaccine;
+            }
+        }
+
+        public static List<Vaccine> GetFirstVaccines(int limit)
+        {
+            using (var db = new Context())
+            {
+                var vaccine = db.Vaccines.Take(limit).ToList();
                 return vaccine;
             }
         }

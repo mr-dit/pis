@@ -11,15 +11,15 @@ namespace pis.Models
 
         public int LocalityId { get; set; }
 
-        public Locality Locality { get; set; }
+        public Locality? Locality { get; set; }
 
         public int AnimalCategoryId { get; set; }
 
-        public AnimalCategory AnimalCategory { get; set; }
+        public AnimalCategory? AnimalCategory { get; set; }
 
         public int GenderId { get; set; }
 
-        public Gender Gender { get; set; }
+        public Gender? Gender { get; set; }
 
         public int YearOfBirth { get; set; }
 
@@ -53,6 +53,11 @@ namespace pis.Models
             GenderId = genderId;
             YearOfBirth = yearOfBirth;
             ElectronicChipNumber = electronicChipNumber;
+        }
+
+        public Animal()
+        {
+
         }
     }
 }

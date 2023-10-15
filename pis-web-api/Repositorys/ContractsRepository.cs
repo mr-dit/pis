@@ -71,7 +71,6 @@ public class ContractsRepository
                 .Where(con => con.IdContract == id)
                 .Include(x => x.Performer)
                 .Include(x => x.Customer)
-                .Include(x => x.VacinePriceByLocality)
                 .Include(x => x.Vaccinations)
                 .Single();
             if (con == null)

@@ -20,14 +20,14 @@ namespace pis.Models
         public string AdressReg { get; set; }
 
         public int OrgTypeId { get; set; }
-        public OrgType OrgType { get; set; }
+        public OrgType? OrgType { get; set; }
 
         public int LocalityId { get; set; }
-        public Locality Locality { get; set; }
+        public Locality? Locality { get; set; }
 
-        public List<User> Users { get; set; }
+        public List<User>? Users { get; set; }
 
-        public List<Contract> Contracts { get; set; }
+        public List<Contract>? Contracts { get; set; }
 
 
         //public Organisation(int orgId, string orgName, string iNN, string kPP, 
@@ -43,6 +43,17 @@ namespace pis.Models
         //    Users = users;
         //    Contracts = contracts;
         //}
+        public Organisation() { }
+
+        public Organisation(string orgName, string iNN, string kPP, string adressReg, int orgTypeId, int localityId)
+        {
+            OrgName = orgName;
+            INN = iNN;
+            KPP = kPP;
+            AdressReg = adressReg;
+            OrgTypeId = orgTypeId;
+            LocalityId = localityId;
+        }
     }
 }
 

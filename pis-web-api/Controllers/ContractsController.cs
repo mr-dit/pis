@@ -45,7 +45,7 @@ namespace pis.Controllers
 
         public IActionResult FillData()
         {
-            var organizations = OrganisationsRepository.GetOrganisations().ToList();
+            var organizations = OrganisationsRepository.GetOrganisations(3).ToList();
             ViewBag.Organizations = organizations;
 
             return View();
@@ -98,7 +98,7 @@ namespace pis.Controllers
         {
             if (id != null)
             {
-                var organizations = OrganisationsRepository.GetOrganisations();
+                var organizations = OrganisationsRepository.GetOrganisations(3);
                 ViewBag.Organizations = organizations;
                 var newcontracts = ContractsService.GetEntry((int)id);
 
