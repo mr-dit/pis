@@ -18,8 +18,8 @@ namespace pis.Controllers
         {
             filterValue = filterValue?.ToLower();
             
-            var organisations = OrganizationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
-            var totalItems = OrganizationService.GetTotalOrganisations(filterField, filterValue);
+            var organisations = OrganisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var totalItems = OrganisationService.GetTotalOrganisations(filterField, filterValue);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             // if (filterValue != null) ViewBag.FilterName = filterValue;
@@ -43,7 +43,7 @@ namespace pis.Controllers
         [HttpPost]
         public IActionResult AddEntry(Organisation organisation)
         {
-            bool status = OrganizationService.FillData(organisation);
+            bool status = OrganisationService.FillData(organisation);
             if (status)
             {
                 return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
@@ -56,7 +56,7 @@ namespace pis.Controllers
         {
             if (id != null)
             {
-                var status = OrganizationService.DeleteEntry((int)id);
+                var status = OrganisationService.DeleteEntry((int)id);
 
                 if (status)
                 {
@@ -75,7 +75,7 @@ namespace pis.Controllers
         {
             if (id != null)
             {
-                var organisation = OrganizationService.GetEntry((int)id);
+                var organisation = OrganisationService.GetEntry((int)id);
 
                 return View(organisation);
             }
@@ -86,7 +86,7 @@ namespace pis.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeEntry(Organisation organisation)
         {
-            bool status = OrganizationService.ChangeEntry(organisation);
+            bool status = OrganisationService.ChangeEntry(organisation);
             if (status)
             {
                 return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
