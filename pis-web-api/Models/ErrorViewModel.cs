@@ -1,4 +1,4 @@
-﻿namespace pis_web_api.Models;
+﻿namespace pis.Models;
 
 public class ErrorViewModel
 {

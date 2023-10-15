@@ -4,71 +4,118 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using pis_web_api.Models;
-using pis_web_api.Services;
-using pis_web_api.Repositorys;
+using pis.Models;
+using pis.Services;
+using pis.Repositorys;
+using pis;
+using Microsoft.EntityFrameworkCore;
 
 public class ContractsRepository
 {
-    private static List<Contracts> contracts = new List<Contracts>
+    public static bool CreateContract(Contract contract)
     {
-        new Contracts(1, new DateTime(2023, 2, 28), new DateTime(2024, 2, 28), OrganisationsRepository.GetEntry(2),
-            "Заказчик 1"),
-        new Contracts(2, new DateTime(2023, 1, 15), new DateTime(2023, 1, 31), OrganisationsRepository.GetEntry(3),
-            "Заказчик 2"),
-        new Contracts(3, new DateTime(2023, 3, 10), new DateTime(2024, 3, 10), OrganisationsRepository.GetEntry(1),
-            "Заказчик 3")
-    };
-
-    public static bool CreateContracts(Contracts newcontracts)
-    {
-        var org = OrganisationsRepository.GetEntry(newcontracts.Performer.OrgId);
-        newcontracts.ContractsId = GetContracts().Count() + 1;
-        newcontracts.Performer = org;
-        contracts.Add(newcontracts);
-
-        return true;
-    }
-
-    public static bool DeleteEntry(int id)
-    {
-        var foundContr = contracts.FirstOrDefault(a => a.ContractsId == id);
-        if (foundContr != null)
+        using (var db = new Context())
         {
-            contracts.Remove(foundContr);
-            Console.WriteLine("Объект Contracts удален.");
+            try
+            {
+                db.Contracts.Add(contract);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             return true;
         }
-
-        Console.WriteLine("Объект Contracts не найден.");
-        return false;
     }
 
-    public static Contracts? GetEntry(int id)
+    public static bool UpdateContract(Contract con)
     {
-        var foundContr = contracts.FirstOrDefault(a => a.ContractsId == id);
-        return foundContr;
-    }
-
-    public static bool ChangeEntry(Contracts newcontracts)
-    {
-        var foundContr = contracts.FirstOrDefault(a => a.ContractsId == newcontracts.ContractsId);
-        if (foundContr != null)
+        using (var db = new Context())
         {
-            var org = OrganisationsRepository.GetEntry(newcontracts.Performer.OrgId);
-            foundContr.Performer = org;
-            foundContr.ConclusionDate = newcontracts.ConclusionDate;
-            foundContr.ExpirationDate = newcontracts.ExpirationDate;
-            foundContr.Customer = newcontracts.Customer;
+            try
+            {
+                db.Contracts.Update(con);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             return true;
         }
-
-        return false;
     }
 
-    public static List<Contracts> GetContracts()
+    public static bool DeleteContract(Contract con)
     {
-        var foundContr = contracts;
-        return foundContr;
+        using (var db = new Context())
+        {
+            try
+            {
+                db.Contracts.Remove(con);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    public static Contract GetContractById(int id)
+    {
+        using(var db = new Context())
+        {
+            var con = db.Contracts
+                .Where(con => con.IdContract == id)
+                .Include(x => x.Performer)
+                .Include(x => x.Customer)
+                .Include(x => x.VacinePriceByLocality)
+                .Include(x => x.Vaccinations)
+                .Single();
+            if (con == null)
+                throw new ArgumentException($"Нет контракта с номером {id}");
+            return con;
+        }
+    }
+
+    public static IQueryable<Contract> GetContractsByOrganisationName(string orgName)
+    {
+        using (var db = new Context())
+        {
+            var cons = db.Contracts
+                .Include(con => con.Customer)
+                .Include(con => con.Performer)
+                .Where(con => con.Customer.OrgName == orgName || con.Performer.OrgName == orgName);
+            if (cons.Count() == 0)
+                throw new ArgumentException($"Не существует контрактов с организацией {orgName}");
+            return cons;
+        }
+    }
+
+    public static IQueryable<Contract> GetContractsByDate(DateTime Date)
+    {
+        using (var db = new Context())
+        {
+            var cons = db.Contracts
+                .Where(con => Date.Date == con.ConclusionDate.Date);
+            if (cons.Count() == 0)
+                throw new ArgumentException($"Не существует контрактов {Date.ToShortDateString()}");
+            return cons;
+        }
+    }
+
+    // Переделать чтоб работало с 2 датами, а не с одной
+    public static IQueryable<Contract> GetContractsByDate(DateTime FromDate, DateTime ToDate)
+    {
+        using (var db = new Context())
+        {
+            var cons = db.Contracts
+                .Where(con => FromDate.Date < con.ConclusionDate.Date || ToDate.Date > con.ConclusionDate.Date);
+            if (cons.Count() == 0)
+                throw new ArgumentException($"Не существует контрактов в периоде дат {FromDate.ToShortDateString()} - {ToDate.ToShortDateString()}");
+            return cons;
+        }
     }
 }

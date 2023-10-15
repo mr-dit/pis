@@ -1,121 +1,108 @@
 ﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using pis_web_api.Models;
-using pis_web_api.Services;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using pis.Models;
+using pis.Repositorys;
+using pis.Services;
 
-namespace pis_web_api.Controllers
+
+namespace pis.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OrganisationController : ControllerBase
+    public class OrganisationController : Controller
     {
-        private readonly ILogger<OrganisationController> _logger;
-        private readonly IWebHostEnvironment _appEnvironment;
-
-        public OrganisationController(ILogger<OrganisationController> logger, IWebHostEnvironment appEnvironment)
-        {
-            _logger = logger;
-            _appEnvironment = appEnvironment;
-        }
-
-        [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string? filterValue, string? sortBy, bool isAscending, string filterField = nameof(Organisation.OrgId), int pageNumber = 1, int pageSize = 10)
+        // GET: /<controller>/
+        public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber = 1, int pageSize = 10)
         {
             filterValue = filterValue?.ToLower();
-
-            var organisations = OrganisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
-            var totalItems = OrganisationService.GetTotalOrganisations(filterField, filterValue);
+            
+            var organisations = OrganizationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var totalItems = OrganizationService.GetTotalOrganisations(filterField, filterValue);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-            var result = new
-            {
-                FilterValue = filterValue,
-                FilterField = filterField,
-                SortBy = sortBy,
-                IsAscending = isAscending,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalItems = totalItems,
-                TotalPages = totalPages,
-                Organisations = organisations
-            };
+            // if (filterValue != null) ViewBag.FilterName = filterValue;
+            if (filterValue != null) ViewBag.FilterValue = filterValue;
+            ViewBag.FilterField = filterField;
+            ViewBag.SortBy = sortBy;
+            ViewBag.IsAscending = isAscending;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.TotalPages = totalPages;
 
-            return Ok(result);
+            return View(organisations);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetOrganisation(int id)
+        public IActionResult AddEntry()
         {
-            var organisation = OrganisationService.GetEntry(id);
-
-            if (organisation == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(organisation);
+            return View();
         }
 
-        [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Organisation organisation)
+        [HttpPost]
+        public IActionResult AddEntry(Organisation organisation)
         {
-            bool status = OrganisationService.FillData(organisation);
-
+            bool status = OrganizationService.FillData(organisation);
             if (status)
             {
-                return Ok();
+                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
             }
-            else
-            {
-                return BadRequest("Failed to add organisation entry.");
-            }
+            return Error();
         }
 
-        [HttpPost("deleteEntry/{id}")]
-        public IActionResult DeleteEntry(int id)
+        [HttpPost]
+        public IActionResult DeleteEntry(int? id)
         {
-            var status = OrganisationService.DeleteEntry(id);
-
-            if (status)
+            if (id != null)
             {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest($"Failed to delete organisation entry with ID {id}");
-            }
-        }
-
-        [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Organisation organisation)
-        {
-            var existingOrganisation = OrganisationService.GetEntry(id);
-
-            if (existingOrganisation == null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                bool status = OrganisationService.ChangeEntry(existingOrganisation);
+                var status = OrganizationService.DeleteEntry((int)id);
 
                 if (status)
                 {
-                    return Ok();
+                    Console.WriteLine("Объект Organisation удален.");
+                    return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
                 }
-                else
-                {
-                    return BadRequest("Failed to update organisation entry.");
-                }
+
+                return Error();
             }
 
-            return BadRequest(ModelState);
+            return NotFound();
+        }
+
+
+        public async Task<IActionResult> ChangeEntry(int? id)
+        {
+            if (id != null)
+            {
+                var organisation = OrganizationService.GetEntry((int)id);
+
+                return View(organisation);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEntry(Organisation organisation)
+        {
+            bool status = OrganizationService.ChangeEntry(organisation);
+            if (status)
+            {
+                return RedirectToAction("OpensRegister", new { filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize });
+
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

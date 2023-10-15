@@ -1,100 +1,66 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using pis_web_api.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+using pis.Models;
+using pis.Services;
+using System.Xml.Linq;
 
-namespace pis_web_api.Repositorys
+namespace pis.Repositorys
 {
     public class VaccineRepository
     {
-        private static List<Vaccination> vaccines = new List<Vaccination>
+        //private static List<Vaccine> vaccines = new List<Vaccine>
+        //{
+        //    new Vaccine (1, "Бешенный", 20),
+        //    new Vaccine (2, "Блошинка", 90)
+        //};
+
+        public static void AddVaccine(Vaccine vaccine)
         {
-            new Vaccination
+            using (var db = new Context())
             {
-                VaccineId = 1,
-                Animal = AnimalRepository.GetEntry(1),
-                VaccinationDate = DateTime.Now,
-                VaccineType = "Название вакцины 1",
-                BatchNumber = "123456",
-                ValidUntil = DateTime.Now.AddDays(365),
-                VeterinarianFullName = "Иванов Иван Иванович",
-                VeterinarianPosition = "Ветеринарный врач",
-                Organisation = OrganisationsRepository.GetEntry(1),
-                Contract = ContractsRepository.GetEntry(1)
-            },
-            new Vaccination
-            {
-                VaccineId = 2,
-                Animal = AnimalRepository.GetEntry(2),
-                VaccinationDate = DateTime.Now,
-                VaccineType = "Название вакцины 2",
-                BatchNumber = "654321",
-                ValidUntil = DateTime.Now.AddDays(365),
-                VeterinarianFullName = "Петров Петр Петрович",
-                VeterinarianPosition = "Ветеринарный специалист",
-                Organisation = OrganisationsRepository.GetEntry(2),
-                Contract = ContractsRepository.GetEntry(2)
+                db.Vaccines.Add(vaccine);
+                db.SaveChanges();
             }
-        };
-
-        public static bool NewEntry(Vaccination vaccine)
-        {
-            int maxRegistrationNumber = vaccines.Max(a => a.VaccineId);
-            int nextRegistrationNumber = maxRegistrationNumber + 1;
-
-            vaccine.VaccineId = nextRegistrationNumber;
-            vaccines.Add(vaccine);
-            return true;
         }
 
-        public static bool DeleteEntry(int vaccineId)
+        public static void DeleteVaccine(Vaccine vaccine)
         {
-            var foundVaccine = vaccines.FirstOrDefault(a => a.VaccineId == vaccineId);
-            if (foundVaccine != null)
+            using (var db = new Context())
             {
-                vaccines.Remove(foundVaccine);
-                Console.WriteLine("Vaccinated animal entry deleted.");
-                return true;
+                db.Vaccines.Remove(vaccine);
+                db.SaveChanges();
             }
-
-            Console.WriteLine("Vaccinated animal entry not found.");
-            return false;
         }
 
-        public static Vaccination? GetEntry(int vaccineId)
+        public static void UpdateVaccine(Vaccine vaccine)
         {
-            var foundVaccine = vaccines.FirstOrDefault(a => a.VaccineId == vaccineId);
-            return foundVaccine;
-        }
-
-        public static List<Vaccination> GetVaccines()
-        {
-            return vaccines;
-        }
-
-        public static bool ChangeEntry(Vaccination vaccine)
-        {
-            var foundVaccine =
-                vaccines.FirstOrDefault(a => a.VaccineId == vaccine.VaccineId);
-            if (foundVaccine != null)
+            using (var db = new Context())
             {
-                foundVaccine.Animal = vaccine.Animal;
-                foundVaccine.VaccinationDate = vaccine.VaccinationDate;
-                foundVaccine.VaccineType = vaccine.VaccineType;
-                foundVaccine.BatchNumber = vaccine.BatchNumber;
-                foundVaccine.ValidUntil = vaccine.ValidUntil;
-                foundVaccine.VeterinarianFullName = vaccine.VeterinarianFullName;
-                foundVaccine.VeterinarianPosition = vaccine.VeterinarianPosition;
-                foundVaccine.Organisation = vaccine.Organisation;
-
-                return true;
+                db.Vaccines.Update(vaccine);
+                db.SaveChanges();
             }
-
-            return false;
         }
 
-        public VaccineRepository()
+        public static Vaccine GetVaccineById(int id)
         {
+            using (var db = new Context())
+            {
+                var vaccine = db.Vaccines.Where(x => x.IdVaccine == id).Single();
+                if (vaccine == null)
+                    throw new ArgumentNullException($"Нет вакцины с id \"{id}\"");
+                return vaccine;
+            }
+        }
+
+        public static Vaccine GetVaccineByName(string name)
+        {
+            using (var db = new Context())
+            {
+                var vaccine = db.Vaccines.Where(x => x.NameVaccine == name).Single();
+                if (vaccine == null)
+                    throw new ArgumentNullException($"Нет вакцины с названием \"{name}\"");
+                return vaccine;
+            }
         }
     }
 }

@@ -1,29 +1,29 @@
 ﻿using System;
-using pis_web_api.Models;
-using pis_web_api.Repositorys;
+using pis.Models;
+using pis.Repositorys;
 
-namespace pis_web_api.Services
+namespace pis.Services
 {
     public class ContractsService
     {
-        public static bool CreateContract(Contracts contracts)
+        private static List<Contract> Contracts { get; set; } = new List<Contract>();
+
+        public static bool CreateContract(Contract contract)
         {
-            bool status = ContractsRepository.CreateContracts(contracts);
+            bool status = ContractsRepository.CreateContract(contract);
             return status;
         }
 
         public static bool DeleteEntry(int id)
         {
-            bool status = ContractsRepository.DeleteEntry(id);
+            bool status = ContractsRepository.DeleteContract(ContractsRepository.GetContractById(id));
             return status;
         }
 
-        public static List<Contracts>? GetContracts(string filterField, string? filterValue, string? sortBy,
+        public static List<Contract>? GetContracts(string filterField, string? filterValue, string sortBy,
             bool isAscending, int pageNumber, int pageSize)
         {
             filterValue = filterValue?.ToLower();
-
-            var contracts = ContractsRepository.GetContracts();
 
             // Применение фильтрации в зависимости от поля
             if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
@@ -31,14 +31,13 @@ namespace pis_web_api.Services
                 switch (filterField.ToLower())
                 {
                     case "customer":
-                        contracts = contracts.Where(c => c.Customer.ToLower().Contains(filterValue)).ToList();
+                        Contracts = ContractsRepository.GetContractsByOrganisationName(filterValue).ToList();
                         break;
                     case "performer":
-                        contracts = contracts.Where(c => c.Performer.OrgName.ToLower().Contains(filterValue)).ToList();
+                        Contracts = ContractsRepository.GetContractsByOrganisationName(filterValue).ToList();
                         break;
                     case "conclusiondate":
-                        contracts = contracts
-                            .Where(c => c.ConclusionDate.ToShortDateString().ToLower().Contains(filterValue)).ToList();
+                        Contracts = ContractsRepository.GetContractsByDate(DateTime.Parse(filterValue)).ToList();
                         break;
                     // Добавьте остальные варианты полей
                     default:
@@ -52,78 +51,53 @@ namespace pis_web_api.Services
                 switch (sortBy)
                 {
                     case "ContractsId":
-                        contracts = isAscending
-                            ? contracts.OrderBy(c => c.ContractsId).ToList()
-                            : contracts.OrderByDescending(c => c.ContractsId).ToList();
+                        Contracts = isAscending
+                            ? Contracts.OrderBy(c => c.IdContract).ToList()
+                            : Contracts.OrderByDescending(c => c.IdContract).ToList();
                         break;
                     case "ConclusionDate":
-                        contracts = isAscending
-                            ? contracts.OrderBy(c => c.ConclusionDate).ToList()
-                            : contracts.OrderByDescending(c => c.ConclusionDate).ToList();
+                        Contracts = isAscending
+                            ? Contracts.OrderBy(c => c.ConclusionDate).ToList()
+                            : Contracts.OrderByDescending(c => c.ConclusionDate).ToList();
                         break;
                     case "ExpirationDate":
-                        contracts = isAscending
-                            ? contracts.OrderBy(c => c.ExpirationDate).ToList()
-                            : contracts.OrderByDescending(c => c.ExpirationDate).ToList();
+                        Contracts = isAscending
+                            ? Contracts.OrderBy(c => c.ExpirationDate).ToList()
+                            : Contracts.OrderByDescending(c => c.ExpirationDate).ToList();
                         break;
                     case "Performer":
-                        contracts = isAscending
-                            ? contracts.OrderBy(c => c.Performer.OrgName).ToList()
-                            : contracts.OrderByDescending(c => c.Performer.OrgName).ToList();
+                        Contracts = isAscending
+                            ? Contracts.OrderBy(c => c.Performer.OrgName).ToList()
+                            : Contracts.OrderByDescending(c => c.Performer.OrgName).ToList();
                         break;
                     case "Customer":
-                        contracts = isAscending
-                            ? contracts.OrderBy(c => c.Customer).ToList()
-                            : contracts.OrderByDescending(c => c.Customer).ToList();
+                        Contracts = isAscending
+                            ? Contracts.OrderBy(c => c.Customer).ToList()
+                            : Contracts.OrderByDescending(c => c.Customer).ToList();
                         break;
                 }
             }
 
             // Пагинация
-            contracts = contracts.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var contractsPag = Contracts.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
-            return contracts;
+            return contractsPag;
         }
 
         public static int GetTotalContracts(string filterField, string? filterValue)
         {
-            filterValue = filterValue?.ToLower();
-
-            var contracts = ContractsRepository.GetContracts();
-
-            // Применение фильтрации в зависимости от поля
-            if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
-            {
-                switch (filterField.ToLower())
-                {
-                    case "customer":
-                        contracts = contracts.Where(c => c.Customer.ToLower().Contains(filterValue)).ToList();
-                        break;
-                    case "performer":
-                        contracts = contracts.Where(c => c.Performer.OrgName.ToLower().Contains(filterValue)).ToList();
-                        break;
-                    case "conclusiondate":
-                        contracts = contracts
-                            .Where(c => c.ConclusionDate.ToShortDateString().ToLower().Contains(filterValue)).ToList();
-                        break;
-                    // Добавьте остальные варианты полей
-                    default:
-                        break;
-                }
-            }
-
-            return contracts.Count;
+            return Contracts.Count();
         }
 
-        public static Contracts? GetEntry(int id)
+        public static Contract? GetEntry(int id)
         {
-            var entry = ContractsRepository.GetEntry(id);
+            var entry = ContractsRepository.GetContractById(id);
             return entry;
         }
 
-        public static bool ChangeEntry(Contracts contracts)
+        public static bool ChangeEntry(Contract contracts)
         {
-            bool status = ContractsRepository.ChangeEntry(contracts);
+            bool status = ContractsRepository.UpdateContract(contracts);
             return status;
         }
 

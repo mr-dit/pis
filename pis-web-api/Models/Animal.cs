@@ -1,48 +1,59 @@
 ﻿using System;
-namespace pis_web_api.Models
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
+
+namespace pis.Models
 {
 	public class Animal
 	{
+        [Key]
         public int RegistrationNumber { get; set; }
 
-        public string Locality { get; set; } = "";
+        public int LocalityId { get; set; }
 
-        public string AnimalCategory { get; set; } = "";
+        public Locality Locality { get; set; }
 
-        public string Gender { get; set; } = "";
+        public int AnimalCategoryId { get; set; }
+
+        public AnimalCategory AnimalCategory { get; set; }
+
+        public int GenderId { get; set; }
+
+        public Gender Gender { get; set; }
 
         public int YearOfBirth { get; set; }
 
-        public int ElectronicChipNumber { get; set; }
+        public string ElectronicChipNumber { get; set; }
 
-        public string AnimalName { get; set; } = "";
+        public string AnimalName { get; set; }
 
-        public string Photos { get; set; } = "";
+        public string? PhotoPath { get; set; }
 
-        public string SpecialSigns { get; set; } = "";
-        
-        public List<Vaccination>? Vaccinations { get; set; } = new List<Vaccination>();
+        public string? SpecialSigns { get; set; }
 
+        public List<Vaccination> Vaccinations { get; set; }
 
-        public Animal(int id, string locality, string animalCategory, string gender, int yearOfBirth, int electronicChipNumber, string animalName, string photos, string specialSigns)
-		{
-            RegistrationNumber = id;
+        public Animal(string animalName, Locality locality, AnimalCategory animalCategory, 
+            Gender gender, int yearOfBirth, string electronicChipNumber)
+        {
+            AnimalName = animalName;
             Locality = locality;
             AnimalCategory = animalCategory;
             Gender = gender;
             YearOfBirth = yearOfBirth;
             ElectronicChipNumber = electronicChipNumber;
-            AnimalName = animalName;
-            Photos = photos;
-            SpecialSigns = specialSigns;
-            
         }
 
-        public Animal()
+        public Animal(string animalName, int localityId, int animalCategoryId,
+            int genderId, int yearOfBirth, string electronicChipNumber)
         {
+            AnimalName = animalName;
+            LocalityId = localityId;
+            AnimalCategoryId = animalCategoryId;
+            GenderId = genderId;
+            YearOfBirth = yearOfBirth;
+            ElectronicChipNumber = electronicChipNumber;
         }
-        
-        
     }
 }
 

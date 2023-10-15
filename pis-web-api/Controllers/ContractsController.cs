@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using pis_web_api.Models;
-using pis_web_api.Services;
-using pis_web_api.Repositorys;
+using pis.Models;
+using pis.Services;
+using pis.Repositorys;
 
-namespace pis_web_api.Controllers
+
+namespace pis.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ContractsController : ControllerBase
+    public class ContractsController : Controller
     {
         private readonly ILogger<ContractsController> _logger;
 
@@ -20,50 +20,56 @@ namespace pis_web_api.Controllers
             _logger = logger;
         }
 
-        [HttpGet("OpensRegister")]
-        public IActionResult OpensRegister(string? filterValue, string? sortBy, bool isAscending, string filterField = nameof(Contracts.ContractsId), int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending,
+            int pageNumber = 1, int pageSize = 10)
         {
             filterValue = filterValue?.ToLower();
 
-            var contracts = ContractsService.GetContracts(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var contracts =
+                ContractsService.GetContracts(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalItems = ContractsService.GetTotalContracts(filterField, filterValue);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-            var result = new
-            {
-                FilterField = filterField,
-                SortBy = sortBy,
-                IsAscending = isAscending,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalItems = totalItems,
-                TotalPages = totalPages,
-                Contracts = contracts
-            };
+            if (filterValue != null) ViewBag.FilterValue = filterValue;
+            ViewBag.FilterField = filterField;
+            ViewBag.SortBy = sortBy;
+            ViewBag.IsAscending = isAscending;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.TotalPages = totalPages;
 
-            return Ok(result);
+            // var contracts = ContractsService.GetContracts();
+            return View(contracts);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetContract(int id)
+        public IActionResult FillData()
         {
-            var organization = OrganisationsRepository.GetEntry(id);
-            return Ok(organization);
+            var organizations = OrganisationsRepository.GetOrganisations().ToList();
+            ViewBag.Organizations = organizations;
+
+            return View();
         }
 
-        [HttpPost("AddEntry")]
-        public IActionResult AddEntry([FromBody] Contracts contracts)
+        [HttpPost]
+        public IActionResult FillData(Contract contracts)
         {
             bool status = ContractsService.CreateContract(contracts);
             if (status)
             {
-                return Ok("Contract created successfully");
+                return RedirectToAction("OpensRegister",
+                    new
+                    {
+                        filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy,
+                        isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
+                    });
             }
 
-            return BadRequest("Failed to create contract");
+            return Error();
         }
 
-        [HttpPost("DeleteEntry/{id}")]
+
+        [HttpPost]
         public IActionResult DeleteEntry(int? id)
         {
             if (id != null)
@@ -72,25 +78,58 @@ namespace pis_web_api.Controllers
 
                 if (status)
                 {
-                    return Ok("Contract deleted successfully");
+                    Console.WriteLine("Объект Contracts удален.");
+                    return RedirectToAction("OpensRegister",
+                        new
+                        {
+                            filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue,
+                            sortBy = ViewBag.SortBy, isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber,
+                            pageSize = ViewBag.PageSize
+                        });
                 }
 
-                return BadRequest("Failed to delete contract");
+                return Error();
             }
 
             return NotFound();
         }
 
-        [HttpPost("ChangeEntry/{id}")]
-        public IActionResult ChangeEntry([FromBody] Contracts contracts)
+        public async Task<IActionResult> ChangeEntry(int? id)
+        {
+            if (id != null)
+            {
+                var organizations = OrganisationsRepository.GetOrganisations();
+                ViewBag.Organizations = organizations;
+                var newcontracts = ContractsService.GetEntry((int)id);
+
+                return View(newcontracts);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEntry(Contract contracts)
         {
             bool status = ContractsService.ChangeEntry(contracts);
             if (status)
             {
-                return Ok("Contract updated successfully");
+                return RedirectToAction("OpensRegister",
+                    new
+                    {
+                        filterField = ViewBag.FilterField, filterValue = ViewBag.FilterValue, sortBy = ViewBag.SortBy,
+                        isAscending = ViewBag.IsAscending, pageNumber = ViewBag.PageNumber, pageSize = ViewBag.PageSize
+                    });
             }
 
-            return NotFound("Contract not found or update failed");
+            return NotFound();
+        }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
