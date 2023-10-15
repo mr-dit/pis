@@ -75,11 +75,11 @@ namespace pis.Test
         [Test] 
         public static void GetVaccine()
         {
-            //var vaccine1FromDb = VaccineRepository.GetVaccineByName("Блошинка");
-            //var vaccine2FromDb = VaccineRepository.GetVaccineByName("Бешенство");
+            var vaccine1FromDb = VaccineRepository.GetVaccineByName("Блошинка");
+            var vaccine2FromDb = VaccineRepository.GetVaccineByName("Бешенство");
 
-            //Assert.IsTrue(vaccine1FromDb.NameVaccine == "Блошинка" && vaccine1FromDb.ValidDaysVaccine == 90);
-            //Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
+            Assert.IsTrue(vaccine1FromDb.NameVaccine == "Блошинка" && vaccine1FromDb.ValidDaysVaccine == 90);
+            Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
         }
 
         [Test]

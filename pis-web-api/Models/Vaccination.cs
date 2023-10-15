@@ -23,6 +23,8 @@ public class Vaccination
     public int ContractId { get; set; }
     public Contract Contract { get; set; }
 
+    public Vaccination() { }
+
     //public Vaccination(int idVactination, Animal animal, DateTime vaccinationDate, VaccinePriceListByLocality vaccinePriceListByLocality, User doctor, Contract contract)
     //{
     //    IdVactination = idVactination;

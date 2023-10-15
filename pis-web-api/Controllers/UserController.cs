@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using pis.Controllers;
 using pis.Models;
 using pis_web_api.Services;
 
@@ -7,21 +6,21 @@ namespace pis_web_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VaccineController : Controller
+    public class UserController : Controller
     {
-        private readonly ILogger<VaccineController> _logger;
+        private readonly ILogger<UserController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
 
-        public VaccineController(ILogger<VaccineController> logger, IWebHostEnvironment appEnvironment)
+        public UserController(ILogger<UserController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Vaccine.NameVaccine), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(pis.Models.User.Surname), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (vaccines, totalItems) = VaccineService.GetVaccines(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var (users, totalItems) = UserService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
@@ -34,16 +33,16 @@ namespace pis_web_api.Controllers
                 PageSize = pageSize,
                 TotalItems = totalItems,
                 TotalPages = totalPages,
-                Vaccines = vaccines
+                Users = users
             };
 
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetVaccine(int id)
+        public IActionResult GetUser(int id)
         {
-            var organisation = VaccineService.GetEntry(id);
+            var organisation = UserService.GetEntry(id);
 
             if (organisation == null)
             {
@@ -54,9 +53,9 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Vaccine organisation)
+        public IActionResult AddEntry([FromBody] User user)
         {
-            bool status = VaccineService.FillData(organisation);
+            bool status = UserService.FillData(user);
 
             if (status)
             {
@@ -71,7 +70,7 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = VaccineService.DeleteEntry(id);
+            var status = UserService.DeleteEntry(id);
 
             if (status)
             {
@@ -84,11 +83,11 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Vaccine vaccine)
+        public IActionResult ChangeEntry(int id, [FromBody] User user)
         {
             if (ModelState.IsValid)
             {
-                bool status = VaccineService.ChangeEntry(vaccine);
+                bool status = UserService.ChangeEntry(user);
 
                 if (status)
                 {

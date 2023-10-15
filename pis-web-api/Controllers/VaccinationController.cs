@@ -11,8 +11,120 @@ using pis.Services;
 
 namespace pis.Controllers
 {
-    public class VaccinationController : Controller
-    {
+    //[Route("api/[controller]")]
+    //[ApiController]
+    //public class VaccinationController : Controller
+    //{
+    //    private readonly ILogger<VaccinationController> _logger;
+    //    private readonly IWebHostEnvironment _appEnvironment;
+    //    public VaccinationController(ILogger<VaccinationController> logger, IWebHostEnvironment appEnvironment)
+    //    {
+    //        _logger = logger;
+    //        _appEnvironment = appEnvironment;
+    //    }
+
+    //    [HttpGet("opensRegister")]
+    //    public IActionResult OpensRegister(string filterValue, string sortBy, bool isAscending, string filterField = nameof(Vaccination.IdVactination), int pageNumber = 1, int pageSize = 10)        
+    //    {
+    //        filterValue = filterValue?.ToLower();
+
+    //        var vaccinations = VaccinationService.GetVaccinations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+    //        var totalItems = VaccinationService.GetTotalVaccines(filterField, filterValue);
+    //        var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+    //        var result = new
+    //        {
+    //            FilterValue = filterValue,
+    //            FilterField = filterField,
+    //            SortBy = sortBy,
+    //            IsAscending = isAscending,
+    //            PageNumber = pageNumber,
+    //            PageSize = pageSize,
+    //            TotalItems = totalItems,
+    //            TotalPages = totalPages,
+    //            Vaccination = vaccinations,
+    //        };
+
+    //        return Ok(result);
+    //    }
+
+    //    [HttpGet("GetEntry/{id}")]
+    //    public IActionResult GetEntry(int id)
+    //    {
+    //        var vaccination = VaccinationService.GetEntry(id);
+
+    //        if (vaccination == null)
+    //        {
+    //            return NotFound();
+    //        }
+
+    //        return Ok(vaccination);
+    //    }
+
+    //    [HttpGet("addEntry")]
+    //    public IActionResult AddEntry(int animalId)
+    //    {
+    //        var animal = AnimalService.GetEntry(animalId);
+
+    //        if (animal == null)
+    //        {
+    //            return NotFound();
+    //        }
+
+    //        Vaccination vaccination = new Vaccination();
+    //        vaccination.VaccineId = VaccineService.GetTotalVaccines(null, null) + 1;
+    //        vaccination.Animal = animal;
+    //        vaccination.VaccinationDate = DateTime.Now.Date;
+    //        vaccination.ValidUntil = DateTime.Now.Date;
+    //        vaccination.Organisation = OrganisationsRepository.GetOrganizations()
+    //            .FirstOrDefault(o => o.Locality == animal.Locality);
+    //        vaccination.Contract = ContractsRepository.GetContracts().FirstOrDefault(c =>
+    //            c.ConclusionDate <= vaccination.VaccinationDate && c.ExpirationDate >= vaccination.VaccinationDate);
+
+    //        return Ok(vaccination);
+    //    }
+
+    //    [HttpPost("addEntry")]
+    //    public IActionResult AddEntry([FromBody] Vaccination vaccination)
+    //    {
+    //        bool status = VaccineService.FillData(vaccination);
+
+    //        if (status)
+    //        {
+    //            return Ok();
+
+    //        }
+
+    //        return BadRequest();
+    //    }
+
+    //    [HttpPost("deleteEntry/{id}")]
+    //    public IActionResult DeleteEntry(int id)
+    //    {
+    //        bool status = VaccineService.DeleteEntry(id);
+
+    //        if (status)
+    //        {
+    //            Console.WriteLine("Vaccination entry deleted.");
+    //            return Ok();
+
+    //        }
+
+    //        return NotFound();
+    //    }
+
+    //    [HttpPost("changeEntry/{id}")]
+    //    public IActionResult ChangeEntry(int id, [FromBody] Vaccination vaccination)
+    //    {
+    //        bool status = VaccineService.ChangeEntry(vaccination);
+
+    //        if (status)
+    //        {
+    //            return Ok();
+    //        }
+
+    //        return NotFound();
+    //    }
         //// GET: /<controller>/
         //public IActionResult OpensRegister(string filterField, string? filterValue, string sortBy, bool isAscending,
         //    int pageNumber = 1, int pageSize = 10)
@@ -172,5 +284,5 @@ namespace pis.Controllers
         //{
         //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         //}
-    }
+    
 }
