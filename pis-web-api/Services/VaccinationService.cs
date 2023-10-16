@@ -77,8 +77,8 @@ namespace pis.Services
                         break;
                     case "VaccineType":
                         Vaccinations = isAscending
-                            ? Vaccinations.OrderBy(v => v.VaccinePriceListByLocality.Vaccine.NameVaccine).ToList()
-                            : Vaccinations.OrderByDescending(v => v.VaccinePriceListByLocality.Vaccine.NameVaccine).ToList();
+                            ? Vaccinations.OrderBy(v => v.Vaccine.NameVaccine).ToList()
+                            : Vaccinations.OrderByDescending(v => v.Vaccine.NameVaccine).ToList();
                         break;
                     //case "ValidUntil":
                     //    Vaccinations = isAscending

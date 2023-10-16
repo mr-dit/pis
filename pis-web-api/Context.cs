@@ -29,6 +29,11 @@ namespace pis
                 .WithMany(x => x.Contracts)
                 .HasForeignKey(x => x.CustomerId);
 
+            modelBuilder.Entity<Contract>()
+                .HasMany(x => x.Localities)
+                .WithMany(x => x.Contracts)
+                .UsingEntity(x => x.ToTable("LocalitiesListForContract"));
+
             modelBuilder.Entity<Post>()
                 .HasIndex(x => x.NamePost)
                 .IsUnique();

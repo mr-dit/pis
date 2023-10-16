@@ -70,8 +70,7 @@ namespace pis.Repositorys
                         .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
-                    .Include(x => x.VaccinePriceListByLocality)
-                        .ThenInclude(x => x.Vaccine)
+                    .Include(x => x.Vaccine)
                     .Single();
                 if (vac == null)
                     throw new ArgumentNullException($"Не существует вакцинации с id {id}");
@@ -89,8 +88,7 @@ namespace pis.Repositorys
                         .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
-                    .Include(x => x.VaccinePriceListByLocality)
-                        .ThenInclude(x => x.Vaccine)
+                    .Include(x => x.Vaccine)
                     .Where(x => x.Animal.AnimalName.ToLower().Contains(animal.AnimalName));
                 //if (vac == null)
                 //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
@@ -108,8 +106,7 @@ namespace pis.Repositorys
                         .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
-                    .Include(x => x.VaccinePriceListByLocality)
-                        .ThenInclude(x => x.Vaccine)
+                    .Include(x => x.Vaccine)
                     .Where(x => x.Animal.AnimalName.ToLower().Contains(name));
                 //if (vac == null)
                 //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
@@ -127,8 +124,7 @@ namespace pis.Repositorys
                         .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
-                    .Include(x => x.VaccinePriceListByLocality)
-                        .ThenInclude(x => x.Vaccine)
+                    .Include(x => x.Vaccine)
                     .Where(x => x.VaccinationDate.Date.Equals(date.Date));
                 //if (vac == null)
                 //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
@@ -146,8 +142,7 @@ namespace pis.Repositorys
                         .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
-                    .Include(x => x.VaccinePriceListByLocality)
-                        .ThenInclude(x => x.Vaccine)
+                    .Include(x => x.Vaccine)
                     .Where(x => x.Doctor.LastName.Contains(name));
                 //if (vac == null)
                 //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
@@ -165,8 +160,7 @@ namespace pis.Repositorys
                         .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
-                    .Include(x => x.VaccinePriceListByLocality)
-                        .ThenInclude(x => x.Vaccine)
+                    .Include(x => x.Vaccine)
                     .Where(x => x.Contract.Customer.OrgName.ToLower().Contains(name.ToLower()) ||
                                     x.Doctor.Organisation.OrgName.ToLower().Contains(name.ToLower()));
                 //if (vac == null)
