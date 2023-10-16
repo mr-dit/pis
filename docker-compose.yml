@@ -6,6 +6,14 @@ services:
     build:
       context: .
       dockerfile: pis-web-api/Dockerfile
-    volumes:
-      - ./pis-web-api:/app
-     
+
+  client:
+    image: client
+    build: 
+        context: ./client
+        dockerfile: Dockerfile
+    environment:
+        - ConnectionDB=${connectionDB}
+
+  proxy:
+    image: nginx:mainline
