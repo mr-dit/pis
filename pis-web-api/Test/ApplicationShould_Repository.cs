@@ -18,6 +18,7 @@ namespace pis.Test
             InitVaccine();
             InitAnimals();
             InitOrganisations();
+            InitUsers();
         }
 
         
@@ -104,8 +105,28 @@ namespace pis.Test
             Assert.IsTrue(org1Db[0].OrgName == "Клиника добряков");
             Assert.IsTrue(org1Db[0].OrgType.NameOrgType == OrgTypeRepository.GOV_VETCLINIC.NameOrgType);
         }
-        
+
         // Inits
+        private void InitUsers()
+        {
+            var users = new List<User>()
+            {
+                new User("Веселов", "Михаил", "Константинович", PostRepository.DOCTOR.IdPost, 1),
+                new User("Теплов", "Ярослав", "Игоревич", PostRepository.DOCTOR_SHELTER.IdPost, 5),
+                new User("Рудин", "Валентин", "Константинович", PostRepository.DOCTOR.IdPost, 2),
+                new User("Ширгазина", "Аида", "Владиславовна", PostRepository.KURATOR_OMSU.IdPost, 4),
+                new User("Хорьякова", "Мария", "Дмитриевна", PostRepository.KURATOR_VETSERVICE.IdPost, 1),
+                new User("Мезенцев", "Дмитрий", "Сергеевич", PostRepository.KURATOR_SHELTER.IdPost, 5),
+                new User("Харченко", "Ева", "Андреевна", PostRepository.DOCTOR.IdPost, 2),
+                new User("Абдраман", "Сидик", "Сулейман", PostRepository.KURATOR_VETSERVICE.IdPost, 2)
+            };
+
+            foreach (var user in users)
+            {
+                UserRepository.AddUser(user);
+            }
+        }
+
         private void InitOrganisations()
         {
             var org1 = new Organisation("Клиника добряков", "8282830303", "8173518312",
