@@ -10,6 +10,12 @@ namespace pis.Models
 
         public string NameAnimalCategory { get; set; }
 
+        public AnimalCategory() { }
+        public AnimalCategory(string name)
+        {
+            NameAnimalCategory = name;
+        }
+
         public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is AnimalCategory)) return false;

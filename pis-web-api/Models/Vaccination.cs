@@ -14,14 +14,17 @@ public class Vaccination
     public Animal Animal { get; set; }
 
     public DateTime VaccinationDate { get; set; }
-    public int VaccinePriceListByLocalityId { get; set; }
-    public VaccinePriceListByLocality VaccinePriceListByLocality { get; set; }
+
+    public int VaccineId { get; set; }
+    public Vaccine? Vaccine { get; set; }
 
     public int DoctorId { get; set; }
-    public User Doctor { get; set; }
+    public User? Doctor { get; set; }
 
     public int ContractId { get; set; }
-    public Contract Contract { get; set; }
+    public Contract? Contract { get; set; }
+
+    public Vaccination() { }
 
     //public Vaccination(int idVactination, Animal animal, DateTime vaccinationDate, VaccinePriceListByLocality vaccinePriceListByLocality, User doctor, Contract contract)
     //{

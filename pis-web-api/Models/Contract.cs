@@ -20,7 +20,7 @@ namespace pis.Models
 
         //public List<Locality> Localities { get; set; }
 
-        public List<VaccinePriceListByLocality> VaccinePriceListByLocality { get; set; }
+        public List<Locality> Localities { get; set; }
 
         public List<Vaccination>? Vaccinations { get; set; }
 

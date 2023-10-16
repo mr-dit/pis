@@ -18,6 +18,8 @@ namespace pis.Test
             InitVaccine();
             InitAnimals();
             InitOrganisations();
+            InitUsers();
+            //InitPticeList();
         }
 
         
@@ -75,11 +77,11 @@ namespace pis.Test
         [Test] 
         public static void GetVaccine()
         {
-            //var vaccine1FromDb = VaccineRepository.GetVaccineByName("Блошинка");
-            //var vaccine2FromDb = VaccineRepository.GetVaccineByName("Бешенство");
+            var vaccine1FromDb = VaccineRepository.GetVaccineByName("Блошинка");
+            var vaccine2FromDb = VaccineRepository.GetVaccineByName("Бешенство");
 
-            //Assert.IsTrue(vaccine1FromDb.NameVaccine == "Блошинка" && vaccine1FromDb.ValidDaysVaccine == 90);
-            //Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
+            Assert.IsTrue(vaccine1FromDb.NameVaccine == "Блошинка" && vaccine1FromDb.ValidDaysVaccine == 90);
+            Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
         }
 
         [Test]
@@ -104,8 +106,33 @@ namespace pis.Test
             Assert.IsTrue(org1Db[0].OrgName == "Клиника добряков");
             Assert.IsTrue(org1Db[0].OrgType.NameOrgType == OrgTypeRepository.GOV_VETCLINIC.NameOrgType);
         }
-        
+
         // Inits
+        private void InitPriceList()
+        {
+
+        }
+
+        private void InitUsers()
+        {
+            var users = new List<User>()
+            {
+                new User("Веселов", "Михаил", "Константинович", PostRepository.DOCTOR.IdPost, 1),
+                new User("Теплов", "Ярослав", "Игоревич", PostRepository.DOCTOR_SHELTER.IdPost, 5),
+                new User("Рудин", "Валентин", "Константинович", PostRepository.DOCTOR.IdPost, 2),
+                new User("Ширгазина", "Аида", "Владиславовна", PostRepository.KURATOR_OMSU.IdPost, 4),
+                new User("Хорьякова", "Мария", "Дмитриевна", PostRepository.KURATOR_VETSERVICE.IdPost, 1),
+                new User("Мезенцев", "Дмитрий", "Сергеевич", PostRepository.KURATOR_SHELTER.IdPost, 5),
+                new User("Харченко", "Ева", "Андреевна", PostRepository.DOCTOR.IdPost, 2),
+                new User("Абдраман", "Сидик", "Сулейман", PostRepository.KURATOR_VETSERVICE.IdPost, 2)
+            };
+
+            foreach (var user in users)
+            {
+                UserRepository.AddUser(user);
+            }
+        }
+
         private void InitOrganisations()
         {
             var org1 = new Organisation("Клиника добряков", "8282830303", "8173518312",
@@ -150,32 +177,46 @@ namespace pis.Test
 
         private void InitVaccine()
         {
-            var vaccine1 = new Vaccine("Блошинка", 90);
-            var vaccine2 = new Vaccine("Бешенство", 180);
+            var vaccines = new List<Vaccine>()
+            {
+                new Vaccine("Блошинка", 90),
+                new Vaccine("Бешенство", 180),
+                new Vaccine("От всего", 14),
+                new Vaccine("Плацебло", 365),
+                new Vaccine("Спутник", 180),
+                new Vaccine("RISC - V", 666)
+            };
 
-            VaccineRepository.AddVaccine(vaccine1);
-            VaccineRepository.AddVaccine(vaccine2);
+            foreach (var vaccine in vaccines)
+            {
+                VaccineRepository.AddVaccine(vaccine);
+            }
         }
 
         private void InitLocality()
         {
-            var localityTyumen = new Locality();
-            localityTyumen.NameLocality = "Тюмень";
+            var localities = new List<Locality>()
+            {
+                new Locality("Тюмень"),
+                new Locality("Зубарева"),
+                new Locality("Яр"),
+                new Locality("Ембаево"),
+                new Locality("Патрушева"),
+                new Locality("Луговое"),
+                new Locality("Боровский"),
+                new Locality("Андреевский"),
+            };
 
-            var localityZubareva = new Locality();
-            localityZubareva.NameLocality = "Зубарева";
-
-            LocalityRepository.AddLocality(localityTyumen);
-            LocalityRepository.AddLocality(localityZubareva);
+            foreach (var locality in localities)
+            {
+                LocalityRepository.AddLocality(locality);
+            }
         }
 
         private void InitAnimalCategories()
         {
-            var animalCategoryCat = new AnimalCategory();
-            animalCategoryCat.NameAnimalCategory = "Кот";
-
-            var animalCategoryDog = new AnimalCategory();
-            animalCategoryDog.NameAnimalCategory = "Собака";
+            var animalCategoryCat = new AnimalCategory("Кот");
+            var animalCategoryDog = new AnimalCategory("Собака");
 
             AnimalCategoryRepository.AddAnimalCategory(animalCategoryCat);
             AnimalCategoryRepository.AddAnimalCategory(animalCategoryDog);
@@ -183,11 +224,8 @@ namespace pis.Test
 
         private void InitGenders()
         {
-            var male = new Gender();
-            male.NameGender = "Мужской";
-
-            var female = new Gender();
-            female.NameGender = "Женский";
+            var male = new Gender("Мужской");
+            var female = new Gender("Женский");
 
             GenderRepository.AddGender(male);
             GenderRepository.AddGender(female);

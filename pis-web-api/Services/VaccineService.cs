@@ -1,12 +1,11 @@
-﻿using pis.Models;
+﻿using NUnit.Framework;
+using pis.Models;
 using pis.Repositorys;
 
 namespace pis_web_api.Services
 {
     public class VaccineService
     {
-        private static List<Vaccine> Vaccines { get; set; } = new List<Vaccine>();
-
         public static bool FillData(Vaccine vaccine)
         {
             bool status = VaccineRepository.AddVaccine(vaccine);
@@ -25,39 +24,25 @@ namespace pis_web_api.Services
             return entry;
         }
 
-        public static List<Vaccine> GetVaccines(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
+        public static (List<Vaccine>, int) GetVaccines(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
         {
+            List<Vaccine> vaccines;
+            int count;
             switch (filterField)
             {
                 case nameof(Vaccine.NameVaccine):
-                    Vaccines = VaccineRepository.GetVaccinesByName(filterValue, pageNumber, pageSize);
+                    (vaccines, count) = VaccineRepository.GetVaccinesByName(filterValue, pageNumber, pageSize, sortBy, isAscending);
                     break;
-
-                case nameof(Vaccine.IdVaccine):
-                    //Vaccines = VaccineRepository.GetVaccinesById(filterValue, pageNumber, pageSize);
-                    //break;
 
                 case "":
-
+                    (vaccines, count) = VaccineRepository.GetVaccinesByName(filterValue, pageNumber, pageSize, sortBy, isAscending);
                     break;
+
                 default:
                     throw new ArgumentException("Нет такого поля для фильтрации");
             }
-            // Сортировка
-            if (!string.IsNullOrEmpty(sortBy))
-            {
-                switch (sortBy)
-                {
-                    case nameof(Vaccine.NameVaccine):
-                        Vaccines = isAscending ? Vaccines.OrderBy(a => a.NameVaccine).ToList() : Vaccines.OrderByDescending(a => a.NameVaccine).ToList();
-                        break;
-                }
-            }
 
-            // Пагинация
-            var animalsPag = Vaccines.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-            return animalsPag;
+            return (vaccines, count);
         }
 
 
@@ -65,11 +50,6 @@ namespace pis_web_api.Services
         {
             bool status = VaccineRepository.UpdateVaccine(animal);
             return status;
-        }
-
-        public static int GetTotalVaccines(string filterField, string? filterValue)
-        {
-            return Vaccines.Count;
         }
     }
 }
