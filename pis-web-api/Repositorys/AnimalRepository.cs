@@ -34,8 +34,8 @@ namespace pis.Repositorys
                     .Include(x => x.Gender)
                     .Include(x => x.AnimalCategory)
                     .Include(x => x.Locality);
-                if (animals.Count() == 0)
-                    throw new ArgumentException($"Не существует животных");
+                //if (animals.Count() == 0)
+                //    throw new ArgumentException($"Не существует животных");
                 return animals.ToList();
             }
         }

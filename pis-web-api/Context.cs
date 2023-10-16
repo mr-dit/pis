@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using pis.Models;
 
 namespace pis
@@ -11,15 +12,17 @@ namespace pis
         {
             if (!isCreate)
             {
-                Database.EnsureDeleted();
-                Database.EnsureCreated();
+                //Database.EnsureDeleted();
+                //Database.EnsureCreated();
                 isCreate = true;
             }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"host=mks-server.tplinkdns.com;port=5432;Database=vaccinations;Username=mksti;Password=mks;Include Error Detail=true");
+            string stringConnection = Environment.GetEnvironmentVariable("dbStringConectionPostgres", EnvironmentVariableTarget.Machine);
+            optionsBuilder.UseNpgsql(stringConnection);
+            //host=mks-server.tplinkdns.com;port=5432;Database=vaccinations;Username=mksti;Password=mks;Include Error Detail=true
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
