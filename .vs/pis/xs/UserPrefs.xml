@@ -1,22 +1,27 @@
-﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{BFD21E55-72EC-49A8-AA92-135392EDB34A}|https">
+﻿<Properties StartupConfiguration="{BFD21E55-72EC-49A8-AA92-135392EDB34A}|https" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.pis PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Views/Vaccine/OpensRegister.cshtml">
     <Files>
-      <File FileName="Controllers/VaccineController.cs" Line="67" Column="20" />
-      <File FileName="Models/Vaccination.cs" Line="7" Column="36" />
-      <File FileName="Services/VaccineService.cs" Line="10" Column="9" />
-      <File FileName="Models/StatisticsItem.cs" Line="16" Column="8" />
+      <File FileName="Controllers/VaccineController.cs" />
+      <File FileName="Models/Vaccination.cs" />
+      <File FileName="Services/VaccineService.cs" />
+      <File FileName="Models/StatisticsItem.cs" />
       <File FileName="Views/Vaccine/OpensRegister.cshtml" Line="7" Column="1" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="37" Column="125" />
-      <File FileName="Controllers/StatisticaController.cs" Line="60" Column="53" />
-      <File FileName="Services/StatisticaService.cs" Line="25" Column="38" />
-      <File FileName="Views/Statistica/Statistica.cshtml" Line="1" Column="33" />
-      <File FileName="Views/Animal/OpensRegister.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Account/Login.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Animal/AddEntry.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Animal/ChangeEntry.cshtml" Line="1" Column="1" />
-      <File FileName="Controllers/OrganisationController.cs" Line="83" Column="31" />
-      <File FileName="Controllers/AnimalController.cs" Line="46" Column="5" />
-      <File FileName="Repositorys/VaccineRepository.cs" Line="1" Column="1" />
+      <File FileName="Views/Shared/_Layout.cshtml" />
+      <File FileName="Controllers/StatisticaController.cs" />
+      <File FileName="Services/StatisticaService.cs" />
+      <File FileName="Views/Statistica/Statistica.cshtml" />
+      <File FileName="Views/Animal/OpensRegister.cshtml" />
+      <File FileName="Views/Account/Login.cshtml" />
+      <File FileName="Views/Animal/AddEntry.cshtml" />
+      <File FileName="Views/Animal/ChangeEntry.cshtml" />
+      <File FileName="Controllers/OrganisationController.cs" />
+      <File FileName="Controllers/AnimalController.cs" />
+      <File FileName="Repositorys/VaccineRepository.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -51,11 +56,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.pis PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
 </Properties>

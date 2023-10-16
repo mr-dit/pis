@@ -950,26 +950,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\d.mezentsev\\.nuget\\packages\\": {}
+    "/Users/evakharchenko/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\d.mezentsev\\projects\\pis\\pis.csproj",
+      "projectUniqueName": "/Users/evakharchenko/Projects/pis/pis.csproj",
       "projectName": "pis",
-      "projectPath": "C:\\Users\\d.mezentsev\\projects\\pis\\pis.csproj",
-      "packagesPath": "C:\\Users\\d.mezentsev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\d.mezentsev\\projects\\pis\\obj\\",
+      "projectPath": "/Users/evakharchenko/Projects/pis/pis.csproj",
+      "packagesPath": "/Users/evakharchenko/.nuget/packages/",
+      "outputPath": "/Users/evakharchenko/Projects/pis/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\d.mezentsev\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/evakharchenko/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1012,7 +1010,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.103/RuntimeIdentifierGraph.json"
       }
     }
   }
