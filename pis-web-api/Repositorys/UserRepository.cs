@@ -36,7 +36,7 @@ namespace pis.Repositorys
                 }
                 catch (Exception)
                 {
-                    return false;
+                    throw new Exception();
                 }
                 return true;
             }
@@ -66,7 +66,7 @@ namespace pis.Repositorys
                 var user = db.Users
                     .Where(x => x.IdUser == id)
                     .Include(x => x.Organisation)
-                    .Include(x => x.Post)
+                    .Include(x => x.Roles)
                     .Single();
                 if (user == null)
                     throw new ArgumentNullException($"Не существует пользователя с id {id}");
@@ -102,11 +102,11 @@ namespace pis.Repositorys
         public static (List<User>, int) GetUsersByLastName(string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetUsersByFunc((x => string.IsNullOrEmpty(name) || x.LastName.Contains(name)), name, pageNumber, pageSize, sortBy, isAscending);
 
-        public static (List<User>, int) GetUsersByPost(string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
-            GetUsersByFunc((x => string.IsNullOrEmpty(name) || x.Post.NamePost.Contains(name)), name, pageNumber, pageSize, sortBy, isAscending);
+        //public static (List<User>, int) GetUsersByPost(string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
+        //    GetUsersByFunc((x => string.IsNullOrEmpty(name) || x.Post.NamePost.Contains(name)), name, pageNumber, pageSize, sortBy, isAscending);
 
         public static (List<User>, int) GetUsersByOrganisation(string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
-            GetUsersByFunc((x => string.IsNullOrEmpty(name) || x.Post.NamePost.Contains(name)), name, pageNumber, pageSize, sortBy, isAscending);
+            GetUsersByFunc((x => string.IsNullOrEmpty(name) || x.Organisation.OrgName.Contains(name)), name, pageNumber, pageSize, sortBy, isAscending);
     }
 
     static class UserExtension
@@ -129,8 +129,10 @@ namespace pis.Repositorys
                     case nameof(User.Organisation):
                         users = isAscending ? users.OrderBy(a => a.Organisation.OrgName) : users.OrderByDescending(a => a.Organisation.OrgName);
                         break;
-                    case nameof(User.Post):
-                        users = isAscending ? users.OrderBy(a => a.Post.NamePost) : users.OrderByDescending(a => a.Post.NamePost);
+                    //case nameof(User.Roles):
+                    //    users = isAscending ? users.OrderBy(a => a.Roles.NamePost) : users.OrderByDescending(a => a.Post.NamePost);
+                    //    break;
+                    default:
                         break;
                 }
             }

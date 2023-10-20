@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using pis.Repositorys;
+using pis_web_api.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace pis.Models
 {
@@ -7,29 +9,46 @@ namespace pis.Models
         [Key]
         public int IdUser { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
         public string Surname { get; set; }
 
-        public int PostId { get; set; }
+        public string FirstName { get; set; }
 
-        public Post? Post { get; set; }
+        public string LastName { get; set; }        
 
         public int OrganisationId { get; set; }
 
         public Organisation? Organisation { get; set; }
 
+        public List<UserRole>? Roles { get; set; }
+
         public User() { }
 
-        public User(string surName, string firstName, string lastName, int postId, int organizationId)
+        public User(string surName, string firstName, string lastName, int organizationId)
         {
             Surname = surName;
             FirstName = firstName;
             LastName = lastName;
-            PostId = postId;
             OrganisationId = organizationId;
+        }
+
+        public bool AddRoles(params Role[] roles)
+        {
+            var unique = roles.GroupBy(x => x.IdRole).Select(x => x.Key);
+
+            if (unique.Count() != roles.Count())
+                return false;
+
+            foreach (var role in roles)
+            {
+                var userRole = new UserRole(this, role);
+                UserRoleRepository.Create(userRole);
+            }
+
+            UserRepository.UpdateUser(this);
+            //Roles ??= new List<Role>();
+            //Roles.AddRange(roles);
+
+            return true;
         }
         //public User(int idUser, string firstName, string lastName, string surname, Post post, Organisation organisation, List<Vaccination> vaccinations)
         //{

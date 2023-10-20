@@ -10,12 +10,6 @@ namespace pis.Repositorys
 {
     public class VaccineRepository
     {
-        //private static List<Vaccine> vaccines = new List<Vaccine>
-        //{
-        //    new Vaccine (1, "Бешенный", 20),
-        //    new Vaccine (2, "Блошинка", 90)
-        //};
-
         public static bool AddVaccine(Vaccine vaccine)
         {
             using (var db = new Context())

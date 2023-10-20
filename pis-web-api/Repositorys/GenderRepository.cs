@@ -4,11 +4,11 @@ namespace pis.Repositorys
 {
     public class GenderRepository
     {
-        //private static List<Gender> genders = new List<Gender>()
-        //{
-        //    new Gender(1, "Муж"),
-        //    new Gender(2, "Жен")
-        //};
+        private static Lazy<Gender> male = new Lazy<Gender>(() => GetGenderByName("Мужской"));
+        private static Lazy<Gender> female = new Lazy<Gender> (() => GetGenderByName("Женский"));
+
+        public static Gender MALE => male.Value;
+        public static Gender FEMALE => female.Value;
 
         public static void AddGender(Gender name)
         {
@@ -19,7 +19,7 @@ namespace pis.Repositorys
             }
         }
 
-        public static Gender GetGenderByName(string name)
+        private static Gender GetGenderByName(string name)
         {
             using (var db = new Context())
             {
@@ -29,8 +29,5 @@ namespace pis.Repositorys
                 return gender;
             }
         }
-
-        public static Gender MALE => GetGenderByName("Мужской");
-        public static Gender FEMALE => GetGenderByName("Женский");
     }
 }

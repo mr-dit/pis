@@ -18,6 +18,8 @@ builder.Services.AddControllers()
     {
         x.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
     });
+
+
 // Add services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,7 +28,7 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Models;
+using pis_web_api.Services;
 
 namespace pis.Test
 {
@@ -14,15 +16,22 @@ namespace pis.Test
             InitLocality();
             InitGenders();
             InitOrgTypes();
-            InitPosts();
+            InitRoles();
             InitVaccine();
             InitAnimals();
             InitOrganisations();
             InitUsers();
-            //InitPticeList();
+            InitContracts();
+            InitVaccinations();
         }
 
-        
+        [Test]
+        public static void GetUser()
+        {
+            var user = UserRepository.GetUserById(1);
+
+            Assert.IsTrue(user.Roles.Count() == 4);
+        }
 
         [Test]
         public static void GetAnimalCategory()
@@ -47,7 +56,7 @@ namespace pis.Test
         [Test]
         public static void GetGender()
         {
-            var maleFromDb = GenderRepository.GetGenderByName("Мужской");
+            var maleFromDb = GenderRepository.MALE;
             var femaleFromDb = GenderRepository.FEMALE;
 
             Assert.IsTrue(maleFromDb.NameGender == "Мужской");
@@ -67,11 +76,11 @@ namespace pis.Test
         [Test]
         public static void GetPosts()
         {
-            var doctorFromDb = PostRepository.GetPostByName("Ветврач приюта");
-            var kuratorOMSUFromDb = PostRepository.KURATOR_OMSU;
+            var doctorFromDb = RoleRepository.GetRoleByName("Ветврач приюта");
+            var kuratorOMSUFromDb = RolesService.KURATOR_OMSU;
 
-            Assert.IsTrue(doctorFromDb.NamePost == "Ветврач приюта");
-            Assert.IsTrue(kuratorOMSUFromDb.NamePost == "Куратор ОМСУ");
+            Assert.IsTrue(doctorFromDb.NameRole == "Ветврач приюта");
+            Assert.IsTrue(kuratorOMSUFromDb.NameRole == "Куратор ОМСУ");
         }
 
         [Test] 
@@ -108,29 +117,105 @@ namespace pis.Test
         }
 
         // Inits
-        private void InitPriceList()
+        private void InitVaccinations()
         {
+            var vaccinations = new List<Vaccination>()
+            {
+                new Vaccination("9823983298", AnimalRepository.GetAnimalById(1), 
+                VaccineRepository.GetVaccineById(1), UserRepository.GetUserById(1), 
+                ContractsRepository.GetContractById(1)),
 
+                new Vaccination("12312321321", AnimalRepository.GetAnimalById(2),
+                VaccineRepository.GetVaccineById(2), UserRepository.GetUserById(3),
+                ContractsRepository.GetContractById(2)),
+
+                new Vaccination("3425342542325", AnimalRepository.GetAnimalById(3),
+                VaccineRepository.GetVaccineById(3), UserRepository.GetUserById(2),
+                ContractsRepository.GetContractById(4)),
+
+                new Vaccination("56758675687", AnimalRepository.GetAnimalById(4),
+                VaccineRepository.GetVaccineById(1), UserRepository.GetUserById(1),
+                ContractsRepository.GetContractById(1))
+            };
+
+            foreach (var vaccination in vaccinations)
+            {
+                VaccinationRepository.AddVacciantion(vaccination);
+            }
+        }
+
+        private void InitContracts()
+        {
+            var contracts = new List<Contract>()
+            {
+                new Contract(DateTime.Today.AddDays(365), 
+                OrganisationsRepository.GetOrganisationById(4), 
+                OrganisationsRepository.GetOrganisationById(1)),
+
+                new Contract(DateTime.Today.AddDays(180),
+                OrganisationsRepository.GetOrganisationById(4),
+                OrganisationsRepository.GetOrganisationById(2)),
+
+                new Contract(DateTime.Today.AddDays(730),
+                OrganisationsRepository.GetOrganisationById(4),
+                OrganisationsRepository.GetOrganisationById(3)),
+
+                new Contract(DateTime.Today.AddDays(90),
+                OrganisationsRepository.GetOrganisationById(4),
+                OrganisationsRepository.GetOrganisationById(5)),
+
+                new Contract(DateTime.Today.AddDays(90),
+                OrganisationsRepository.GetOrganisationById(5),
+                OrganisationsRepository.GetOrganisationById(1)),
+            };
+
+            foreach (var contract in contracts)
+            {
+                ContractsRepository.CreateContract(contract);
+            }
+
+            contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
+            contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(2), 1200);
+            contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(3), 1100);
+            contracts[1].AddLocalitisList(LocalityRepository.GetLocalityById(1), 900);
+            contracts[1].AddLocalitisList(LocalityRepository.GetLocalityById(4), 950);
+            contracts[2].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1999);
+            contracts[2].AddLocalitisList(LocalityRepository.GetLocalityById(2), 2100);
+            contracts[3].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
+            contracts[3].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
+            contracts[4].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1299);
         }
 
         private void InitUsers()
         {
             var users = new List<User>()
             {
-                new User("Веселов", "Михаил", "Константинович", PostRepository.DOCTOR.IdPost, 1),
-                new User("Теплов", "Ярослав", "Игоревич", PostRepository.DOCTOR_SHELTER.IdPost, 5),
-                new User("Рудин", "Валентин", "Константинович", PostRepository.DOCTOR.IdPost, 2),
-                new User("Ширгазина", "Аида", "Владиславовна", PostRepository.KURATOR_OMSU.IdPost, 4),
-                new User("Хорьякова", "Мария", "Дмитриевна", PostRepository.KURATOR_VETSERVICE.IdPost, 1),
-                new User("Мезенцев", "Дмитрий", "Сергеевич", PostRepository.KURATOR_SHELTER.IdPost, 5),
-                new User("Харченко", "Ева", "Андреевна", PostRepository.DOCTOR.IdPost, 2),
-                new User("Абдраман", "Сидик", "Сулейман", PostRepository.KURATOR_VETSERVICE.IdPost, 2)
+                new User("Веселов", "Михаил", "Константинович", 1),
+                new User("Теплов", "Ярослав", "Игоревич", 5),
+                new User("Рудин", "Валентин", "Константинович", 2),
+                new User("Ширгазина", "Аида", "Владиславовна", 4),
+                new User("Хорьякова", "Мария", "Дмитриевна", 1),
+                new User("Мезенцев", "Дмитрий", "Сергеевич", 5),
+                new User("Харченко", "Ева", "Андреевна", 2),
+                new User("Абдраман", "Сидик", "Сулейман", 2)
             };
 
             foreach (var user in users)
             {
                 UserRepository.AddUser(user);
             }
+
+            users[0].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
+                RolesService.OPERATOR_VETSERVICE, RolesService.SIGNER_VETSERVICE);
+            users[1].AddRoles(RolesService.DOCTOR, RolesService.DOCTOR_SHELTER,
+                RolesService.OPERATOR_SHELTER, RolesService.KURATOR_SHELTER);
+            users[2].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
+                RolesService.OPERATOR_VETSERVICE, RolesService.SIGNER_VETSERVICE);
+            users[3].AddRoles(RolesService.KURATOR_OMSU, RolesService.OPERATOR_OMSU, RolesService.SIGNER_OMSU);
+            users[4].AddRoles(RolesService.DOCTOR);
+            users[5].AddRoles(RolesService.DOCTOR_SHELTER);
+            users[6].AddRoles(RolesService.KURATOR_VETSERVICE);
+            users[7].AddRoles(RolesService.OPERATOR_VETSERVICE);
         }
 
         private void InitOrganisations()
@@ -256,29 +341,29 @@ namespace pis.Test
 
         }
 
-        private void InitPosts()
+        private void InitRoles()
         {
-            var posts = new List<Post>()
+            var roles = new List<Role>()
             {
-                new Post("Куратор ВетСлужбы"),
-                new Post("Куратор по отлову"),
-                new Post("Куратор приюта"),
-                new Post("Оператор ВетСлужбы"),
-                new Post("Оператор по отлову"),
-                new Post("Подписант ВетСлужбы"),
-                new Post("Подписант по отлову"),
-                new Post("Подписант приюта"),
-                new Post("Куратор ОМСУ"),
-                new Post("Оператор ОМСУ"),
-                new Post("Подписант ОМСУ"),
-                new Post("Оператор приюта"),
-                new Post("Ветврач"),
-                new Post("Ветврач приюта")
+                new Role("Куратор ВетСлужбы"),
+                new Role("Куратор по отлову"),
+                new Role("Куратор приюта"),
+                new Role("Оператор ВетСлужбы"),
+                new Role("Оператор по отлову"),
+                new Role("Подписант ВетСлужбы"),
+                new Role("Подписант по отлову"),
+                new Role("Подписант приюта"),
+                new Role("Куратор ОМСУ"),
+                new Role("Оператор ОМСУ"),
+                new Role("Подписант ОМСУ"),
+                new Role("Оператор приюта"),
+                new Role("Ветврач"),
+                new Role("Ветврач приюта")
             };
 
-            foreach (var post in posts)
+            foreach (var role in roles)
             {
-                PostRepository.AddPost(post);
+                RoleRepository.AddRole(role);
             }
         }
     }

@@ -37,7 +37,7 @@ namespace pis.Services
                         Contracts = ContractsRepository.GetContractsByOrganisationName(filterValue).ToList();
                         break;
                     case "conclusiondate":
-                        Contracts = ContractsRepository.GetContractsByDate(DateTime.Parse(filterValue)).ToList();
+                        Contracts = ContractsRepository.GetContractsByDate(DateOnly.Parse(filterValue)).ToList();
                         break;
                     // Добавьте остальные варианты полей
                     default:

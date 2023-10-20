@@ -41,7 +41,7 @@ namespace pis.Services
                         Vaccinations = VaccinationRepository.GetVaccinationsByAnimalName(filterValue).ToList();
                         break;
                     case "vaccinationdate":
-                        Vaccinations = VaccinationRepository.GetVaccinationsByDate(DateTime.Parse(filterValue)).ToList();
+                        Vaccinations = VaccinationRepository.GetVaccinationsByDate(DateOnly.Parse(filterValue)).ToList();
                         break;
                     case "veterinarianfullname":
                         Vaccinations = VaccinationRepository.GetVaccinationsByDoctorName(filterValue).ToList();

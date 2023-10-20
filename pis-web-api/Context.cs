@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using pis.Models;
+using pis_web_api.Models;
 
 namespace pis
 {
@@ -12,16 +13,17 @@ namespace pis
         {
             if (!isCreate)
             {
-                //Database.EnsureDeleted();
-                //Database.EnsureCreated();
+                Database.EnsureDeleted();
+                Database.EnsureCreated();
                 isCreate = true;
             }
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string stringConnection = Environment.GetEnvironmentVariable("dbStringConectionPostgres", EnvironmentVariableTarget.Machine);
-            optionsBuilder.UseNpgsql(stringConnection);
+            //string stringConnection = Environment.GetEnvironmentVariable("dbStringConectionPostgres", EnvironmentVariableTarget.Machine);
+            optionsBuilder.UseNpgsql("host=mks-server.tplinkdns.com;port=5432;Database=vaccinations;Username=mksti;Password=mks;Include Error Detail=true");
             //host=mks-server.tplinkdns.com;port=5432;Database=vaccinations;Username=mksti;Password=mks;Include Error Detail=true
         }
 
@@ -29,16 +31,25 @@ namespace pis
         {
             modelBuilder.Entity<Contract>()
                 .HasOne(x => x.Customer)
-                .WithMany(x => x.Contracts)
+                .WithMany(x => x.ContractsAsCustomer)
                 .HasForeignKey(x => x.CustomerId);
 
             modelBuilder.Entity<Contract>()
-                .HasMany(x => x.Localities)
-                .WithMany(x => x.Contracts)
-                .UsingEntity(x => x.ToTable("LocalitiesListForContract"));
+                .HasOne(x => x.Performer)
+                .WithMany(x => x.ContractsAsPerformer)
+                .HasForeignKey(x => x.PerformerId);
 
-            modelBuilder.Entity<Post>()
-                .HasIndex(x => x.NamePost)
+            //modelBuilder.Entity<User>()
+            //    .HasMany(x => x.Roles)
+            //    .WithMany(x => x.)
+
+            //modelBuilder.Entity<Contract>()
+            //    .HasMany(x => x.Localities)
+            //    .WithMany(x => x.Contract)
+            //    .UsingEntity(x => x.ToTable("LocalitiesListForContract"));
+
+            modelBuilder.Entity<Role>()
+                .HasIndex(x => x.NameRole)
                 .IsUnique();
 
             modelBuilder.Entity<Gender>()
@@ -56,12 +67,13 @@ namespace pis
             modelBuilder.Entity<OrgType>()
                 .HasIndex(x => x.NameOrgType)
                 .IsUnique();
+
         }
 
         public DbSet<Locality> Localitis { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<OrgType> OrgTypes { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<AnimalCategory> AnimalCategories { get; set; }
 
         public DbSet<Animal> Animals { get; set; }
@@ -69,7 +81,8 @@ namespace pis
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<Vaccine> Vaccines { get; set; }
         public DbSet<Vaccination> Vaccinations { get; set; }
-        public DbSet<VaccinePriceListByLocality> PriceList { get; set; }
+        public DbSet<LocalitisListForContract> LocalitisListForContract { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRole {  get; set; }
     }
 }

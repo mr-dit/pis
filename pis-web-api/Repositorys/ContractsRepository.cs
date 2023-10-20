@@ -93,27 +93,27 @@ public class ContractsRepository
         }
     }
 
-    public static IQueryable<Contract> GetContractsByDate(DateTime Date)
+    public static IQueryable<Contract> GetContractsByDate(DateOnly date)
     {
         using (var db = new Context())
         {
             var cons = db.Contracts
-                .Where(con => Date.Date == con.ConclusionDate.Date);
+                .Where(con => date == con.ConclusionDate);
             if (cons.Count() == 0)
-                throw new ArgumentException($"Не существует контрактов {Date.ToShortDateString()}");
+                throw new ArgumentException($"Не существует контрактов {date.ToShortDateString()}");
             return cons;
         }
     }
 
     // Переделать чтоб работало с 2 датами, а не с одной
-    public static IQueryable<Contract> GetContractsByDate(DateTime FromDate, DateTime ToDate)
+    public static IQueryable<Contract> GetContractsByDate(DateOnly fromDate, DateOnly toDate)
     {
         using (var db = new Context())
         {
             var cons = db.Contracts
-                .Where(con => FromDate.Date < con.ConclusionDate.Date || ToDate.Date > con.ConclusionDate.Date);
-            if (cons.Count() == 0)
-                throw new ArgumentException($"Не существует контрактов в периоде дат {FromDate.ToShortDateString()} - {ToDate.ToShortDateString()}");
+                .Where(con => fromDate < con.ConclusionDate || toDate > con.ConclusionDate);
+            //if (cons.Count() == 0)
+            //    throw new ArgumentException($"Не существует контрактов в периоде дат {fromDate.ToShortDateString()} - {toDate.ToShortDateString()}");
             return cons;
         }
     }

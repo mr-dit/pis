@@ -38,9 +38,9 @@ namespace pis_web_api.Services
                 case nameof(User.LastName):
                     (vaccines, count) = UserRepository.GetUsersByLastName(filterValue, pageNumber, pageSize, sortBy, isAscending);
                     break;
-                case nameof(User.Post):
-                    (vaccines, count) = UserRepository.GetUsersByPost(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
+                //case nameof(User.Roles):
+                //    (vaccines, count) = UserRepository.GetUsersByRole(filterValue, pageNumber, pageSize, sortBy, isAscending);
+                //    break;
                 case nameof(User.Organisation):
                     (vaccines, count) = UserRepository.GetUsersByOrganisation(filterValue, pageNumber, pageSize, sortBy, isAscending);
                     break;

@@ -59,6 +59,11 @@ namespace pis.Models
         {
 
         }
+
+        public void AddVaccination(Vaccination vaccination)
+        {
+            Vaccinations.Add(vaccination);
+        }
     }
 }
 
