@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using pis.Models;
 using pis.Repositorys;
 
@@ -27,73 +28,34 @@ namespace pis.Services
 			return entry;
 		}
 
-		public static List<Animal> GetAnimals(string filterField, string? filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
+		public static (List<Animal>, int) GetAnimals(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
 		{
-			filterValue = filterValue?.ToLower();
-			
-
-			if (!string.IsNullOrEmpty(filterField) && !string.IsNullOrEmpty(filterValue))
+			var filterFields = new Dictionary<string, (List<Animal>, int)>(StringComparer.InvariantCultureIgnoreCase)
 			{
-				switch (filterField.ToLower())
-				{
-					case "animalcategory":
-						Animals = AnimalRepository.GetAnimalsByAnimalCategory(AnimalCategoryRepository.GetAnimalCategoryByName(filterValue)).ToList();
-						break;
-					case "electronicchipnumber":
-                        Animals = AnimalRepository.GetAnimalsByChipNymber(filterValue).ToList();
-						break;
-					case "animalname":
-                        Animals = AnimalRepository.GetAnimalsByName(filterValue).ToList();
-						break;
-					// Добавьте остальные варианты полей
-					default:
-						break;
-				}
-			}
-			else
-			{
-                Animals = AnimalRepository.GetFirstAnimals(pageSize);
-            }
+				[nameof(Animal.AnimalCategory)] =
+				AnimalRepository.GetAnimalsByAnimalCategory(
+					filterValue,
+					pageNumber, pageSize, sortBy, isAscending),
 
-			// Сортировка
-			if (!string.IsNullOrEmpty(sortBy))
-			{
-				switch (sortBy)
-				{
-					case "RegistrationNumber":
-                        Animals = isAscending ? Animals.OrderBy(a => a.RegistrationNumber).ToList() : Animals.OrderByDescending(a => a.RegistrationNumber).ToList();
-						break;
-					case "Locality":
-						Animals = isAscending ? Animals.OrderBy(a => a.Locality).ToList() : Animals.OrderByDescending(a => a.Locality).ToList();
-						break;
-					case "AnimalCategory":
-                        Animals = isAscending ? Animals.OrderBy(a => a.AnimalCategory).ToList() : Animals.OrderByDescending(a => a.AnimalCategory).ToList();
-						break;
-					case "Gender":
-                        Animals = isAscending ? Animals.OrderBy(a => a.Gender).ToList() : Animals.OrderByDescending(a => a.Gender).ToList();
-						break;
-					case "YearOfBirth":
-                        Animals = isAscending ? Animals.OrderBy(a => a.YearOfBirth).ToList() : Animals.OrderByDescending(a => a.YearOfBirth).ToList();
-						break;
-					case "ElectronicChipNumber":
-                        Animals = isAscending ? Animals.OrderBy(a => a.ElectronicChipNumber).ToList() : Animals.OrderByDescending(a => a.ElectronicChipNumber).ToList();
-						break;
-					case "AnimalName":
-                        Animals = isAscending ? Animals.OrderBy(a => a.AnimalName).ToList() : Animals.OrderByDescending(a => a.AnimalName).ToList();
-						break;
-				}
-			}
+				[nameof(Animal.ElectronicChipNumber)] =
+				AnimalRepository.GetAnimalsByChipNumber(filterValue, pageNumber, pageSize, sortBy, isAscending),
 
-            // Пагинация
-            var animalsPag = Animals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+				[nameof(Animal.AnimalName)] =
+				AnimalRepository.GetAnimalsByName(filterValue, pageNumber, pageSize, sortBy, isAscending),
 
-			return animalsPag;
+				[""] = 
+				AnimalRepository.GetAnimalsByDefault(pageNumber, pageSize, sortBy, isAscending)
+
+            };
+
+
+			return filterFields[filterField];
 		}
 
 
 		public static bool ChangeEntry(Animal animal)
 		{
-			bool status = AnimalRepository.ChangeAnimal(animal);
+			bool status = AnimalRepository.UpdateAnimal(animal);
 			return status;
 		}
 

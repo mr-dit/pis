@@ -22,12 +22,10 @@ namespace pis.Controllers;
         }
 
         [HttpGet("OpensRegister")]
-        public IActionResult OpensRegister(string? filterValue, string? sortBy, bool isAscending, string filterField = nameof(Animal.RegistrationNumber), int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterField = "", string filterValue = "", string sortBy = nameof(Animal.AnimalName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            filterValue = filterValue?.ToLower();
-
-            var animals = AnimalService.GetAnimals(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
-            var totalItems = AnimalService.GetTotalAnimals(filterField, filterValue);
+            var (animals, totalItems) = AnimalService.GetAnimals(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            //var totalItems = AnimalService.GetTotalAnimals(filterField, filterValue);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new

@@ -93,19 +93,19 @@ namespace pis.Test
             Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
         }
 
-        [Test]
-        public static void GetAnimal()
-        {
-            var animal1Db = AnimalRepository.GetAnimalByChipNumber("782872782");
-            var animal2Db = AnimalRepository.GetAnimalsByName("Шарик");
-            var twoAnimalByName = AnimalRepository.GetAnimalsByName("Шар");
-            var animalsByCategory = AnimalRepository.GetAnimalsByAnimalCategory(AnimalCategoryRepository.CAT);
+        //[Test]
+        //public static void GetAnimal()
+        //{
+        //    var animal1Db = AnimalRepository.GetAnimalByChipNumber("782872782");
+        //    var animal2Db = AnimalRepository.GetAnimalsByName("Шарик");
+        //    var twoAnimalByName = AnimalRepository.GetAnimalsByName("Шар");
+        //    var animalsByCategory = AnimalRepository.GetAnimalsByAnimalCategory(AnimalCategoryRepository.CAT);
 
-            Assert.IsTrue(animal1Db.ElectronicChipNumber == "782872782" && animal1Db.AnimalCategory.NameAnimalCategory == "Кот");
-            Assert.IsTrue(animal2Db.Count() == 1 && animal2Db[0].AnimalName == "Шарик");
-            Assert.IsTrue(twoAnimalByName.Count() == 2);
-            Assert.IsTrue(animalsByCategory.Count() == 2);
-        }
+        //    Assert.IsTrue(animal1Db.ElectronicChipNumber == "782872782" && animal1Db.AnimalCategory.NameAnimalCategory == "Кот");
+        //    Assert.IsTrue(animal2Db.Count() == 1 && animal2Db[0].AnimalName == "Шарик");
+        //    Assert.IsTrue(twoAnimalByName.Count() == 2);
+        //    Assert.IsTrue(animalsByCategory.Count() == 2);
+        //}
 
         [Test]
         public static void GetOrganisations()

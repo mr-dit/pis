@@ -13,8 +13,8 @@ namespace pis
         {
             if (!isCreate)
             {
-                Database.EnsureDeleted();
-                Database.EnsureCreated();
+                //Database.EnsureDeleted();
+                //Database.EnsureCreated();
                 isCreate = true;
             }
 
