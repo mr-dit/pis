@@ -43,3 +43,11 @@ Organisation:
 		+ KPP
 		+ Locality
 		+ OrgType
+		
+Vaccination:
+	Фильтры:
+		+ "" - стоит по дефолту
+		+ NameVaccine
+	Сортировка:
+		+ NameVaccine - стоит по дефолту
+		+ IdVaccine
