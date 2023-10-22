@@ -121,11 +121,11 @@ namespace pis.Services
             return status;
         }
 
-        public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
-        {
-            // Получение вакцинаций из базы данных по регистрационному номеру животного
-            var previousVaccinations = VaccinationRepository.GetVaccinationsByAnimal(AnimalService.GetEntry(registrationNumber)).ToList();
-            return previousVaccinations;
-        }
+        //public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
+        //{
+        //    // Получение вакцинаций из базы данных по регистрационному номеру животного
+        //    var previousVaccinations = VaccinationRepository.GetVaccinationsByAnimal(AnimalService.GetEntry(registrationNumber)).ToList();
+        //    return previousVaccinations;
+        //}
     }
 }

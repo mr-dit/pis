@@ -43,8 +43,7 @@ namespace pis.Models
                 var userRole = new UserRole(this, role);
                 UserRoleRepository.Create(userRole);
             }
-
-            UserRepository.UpdateUser(this);
+            new UserRepository().Update(this);
             //Roles ??= new List<Role>();
             //Roles.AddRange(roles);
 

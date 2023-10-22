@@ -45,8 +45,8 @@ namespace pis.Controllers
 
         public IActionResult FillData()
         {
-            var organizations = OrganisationsRepository.GetOrganisations(3).ToList();
-            ViewBag.Organizations = organizations;
+            //var organizations = OrganisationsRepository.GetOrganisations(3).ToList();
+            //ViewBag.Organizations = organizations;
 
             return View();
         }
@@ -96,14 +96,14 @@ namespace pis.Controllers
 
         public async Task<IActionResult> ChangeEntry(int? id)
         {
-            if (id != null)
-            {
-                var organizations = OrganisationsRepository.GetOrganisations(3);
-                ViewBag.Organizations = organizations;
-                var newcontracts = ContractsService.GetEntry((int)id);
+            //if (id != null)
+            //{
+            //    var organizations = OrganisationsRepository.GetOrganisations(3);
+            //    ViewBag.Organizations = organizations;
+            //    var newcontracts = ContractsService.GetEntry((int)id);
 
-                return View(newcontracts);
-            }
+            //    return View(newcontracts);
+            //}
 
             return NotFound();
         }

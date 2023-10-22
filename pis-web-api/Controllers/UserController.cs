@@ -10,17 +10,19 @@ namespace pis_web_api.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
+        private UserService _userService;
 
         public UserController(ILogger<UserController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
+            _userService = new UserService();
         }
 
         [HttpGet("opensRegister")]
         public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(pis.Models.User.Surname), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (users, totalItems) = UserService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var (users, totalItems) = _userService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
@@ -42,7 +44,7 @@ namespace pis_web_api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var organisation = UserService.GetEntry(id);
+            var organisation = _userService.GetEntry(id);
 
             if (organisation == null)
             {
@@ -55,7 +57,7 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] User user)
         {
-            bool status = UserService.FillData(user);
+            bool status = _userService.FillData(user);
 
             if (status)
             {
@@ -70,7 +72,7 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = UserService.DeleteEntry(id);
+            var status = _userService.DeleteEntry(id);
 
             if (status)
             {
@@ -87,7 +89,7 @@ namespace pis_web_api.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool status = UserService.ChangeEntry(user);
+                bool status = _userService.ChangeEntry(user);
 
                 if (status)
                 {

@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using pis.Models;
 using pis.Repositorys;
 using pis.Services;
+using pis_web_api.Repositorys;
 
 namespace pis.Controllers;
 
@@ -14,18 +16,19 @@ namespace pis.Controllers;
     {
         private readonly ILogger<AnimalController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
+        private AnimalService animalService;
 
         public AnimalController(ILogger<AnimalController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
+            animalService = new AnimalService();
         }
 
         [HttpGet("OpensRegister")]
         public IActionResult OpensRegister(string filterField = "", string filterValue = "", string sortBy = nameof(Animal.AnimalName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (animals, totalItems) = AnimalService.GetAnimals(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
-            //var totalItems = AnimalService.GetTotalAnimals(filterField, filterValue);
+            var (animals, totalItems) = animalService.GetAnimals(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
@@ -47,7 +50,7 @@ namespace pis.Controllers;
         [HttpGet("{id}")]
         public IActionResult GetAnimal(int id)
         {
-            var animal = AnimalService.GetEntry(id);
+            var animal = animalService.GetEntry(id);
 
             if (animal == null)
             {
@@ -60,7 +63,7 @@ namespace pis.Controllers;
         [HttpPost("AddEntry")]
         public IActionResult AddEntry([FromBody] Animal animal)
         {
-            bool status = AnimalService.FillData(animal);
+            bool status = animalService.FillData(animal);
 
             if (status)
             {
@@ -75,7 +78,7 @@ namespace pis.Controllers;
         [HttpPost("DeleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = AnimalService.DeleteEntry(id);
+            var status = animalService.DeleteEntry(id);
 
             if (status)
             {
@@ -92,7 +95,7 @@ namespace pis.Controllers;
         {
             if (ModelState.IsValid)
             {
-                bool status = AnimalService.ChangeEntry(animal);
+                bool status = animalService.ChangeEntry(animal);
 
                 if (status)
                 {

@@ -2,72 +2,61 @@
 using System.Runtime.InteropServices;
 using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Repositorys;
 
 namespace pis.Services
 {
 	public class AnimalService
 	{
-		private static List<Animal> Animals { get; set; } = new List<Animal>();
-
-		public static bool FillData(Animal animal)
+        private AnimalRepository repository;
+		
+		public AnimalService()
 		{
-			bool status = AnimalRepository.CreateAnimal(animal);
+			repository = new AnimalRepository();
+		}
+
+        public bool FillData(Animal animal)
+		{
+			bool status = repository.Add(animal);
 			return status;
 		}
 
-		public static bool DeleteEntry(int id)
+		public bool DeleteEntry(int id)
 		{
-			bool status = AnimalRepository.DeleteAnimal
-				(AnimalRepository.GetAnimalById(id));
+			bool status = repository.Remove
+				(repository.GetById(id));
 			return status;
 		}
 
-		public static Animal? GetEntry(int id)
+		public Animal? GetEntry(int id)
 		{
-			var entry = AnimalRepository.GetAnimalById(id);
+			var entry = repository.GetById(id);
 			return entry;
 		}
 
-		public static (List<Animal>, int) GetAnimals(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
+		public (List<Animal>, int) GetAnimals(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
 		{
-			var filterFields = new Dictionary<string, (List<Animal>, int)>(StringComparer.InvariantCultureIgnoreCase)
+			var filterFields = new Dictionary<string, Func<string, int, int, string, bool, (List<Animal>, int)>>(StringComparer.InvariantCultureIgnoreCase)
 			{
-				[nameof(Animal.AnimalCategory)] =
-				AnimalRepository.GetAnimalsByAnimalCategory(
-					filterValue,
-					pageNumber, pageSize, sortBy, isAscending),
+				[nameof(Animal.AnimalCategory)] = repository.GetAnimalsByAnimalCategory, 
 
-				[nameof(Animal.ElectronicChipNumber)] =
-				AnimalRepository.GetAnimalsByChipNumber(filterValue, pageNumber, pageSize, sortBy, isAscending),
+				[nameof(Animal.ElectronicChipNumber)] = repository.GetAnimalsByChipNumber,
 
-				[nameof(Animal.AnimalName)] =
-				AnimalRepository.GetAnimalsByName(filterValue, pageNumber, pageSize, sortBy, isAscending),
+				[nameof(Animal.AnimalName)] = repository.GetAnimalsByName,
 
-				[""] = 
-				AnimalRepository.GetAnimalsByDefault(pageNumber, pageSize, sortBy, isAscending)
+				[nameof(Animal.Locality)] = repository.GetAnimalsByLocality,
 
+				[""] = repository.GetAnimalsByDefault
             };
-
-
-			return filterFields[filterField];
+			return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending);
 		}
 
 
-		public static bool ChangeEntry(Animal animal)
+		public bool ChangeEntry(Animal animal)
 		{
-			bool status = AnimalRepository.UpdateAnimal(animal);
+			bool status = repository.Update(animal);
 			return status;
 		}
-
-		public static int GetTotalAnimals(string filterField, string? filterValue)
-		{
-			return Animals.Count;
-		}
-
-		//      public AnimalService()
-		//{
-
-		//}
 	}
 }
 

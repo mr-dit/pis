@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using pis.Models;
 using pis.Repositorys;
+using pis.Services;
 using pis_web_api.Models;
 using pis_web_api.Services;
 
@@ -18,17 +19,17 @@ namespace pis.Test
             InitOrgTypes();
             InitRoles();
             InitVaccine();
-            InitAnimals();
+            //InitAnimals();
             InitOrganisations();
             InitUsers();
             InitContracts();
-            InitVaccinations();
+            //InitVaccinations();
         }
 
         [Test]
         public static void GetUser()
         {
-            var user = UserRepository.GetUserById(1);
+            var user = new UserService().GetEntry(1);
 
             Assert.IsTrue(user.Roles.Count() == 4);
         }
@@ -110,84 +111,86 @@ namespace pis.Test
         [Test]
         public static void GetOrganisations()
         {
-            var org1Db = OrganisationsRepository.GetOrganisationsByName("Клиника добряков");
+            var service = new OrganisationService();
+            var org1Db = service.GetEntry(1);
 
-            Assert.IsTrue(org1Db[0].OrgName == "Клиника добряков");
-            Assert.IsTrue(org1Db[0].OrgType.NameOrgType == OrgTypeRepository.GOV_VETCLINIC.NameOrgType);
+            Assert.IsTrue(org1Db.OrgName == "Клиника добряков");
+            Assert.IsTrue(org1Db.OrgType.NameOrgType == OrgTypeRepository.GOV_VETCLINIC.NameOrgType);
         }
 
         // Inits
-        private void InitVaccinations()
-        {
-            var vaccinations = new List<Vaccination>()
-            {
-                new Vaccination("9823983298", AnimalRepository.GetAnimalById(1), 
-                VaccineRepository.GetVaccineById(1), UserRepository.GetUserById(1), 
-                ContractsRepository.GetContractById(1)),
+        //private void InitVaccinations()
+        //{
+        //    var vaccinations = new List<Vaccination>()
+        //    {
+        //        new Vaccination("9823983298", AnimalRepository.GetAnimalById(1), 
+        //        VaccineRepository.GetVaccineById(1), UserRepository.GetUserById(1), 
+        //        ContractsRepository.GetContractById(1)),
 
-                new Vaccination("12312321321", AnimalRepository.GetAnimalById(2),
-                VaccineRepository.GetVaccineById(2), UserRepository.GetUserById(3),
-                ContractsRepository.GetContractById(2)),
+        //        new Vaccination("12312321321", AnimalRepository.GetAnimalById(2),
+        //        VaccineRepository.GetVaccineById(2), UserRepository.GetUserById(3),
+        //        ContractsRepository.GetContractById(2)),
 
-                new Vaccination("3425342542325", AnimalRepository.GetAnimalById(3),
-                VaccineRepository.GetVaccineById(3), UserRepository.GetUserById(2),
-                ContractsRepository.GetContractById(4)),
+        //        new Vaccination("3425342542325", AnimalRepository.GetAnimalById(3),
+        //        VaccineRepository.GetVaccineById(3), UserRepository.GetUserById(2),
+        //        ContractsRepository.GetContractById(4)),
 
-                new Vaccination("56758675687", AnimalRepository.GetAnimalById(4),
-                VaccineRepository.GetVaccineById(1), UserRepository.GetUserById(1),
-                ContractsRepository.GetContractById(1))
-            };
+        //        new Vaccination("56758675687", AnimalRepository.GetAnimalById(4),
+        //        VaccineRepository.GetVaccineById(1), UserRepository.GetUserById(1),
+        //        ContractsRepository.GetContractById(1))
+        //    };
 
-            foreach (var vaccination in vaccinations)
-            {
-                VaccinationRepository.AddVacciantion(vaccination);
-            }
-        }
+        //    foreach (var vaccination in vaccinations)
+        //    {
+        //        VaccinationRepository.AddVacciantion(vaccination);
+        //    }
+        //}
 
         private void InitContracts()
         {
-            var contracts = new List<Contract>()
-            {
-                new Contract(DateTime.Today.AddDays(365), 
-                OrganisationsRepository.GetOrganisationById(4), 
-                OrganisationsRepository.GetOrganisationById(1)),
+            //var contracts = new List<Contract>()
+            //{
+            //    new Contract(DateTime.Today.AddDays(365), 
+            //    OrganisationsRepository.GetOrganisationById(4), 
+            //    OrganisationsRepository.GetOrganisationById(1)),
 
-                new Contract(DateTime.Today.AddDays(180),
-                OrganisationsRepository.GetOrganisationById(4),
-                OrganisationsRepository.GetOrganisationById(2)),
+            //    new Contract(DateTime.Today.AddDays(180),
+            //    OrganisationsRepository.GetOrganisationById(4),
+            //    OrganisationsRepository.GetOrganisationById(2)),
 
-                new Contract(DateTime.Today.AddDays(730),
-                OrganisationsRepository.GetOrganisationById(4),
-                OrganisationsRepository.GetOrganisationById(3)),
+            //    new Contract(DateTime.Today.AddDays(730),
+            //    OrganisationsRepository.GetOrganisationById(4),
+            //    OrganisationsRepository.GetOrganisationById(3)),
 
-                new Contract(DateTime.Today.AddDays(90),
-                OrganisationsRepository.GetOrganisationById(4),
-                OrganisationsRepository.GetOrganisationById(5)),
+            //    new Contract(DateTime.Today.AddDays(90),
+            //    OrganisationsRepository.GetOrganisationById(4),
+            //    OrganisationsRepository.GetOrganisationById(5)),
 
-                new Contract(DateTime.Today.AddDays(90),
-                OrganisationsRepository.GetOrganisationById(5),
-                OrganisationsRepository.GetOrganisationById(1)),
-            };
+            //    new Contract(DateTime.Today.AddDays(90),
+            //    OrganisationsRepository.GetOrganisationById(5),
+            //    OrganisationsRepository.GetOrganisationById(1)),
+            //};
 
-            foreach (var contract in contracts)
-            {
-                ContractsRepository.CreateContract(contract);
-            }
+            //foreach (var contract in contracts)
+            //{
+            //    ContractsRepository.CreateContract(contract);
+            //}
 
-            contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
-            contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(2), 1200);
-            contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(3), 1100);
-            contracts[1].AddLocalitisList(LocalityRepository.GetLocalityById(1), 900);
-            contracts[1].AddLocalitisList(LocalityRepository.GetLocalityById(4), 950);
-            contracts[2].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1999);
-            contracts[2].AddLocalitisList(LocalityRepository.GetLocalityById(2), 2100);
-            contracts[3].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
-            contracts[3].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
-            contracts[4].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1299);
+            //contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
+            //contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(2), 1200);
+            //contracts[0].AddLocalitisList(LocalityRepository.GetLocalityById(3), 1100);
+            //contracts[1].AddLocalitisList(LocalityRepository.GetLocalityById(1), 900);
+            //contracts[1].AddLocalitisList(LocalityRepository.GetLocalityById(4), 950);
+            //contracts[2].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1999);
+            //contracts[2].AddLocalitisList(LocalityRepository.GetLocalityById(2), 2100);
+            //contracts[3].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
+            //contracts[3].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1000);
+            //contracts[4].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1299);
         }
 
         private void InitUsers()
         {
+            var userService = new UserService();
             var users = new List<User>()
             {
                 new User("Веселов", "Михаил", "Константинович", 1),
@@ -202,7 +205,7 @@ namespace pis.Test
 
             foreach (var user in users)
             {
-                UserRepository.AddUser(user);
+                userService.FillData(user);
             }
 
             users[0].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
@@ -220,45 +223,45 @@ namespace pis.Test
 
         private void InitOrganisations()
         {
-            var org1 = new Organisation("Клиника добряков", "8282830303", "8173518312",
-                "Улица Пушкина, Дом Колотушкина", OrgTypeRepository.GOV_VETCLINIC.IdOrgType,
-                LocalityRepository.GetLocalityByName("Тюмень").IdLocality);
-            var org2 = new Organisation("Клиника злюков", "6666666666", "9999999999",
-                "Улица Клушкина, Дом 13", OrgTypeRepository.GOV_VETCLINIC.IdOrgType,
-                LocalityRepository.GetLocalityByName("Тюмень").IdLocality);
-            var org3 = new Organisation("Клиника Зубаревская", "1927842032", "19832678345",
-                "Улица Победы, Дом 9", OrgTypeRepository.GOV_VETCLINIC.IdOrgType,
-                LocalityRepository.GetLocalityByName("Зубарева").IdLocality);
-            var org4 = new Organisation("ОМСУ Тюменской обл.", "6666666666", "9999999999",
-                "Улица Ленин, Дом 1", OrgTypeRepository.OMSU.IdOrgType,
-                LocalityRepository.GetLocalityByName("Тюмень").IdLocality);
-            var org5 = new Organisation("Приют", "789123123", "190129012",
-                "Улица Петра, Дом 2", OrgTypeRepository.SHELTER.IdOrgType,
-                LocalityRepository.GetLocalityByName("Зубарева").IdLocality);
+            //var org1 = new Organisation("Клиника добряков", "8282830303", "8173518312",
+            //    "Улица Пушкина, Дом Колотушкина", OrgTypeRepository.GOV_VETCLINIC.IdOrgType,
+            //    LocalityRepository.GetLocalityByName("Тюмень").IdLocality);
+            //var org2 = new Organisation("Клиника злюков", "6666666666", "9999999999",
+            //    "Улица Клушкина, Дом 13", OrgTypeRepository.GOV_VETCLINIC.IdOrgType,
+            //    LocalityRepository.GetLocalityByName("Тюмень").IdLocality);
+            //var org3 = new Organisation("Клиника Зубаревская", "1927842032", "19832678345",
+            //    "Улица Победы, Дом 9", OrgTypeRepository.GOV_VETCLINIC.IdOrgType,
+            //    LocalityRepository.GetLocalityByName("Зубарева").IdLocality);
+            //var org4 = new Organisation("ОМСУ Тюменской обл.", "6666666666", "9999999999",
+            //    "Улица Ленин, Дом 1", OrgTypeRepository.OMSU.IdOrgType,
+            //    LocalityRepository.GetLocalityByName("Тюмень").IdLocality);
+            //var org5 = new Organisation("Приют", "789123123", "190129012",
+            //    "Улица Петра, Дом 2", OrgTypeRepository.SHELTER.IdOrgType,
+            //    LocalityRepository.GetLocalityByName("Зубарева").IdLocality);
 
-            OrganisationsRepository.AddOrganisation(org1);
-            OrganisationsRepository.AddOrganisation(org2);
-            OrganisationsRepository.AddOrganisation(org3);
-            OrganisationsRepository.AddOrganisation(org4);
-            OrganisationsRepository.AddOrganisation(org5);
+            //OrganisationsRepository.AddOrganisation(org1);
+            //OrganisationsRepository.AddOrganisation(org2);
+            //OrganisationsRepository.AddOrganisation(org3);
+            //OrganisationsRepository.AddOrganisation(org4);
+            //OrganisationsRepository.AddOrganisation(org5);
         }
 
-        private void InitAnimals()
-        {
-            var animal1 = new Animal("Барсик", LocalityRepository.GetLocalityByName("Тюмень").IdLocality,
-                AnimalCategoryRepository.CAT.IdAnimalCategory, GenderRepository.MALE.IdGender, 2020, "782872782");
-            var animal2 = new Animal("Шарик", LocalityRepository.GetLocalityByName("Тюмень").IdLocality,
-                AnimalCategoryRepository.DOG.IdAnimalCategory, GenderRepository.MALE.IdGender, 2020, "292929292");
-            var animal3 = new Animal("Тубзик", LocalityRepository.GetLocalityByName("Тюмень").IdLocality,
-                AnimalCategoryRepository.DOG.IdAnimalCategory, GenderRepository.MALE.IdGender, 2019, "323729329");
-            var animal4 = new Animal("Шаризя", LocalityRepository.GetLocalityByName("Зубарева").IdLocality,
-                AnimalCategoryRepository.CAT.IdAnimalCategory, GenderRepository.MALE.IdGender, 2021, "101023923");
+        //private void InitAnimals()
+        //{
+        //    var animal1 = new Animal("Барсик", LocalityRepository.GetLocalityByName("Тюмень").IdLocality,
+        //        AnimalCategoryRepository.CAT.IdAnimalCategory, GenderRepository.MALE.IdGender, 2020, "782872782");
+        //    var animal2 = new Animal("Шарик", LocalityRepository.GetLocalityByName("Тюмень").IdLocality,
+        //        AnimalCategoryRepository.DOG.IdAnimalCategory, GenderRepository.MALE.IdGender, 2020, "292929292");
+        //    var animal3 = new Animal("Тубзик", LocalityRepository.GetLocalityByName("Тюмень").IdLocality,
+        //        AnimalCategoryRepository.DOG.IdAnimalCategory, GenderRepository.MALE.IdGender, 2019, "323729329");
+        //    var animal4 = new Animal("Шаризя", LocalityRepository.GetLocalityByName("Зубарева").IdLocality,
+        //        AnimalCategoryRepository.CAT.IdAnimalCategory, GenderRepository.MALE.IdGender, 2021, "101023923");
 
-            AnimalRepository.CreateAnimal(animal1);
-            AnimalRepository.CreateAnimal(animal2);
-            AnimalRepository.CreateAnimal(animal3);
-            AnimalRepository.CreateAnimal(animal4);
-        }
+        //    AnimalRepository.CreateAnimal(animal1);
+        //    AnimalRepository.CreateAnimal(animal2);
+        //    AnimalRepository.CreateAnimal(animal3);
+        //    AnimalRepository.CreateAnimal(animal4);
+        //}
 
         private void InitVaccine()
         {
