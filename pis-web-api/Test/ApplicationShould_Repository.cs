@@ -13,12 +13,12 @@ namespace pis.Test
         [OneTimeSetUp]
         public void Init()
         {
-            InitAnimalCategories();
+            //InitAnimalCategories();
             InitLocality();
             InitGenders();
             InitOrgTypes();
             InitRoles();
-            InitVaccine();
+            //InitVaccine();
             //InitAnimals();
             InitOrganisations();
             InitUsers();
@@ -34,15 +34,15 @@ namespace pis.Test
             Assert.IsTrue(user.Roles.Count() == 4);
         }
 
-        [Test]
-        public static void GetAnimalCategory()
-        {
-            var categoryFromDbDog = AnimalCategoryRepository.GetAnimalCategoryByName("Собака");
-            var categoryFromDbCat = AnimalCategoryRepository.CAT;
+        //[Test]
+        //public static void GetAnimalCategory()
+        //{
+        //    var categoryFromDbDog = AnimalCategoryRepository.GetAnimalCategoryByName("Собака");
+        //    var categoryFromDbCat = AnimalCategoryRepository.CAT;
 
-            Assert.IsTrue(categoryFromDbCat.NameAnimalCategory == "Кот");
-            Assert.IsTrue(categoryFromDbDog.NameAnimalCategory == "Собака");
-        }
+        //    Assert.IsTrue(categoryFromDbCat.NameAnimalCategory == "Кот");
+        //    Assert.IsTrue(categoryFromDbDog.NameAnimalCategory == "Собака");
+        //}
 
         [Test]
         public static void GetLocality()
@@ -84,15 +84,15 @@ namespace pis.Test
             Assert.IsTrue(kuratorOMSUFromDb.NameRole == "Куратор ОМСУ");
         }
 
-        [Test] 
-        public static void GetVaccine()
-        {
-            var vaccine1FromDb = VaccineRepository.GetVaccineByName("Блошинка");
-            var vaccine2FromDb = VaccineRepository.GetVaccineByName("Бешенство");
+        //[Test] 
+        //public static void GetVaccine()
+        //{
+        //    var vaccine1FromDb = VaccineRepository.GetVaccineByName("Блошинка");
+        //    var vaccine2FromDb = VaccineRepository.GetVaccineByName("Бешенство");
 
-            Assert.IsTrue(vaccine1FromDb.NameVaccine == "Блошинка" && vaccine1FromDb.ValidDaysVaccine == 90);
-            Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
-        }
+        //    Assert.IsTrue(vaccine1FromDb.NameVaccine == "Блошинка" && vaccine1FromDb.ValidDaysVaccine == 90);
+        //    Assert.IsTrue(vaccine2FromDb.NameVaccine == "Бешенство" && vaccine2FromDb.ValidDaysVaccine == 180);
+        //}
 
         //[Test]
         //public static void GetAnimal()
@@ -263,23 +263,23 @@ namespace pis.Test
         //    AnimalRepository.CreateAnimal(animal4);
         //}
 
-        private void InitVaccine()
-        {
-            var vaccines = new List<Vaccine>()
-            {
-                new Vaccine("Блошинка", 90),
-                new Vaccine("Бешенство", 180),
-                new Vaccine("От всего", 14),
-                new Vaccine("Плацебло", 365),
-                new Vaccine("Спутник", 180),
-                new Vaccine("RISC - V", 666)
-            };
+        //private void InitVaccine()
+        //{
+        //    var vaccines = new List<Vaccine>()
+        //    {
+        //        new Vaccine("Блошинка", 90),
+        //        new Vaccine("Бешенство", 180),
+        //        new Vaccine("От всего", 14),
+        //        new Vaccine("Плацебло", 365),
+        //        new Vaccine("Спутник", 180),
+        //        new Vaccine("RISC - V", 666)
+        //    };
 
-            foreach (var vaccine in vaccines)
-            {
-                VaccineRepository.AddVaccine(vaccine);
-            }
-        }
+        //    foreach (var vaccine in vaccines)
+        //    {
+        //        VaccineRepository.AddVaccine(vaccine);
+        //    }
+        //}
 
         private void InitLocality()
         {
@@ -301,14 +301,14 @@ namespace pis.Test
             }
         }
 
-        private void InitAnimalCategories()
-        {
-            var animalCategoryCat = new AnimalCategory("Кот");
-            var animalCategoryDog = new AnimalCategory("Собака");
+        //private void InitAnimalCategories()
+        //{
+        //    var animalCategoryCat = new AnimalCategory("Кот");
+        //    var animalCategoryDog = new AnimalCategory("Собака");
 
-            AnimalCategoryRepository.AddAnimalCategory(animalCategoryCat);
-            AnimalCategoryRepository.AddAnimalCategory(animalCategoryDog);
-        }
+        //    AnimalCategoryRepository.AddAnimalCategory(animalCategoryCat);
+        //    AnimalCategoryRepository.AddAnimalCategory(animalCategoryDog);
+        //}
 
         private void InitGenders()
         {

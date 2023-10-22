@@ -11,17 +11,19 @@ namespace pis_web_api.Controllers
     {
         private readonly ILogger<VaccineController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
+        private VaccineService _vaccineService;
 
         public VaccineController(ILogger<VaccineController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
+            _vaccineService = new VaccineService();
         }
 
         [HttpGet("opensRegister")]
         public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Vaccine.NameVaccine), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (vaccines, totalItems) = VaccineService.GetVaccines(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var (vaccines, totalItems) = _vaccineService.GetVaccines(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
@@ -43,7 +45,7 @@ namespace pis_web_api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetVaccine(int id)
         {
-            var organisation = VaccineService.GetEntry(id);
+            var organisation = _vaccineService.GetEntry(id);
 
             if (organisation == null)
             {
@@ -56,7 +58,7 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] Vaccine organisation)
         {
-            bool status = VaccineService.FillData(organisation);
+            bool status = _vaccineService.FillData(organisation);
 
             if (status)
             {
@@ -71,7 +73,7 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = VaccineService.DeleteEntry(id);
+            var status = _vaccineService.DeleteEntry(id);
 
             if (status)
             {
@@ -88,7 +90,7 @@ namespace pis_web_api.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool status = VaccineService.ChangeEntry(vaccine);
+                bool status = _vaccineService.ChangeEntry(vaccine);
 
                 if (status)
                 {

@@ -2,121 +2,46 @@
 using NUnit.Framework;
 using pis.Models;
 using pis.Services;
+using pis_web_api.Repositorys;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace pis.Repositorys
 {
-    public class VaccineRepository
+    public class VaccineRepository : Repository<Vaccine>
     {
-        public static bool AddVaccine(Vaccine vaccine)
+        public VaccineRepository() : base()
         {
-            using (var db = new Context())
+        }
+
+        private delegate void VaccineAction(Context db, Vaccine user);
+
+        private (List<Vaccine>, int) GetVaccinesByValue(Func<Vaccine, bool> value, int pageNumber, int pageSize, string sortBy, bool isAscending)
+        {
+            using (Context db = new Context())
             {
-                try
-                {
-                    db.Vaccines.Add(vaccine);
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
+                var allUser = db.Vaccines
+                    .Where(value)
+                    .SortBy(sortBy, isAscending);
+                var users = allUser.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return (users, allUser.Count());
             }
         }
 
-        public static bool DeleteVaccine(Vaccine vaccine)
-        {
-            using (var db = new Context())
-            {
-                try
-                {
-                    db.Vaccines.Remove(vaccine);
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+        public (List<Vaccine>, int) GetVaccinesByDefault(string useless, int pageNumber,
+            int pageSize, string sortBy, bool isAscending) =>
+            GetVaccinesByValue(vaccine => { return true; }, pageNumber, pageSize, sortBy, isAscending);
 
-        public static bool UpdateVaccine(Vaccine vaccine)
-        {
-            using (var db = new Context())
-            {
-                try
-                {
-                    db.Vaccines.Update(vaccine);
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
-        public static Vaccine GetVaccineById(int id)
-        {
-            using (var db = new Context())
-            {
-                var vaccine = db.Vaccines.Where(x => x.IdVaccine == id).Single();
-                if (vaccine == null)
-                    throw new ArgumentNullException($"Нет вакцины с id \"{id}\"");
-                return vaccine;
-            }
-        }
-
-        public static Vaccine GetVaccineByName(string name)
-        {
-            using (var db = new Context())
-            {
-                var vaccine = db.Vaccines.Where(x => x.NameVaccine == name).Single();
-                if (vaccine == null)
-                    throw new ArgumentNullException($"Нет вакцины с названием \"{name}\"");
-                return vaccine;
-            }
-        }
-
-        public static (List<Vaccine>, int) GetVaccinesByName(string name, int pageNumber, int pageSize, string sortBy, bool isAscending)
-        {
-            using (var db = new Context())
-            {
-                var allVaccines = db.Vaccines
-                .Where(x => string.IsNullOrEmpty(name) || x.NameVaccine.Contains(name))
-                .SortBy(sortBy, isAscending);                
-
-                var vaccine = allVaccines
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-                var count = allVaccines.Count();
-
-                return (vaccine, count);
-            }
-        }
-
-        
-
-        public static List<Vaccine> GetFirstVaccines(int limit)
-        {
-            using (var db = new Context())
-            {
-                var vaccine = db.Vaccines.Take(limit).ToList();
-                return vaccine;
-            }
-        }
+        public (List<Vaccine>, int) GetVaccinesByName(string name, int pageNumber,
+            int pageSize, string sortBy, bool isAscending) =>
+            GetVaccinesByValue(vaccine => vaccine.NameVaccine.Contains(name, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending);
     }
 
     static class VaccineExtension
     {
-        public static IQueryable<Vaccine> SortBy(this IQueryable<Vaccine> vaccines, string sortBy, bool isAscending)
+        public static IEnumerable<Vaccine> SortBy(this IEnumerable<Vaccine> vaccines, string sortBy, bool isAscending)
         {
             if (!string.IsNullOrEmpty(sortBy))
             {
