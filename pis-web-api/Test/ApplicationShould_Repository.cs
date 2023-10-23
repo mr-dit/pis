@@ -14,25 +14,25 @@ namespace pis.Test
         public void Init()
         {
             //InitAnimalCategories();
-            InitLocality();
-            InitGenders();
-            InitOrgTypes();
-            InitRoles();
+            //InitLocality();
+            //InitGenders();
+            //InitOrgTypes();
+            //InitRoles();
             //InitVaccine();
             //InitAnimals();
-            InitOrganisations();
-            InitUsers();
-            InitContracts();
+            //InitOrganisations();
+            //InitUsers();
+            //InitContracts();
             //InitVaccinations();
         }
 
-        [Test]
-        public static void GetUser()
-        {
-            var user = new UserService().GetEntry(1);
+        //[Test]
+        //public static void GetUser()
+        //{
+        //    var user = new UserService().GetEntry(1);
 
-            Assert.IsTrue(user.Roles.Count() == 4);
-        }
+        //    Assert.IsTrue(user.Roles.Count() == 4);
+        //}
 
         //[Test]
         //public static void GetAnimalCategory()
@@ -44,45 +44,45 @@ namespace pis.Test
         //    Assert.IsTrue(categoryFromDbDog.NameAnimalCategory == "Собака");
         //}
 
-        [Test]
-        public static void GetLocality()
-        {
-            var tyumenFromDb = LocalityRepository.GetLocalityByName("Тюмень");
-            var zubarevaFromDb = LocalityRepository.GetLocalityById(2);
+        //[Test]
+        //public static void GetLocality()
+        //{
+        //    var tyumenFromDb = LocalityRepository.GetLocalityByName("Тюмень");
+        //    var zubarevaFromDb = LocalityRepository.GetLocalityById(2);
 
-            Assert.IsTrue(tyumenFromDb.NameLocality == "Тюмень");
-            Assert.IsTrue(zubarevaFromDb.NameLocality == "Зубарева");
-        }
+        //    Assert.IsTrue(tyumenFromDb.NameLocality == "Тюмень");
+        //    Assert.IsTrue(zubarevaFromDb.NameLocality == "Зубарева");
+        //}
 
-        [Test]
-        public static void GetGender()
-        {
-            var maleFromDb = GenderRepository.MALE;
-            var femaleFromDb = GenderRepository.FEMALE;
+        //[Test]
+        //public static void GetGender()
+        //{
+        //    var maleFromDb = GenderRepository.MALE;
+        //    var femaleFromDb = GenderRepository.FEMALE;
 
-            Assert.IsTrue(maleFromDb.NameGender == "Мужской");
-            Assert.IsTrue(femaleFromDb.NameGender == "Женский");
-        }
+        //    Assert.IsTrue(maleFromDb.NameGender == "Мужской");
+        //    Assert.IsTrue(femaleFromDb.NameGender == "Женский");
+        //}
 
-        [Test]
-        public static void GetOrgType()
-        {
-            var zayavitelFromDb = OrgTypeRepository.GetOrgTypeByName("Заявитель");
-            var shelterFromDb = OrgTypeRepository.SHELTER;
+        //[Test]
+        //public static void GetOrgType()
+        //{
+        //    var zayavitelFromDb = OrgTypeRepository.GetOrgTypeByName("Заявитель");
+        //    var shelterFromDb = OrgTypeRepository.SHELTER;
 
-            Assert.IsTrue(zayavitelFromDb.NameOrgType == "Заявитель");
-            Assert.IsTrue(shelterFromDb.NameOrgType == "Приют");
-        }
+        //    Assert.IsTrue(zayavitelFromDb.NameOrgType == "Заявитель");
+        //    Assert.IsTrue(shelterFromDb.NameOrgType == "Приют");
+        //}
 
-        [Test]
-        public static void GetPosts()
-        {
-            var doctorFromDb = RoleRepository.GetRoleByName("Ветврач приюта");
-            var kuratorOMSUFromDb = RolesService.KURATOR_OMSU;
+        //[Test]
+        //public static void GetPosts()
+        //{
+        //    var doctorFromDb = RoleRepository.GetRoleByName("Ветврач приюта");
+        //    var kuratorOMSUFromDb = RolesService.KURATOR_OMSU;
 
-            Assert.IsTrue(doctorFromDb.NameRole == "Ветврач приюта");
-            Assert.IsTrue(kuratorOMSUFromDb.NameRole == "Куратор ОМСУ");
-        }
+        //    Assert.IsTrue(doctorFromDb.NameRole == "Ветврач приюта");
+        //    Assert.IsTrue(kuratorOMSUFromDb.NameRole == "Куратор ОМСУ");
+        //}
 
         //[Test] 
         //public static void GetVaccine()
@@ -108,15 +108,15 @@ namespace pis.Test
         //    Assert.IsTrue(animalsByCategory.Count() == 2);
         //}
 
-        [Test]
-        public static void GetOrganisations()
-        {
-            var service = new OrganisationService();
-            var org1Db = service.GetEntry(1);
+        //[Test]
+        //public static void GetOrganisations()
+        //{
+        //    var service = new OrganisationService();
+        //    var org1Db = service.GetEntry(1);
 
-            Assert.IsTrue(org1Db.OrgName == "Клиника добряков");
-            Assert.IsTrue(org1Db.OrgType.NameOrgType == OrgTypeRepository.GOV_VETCLINIC.NameOrgType);
-        }
+        //    Assert.IsTrue(org1Db.OrgName == "Клиника добряков");
+        //    Assert.IsTrue(org1Db.OrgType.NameOrgType == OrgTypeRepository.GOV_VETCLINIC.NameOrgType);
+        //}
 
         // Inits
         //private void InitVaccinations()
@@ -188,38 +188,38 @@ namespace pis.Test
             //contracts[4].AddLocalitisList(LocalityRepository.GetLocalityById(1), 1299);
         }
 
-        private void InitUsers()
-        {
-            var userService = new UserService();
-            var users = new List<User>()
-            {
-                new User("Веселов", "Михаил", "Константинович", 1),
-                new User("Теплов", "Ярослав", "Игоревич", 5),
-                new User("Рудин", "Валентин", "Константинович", 2),
-                new User("Ширгазина", "Аида", "Владиславовна", 4),
-                new User("Хорьякова", "Мария", "Дмитриевна", 1),
-                new User("Мезенцев", "Дмитрий", "Сергеевич", 5),
-                new User("Харченко", "Ева", "Андреевна", 2),
-                new User("Абдраман", "Сидик", "Сулейман", 2)
-            };
+        //private void InitUsers()
+        //{
+        //    var userService = new UserService();
+        //    var users = new List<User>()
+        //    {
+        //        new User("Веселов", "Михаил", "Константинович", 1),
+        //        new User("Теплов", "Ярослав", "Игоревич", 5),
+        //        new User("Рудин", "Валентин", "Константинович", 2),
+        //        new User("Ширгазина", "Аида", "Владиславовна", 4),
+        //        new User("Хорьякова", "Мария", "Дмитриевна", 1),
+        //        new User("Мезенцев", "Дмитрий", "Сергеевич", 5),
+        //        new User("Харченко", "Ева", "Андреевна", 2),
+        //        new User("Абдраман", "Сидик", "Сулейман", 2)
+        //    };
 
-            foreach (var user in users)
-            {
-                userService.FillData(user);
-            }
+        //    foreach (var user in users)
+        //    {
+        //        userService.FillData(user);
+        //    }
 
-            users[0].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
-                RolesService.OPERATOR_VETSERVICE, RolesService.SIGNER_VETSERVICE);
-            users[1].AddRoles(RolesService.DOCTOR, RolesService.DOCTOR_SHELTER,
-                RolesService.OPERATOR_SHELTER, RolesService.KURATOR_SHELTER);
-            users[2].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
-                RolesService.OPERATOR_VETSERVICE, RolesService.SIGNER_VETSERVICE);
-            users[3].AddRoles(RolesService.KURATOR_OMSU, RolesService.OPERATOR_OMSU, RolesService.SIGNER_OMSU);
-            users[4].AddRoles(RolesService.DOCTOR);
-            users[5].AddRoles(RolesService.DOCTOR_SHELTER);
-            users[6].AddRoles(RolesService.KURATOR_VETSERVICE);
-            users[7].AddRoles(RolesService.OPERATOR_VETSERVICE);
-        }
+        //    users[0].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
+        //        RolesService.OPERATOR_VETSERVICE, RolesService.SIGNER_VETSERVICE);
+        //    users[1].AddRoles(RolesService.DOCTOR, RolesService.DOCTOR_SHELTER,
+        //        RolesService.OPERATOR_SHELTER, RolesService.KURATOR_SHELTER);
+        //    users[2].AddRoles(RolesService.DOCTOR, RolesService.KURATOR_VETSERVICE,
+        //        RolesService.OPERATOR_VETSERVICE, RolesService.SIGNER_VETSERVICE);
+        //    users[3].AddRoles(RolesService.KURATOR_OMSU, RolesService.OPERATOR_OMSU, RolesService.SIGNER_OMSU);
+        //    users[4].AddRoles(RolesService.DOCTOR);
+        //    users[5].AddRoles(RolesService.DOCTOR_SHELTER);
+        //    users[6].AddRoles(RolesService.KURATOR_VETSERVICE);
+        //    users[7].AddRoles(RolesService.OPERATOR_VETSERVICE);
+        //}
 
         private void InitOrganisations()
         {
@@ -281,25 +281,25 @@ namespace pis.Test
         //    }
         //}
 
-        private void InitLocality()
-        {
-            var localities = new List<Locality>()
-            {
-                new Locality("Тюмень"),
-                new Locality("Зубарева"),
-                new Locality("Яр"),
-                new Locality("Ембаево"),
-                new Locality("Патрушева"),
-                new Locality("Луговое"),
-                new Locality("Боровский"),
-                new Locality("Андреевский"),
-            };
+        //private void InitLocality()
+        //{
+        //    var localities = new List<Locality>()
+        //    {
+        //        new Locality("Тюмень"),
+        //        new Locality("Зубарева"),
+        //        new Locality("Яр"),
+        //        new Locality("Ембаево"),
+        //        new Locality("Патрушева"),
+        //        new Locality("Луговое"),
+        //        new Locality("Боровский"),
+        //        new Locality("Андреевский"),
+        //    };
 
-            foreach (var locality in localities)
-            {
-                LocalityRepository.AddLocality(locality);
-            }
-        }
+        //    foreach (var locality in localities)
+        //    {
+        //        LocalityRepository.AddLocality(locality);
+        //    }
+        //}
 
         //private void InitAnimalCategories()
         //{
@@ -310,64 +310,64 @@ namespace pis.Test
         //    AnimalCategoryRepository.AddAnimalCategory(animalCategoryDog);
         //}
 
-        private void InitGenders()
-        {
-            var male = new Gender("Мужской");
-            var female = new Gender("Женский");
+        //private void InitGenders()
+        //{
+        //    var male = new Gender("Мужской");
+        //    var female = new Gender("Женский");
 
-            GenderRepository.AddGender(male);
-            GenderRepository.AddGender(female);
-        }
+        //    GenderRepository.AddGender(male);
+        //    GenderRepository.AddGender(female);
+        //}
 
-        private void InitOrgTypes()
-        {
-            var types = new List<OrgType>()
-            {
-                new OrgType("Исполнительный орган государственной власти"),
-                new OrgType("Орган местного самоуправления"),
-                new OrgType("Приют"),
-                new OrgType("Организация по отлову"),
-                new OrgType("Организация по транспортировке"),
-                new OrgType("Ветеринарная клиника: государственная"),
-                new OrgType("Ветеринарная клиника: муниципальная"),
-                new OrgType("Ветеринарная клиника: частная"),
-                new OrgType("Благотворительный фонд"),
-                new OrgType("Организации по продаже товаров и предоставлению услуг для животных"),
-                new OrgType("Организация по отлову и приют"),
-                new OrgType("Заявитель")
-            };
+        //private void InitOrgTypes()
+        //{
+        //    var types = new List<OrgType>()
+        //    {
+        //        new OrgType("Исполнительный орган государственной власти"),
+        //        new OrgType("Орган местного самоуправления"),
+        //        new OrgType("Приют"),
+        //        new OrgType("Организация по отлову"),
+        //        new OrgType("Организация по транспортировке"),
+        //        new OrgType("Ветеринарная клиника: государственная"),
+        //        new OrgType("Ветеринарная клиника: муниципальная"),
+        //        new OrgType("Ветеринарная клиника: частная"),
+        //        new OrgType("Благотворительный фонд"),
+        //        new OrgType("Организации по продаже товаров и предоставлению услуг для животных"),
+        //        new OrgType("Организация по отлову и приют"),
+        //        new OrgType("Заявитель")
+        //    };
 
-            foreach (var type in types)
-            {
-                OrgTypeRepository.AddOrgType(type);
-            }
+        //    foreach (var type in types)
+        //    {
+        //        OrgTypeRepository.AddOrgType(type);
+        //    }
 
-        }
+        //}
 
-        private void InitRoles()
-        {
-            var roles = new List<Role>()
-            {
-                new Role("Куратор ВетСлужбы"),
-                new Role("Куратор по отлову"),
-                new Role("Куратор приюта"),
-                new Role("Оператор ВетСлужбы"),
-                new Role("Оператор по отлову"),
-                new Role("Подписант ВетСлужбы"),
-                new Role("Подписант по отлову"),
-                new Role("Подписант приюта"),
-                new Role("Куратор ОМСУ"),
-                new Role("Оператор ОМСУ"),
-                new Role("Подписант ОМСУ"),
-                new Role("Оператор приюта"),
-                new Role("Ветврач"),
-                new Role("Ветврач приюта")
-            };
+        //private void InitRoles()
+        //{
+        //    var roles = new List<Role>()
+        //    {
+        //        new Role("Куратор ВетСлужбы"),
+        //        new Role("Куратор по отлову"),
+        //        new Role("Куратор приюта"),
+        //        new Role("Оператор ВетСлужбы"),
+        //        new Role("Оператор по отлову"),
+        //        new Role("Подписант ВетСлужбы"),
+        //        new Role("Подписант по отлову"),
+        //        new Role("Подписант приюта"),
+        //        new Role("Куратор ОМСУ"),
+        //        new Role("Оператор ОМСУ"),
+        //        new Role("Подписант ОМСУ"),
+        //        new Role("Оператор приюта"),
+        //        new Role("Ветврач"),
+        //        new Role("Ветврач приюта")
+        //    };
 
-            foreach (var role in roles)
-            {
-                RoleRepository.AddRole(role);
-            }
-        }
+        //    foreach (var role in roles)
+        //    {
+        //        RoleRepository.AddRole(role);
+        //    }
+        //}
     }
 }

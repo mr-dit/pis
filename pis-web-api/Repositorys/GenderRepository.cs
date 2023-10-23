@@ -1,25 +1,24 @@
-﻿using pis.Models;
+﻿using NUnit.Framework;
+using pis.Models;
+using pis_web_api.Repositorys;
 
 namespace pis.Repositorys
 {
-    public class GenderRepository
+    public class GenderRepository : Repository<Gender>
     {
-        private static Lazy<Gender> male = new Lazy<Gender>(() => GetGenderByName("Мужской"));
-        private static Lazy<Gender> female = new Lazy<Gender> (() => GetGenderByName("Женский"));
+        private Lazy<Gender> male;
+        private Lazy<Gender> female;
 
-        public static Gender MALE => male.Value;
-        public static Gender FEMALE => female.Value;
+        public Gender MALE => male.Value;
+        public Gender FEMALE => female.Value;
 
-        public static void AddGender(Gender name)
+        public GenderRepository() : base ()
         {
-            using (var db = new Context())
-            {
-                db.Genders.Add(name);
-                db.SaveChanges();
-            }
+            male = new Lazy<Gender>(() => GetGenderByName("Мужской"));
+            female = new Lazy<Gender>(() => GetGenderByName("Женский"));
         }
 
-        private static Gender GetGenderByName(string name)
+        private Gender GetGenderByName(string name)
         {
             using (var db = new Context())
             {
@@ -28,6 +27,15 @@ namespace pis.Repositorys
                     throw new ArgumentException($"Нет пола с названием \"{name}\"");
                 return gender;
             }
+        }
+
+        public List<Gender> GetGenders() 
+        {
+            return new List<Gender>()
+            {
+                MALE,
+                FEMALE
+            };
         }
     }
 }

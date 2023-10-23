@@ -9,7 +9,7 @@ namespace pis.Models
         public int IdLocality { get; set; }
         public string NameLocality { get; set; }
 
-        public List<LocalitisListForContract> Contracts { get; set; }
+        public List<LocalitisListForContract>? Contracts { get; set; }
 
         public Locality() { }
         public Locality(string name)
