@@ -6,36 +6,33 @@ namespace pis_web_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class RoleController : Controller
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<RoleController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
-        private UserService _userService;
+        private RoleService _roleService;
 
-        public UserController(ILogger<UserController> logger, IWebHostEnvironment appEnvironment)
+        public RoleController(ILogger<RoleController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
-            _userService = new UserService();
+            _roleService = new RoleService();
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(pis.Models.User.Surname), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterValue = "", int pageNumber = 1, int pageSize = 10)
         {
-            var (users, totalItems) = _userService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var (roles, totalItems) = _roleService.GetRoles(filterValue, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
             {
                 FilterValue = filterValue,
-                FilterField = filterField,
-                SortBy = sortBy,
-                IsAscending = isAscending,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 TotalItems = totalItems,
                 TotalPages = totalPages,
-                Users = users
+                Roles = roles
             };
 
             return Ok(result);
@@ -44,7 +41,7 @@ namespace pis_web_api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var organisation = _userService.GetEntry(id);
+            var organisation = _roleService.GetEntry(id);
 
             if (organisation == null)
             {
@@ -55,9 +52,9 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] User user)
+        public IActionResult AddEntry([FromBody] Role role)
         {
-            bool status = _userService.AddEntry(user);
+            bool status = _roleService.AddEntry(role);
 
             if (status)
             {
@@ -72,7 +69,7 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = _userService.DeleteEntry(id);
+            var status = _roleService.DeleteEntry(id);
 
             if (status)
             {
@@ -85,11 +82,11 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] User user)
+        public IActionResult ChangeEntry(int id, [FromBody] Role role)
         {
             if (ModelState.IsValid)
             {
-                bool status = _userService.ChangeEntry(user);
+                bool status = _roleService.ChangeEntry(role);
 
                 if (status)
                 {

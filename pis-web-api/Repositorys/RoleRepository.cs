@@ -1,9 +1,13 @@
-﻿using Npgsql.PostgresTypes;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using Npgsql.PostgresTypes;
 using pis.Models;
+using pis_web_api.Repositorys;
+using System.Globalization;
 
 namespace pis.Repositorys
 {
-    public class RoleRepository
+    public class RoleRepository : Repository<Role>
     {
         public static Role GetRoleByName(string name)
         {
@@ -16,30 +20,16 @@ namespace pis.Repositorys
             }
         }
 
-        public static void AddRole(Role role)
+        public (List<Role>, int) GetRolesByName(string filterValue, int pageNumber, int pageSize)
         {
-            using (var db = new Context())
+            using (Context db = new Context())
             {
-                db.Roles.Add(role);
-                db.SaveChanges();
-            }
-        }
-
-        public static void DeleteRole(Role role)
-        {
-            using (var db = new Context())
-            {
-                db.Roles.Remove(role);
-                db.SaveChanges();
-            }
-        }
-
-        public static void UpdateRole(Role role)
-        {
-            using (var db = new Context())
-            {
-                db.Roles.Update(role);
-                db.SaveChanges();
+                var allUser = db.Roles
+                    .AsEnumerable()
+                    .Where(x => x.NameRole.Contains(filterValue, StringComparison.InvariantCultureIgnoreCase))
+                    .OrderBy(x => x.NameRole);
+                var users = allUser.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return (users, allUser.Count());
             }
         }
     }

@@ -4,31 +4,14 @@ using System.Runtime.InteropServices;
 
 namespace pis_web_api.Services
 {
-    public class UserService
+    public class UserService : Service<User>
     {
         private UserRepository _userRepository;
 
         public UserService() 
         {
             _userRepository = new UserRepository();
-        }
-
-        public bool FillData(User user)
-        {
-            bool status = _userRepository.Add(user);
-            return status;
-        }
-
-        public bool DeleteEntry(int id)
-        {
-            bool status = _userRepository.Remove(_userRepository.GetById(id));
-            return status;
-        }
-
-        public User GetEntry(int id)
-        {
-            var entry = _userRepository.GetById(id);
-            return entry;
+            _repository = _userRepository;
         }
 
         public (List<User>, int) GetUsers(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
@@ -46,13 +29,6 @@ namespace pis_web_api.Services
                 [""] = _userRepository.GetUsersByDefault
             };
             return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending);
-        }
-
-
-        public bool ChangeEntry(User user)
-        {
-            bool status = _userRepository.Update(user);
-            return status;
         }
     }
 }
