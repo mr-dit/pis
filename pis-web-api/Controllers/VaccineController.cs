@@ -58,7 +58,7 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] Vaccine organisation)
         {
-            bool status = _vaccineService.FillData(organisation);
+            bool status = _vaccineService.AddEntry(organisation);
 
             if (status)
             {

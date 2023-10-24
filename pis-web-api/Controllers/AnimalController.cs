@@ -63,7 +63,7 @@ namespace pis.Controllers;
         [HttpPost("AddEntry")]
         public IActionResult AddEntry([FromBody] Animal animal)
         {
-            bool status = animalService.FillData(animal);
+            bool status = animalService.AddEntry(animal);
 
             if (status)
             {

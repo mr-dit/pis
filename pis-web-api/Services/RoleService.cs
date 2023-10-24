@@ -5,15 +5,16 @@ namespace pis_web_api.Services
 {
     public class RoleService : Service<Role>
     {
-        private RoleRepository repository;
+        private RoleRepository _repositoryRole;
         public RoleService() 
         {
-            repository = new RoleRepository();
+            _repositoryRole = new RoleRepository();
+            _repository = _repositoryRole;
         }    
 
         public (List<Role>, int) GetRoles(string filterValue, int pageNumber, int pageSize)
         {
-            return repository.GetRolesByName(filterValue, pageNumber, pageSize);
+            return _repositoryRole.GetRolesByName(filterValue, pageNumber, pageSize);
         }
     }
 }

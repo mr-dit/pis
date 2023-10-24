@@ -54,7 +54,7 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] Locality locality)
         {
-            bool status = _localityService.FillData(locality);
+            bool status = _localityService.AddEntry(locality);
 
             if (status)
             {

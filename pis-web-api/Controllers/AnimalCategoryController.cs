@@ -42,7 +42,7 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] AnimalCategory category)
         {
-            bool status = _animalCategoryService.FillData(category);
+            bool status = _animalCategoryService.AddEntry(category);
 
             if (status)
             {

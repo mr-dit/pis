@@ -65,7 +65,7 @@ namespace pis.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] Organisation organisation)
         {
-            bool status = _organisationService.FillData(organisation);
+            bool status = _organisationService.AddEntry(organisation);
 
             if (status)
             {

@@ -54,7 +54,7 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] OrgType orgType)
         {
-            bool status = _orgTypeService.FillData(orgType);
+            bool status = _orgTypeService.AddEntry(orgType);
 
             if (status)
             {

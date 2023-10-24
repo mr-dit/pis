@@ -3,25 +3,14 @@ using pis.Repositorys;
 
 namespace pis_web_api.Services
 {
-    public class GenderService
+    public class GenderService : Service<Gender>
     {
         private GenderRepository _genderRepository;
 
         public GenderService()
         {
             _genderRepository = new GenderRepository();
-        }
-
-        public bool FillData(Gender gender)
-        {
-            bool status = _genderRepository.Add(gender);
-            return status;
-        }
-
-        public Gender GetEntry(int id)
-        {
-            var entry = _genderRepository.GetById(id);
-            return entry;
+            _repository = _genderRepository;
         }
 
         public List<Gender> GetGenders()

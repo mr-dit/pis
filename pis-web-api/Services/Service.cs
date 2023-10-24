@@ -6,11 +6,7 @@ namespace pis_web_api.Services
 {
     public class Service<T> where T : class
     {
-        protected Repository<T> _repository;
-        public Service() 
-        {
-            _repository = new Repository<T>();
-        }
+        protected IRepository<T> _repository;
 
         public bool AddEntry(T value)
         {
