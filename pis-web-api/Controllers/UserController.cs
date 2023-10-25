@@ -11,12 +11,14 @@ namespace pis_web_api.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private UserService _userService;
+        private RoleService _roleService;
 
         public UserController(ILogger<UserController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
             _userService = new UserService();
+            _roleService = new RoleService();
         }
 
         [HttpGet("opensRegister")]
@@ -44,14 +46,14 @@ namespace pis_web_api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var organisation = _userService.GetEntry(id);
+            var user = _userService.GetEntry(id);
 
-            if (organisation == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(organisation);
+            return Ok(user);
         }
 
         [HttpPost("addEntry")]
@@ -102,6 +104,18 @@ namespace pis_web_api.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("addRole/{id}")]
+        public IActionResult AddRole(int idUser, int roleId)
+        {
+            var user = _userService.GetEntry(idUser);
+            var role =  _roleService.GetEntry(roleId);
+            var status = user.AddRoles(role);
+            if(status)
+                return Ok();
+            else
+                return BadRequest("Failed to update organisation entry.");
         }
     }
 }

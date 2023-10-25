@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using NUnit.Framework;
+using pis.Repositorys;
 using pis.Services;
 using pis_web_api.Models;
 
@@ -37,7 +38,8 @@ namespace pis.Models
             var priceList = new LocalitisListForContract(this, locality, price);
             Localities ??= new List<LocalitisListForContract>();
             Localities.Add(priceList);
-            ContractsRepository.UpdateContract(this);
+            var conRepository = new ContractService();
+            conRepository.ChangeEntry(this);
             return true;
         }
         //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
