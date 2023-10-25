@@ -27,7 +27,8 @@ namespace pis.Models
 
         public List<User>? Users { get; set; }
 
-        public List<Contract>? Contracts { get; set; }
+        public List<Contract>? ContractsAsPerformer { get; set; }
+        public List<Contract>? ContractsAsCustomer { get; set; }
 
 
         //public Organisation(int orgId, string orgName, string iNN, string kPP, 

@@ -1,29 +1,37 @@
 ﻿using pis.Models;
+using pis_web_api.Repositorys;
 
 namespace pis.Repositorys
 {
-    public class AnimalCategoryRepository
+    public class AnimalCategoryRepository : Repository<AnimalCategory>
     {
-        public static AnimalCategory GetAnimalCategoryByName (string name)
+        private Lazy<AnimalCategory> cat;
+        public AnimalCategory CAT => cat.Value;
+
+        private Lazy<AnimalCategory> dog;
+        public AnimalCategory DOG => dog.Value;
+
+        public AnimalCategoryRepository()
+        {
+            this.cat = new Lazy<AnimalCategory>(() => GetAnimalCategoryByName("Кот"));
+            this.dog = new Lazy<AnimalCategory>(() => GetAnimalCategoryByName("Собака"));
+        }
+
+        public AnimalCategory GetAnimalCategoryByName(string name)
         {
             using (Context db = new Context())
             {
-                var category = db.AnimalCategories.Where(category => category.NameAnimalCategory == name).FirstOrDefault();
-                if (category is null)
-                    throw new ArgumentException($"Нет категории животного с названием \"{name}\"");
+                var category = db.AnimalCategories.Where(category => category.NameAnimalCategory == name).Single();
                 return category;
             }
         }
 
-        public static void AddAnimalCategory(AnimalCategory animalCategory)
+        public List<AnimalCategory> GetAnimalCategories()
         {
-            using (Context db = new Context())
+            using (var db = new Context())
             {
-                db.AnimalCategories.Add(animalCategory);
-                db.SaveChanges();
+                return db.Set<AnimalCategory>().ToList();
             }
         }
-        public static AnimalCategory CAT => GetAnimalCategoryByName("Кот");
-        public static AnimalCategory DOG => GetAnimalCategoryByName("Собака");
     }
 }

@@ -24,46 +24,46 @@ namespace pis.Repositorys
         //        LocalityRepository.GetLocalityByName("Патрушева"), DateTime.Today, 300)
         //};
 
-        public static VaccinePriceListByLocality GetVaccinePriceList(string nameVaccine, string nameLocality)
-        {
-            using (var db = new Context())
-            {
-                var vaccinePriceList = db.PriceList
-                    .Where(priceList => priceList.Vaccine.NameVaccine == nameVaccine && priceList.Locality.NameLocality == nameLocality)
-                    .Include(x => x.Vaccine)
-                    .Include(x => x.Locality)
-                    .LastOrDefault();
-                if (vaccinePriceList == null)
-                    throw new ArgumentException($"Нет цены для вакцины \"{nameVaccine}\" и города \"{nameLocality}\"");
-                return vaccinePriceList;
-            }
-        }
+        //public static VaccinePriceListByLocality GetVaccinePriceList(string nameVaccine, string nameLocality)
+        //{
+        //    using (var db = new Context())
+        //    {
+        //        var vaccinePriceList = db.PriceList
+        //            .Where(priceList => priceList.Vaccine.NameVaccine == nameVaccine && priceList.Locality.NameLocality == nameLocality)
+        //            .Include(x => x.Vaccine)
+        //            .Include(x => x.Locality)
+        //            .LastOrDefault();
+        //        if (vaccinePriceList == null)
+        //            throw new ArgumentException($"Нет цены для вакцины \"{nameVaccine}\" и города \"{nameLocality}\"");
+        //        return vaccinePriceList;
+        //    }
+        //}
 
-        public static void AddVaccinePriceList(VaccinePriceListByLocality price)
-        {
-            using (var db = new Context())
-            {
-                db.PriceList.Add(price);
-                db.SaveChanges();
-            }
-        }
+        //public static void AddVaccinePriceList(VaccinePriceListByLocality price)
+        //{
+        //    using (var db = new Context())
+        //    {
+        //        db.PriceList.Add(price);
+        //        db.SaveChanges();
+        //    }
+        //}
 
-        public static void DeleteVaccinePriceList(VaccinePriceListByLocality price)
-        {
-            using (var db = new Context())
-            {
-                db.PriceList.Remove(price);
-                db.SaveChanges();
-            }
-        }
+        //public static void DeleteVaccinePriceList(VaccinePriceListByLocality price)
+        //{
+        //    using (var db = new Context())
+        //    {
+        //        db.PriceList.Remove(price);
+        //        db.SaveChanges();
+        //    }
+        //}
 
-        public static void UpdateVaccinePriceList(VaccinePriceListByLocality price)
-        {
-            using (var db = new Context())
-            {
-                db.PriceList.Update(price);
-                db.SaveChanges();
-            }
-        }
+        //public static void UpdateVaccinePriceList(VaccinePriceListByLocality price)
+        //{
+        //    using (var db = new Context())
+        //    {
+        //        db.PriceList.Update(price);
+        //        db.SaveChanges();
+        //    }
+        //}
     }
 }

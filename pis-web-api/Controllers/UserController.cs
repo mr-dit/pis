@@ -10,17 +10,21 @@ namespace pis_web_api.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
+        private UserService _userService;
+        private RoleService _roleService;
 
         public UserController(ILogger<UserController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
+            _userService = new UserService();
+            _roleService = new RoleService();
         }
 
         [HttpGet("opensRegister")]
         public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(pis.Models.User.Surname), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (users, totalItems) = UserService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var (users, totalItems) = _userService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
@@ -42,20 +46,20 @@ namespace pis_web_api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var organisation = UserService.GetEntry(id);
+            var user = _userService.GetEntry(id);
 
-            if (organisation == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(organisation);
+            return Ok(user);
         }
 
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] User user)
         {
-            bool status = UserService.FillData(user);
+            bool status = _userService.AddEntry(user);
 
             if (status)
             {
@@ -70,7 +74,7 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = UserService.DeleteEntry(id);
+            var status = _userService.DeleteEntry(id);
 
             if (status)
             {
@@ -87,7 +91,7 @@ namespace pis_web_api.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool status = UserService.ChangeEntry(user);
+                bool status = _userService.ChangeEntry(user);
 
                 if (status)
                 {
@@ -100,6 +104,18 @@ namespace pis_web_api.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("addRole/{id}")]
+        public IActionResult AddRole(int idUser, int roleId)
+        {
+            var user = _userService.GetEntry(idUser);
+            var role =  _roleService.GetEntry(roleId);
+            var status = user.AddRoles(role);
+            if(status)
+                return Ok();
+            else
+                return BadRequest("Failed to update organisation entry.");
         }
     }
 }

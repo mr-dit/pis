@@ -1,213 +1,110 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using pis.Models;
+using pis_web_api.Repositorys;
+
 namespace pis.Repositorys
 {
-	public class AnimalRepository
-	{
-        public static bool CreateAnimal(Animal animal)
-        {
-            using (Context db = new Context())
-            {
-                try
-                {
-                    db.Animals.Add(animal);
-                }
-                catch (Exception)
-                {
+    
 
-                    return false;
-                }
-                db.SaveChanges();
-                return true;
-            }
+    public class AnimalRepository : Repository<Animal>
+    {
+        public AnimalRepository() : base()
+        {
         }
 
-        public static List<Animal> GetFirstAnimals(int limit)
-        {
-            using (Context db = new Context())
-            {
-                var animals = db.Animals.Take(limit)
-                    .Include(x => x.Gender)
-                    .Include(x => x.AnimalCategory)
-                    .Include(x => x.Locality);
-                if (animals.Count() == 0)
-                    throw new ArgumentException($"Не существует животных");
-                return animals.ToList();
-            }
-        }
+        private delegate void AnimalAction(Context db, Animal animal);
 
-        public static Animal GetAnimalById(int animalId) 
+        private (List<Animal>, int) GetAnimalsByValue(Func<Animal, bool> value, int pageNumber, int pageSize, string sortBy, bool isAscending)
         {
             using (Context db = new Context())
             {
-                var animal = db.Animals
-                    .Where(animal => animal.RegistrationNumber == animalId)
-                    .Include(x => x.Gender)
-                    .Include(x => x.AnimalCategory)
+                var allAnimals = db.Animals
                     .Include(x => x.Locality)
-                    .Include(x => x.Vaccinations)
-                    .Single();
-                if (animal == null) 
-                    throw new ArgumentException($"Не существует животного с Id {animalId}");
-                return animal;
-            }
-        }
-
-        public static Animal GetAnimalByChipNumber(string chipNumber)
-        {
-            using (Context db = new Context())
-            {
-                var animal = db
-                    .Animals
-                    .Where(animal => animal.ElectronicChipNumber == chipNumber)
+                    .Include(x => x.AnimalCategory)
                     .Include(x => x.Gender)
-                    .Include (x => x.AnimalCategory)
-                    .Include(x => x.Locality)
-                    .Single();
-                if (animal is null)
-                    throw new ArgumentException($"Не существует животного с чипом {chipNumber}");
-                return animal;
+                    .Where(value)
+                    .SortBy(sortBy, isAscending);
+                var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return (animals, allAnimals.Count());
             }
         }
 
-        public static List<Animal> GetAnimalsByName(string animalName)
+        public (List<Animal>, int) GetAnimalsByAnimalCategory(
+            string category, int pageNumber,
+            int pageSize, string sortBy, bool isAscending) =>
+            GetAnimalsByValue(animal => animal.AnimalCategory
+                                               .NameAnimalCategory
+                                               .Contains(category, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByChipNumber(
+            string chipNumber, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
+            GetAnimalsByValue(animal => animal.ElectronicChipNumber
+                                              .Contains(chipNumber, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByName(
+            string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
+            GetAnimalsByValue(animal => animal.AnimalName
+                                                .Contains(name, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByDefault(
+            string uselessValue, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
+            GetAnimalsByValue(animal => { return true; }, pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByLocality(
+            string locality, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
+            GetAnimalsByValue(animal => animal.Locality
+                                              .NameLocality
+                                              .Contains(locality, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending);
+    }
+
+    static class SortingExtension
+    {
+        public static IEnumerable<Animal> SortBy(this IEnumerable<Animal> animals, string sortBy, bool isAscending)
         {
-            using (Context db = new Context())
+            var sortingFields = new Dictionary<string, Func<IEnumerable<Animal>, bool, IOrderedEnumerable<Animal>>>(StringComparer.InvariantCultureIgnoreCase)
             {
-                var animal = db.Animals.Where(animal => animal.AnimalName.Contains(animalName));
-                if (animal.Count() == 0)
-                    throw new ArgumentException($"Не существует животных с именем {animalName}");
-                return animal.ToList();
-            }
+                [nameof(Animal.RegistrationNumber)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.RegistrationNumber)
+                    : animals.OrderByDescending(a => a.RegistrationNumber),
+
+                [nameof(Animal.Locality)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.Locality.NameLocality)
+                    : animals.OrderByDescending(a => a.Locality.NameLocality),
+
+                [nameof(Animal.AnimalCategory)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.AnimalCategory.NameAnimalCategory)
+                    : animals.OrderByDescending(a => a.AnimalCategory.NameAnimalCategory),
+
+                [nameof(Animal.Gender)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.Gender.NameGender)
+                    : animals.OrderByDescending(a => a.Gender.NameGender),
+
+                [nameof(Animal.YearOfBirth)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.YearOfBirth)
+                    : animals.OrderByDescending(a => a.YearOfBirth),
+
+                [nameof(Animal.ElectronicChipNumber)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.ElectronicChipNumber)
+                    : animals.OrderByDescending(a => a.ElectronicChipNumber),
+
+                [nameof(Animal.AnimalName)] = (animals, isAscending) =>
+                    isAscending ? animals.OrderBy(a => a.AnimalName)
+                    : animals.OrderByDescending(a => a.AnimalName)
+            };
+
+            var sortingMethod = sortingFields[sortBy];
+
+            return sortingMethod(animals, isAscending);
         }
-
-        public static List<Animal> GetAnimalsByAnimalCategory(AnimalCategory animalCategory)
-        {
-            using (Context db = new Context())
-            {
-                var animal = db.Animals.Where(animal => animal.AnimalCategory.Equals(animalCategory));
-                if (animal.Count() == 0)
-                    throw new ArgumentException($"Не существует животного с именем {animalCategory}");
-                return animal.ToList();
-            }
-        }
-
-        public static List<Animal> GetAnimalsByChipNymber(string chipNumber)
-        {
-            using (Context db = new Context())
-            {
-                var animal = db.Animals.Where(animal => animal.ElectronicChipNumber == chipNumber);
-                if (animal.Count() == 0)
-                    throw new ArgumentException($"Не существует животного с чипом {chipNumber}");
-                return animal.ToList();
-            }
-        }
-
-        public static bool DeleteAnimal(Animal animal)
-        {
-            using (Context db = new Context())
-            {
-                try
-                {
-                    db.Animals.Remove(animal);
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                db.SaveChanges();
-                return true;
-            }
-        }
-
-        public static void DeleteAnimal(int animalId)
-        {
-            using (Context db = new Context()) 
-            {
-                var animal = GetAnimalById(animalId);
-                DeleteAnimal(animal);
-            }
-        }
-
-        public static bool ChangeAnimal(Animal animal)
-        {
-            using (Context db = new Context()) 
-            {
-                try
-                {
-                    db.Animals.Update(animal);
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                db.SaveChanges();
-                return true;
-            }
-        }
-
-        //public static bool NewEntry(Animal animal)
-        //{
-        //	int maxRegistrationNumber = animals.Max(a => a.RegistrationNumber);
-        //	int nextRegistrationNumber = maxRegistrationNumber + 1;
-
-        //	animal.RegistrationNumber = nextRegistrationNumber;
-
-        //          animals.Add(animal);
-        //	return true;
-        //      }
-
-        //      public static bool DeleteEntry(int id)
-        //      {
-        //          var foundAnimal = AnimalRepository.animals.FirstOrDefault(a => a.RegistrationNumber == id);
-        //          if (foundAnimal != null)
-        //          {
-        //              AnimalRepository.animals.Remove(foundAnimal);
-        //              Console.WriteLine("Объект Animal удален.");
-        //              return true;
-        //          } 
-        //          Console.WriteLine("Объект Animal не найден.");
-        //          return false;
-        //      }
-
-        //      public static Animal? GetEntry(int id)
-        //      {
-        //          var foundAnimal = AnimalRepository.animals.FirstOrDefault(a => a.RegistrationNumber == id);
-        //          return foundAnimal;
-        //      }
-
-        //      public static List<Animal> GetAnimals()
-        //      {
-        //       var foundAnimal = animals;
-        //       return foundAnimal;
-        //      }
-
-        //      public static bool ChangeEntry(Animal animal)
-        //      {
-        //       var foundAnimal = AnimalRepository.animals.FirstOrDefault(a => a.RegistrationNumber == animal.RegistrationNumber);
-        //       if (foundAnimal != null)
-        //       {
-        //        foundAnimal.Locality = animal.Locality;
-        //        foundAnimal.AnimalCategory = animal.AnimalCategory;
-        //        foundAnimal.Gender = animal.Gender;
-        //        foundAnimal.YearOfBirth = animal.YearOfBirth;
-        //        foundAnimal.ElectronicChipNumber = animal.ElectronicChipNumber;
-        //        foundAnimal.AnimalName = animal.AnimalName;
-        //        foundAnimal.Photos = animal.Photos;
-        //        foundAnimal.SpecialSigns = animal.SpecialSigns;
-        //        return true;
-        //       }
-        //       return false;
-        //      }
-
-
-        //      public AnimalRepository()
-        //{
-        //}
     }
 }
 

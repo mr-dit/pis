@@ -1,58 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using pis.Models;
-using pis.Repositorys;
-using pis.Services;
+using pis_web_api.Services;
 
-
-namespace pis.Controllers
+namespace pis_web_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrganisationController : ControllerBase
+    public class OrgTypeController : Controller
     {
-        private readonly ILogger<OrganisationController> _logger;
+        private readonly ILogger<OrgTypeController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
-        private OrganisationService _organisationService;
+        private OrgTypeService _orgTypeService;
 
-        public OrganisationController(ILogger<OrganisationController> logger, IWebHostEnvironment appEnvironment)
+        public OrgTypeController(ILogger<OrgTypeController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
-            _organisationService = new OrganisationService();
+            _orgTypeService = new OrgTypeService();
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Organisation.OrgName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterValue = "", int pageNumber = 1, int pageSize = 10)
         {
-            var (organisations, totalItems) = _organisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            var (users, totalItems) = _orgTypeService.GetOrgTypes(filterValue, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
             {
                 FilterValue = filterValue,
-                FilterField = filterField,
-                SortBy = sortBy,
-                IsAscending = isAscending,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 TotalItems = totalItems,
                 TotalPages = totalPages,
-                Organisations = organisations
+                Users = users
             };
 
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetOrganisation(int id)
+        public IActionResult GetOrgType(int id)
         {
-            var organisation = _organisationService.GetEntry(id);
+            var organisation = _orgTypeService.GetEntry(id);
 
             if (organisation == null)
             {
@@ -63,9 +52,9 @@ namespace pis.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Organisation organisation)
+        public IActionResult AddEntry([FromBody] OrgType orgType)
         {
-            bool status = _organisationService.AddEntry(organisation);
+            bool status = _orgTypeService.AddEntry(orgType);
 
             if (status)
             {
@@ -80,7 +69,7 @@ namespace pis.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id)
         {
-            var status = _organisationService.DeleteEntry(id);
+            var status = _orgTypeService.DeleteEntry(id);
 
             if (status)
             {
@@ -93,18 +82,11 @@ namespace pis.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Organisation organisation)
+        public IActionResult ChangeEntry(int id, [FromBody] OrgType user)
         {
-            var existingOrganisation = _organisationService.GetEntry(id);
-
-            if (existingOrganisation == null)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                bool status = _organisationService.ChangeEntry(existingOrganisation);
+                bool status = _orgTypeService.ChangeEntry(user);
 
                 if (status)
                 {

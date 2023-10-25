@@ -1,65 +1,34 @@
 ﻿using pis.Models;
 using pis.Repositorys;
+using System.Runtime.InteropServices;
 
 namespace pis_web_api.Services
 {
-    public class UserService
+    public class UserService : Service<User>
     {
-        public static bool FillData(User user)
+        private UserRepository _userRepository;
+
+        public UserService() 
         {
-            bool status = UserRepository.AddUser(user);
-            return status;
+            _userRepository = new UserRepository();
+            _repository = _userRepository;
         }
 
-        public static bool DeleteEntry(int id)
+        public (List<User>, int) GetUsers(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
         {
-            bool status = UserRepository.DeleteUser(UserRepository.GetUserById(id));
-            return status;
-        }
-
-        public static User? GetEntry(int id)
-        {
-            var entry = UserRepository.GetUserById(id);
-            return entry;
-        }
-
-        public static (List<User>, int) GetUsers(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
-        {
-            List<User> vaccines;
-            int count;
-            switch (filterField)
+            var filterFields = new Dictionary<string, Func<string, int, int, string, bool, (List<User>, int)>>(StringComparer.InvariantCultureIgnoreCase)
             {
-                case nameof(User.Surname):
-                    (vaccines, count) = UserRepository.GetUsersBySurname(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
-                case nameof(User.FirstName):
-                    (vaccines, count) = UserRepository.GetUsersByFirstName(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
-                case nameof(User.LastName):
-                    (vaccines, count) = UserRepository.GetUsersByLastName(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
-                case nameof(User.Post):
-                    (vaccines, count) = UserRepository.GetUsersByPost(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
-                case nameof(User.Organisation):
-                    (vaccines, count) = UserRepository.GetUsersByOrganisation(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
-                case "":
-                    (vaccines, count) = UserRepository.GetUsersBySurname(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
+                [nameof(User.Surname)] = _userRepository.GetUsersBySurname,
 
-                default:
-                    throw new ArgumentException("Нет такого поля для фильтрации");
-            }
+                [nameof(User.FirstName)] = _userRepository.GetUsersByFirstName,
 
-            return (vaccines, count);
-        }
+                [nameof(User.LastName)] = _userRepository.GetUsersByLastName,
 
+                [nameof(User.Organisation)] = _userRepository.GetUsersByOrganisation,
 
-        public static bool ChangeEntry(User user)
-        {
-            bool status = UserRepository.UpdateUser(user);
-            return status;
+                [""] = _userRepository.GetUsersByDefault
+            };
+            return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending);
         }
     }
 }

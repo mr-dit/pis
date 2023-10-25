@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using pis_web_api.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace pis.Models
 {
@@ -8,7 +9,7 @@ namespace pis.Models
         public int IdLocality { get; set; }
         public string NameLocality { get; set; }
 
-        public List<Contract> Contracts { get; set; }
+        public List<LocalitisListForContract>? Contracts { get; set; }
 
         public Locality() { }
         public Locality(string name)

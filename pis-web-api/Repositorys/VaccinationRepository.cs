@@ -114,7 +114,7 @@ namespace pis.Repositorys
             }
         }
 
-        public static IQueryable<Vaccination> GetVaccinationsByDate(DateTime date)
+        public static IQueryable<Vaccination> GetVaccinationsByDate(DateOnly date)
         {
             using (var db = new Context())
             {
@@ -125,7 +125,7 @@ namespace pis.Repositorys
                     .Include(x => x.Doctor)
                         .ThenInclude(x => x.Organisation)
                     .Include(x => x.Vaccine)
-                    .Where(x => x.VaccinationDate.Date.Equals(date.Date));
+                    .Where(x => x.VaccinationDate.Equals(date));
                 //if (vac == null)
                 //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
                 return vac;

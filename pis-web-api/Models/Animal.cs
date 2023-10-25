@@ -31,7 +31,7 @@ namespace pis.Models
 
         public string? SpecialSigns { get; set; }
 
-        public List<Vaccination> Vaccinations { get; set; }
+        public List<Vaccination>? Vaccinations { get; set; }
 
         public Animal(string animalName, Locality locality, AnimalCategory animalCategory, 
             Gender gender, int yearOfBirth, string electronicChipNumber)
@@ -58,6 +58,11 @@ namespace pis.Models
         public Animal()
         {
 
+        }
+
+        public void AddVaccination(Vaccination vaccination)
+        {
+            Vaccinations.Add(vaccination);
         }
     }
 }

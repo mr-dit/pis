@@ -1,32 +1,16 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 using pis.Models;
+using pis_web_api.Repositorys;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace pis.Repositorys
 {
-    public class LocalityRepository
+    public class LocalityRepository : Repository<Locality>
     {
-        public static void AddLocality(Locality locality)
-        {
-            using (var db = new Context())
-            {
-                db.Add(locality);
-                db.SaveChanges();
-            }
-        }
-
-        public static Locality GetLocalityById(int id)
-        {
-            using (var db = new Context())
-            {
-                var locality = db.Localitis.Where(x => x.IdLocality == id).Single();
-                if (locality == null)
-                    throw new ArgumentException($"Нет населенного пункта с id \"{id}\"");
-                return locality;
-            }
-        }
-
-        public static Locality GetLocalityByName(string name)
+        public Locality GetLocalityByName(string name)
         {
             using (var db = new Context())
             {
@@ -37,21 +21,16 @@ namespace pis.Repositorys
             }
         }
 
-        public static void UpdateLocality(Locality locality)
+        public (List<Locality>, int) GetLocalitiesByName(string name, int pageNumber, int pageSize)
         {
-            using (var db = new Context())
+            using (Context db = new Context())
             {
-                db.Localitis.Update(locality);
-                db.SaveChanges();
-            }
-        }
-
-        public static void DeleteLocality(Locality locality) 
-        {
-            using (var db = new Context())
-            {
-                db.Localitis.Remove(locality);
-                db.SaveChanges();
+                var allLocalities = db.Localitis
+                    .AsEnumerable()
+                    .Where(x => x.NameLocality.Contains(name, StringComparison.InvariantCultureIgnoreCase))
+                    .OrderBy(x => x.NameLocality);
+                var localiies = allLocalities.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return (localiies, allLocalities.Count());
             }
         }
     }

@@ -41,7 +41,7 @@ namespace pis.Services
                         Vaccinations = VaccinationRepository.GetVaccinationsByAnimalName(filterValue).ToList();
                         break;
                     case "vaccinationdate":
-                        Vaccinations = VaccinationRepository.GetVaccinationsByDate(DateTime.Parse(filterValue)).ToList();
+                        Vaccinations = VaccinationRepository.GetVaccinationsByDate(DateOnly.Parse(filterValue)).ToList();
                         break;
                     case "veterinarianfullname":
                         Vaccinations = VaccinationRepository.GetVaccinationsByDoctorName(filterValue).ToList();
@@ -121,11 +121,11 @@ namespace pis.Services
             return status;
         }
 
-        public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
-        {
-            // Получение вакцинаций из базы данных по регистрационному номеру животного
-            var previousVaccinations = VaccinationRepository.GetVaccinationsByAnimal(AnimalService.GetEntry(registrationNumber)).ToList();
-            return previousVaccinations;
-        }
+        //public static List<Vaccination> GetPreviousVaccinations(int registrationNumber)
+        //{
+        //    // Получение вакцинаций из базы данных по регистрационному номеру животного
+        //    var previousVaccinations = VaccinationRepository.GetVaccinationsByAnimal(AnimalService.GetEntry(registrationNumber)).ToList();
+        //    return previousVaccinations;
+        //}
     }
 }

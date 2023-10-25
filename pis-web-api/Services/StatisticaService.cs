@@ -25,7 +25,7 @@ namespace pis.Services
             //return groupedByLocality;
         }
 
-        private static bool FilterVaccination(Vaccination vaccination, DateTime startDate, DateTime endDate)
+        private static bool FilterVaccination(Vaccination vaccination, DateOnly startDate, DateOnly endDate)
         {
             // Примените фильтрацию по датам вакцинации
             return vaccination.VaccinationDate >= startDate && vaccination.VaccinationDate <= endDate;

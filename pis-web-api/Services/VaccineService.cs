@@ -4,52 +4,25 @@ using pis.Repositorys;
 
 namespace pis_web_api.Services
 {
-    public class VaccineService
+    public class VaccineService : Service<Vaccine>
     {
-        public static bool FillData(Vaccine vaccine)
+        private VaccineRepository _vaccineRepository;
+        public VaccineService() 
         {
-            bool status = VaccineRepository.AddVaccine(vaccine);
-            return status;
+            _vaccineRepository = new VaccineRepository();
+            _repository = _vaccineRepository;
         }
 
-        public static bool DeleteEntry(int id)
+        public (List<Vaccine>, int) GetVaccines(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
         {
-            bool status = VaccineRepository.DeleteVaccine(VaccineRepository.GetVaccineById(id));
-            return status;
-        }
-
-        public static Vaccine? GetEntry(int id)
-        {
-            var entry = VaccineRepository.GetVaccineById(id);
-            return entry;
-        }
-
-        public static (List<Vaccine>, int) GetVaccines(string filterField, string filterValue, string sortBy, bool isAscending, int pageNumber, int pageSize)
-        {
-            List<Vaccine> vaccines;
-            int count;
-            switch (filterField)
+            var filterFields = new Dictionary<string, Func<string, int, int, string, bool, (List<Vaccine>, int)>>(StringComparer.InvariantCultureIgnoreCase)
             {
-                case nameof(Vaccine.NameVaccine):
-                    (vaccines, count) = VaccineRepository.GetVaccinesByName(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
+                [nameof(Vaccine.NameVaccine)] = _vaccineRepository.GetVaccinesByName,
 
-                case "":
-                    (vaccines, count) = VaccineRepository.GetVaccinesByName(filterValue, pageNumber, pageSize, sortBy, isAscending);
-                    break;
+                [""] = _vaccineRepository.GetVaccinesByDefault
+            };
 
-                default:
-                    throw new ArgumentException("Нет такого поля для фильтрации");
-            }
-
-            return (vaccines, count);
-        }
-
-
-        public static bool ChangeEntry(Vaccine animal)
-        {
-            bool status = VaccineRepository.UpdateVaccine(animal);
-            return status;
+            return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending);
         }
     }
 }
