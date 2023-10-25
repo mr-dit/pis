@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const cols = [
   { name: "registrationNumber", title: "Регистрационный номер" },
-  { name: "locality", title: "Населенный пункт" },
-  { name: "animalCategory", title: "Категория животного" },
-  { name: "gender", title: "Пол животного" },
-  { name: "yearOfBirth", title: "Год рождения" },
-  { name: "electronicChipNumber", title: "Номер электронного чипа" },
-  { name: "animalName", title: "Кличка" },
+  { name: "locality", title: "Населенный пункт", sortName: "Locality" },
+  { name: "animalCategory", title: "Категория животного", sortName: "AnimalCategory" },
+  { name: "gender", title: "Пол животного", sortName: "Gender" },
+  { name: "yearOfBirth", title: "Год рождения", sortName: "YearOfBirth" },
+  { name: "electronicChipNumber", title: "Номер электронного чипа", sortName: "ElectronicChipNumber" },
+  { name: "animalName", title: "Кличка", sortName: "AnimalName" },
   { name: "photoPath", title: "Фотографии" },
   { name: "specialSigns", title: "Особые приметы" },
 ];
@@ -85,8 +85,8 @@ const AnimalComponent = () => {
     } catch(e){
         alert(e)
     }
-
   };
+
 
   return (
     <div>
@@ -96,6 +96,10 @@ const AnimalComponent = () => {
         headers={cols}
         handleChange={handleChange}
         handleDelete={handleDelete}
+        handleSortName={(value) => {
+          setSortBy(value)
+        console.log(value);
+        }}
       />
 
       {/* Pagination */}
