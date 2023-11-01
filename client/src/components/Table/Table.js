@@ -1,6 +1,12 @@
 import React from "react";
 
-const Table = ({ data, headers, handleChange, handleDelete }) => {
+const Table = ({
+  data,
+  headers,
+  handleChange,
+  handleDelete,
+  handleSortName,
+}) => {
   const handleRowChange = (registrationNumber) => () => {
     handleChange(registrationNumber);
   };
@@ -9,12 +15,23 @@ const Table = ({ data, headers, handleChange, handleDelete }) => {
     handleDelete(registrationNumber);
   };
 
+  const handleColSortName = (value) => () => {
+    handleSortName(value);
+  };
+
   return (
     <table className="table table-striped table-hover">
       <thead>
         <tr>
           {headers.map((header) => (
-            <th key={header.name}>{header.title}</th>
+            <th
+              key={header.name}
+              onClick={
+                header.sortName ? handleColSortName(header.sortName) : null
+              }
+            >
+              {header.title}
+            </th>
           ))}
         </tr>
       </thead>
