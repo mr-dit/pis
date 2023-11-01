@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using NUnit.Framework;
 using pis.Services;
+using pis_web_api.Services;
 
 namespace pis.Models
 {
@@ -54,6 +56,16 @@ namespace pis.Models
             AdressReg = adressReg;
             OrgTypeId = orgTypeId;
             LocalityId = localityId;
+        }
+
+        public bool HasUser(int userId)
+        {
+            var user = new UserService().GetEntry(userId);
+            var users = new UserService().GetUsersByOrganisation(this.OrgId);
+
+            if (users is null || users.Count() == 0)
+                throw new Exception("В экземпляре организации нет пользователей");
+            return users.Contains(user);
         }
     }
 }

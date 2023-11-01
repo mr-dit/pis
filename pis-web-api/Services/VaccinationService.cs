@@ -15,24 +15,14 @@ namespace pis.Services
             _vaccinationRepository = new VaccinationRepository();
             _repository = _vaccinationRepository;
         }
+        
+        // Для карточки животного
+        public (List<Vaccination>, int) GetVaccinationsByAnimal
+            (int animalId, int pageNumber, int pageSize) =>
+             _vaccinationRepository.GetVaccinationsByAnimal(animalId, pageNumber, pageSize);
 
-        public (List<Vaccination>, int) GetVaccinations
-            (string filterField, string filterValue, DateOnly dateStart, DateOnly dateEnd,
-            string sortBy, bool isAscending, int pageNumber, int pageSize)
-        {
-            switch (filterField)
-            {
-                case (nameof(Vaccination.Animal)):
-                    return _vaccinationRepository.GetVaccinationsByAnimal
-                        (filterValue, pageNumber, pageSize, sortBy, isAscending);
-
-                case (nameof(Vaccination.VaccinationDate)):
-                    return _vaccinationRepository.GetVaccinationsByDate
-                        (dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
-                default:
-                    return _vaccinationRepository.GetVaccinationsByDefault
-                        (pageNumber, pageSize, sortBy, isAscending);
-            }
-        }
+        // Для отчета
+        public List<Vaccination> GetVaccinationsByDate (DateOnly dateStart, DateOnly dateEnd) =>
+            _vaccinationRepository.GetVaccinationsByDate(dateStart, dateEnd);
     }
 }

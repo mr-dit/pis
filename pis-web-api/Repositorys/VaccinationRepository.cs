@@ -30,15 +30,14 @@ namespace pis.Repositorys
         }
 
         public (List<Vaccination>, int) GetVaccinationsByAnimal
-            (string animalId, int pageNumber, int pageSize, string sortBy, bool isAscending)
-        => GetVaccinationsByValue(x => x.Animal.RegistrationNumber == int.Parse(animalId), 
-            pageNumber, pageSize, sortBy, isAscending);
+            (int animalId, int pageNumber, int pageSize)
+        => GetVaccinationsByValue(x => x.Animal.RegistrationNumber == animalId, 
+            pageNumber, pageSize, nameof(Vaccination.VaccinationDate), true);
 
-        public (List<Vaccination>, int) GetVaccinationsByDate
-            (DateOnly dateStart, DateOnly dateEnd, int pageNumber,
-            int pageSize, string sortBy, bool isAscending) =>
+        public List<Vaccination> GetVaccinationsByDate
+            (DateOnly dateStart, DateOnly dateEnd) =>
             GetVaccinationsByValue(x => x.VaccinationDate >= dateStart && x.VaccinationDate <= dateEnd,
-                pageNumber, pageSize, sortBy, isAscending);
+                1, 9999, nameof(Vaccination.VaccinationDate), true).Item1;
 
         public (List<Vaccination>, int) GetVaccinationsByDefault
             (int pageNumber, int pageSize, string sortBy, bool isAscending) =>

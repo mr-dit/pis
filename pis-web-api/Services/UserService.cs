@@ -24,11 +24,14 @@ namespace pis_web_api.Services
 
                 [nameof(User.LastName)] = _userRepository.GetUsersByLastName,
 
-                [nameof(User.Organisation)] = _userRepository.GetUsersByOrganisation,
+                [nameof(User.Organisation)] = _userRepository.GetUsersByOrganisationName,
 
                 [""] = _userRepository.GetUsersByDefault
             };
             return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending);
         }
+
+        public List<User> GetUsersByOrganisation(int orgId) =>
+            _userRepository.GetUsersByOrganisation(orgId);
     }
 }

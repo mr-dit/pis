@@ -12,9 +12,9 @@ namespace pis_web_api.Services
             _repository = _repositoryRole;
         }    
 
-        public (List<Role>, int) GetRoles(string filterValue, int pageNumber, int pageSize)
-        {
-            return _repositoryRole.GetRolesByName(filterValue, pageNumber, pageSize);
-        }
+        public (List<Role>, int) GetRoles(string filterValue, int pageNumber, int pageSize) =>
+            _repositoryRole.GetRolesByName(filterValue, pageNumber, pageSize);
+
+       
     }
 }

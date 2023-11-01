@@ -64,6 +64,21 @@ namespace pis.Repositorys
                                               .NameLocality
                                               .Contains(locality, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
+
+        public override Animal GetById(int id)
+        {
+            using (var db = new Context())
+            {
+                var animal = db.Animals
+                    .Where(x => x.RegistrationNumber == id)
+                    .Include(x => x.Gender)
+                    .Include(x => x.AnimalCategory)
+                    .Include(x => x.Locality)
+                    .Include(x => x.Vaccinations)
+                    .Single();
+                return animal;
+            }
+        }
     }
 
     static class SortingExtension
