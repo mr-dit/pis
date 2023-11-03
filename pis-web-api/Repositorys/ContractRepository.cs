@@ -56,6 +56,23 @@ namespace pis.Repositorys
 
         public (List<Contract>, int) GetContractsByDefault(DateOnly? dateStart, DateOnly? dateEnd, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetContractsByValue(con => { return true; }, pageNumber, pageSize, sortBy, isAscending);
+
+        public override Contract GetById(int id)
+        {
+            using (var db = new Context())
+            {
+                var contract = db.Contracts
+                    .Where(x => x.IdContract == id)
+                    .Include(x => x.Performer)
+                        .ThenInclude(x => x.Users)
+                    .Include(x => x.Customer)
+                        .ThenInclude(x => x.Users)
+                    .Include(x => x.Localities)
+                    .Include(x => x.Vaccinations)
+                    .Single();
+                return contract;
+            }
+        }
     }
 
     static class ContractExtension

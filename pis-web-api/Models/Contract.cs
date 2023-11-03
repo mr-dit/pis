@@ -5,6 +5,7 @@ using NUnit.Framework;
 using pis.Repositorys;
 using pis.Services;
 using pis_web_api.Models;
+using pis_web_api.Services;
 
 namespace pis.Models
 {
@@ -41,6 +42,15 @@ namespace pis.Models
             var conRepository = new ContractService();
             conRepository.ChangeEntry(this);
             return true;
+        }
+
+        public bool HasLocality(int localityId)
+        {
+            var locality = new LocalityService().GetEntry(localityId);
+            var localities = new VaccinePriceListRepository().GetLocalitiesByContract(this.IdContract);
+            if (localities == null || localities.Count == 0)
+                throw new Exception("В экземпляре контракта нет городов");
+            return localities.Contains(locality);
         }
         //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
         //    DateTime expirationDate, Organisation performer, Organisation customer,

@@ -40,7 +40,7 @@ namespace pis_web_api.Repositorys
         public bool Update(T model) =>
             DoWork(model, (db, modelT) => db.Update(modelT));
 
-        public T GetById(int id)
+        virtual public T GetById(int id)
         {
             var model = dbSet.Find(id);
             if (model == null)

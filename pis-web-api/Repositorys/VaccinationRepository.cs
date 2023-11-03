@@ -4,169 +4,63 @@ using System.Linq;
 using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore;
 using pis.Models;
+using pis_web_api.Repositorys;
 
 namespace pis.Repositorys
 {
-    public class VaccinationRepository
+    public class VaccinationRepository : Repository<Vaccination>
     {
-        public static bool AddVacciantion(Vaccination vac)
-        {
-            using (var db = new Context())
-            {
-                try
-                {
-                    db.Vaccinations.Add(vac);
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+        public VaccinationRepository()  :base()
+        { }
 
-        public static bool RemoveVacciantion(Vaccination vac)
+        private (List<Vaccination>, int) GetVaccinationsByValue(Func<Vaccination, bool> value, int pageNumber, int pageSize, string sortBy, bool isAscending)
         {
-            using (var db = new Context())
+            using (Context db = new Context())
             {
-                try
-                {
-                    db.Vaccinations.Remove(vac);
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
-        public static bool UpdateVaccination(Vaccination vac)
-        {
-            using (var db = new Context())
-            {
-                try
-                {
-                    db.Vaccinations.Update(vac);
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
-        public static Vaccination GetVaccinationById(int id)
-        {
-            using (var db = new Context())
-            {
-                var vac = db.Vaccinations
+                var allVaccinations = db.Vaccinations
+                    .Include(x => x.Vaccine)
                     .Include(x => x.Animal)
                     .Include(x => x.Contract)
-                        .ThenInclude(x => x.Customer)
                     .Include(x => x.Doctor)
-                        .ThenInclude(x => x.Organisation)
-                    .Include(x => x.Vaccine)
-                    .Single();
-                if (vac == null)
-                    throw new ArgumentNullException($"Не существует вакцинации с id {id}");
-                return vac;
+                    .Where(value)
+                    .SortBy(sortBy, isAscending);
+                var vaccinations = allVaccinations.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return (vaccinations, allVaccinations.Count());
             }
         }
 
-        public static IQueryable<Vaccination> GetVaccinationsByAnimal(Animal animal)
-        {
-            using (var db = new Context())
-            {
-                var vac = db.Vaccinations
-                    .Include(x => x.Animal)
-                    .Include(x => x.Contract)
-                        .ThenInclude(x => x.Customer)
-                    .Include(x => x.Doctor)
-                        .ThenInclude(x => x.Organisation)
-                    .Include(x => x.Vaccine)
-                    .Where(x => x.Animal.AnimalName.ToLower().Contains(animal.AnimalName));
-                //if (vac == null)
-                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
-                return vac;
-            }
-        }
+        public (List<Vaccination>, int) GetVaccinationsByAnimal
+            (int animalId, int pageNumber, int pageSize)
+        => GetVaccinationsByValue(x => x.Animal.RegistrationNumber == animalId, 
+            pageNumber, pageSize, nameof(Vaccination.VaccinationDate), true);
 
-        public static IQueryable<Vaccination> GetVaccinationsByAnimalName(string name)
-        {
-            using (var db = new Context())
-            {
-                var vac = db.Vaccinations
-                    .Include(x => x.Animal)
-                    .Include(x => x.Contract)
-                        .ThenInclude(x => x.Customer)
-                    .Include(x => x.Doctor)
-                        .ThenInclude(x => x.Organisation)
-                    .Include(x => x.Vaccine)
-                    .Where(x => x.Animal.AnimalName.ToLower().Contains(name));
-                //if (vac == null)
-                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
-                return vac;
-            }
-        }
+        public List<Vaccination> GetVaccinationsByDate
+            (DateOnly dateStart, DateOnly dateEnd) =>
+            GetVaccinationsByValue(x => x.VaccinationDate >= dateStart && x.VaccinationDate <= dateEnd,
+                1, 9999, nameof(Vaccination.VaccinationDate), true).Item1;
 
-        public static IQueryable<Vaccination> GetVaccinationsByDate(DateOnly date)
-        {
-            using (var db = new Context())
-            {
-                var vac = db.Vaccinations
-                    .Include(x => x.Animal)
-                    .Include(x => x.Contract)
-                        .ThenInclude(x => x.Customer)
-                    .Include(x => x.Doctor)
-                        .ThenInclude(x => x.Organisation)
-                    .Include(x => x.Vaccine)
-                    .Where(x => x.VaccinationDate.Equals(date));
-                //if (vac == null)
-                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
-                return vac;
-            }
-        }
+        public (List<Vaccination>, int) GetVaccinationsByDefault
+            (int pageNumber, int pageSize, string sortBy, bool isAscending) =>
+            GetVaccinationsByValue(x => { return true; }, pageNumber, pageSize, sortBy, isAscending);
+    }
 
-        public static IQueryable<Vaccination> GetVaccinationsByDoctorName(string name)
+    static class VaccinationExtension
+    {
+        public static IEnumerable<Vaccination> SortBy(this IEnumerable<Vaccination> users, string sortBy, bool isAscending)
         {
-            using (var db = new Context())
+            var sortingFields = new Dictionary<string, Func<IEnumerable<Vaccination>, bool, IOrderedEnumerable<Vaccination>>>(StringComparer.InvariantCultureIgnoreCase)
             {
-                var vac = db.Vaccinations
-                    .Include(x => x.Animal)
-                    .Include(x => x.Contract)
-                        .ThenInclude(x => x.Customer)
-                    .Include(x => x.Doctor)
-                        .ThenInclude(x => x.Organisation)
-                    .Include(x => x.Vaccine)
-                    .Where(x => x.Doctor.LastName.Contains(name));
-                //if (vac == null)
-                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
-                return vac;
-            }
-        }
+                [nameof(Vaccination.Contract)] = (users, isAscending) =>
+                    isAscending ? users.OrderBy(a => a.Contract.IdContract)
+                    : users.OrderByDescending(a => a.Contract.IdContract),
+                [nameof(Vaccination.VaccinationDate)] = (users, isAscending) =>
+                    isAscending ? users.OrderBy(x => x.VaccinationDate) 
+                    : users.OrderByDescending (x => x.VaccinationDate)
+            };
 
-        public static IQueryable<Vaccination> GetVaccinationsByOrgName(string name)
-        {
-            using (var db = new Context())
-            {
-                var vac = db.Vaccinations
-                    .Include(x => x.Animal)
-                    .Include(x => x.Contract)
-                        .ThenInclude(x => x.Customer)
-                    .Include(x => x.Doctor)
-                        .ThenInclude(x => x.Organisation)
-                    .Include(x => x.Vaccine)
-                    .Where(x => x.Contract.Customer.OrgName.ToLower().Contains(name.ToLower()) ||
-                                    x.Doctor.Organisation.OrgName.ToLower().Contains(name.ToLower()));
-                //if (vac == null)
-                //    throw new ArgumentNullException($"Не существует вакцинации с животными {id}");
-                return vac;
-            }
+            var sortingMethod = sortingFields[sortBy];
+
+            return sortingMethod(users, isAscending);
         }
     }
 }

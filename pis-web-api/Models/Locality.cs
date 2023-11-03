@@ -16,11 +16,22 @@ namespace pis.Models
         {
             NameLocality = name;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if(!(obj is Locality) || obj == null)
+                return false;
+
+            var compLocality = (Locality)obj;
+
+            return this.IdLocality == compLocality.IdLocality &&
+                this.NameLocality == compLocality.NameLocality;
+        }
         //public Locality(int idLocality, string nameLocality) 
         //{
         //    IdLocality = idLocality;
         //    NameLocality = nameLocality;
         //}
-            
+
     }
 }

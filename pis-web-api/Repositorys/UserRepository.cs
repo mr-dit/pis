@@ -46,10 +46,10 @@ namespace pis.Repositorys
             GetUsersByValue(user => user.LastName.Contains(surname, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
 
-        public (List<User>, int) GetUsersByOrganisation(
-            string surname, int pageNumber,
+        public (List<User>, int) GetUsersByOrganisationName(
+            string orgName, int pageNumber,
             int pageSize, string sortBy, bool isAscending) =>
-            GetUsersByValue(user => user.Organisation.OrgName.Contains(surname, StringComparison.InvariantCultureIgnoreCase),
+            GetUsersByValue(user => user.Organisation.OrgName.Contains(orgName, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
 
         public (List<User>, int) GetUsersByDefault(
@@ -57,6 +57,30 @@ namespace pis.Repositorys
            int pageSize, string sortBy, bool isAscending) =>
            GetUsersByValue(user => { return true; },
                pageNumber, pageSize, sortBy, isAscending);
+
+        public List<User> GetUsersByOrganisation(int orgId)
+        {
+            using (Context db = new Context())
+            {
+                var users = db.Users
+                    .Include(x => x.Organisation)
+                    .Where(x => x.OrganisationId == orgId);
+                return users.ToList();
+            }
+        }
+
+        public override User GetById(int id)
+        {
+            using (Context db = new Context())
+            {
+                var user = db.Users
+                    .Where(x => x.IdUser == id)
+                    .Include(x => x.Organisation)
+                    .Include(x => x.Roles)
+                    .Single();
+                return user;
+            }
+        }
     }
 
     static class UserExtension

@@ -1,5 +1,6 @@
 ﻿using pis.Repositorys;
 using pis_web_api.Models;
+using pis_web_api.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace pis.Models
@@ -48,6 +49,22 @@ namespace pis.Models
             //Roles.AddRange(roles);
 
             return true;
+        }
+
+        public bool IsDoctor()
+        {
+            if (Roles is null)
+                throw new Exception("Нет ролей у пользователя");
+            var roles = Roles.Select(x => x.RoleId);
+            return roles.Any(x => x == 13 || x == 14);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (!(obj is User user) || obj == null) return false;
+            var compUser = (User)obj;
+
+            return this.IdUser == compUser.IdUser;
         }
         //public User(int idUser, string firstName, string lastName, string surname, Post post, Organisation organisation, List<Vaccination> vaccinations)
         //{

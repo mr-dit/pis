@@ -19,5 +19,12 @@ namespace pis.Models
         }
 
         public Role() { }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !(obj is Role)) return false;
+            var compRole = (Role)obj;
+            return this.IdRole == compRole.IdRole;
+        }
     }
 }
