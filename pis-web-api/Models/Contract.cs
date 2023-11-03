@@ -52,6 +52,12 @@ namespace pis.Models
                 throw new Exception("В экземпляре контракта нет городов");
             return localities.Contains(locality);
         }
+
+        public decimal GetPriceByLocality(Locality locality)
+        {
+           var a = Localities.Where(x => x.LocalityId == locality.IdLocality).Single();
+           return a.Price;
+        }
         //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
         //    DateTime expirationDate, Organisation performer, Organisation customer,
         //    List<VaccinePriceListByLocality> vacinePriceByLocality, List<Vaccination> vaccinations)

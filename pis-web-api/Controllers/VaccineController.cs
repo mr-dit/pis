@@ -56,13 +56,13 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Vaccine organisation)
+        public IActionResult AddEntry([FromBody] Vaccine vaccine)
         {
-            bool status = _vaccineService.AddEntry(organisation);
+            bool status = _vaccineService.AddEntry(vaccine);
 
             if (status)
             {
-                return Ok();
+                return Ok(vaccine.IdVaccine);
             }
             else
             {

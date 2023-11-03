@@ -58,7 +58,7 @@ namespace pis_web_api.Controllers
 
             if (status)
             {
-                return Ok();
+                return Ok(locality.IdLocality);
             }
             else
             {
