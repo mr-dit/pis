@@ -34,11 +34,11 @@ namespace pis.Controllers
             _vaccineService = new VaccineService();
         }
 
-        [HttpGet("{dateStart}/{dateEnd}")]
-        public IActionResult GetStatisticaByVaccination(DateOnly dateStart, DateOnly dateEnd)
-        {
+        //[HttpGet("{dateStart}/{dateEnd}")]
+        //public IActionResult GetStatisticaByVaccination(DateOnly dateStart, DateOnly dateEnd)
+        //{
             
-        }
+        //}
     }
 }
 
