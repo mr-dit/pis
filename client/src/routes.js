@@ -8,9 +8,10 @@ export const useRoutes = () => {
     <Routes>
       <Route path="/Animal" element={<AnimalPage></AnimalPage>}></Route>
       <Route
-        path="/Animal/:id"
+        path="/Animal/update/:id"
         element={<EditAnimal></EditAnimal>}
       ></Route>
+      <Route path="/Animal/update" element={<EditAnimal></EditAnimal>}></Route>
 
       <Route path="*" element={<Navigate to="/Animal" replace />} />
     </Routes>

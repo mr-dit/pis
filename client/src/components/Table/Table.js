@@ -25,6 +25,7 @@ const Table = ({
         <tr>
           {headers.map((header) => (
             <th
+              style={{ display: header.nonVisible ? "none" : "table-cell" }}
               key={header.name}
               onClick={
                 header.sortName ? handleColSortName(header.sortName) : null
@@ -39,7 +40,12 @@ const Table = ({
         {data.map((row) => (
           <tr key={row[headers[0].name]}>
             {headers.map((header, i) => (
-              <td key={i}>{row[header.name]}</td>
+              <td
+                key={i}
+                style={{ display: header.nonVisible ? "none" : "table-cell" }}
+              >
+                {row[header.name]}
+              </td>
             ))}
             <td>
               <button onClick={handleRowChange(row[headers[0].name])}>

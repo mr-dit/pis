@@ -5,7 +5,7 @@ const Menu = () => {
   return (
     <nav
       className="navbar navbar-expand-lg"
-      style={{ "background-color": "#e3f2fd" }}
+      style={{ "backgroundColor": "#e3f2fd" }}
     >
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarNav">
