@@ -32,6 +32,7 @@ namespace pis.Controllers
         public IActionResult GetStatisticaByVaccination(DateOnly dateStart, DateOnly dateEnd)
         {
             var vaccination = _vaccinationService.GetVaccinationsByDate(dateStart, dateEnd);
+            var a = vaccination.GroupBy(x => x.Animal.LocalityId);
 
             if (vaccination == null)
             {
@@ -41,8 +42,6 @@ namespace pis.Controllers
 
 
             return Ok(vaccination);
-
-            var animal = _vaccinationService.GetVaccinationsByDate(dateStart, dateEnd);
 
         }
 

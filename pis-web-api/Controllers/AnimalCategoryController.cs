@@ -44,9 +44,10 @@ namespace pis_web_api.Controllers
         {
             bool status = _animalCategoryService.AddEntry(category);
 
+
             if (status)
             {
-                return Ok();
+                return Ok(category.IdAnimalCategory);
             }
             else
             {
