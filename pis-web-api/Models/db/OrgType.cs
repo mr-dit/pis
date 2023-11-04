@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
     public class OrgType
     {

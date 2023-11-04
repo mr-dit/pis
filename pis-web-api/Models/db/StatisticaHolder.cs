@@ -1,7 +1,6 @@
-﻿using pis.Models;
-using System.Collections;
+﻿using System.Collections;
 
-namespace pis_web_api.Models
+namespace pis_web_api.Models.db
 {
     public class StatisticaHolder : IEnumerable<StatisticItem>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore;
-using pis.Models;
+using pis_web_api.Models.db;
 using pis_web_api.Repositorys;
 
 namespace pis.Repositorys

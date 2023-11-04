@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework.Constraints;
-using pis.Models;
+using pis_web_api.Models.db;
 using pis_web_api.Repositorys;
 
 namespace pis.Repositorys

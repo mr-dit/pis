@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using pis.Services;
-using pis.Models;
 using pis.Repositorys;
 using pis_web_api.Services;
 using pis_web_api.Models;

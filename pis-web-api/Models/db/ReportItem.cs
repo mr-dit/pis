@@ -1,4 +1,4 @@
-namespace pis_web_api.Models;
+namespace pis_web_api.Models.db;
 
 public class ReportItem
 {

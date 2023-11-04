@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pis.Controllers;
-using pis.Models;
+using pis_web_api.Models.db;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers

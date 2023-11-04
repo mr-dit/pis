@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Models.db;
 
 namespace pis_web_api.Services
 {

@@ -1,7 +1,6 @@
-﻿using pis_web_api.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
     public class Locality
     {
@@ -19,13 +18,13 @@ namespace pis.Models
 
         public override bool Equals(object? obj)
         {
-            if(!(obj is Locality) || obj == null)
+            if (!(obj is Locality) || obj == null)
                 return false;
 
             var compLocality = (Locality)obj;
 
-            return this.IdLocality == compLocality.IdLocality &&
-                this.NameLocality == compLocality.NameLocality;
+            return IdLocality == compLocality.IdLocality &&
+                NameLocality == compLocality.NameLocality;
         }
         //public Locality(int idLocality, string nameLocality) 
         //{

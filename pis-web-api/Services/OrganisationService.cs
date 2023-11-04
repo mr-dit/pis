@@ -1,11 +1,11 @@
 ﻿using System;
-using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Models.db;
 using pis_web_api.Services;
 
 namespace pis.Services
 {
-	public class OrganisationService : Service<Organisation>
+    public class OrganisationService : Service<Organisation>
 	{
         private OrganisationsRepository _organisationRepository;
 

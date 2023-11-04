@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
-	public class Animal
-	{
+    public class Animal
+    {
         [Key]
         public int RegistrationNumber { get; set; }
 
@@ -33,7 +33,7 @@ namespace pis.Models
 
         public List<Vaccination>? Vaccinations { get; set; }
 
-        public Animal(string animalName, Locality locality, AnimalCategory animalCategory, 
+        public Animal(string animalName, Locality locality, AnimalCategory animalCategory,
             Gender gender, int yearOfBirth, string electronicChipNumber)
         {
             AnimalName = animalName;
@@ -42,6 +42,33 @@ namespace pis.Models
             Gender = gender;
             YearOfBirth = yearOfBirth;
             ElectronicChipNumber = electronicChipNumber;
+        }
+
+        public Animal(int regNumber, string animalName, int localityId, int animalCategoryId,
+            int genderId, int yearOfBirth, string electronicChipNumber, string photoPath, string signs)
+        {
+            RegistrationNumber = regNumber;
+            AnimalName = animalName;
+            LocalityId = localityId;
+            AnimalCategoryId = animalCategoryId;
+            GenderId = genderId;
+            YearOfBirth = yearOfBirth;
+            ElectronicChipNumber = electronicChipNumber;
+            PhotoPath = photoPath;
+            SpecialSigns = signs;
+        }
+
+        public Animal(string animalName, int localityId, int animalCategoryId,
+            int genderId, int yearOfBirth, string electronicChipNumber, string photoPath, string signs)
+        {
+            AnimalName = animalName;
+            LocalityId = localityId;
+            AnimalCategoryId = animalCategoryId;
+            GenderId = genderId;
+            YearOfBirth = yearOfBirth;
+            ElectronicChipNumber = electronicChipNumber;
+            PhotoPath = photoPath;
+            SpecialSigns = signs;
         }
 
         public Animal(string animalName, int localityId, int animalCategoryId,

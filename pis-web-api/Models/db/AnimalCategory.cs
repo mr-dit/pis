@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
     public class AnimalCategory
     {
         [Key]
         public int IdAnimalCategory { get; set; }
 
-        public string NameAnimalCategory { get; set; }
+        public string NameAnimalCategory { get; set; } = "";
 
         public AnimalCategory() { }
         public AnimalCategory(string name)
@@ -20,7 +20,7 @@ namespace pis.Models
         {
             if (obj == null || !(obj is AnimalCategory)) return false;
             var compObj = obj as AnimalCategory;
-            return this.NameAnimalCategory == compObj.NameAnimalCategory;
+            return NameAnimalCategory == compObj.NameAnimalCategory;
         }
 
         public override string ToString()

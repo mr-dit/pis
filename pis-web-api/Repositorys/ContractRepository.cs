@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using pis.Models;
 using pis.Services;
 using pis.Repositorys;
 using pis;
 using Microsoft.EntityFrameworkCore;
 using pis_web_api.Repositorys;
+using pis_web_api.Models.db;
 
 namespace pis.Repositorys
 {

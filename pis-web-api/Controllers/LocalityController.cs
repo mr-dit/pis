@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using pis.Models;
+using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -52,8 +53,9 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Locality locality)
+        public IActionResult AddEntry([FromBody] LocalityPost localityPost)
         {
+            var locality = localityPost.ConvertToLocality();
             bool status = _localityService.AddEntry(locality);
 
             if (status)
@@ -82,10 +84,11 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Locality locality)
+        public IActionResult ChangeEntry(int id, [FromBody] LocalityPost localityPost)
         {
             if (ModelState.IsValid)
             {
+                var locality = localityPost.ConvertToLocalityWithId(id);
                 bool status = _localityService.ChangeEntry(locality);
 
                 if (status)
