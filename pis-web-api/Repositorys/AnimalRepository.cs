@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using pis.Models;
+using pis_web_api.Models.db;
 using pis_web_api.Repositorys;
 
 namespace pis.Repositorys
 {
-    
+
 
     public class AnimalRepository : Repository<Animal>
     {

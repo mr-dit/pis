@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pis;
-using pis.Models;
 using pis.Repositorys;
 using System.Runtime.Intrinsics.Arm;
 

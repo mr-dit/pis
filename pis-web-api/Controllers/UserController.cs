@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using pis.Models;
+using pis_web_api.Models.db;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -22,7 +22,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(pis.Models.User.Surname), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Models.db.User.Surname), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
             var (users, totalItems) = _userService.GetUsers(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);

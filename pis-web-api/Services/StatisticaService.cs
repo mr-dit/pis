@@ -1,10 +1,10 @@
 ﻿using System;
-using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Models.db;
 
 namespace pis.Services
 {
-	public class StatisticaService
+    public class StatisticaService
 	{
         public static void /*List<StatisticsItem>*/ GetStatistics(DateTime startDate, DateTime endDate)
         {

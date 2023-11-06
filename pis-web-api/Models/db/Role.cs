@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
     public class Role
     {
@@ -13,7 +13,7 @@ namespace pis.Models
 
         public List<UserRole>? UsersRole { get; set; }
 
-        public Role (string nameRole)
+        public Role(string nameRole)
         {
             NameRole = nameRole;
         }
@@ -24,7 +24,7 @@ namespace pis.Models
         {
             if (obj == null || !(obj is Role)) return false;
             var compRole = (Role)obj;
-            return this.IdRole == compRole.IdRole;
+            return IdRole == compRole.IdRole;
         }
     }
 }

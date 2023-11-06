@@ -6,16 +6,16 @@ using NUnit.Framework;
 using pis.Services;
 using pis_web_api.Services;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
-	public class Organisation
-	{
+    public class Organisation
+    {
         [Key]
         public int OrgId { get; set; }
 
-		public string OrgName { get; set; }
+        public string OrgName { get; set; }
 
-        public string INN { get; set; } 
+        public string INN { get; set; }
 
         public string KPP { get; set; }
 
@@ -61,7 +61,7 @@ namespace pis.Models
         public bool HasUser(int userId)
         {
             var user = new UserService().GetEntry(userId);
-            var users = new UserService().GetUsersByOrganisation(this.OrgId);
+            var users = new UserService().GetUsersByOrganisation(OrgId);
 
             if (users is null || users.Count() == 0)
                 throw new Exception("В экземпляре организации нет пользователей");

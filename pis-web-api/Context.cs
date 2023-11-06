@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using pis.Models;
-using pis_web_api.Models;
+using pis_web_api.Models.db;
 
 namespace pis
 {

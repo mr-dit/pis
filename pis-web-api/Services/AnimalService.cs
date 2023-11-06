@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Models.db;
 using pis_web_api.Repositorys;
 using pis_web_api.Services;
 
 namespace pis.Services
 {
-	public class AnimalService : Service<Animal>
+    public class AnimalService : Service<Animal>
 	{
         private AnimalRepository _repositoryAnimal;
 		

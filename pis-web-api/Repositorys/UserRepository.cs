@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using pis.Models;
+using pis_web_api.Models.db;
 using pis_web_api.Repositorys;
 using System.ComponentModel;
 using System.Linq.Expressions;

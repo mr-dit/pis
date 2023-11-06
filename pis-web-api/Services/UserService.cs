@@ -1,5 +1,5 @@
-﻿using pis.Models;
-using pis.Repositorys;
+﻿using pis.Repositorys;
+using pis_web_api.Models.db;
 using System.Runtime.InteropServices;
 
 namespace pis_web_api.Services

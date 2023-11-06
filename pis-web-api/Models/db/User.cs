@@ -3,7 +3,7 @@ using pis_web_api.Models;
 using pis_web_api.Services;
 using System.ComponentModel.DataAnnotations;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
     public class User
     {
@@ -14,7 +14,7 @@ namespace pis.Models
 
         public string FirstName { get; set; }
 
-        public string LastName { get; set; }        
+        public string LastName { get; set; }
 
         public int OrganisationId { get; set; }
 
@@ -64,7 +64,7 @@ namespace pis.Models
             if (!(obj is User user) || obj == null) return false;
             var compUser = (User)obj;
 
-            return this.IdUser == compUser.IdUser;
+            return IdUser == compUser.IdUser;
         }
         //public User(int idUser, string firstName, string lastName, string surname, Post post, Organisation organisation, List<Vaccination> vaccinations)
         //{

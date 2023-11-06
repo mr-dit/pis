@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
-using pis.Models;
 using pis.Repositorys;
 using pis.Services;
+using pis_web_api.Models.db;
 using pis_web_api.Services;
 
 

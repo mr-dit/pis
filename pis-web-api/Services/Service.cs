@@ -1,5 +1,4 @@
-﻿using pis.Models;
-using pis.Repositorys;
+﻿using pis.Repositorys;
 using pis_web_api.Repositorys;
 
 namespace pis_web_api.Services

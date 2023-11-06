@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using pis.Models;
+using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -40,13 +41,14 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] AnimalCategory category)
+        public IActionResult AddEntry([FromBody] AnimalCategoryPost categoryPost)
         {
+            var category = categoryPost.ConvertToAnimalCategory();
             bool status = _animalCategoryService.AddEntry(category);
 
             if (status)
             {
-                return Ok();
+                return Ok(category.IdAnimalCategory);
             }
             else
             {
@@ -70,10 +72,11 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] AnimalCategory category)
+        public IActionResult ChangeEntry(int id, [FromBody] AnimalCategoryPost categoryPost)
         {
             if (ModelState.IsValid)
             {
+                var category = categoryPost.ConvertToAnimalCategoryWithId(id);
                 bool status = _animalCategoryService.ChangeEntry(category);
 
                 if (status)

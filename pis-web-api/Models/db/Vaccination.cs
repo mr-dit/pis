@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 
-namespace pis.Models;
+namespace pis_web_api.Models.db;
 
 public class Vaccination
 {
@@ -27,8 +27,8 @@ public class Vaccination
 
     public Vaccination() { }
 
-    public Vaccination(string vaccineSeriesNumber, Animal animal, Vaccine vaccine, User doctor, Contract contract) 
-    { 
+    public Vaccination(string vaccineSeriesNumber, Animal animal, Vaccine vaccine, User doctor, Contract contract)
+    {
         VaccineSeriesNumber = vaccineSeriesNumber;
         VaccinationDate = DateOnly.FromDateTime(DateTime.Today);
         VaccinationValidDate = DateOnly.FromDateTime(DateTime.Today.AddDays(vaccine.ValidDaysVaccine));

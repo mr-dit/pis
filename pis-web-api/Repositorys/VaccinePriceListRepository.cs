@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using pis.Models;
 using pis_web_api.Models;
+using pis_web_api.Models.db;
 using System.Xml.Linq;
 
 namespace pis.Repositorys

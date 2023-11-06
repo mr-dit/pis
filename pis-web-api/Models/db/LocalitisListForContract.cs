@@ -1,7 +1,6 @@
-﻿using pis.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace pis_web_api.Models
+namespace pis_web_api.Models.db
 {
     public class LocalitisListForContract
     {

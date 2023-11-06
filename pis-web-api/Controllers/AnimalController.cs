@@ -2,9 +2,10 @@
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using pis.Models;
 using pis.Repositorys;
 using pis.Services;
+using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Repositorys;
 
 namespace pis.Controllers;
@@ -61,13 +62,15 @@ namespace pis.Controllers;
         }
 
         [HttpPost("AddEntry")]
-        public IActionResult AddEntry([FromBody] Animal animal)
+        public IActionResult AddEntry([FromBody] AnimalPost animalPost)
         {
+            var animal = animalPost.ConvertToAnimal();
+
             bool status = animalService.AddEntry(animal);
 
             if (status)
             {
-                return Ok();
+                return Ok(animal.RegistrationNumber);
             }
             else
             {
@@ -91,10 +94,11 @@ namespace pis.Controllers;
         }
 
         [HttpPost("ChangeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Animal animal)
+        public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost)
         {
             if (ModelState.IsValid)
             {
+                var animal = animalPost.ConvertToAnimalWithId(id);
                 bool status = animalService.ChangeEntry(animal);
 
                 if (status)

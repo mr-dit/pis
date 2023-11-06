@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
-using pis.Models;
 using pis.Repositorys;
+using pis_web_api.Models.db;
 using pis_web_api.Services;
 
 namespace pis.Services

@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using NUnit.Framework;
 using pis.Repositorys;
 using pis.Services;
-using pis_web_api.Models;
 using pis_web_api.Services;
 
-namespace pis.Models
+namespace pis_web_api.Models.db
 {
     public class Contract
     {
@@ -26,7 +25,7 @@ namespace pis.Models
         public List<Vaccination>? Vaccinations { get; set; }
 
         public Contract() { }
-        public Contract(DateTime expirationDate, Organisation customer, Organisation performer) 
+        public Contract(DateTime expirationDate, Organisation customer, Organisation performer)
         {
             ConclusionDate = DateOnly.FromDateTime(DateTime.Today);
             ExpirationDate = DateOnly.FromDateTime(expirationDate);
@@ -47,10 +46,16 @@ namespace pis.Models
         public bool HasLocality(int localityId)
         {
             var locality = new LocalityService().GetEntry(localityId);
-            var localities = new VaccinePriceListRepository().GetLocalitiesByContract(this.IdContract);
+            var localities = new VaccinePriceListRepository().GetLocalitiesByContract(IdContract);
             if (localities == null || localities.Count == 0)
                 throw new Exception("В экземпляре контракта нет городов");
             return localities.Contains(locality);
+        }
+
+        public decimal GetPriceByLocality(Locality locality)
+        {
+            var a = Localities.Where(x => x.LocalityId == locality.IdLocality).Single();
+            return a.Price;
         }
         //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
         //    DateTime expirationDate, Organisation performer, Organisation customer,
