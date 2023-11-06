@@ -8,26 +8,25 @@ const { REACT_APP_API_URL } = process.env;
 
 const cols = [
   {
-    name: "registrationNumber",
-    title: "Регистрационный номер",
+    name: "orgId",
+    title: "id",
     nonVisible: true,
   },
-  { name: "locality", title: "Населенный пункт", sortName: "Locality" },
+  { name: "orgName", title: "Название организации", sortName: "OrgName" },
   {
-    name: "animalCategory",
-    title: "Категория животного",
-    sortName: "AnimalCategory",
+    name: "inn",
+    title: "ИНН",
+    sortName: "Inn",
   },
-  { name: "gender", title: "Пол животного", sortName: "Gender" },
-  { name: "yearOfBirth", title: "Год рождения", sortName: "YearOfBirth" },
+  { name: "kpp", title: "КПП", sortName: "Kpp" },
+  { name: "adressReg", title: "Адрес регистрации", sortName: "ФdressReg" },
   {
-    name: "electronicChipNumber",
-    title: "Номер электронного чипа",
-    sortName: "ElectronicChipNumber",
+    name: "orgType",
+    title: "Тип организации",
+    sortName: "OrgType",
   },
-  { name: "animalName", title: "Кличка", sortName: "AnimalName" },
-  { name: "photoPath", title: "Фотографии" },
-  { name: "specialSigns", title: "Особые приметы" },
+  { name: "locality", title: "Город", sortName: "Locality" },
+
 ];
 
 const AnimalComponent = () => {
@@ -50,7 +49,7 @@ const AnimalComponent = () => {
   const fetchAnimals = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_API_URL}/Animal/OpensRegister`,
+        `${REACT_APP_API_URL}/Organisation/OpensRegister`,
         {
           params: {
             filterValue,
@@ -85,16 +84,16 @@ const AnimalComponent = () => {
   };
 
   const handleChange = (id) => {
-    navigate(`/Animal/update/${id}`);
+    navigate(`/Organisation/update/${id}`);
   };
   const handleCreate = () => {
-    navigate(`/Animal/update`);
+    navigate(`/Organisation/update`);
   };
 
   const handleDelete = async (id) => {
     try {
       const index = animals.findIndex((n) => n.registrationNumber === id);
-      await axios.post(`${REACT_APP_API_URL}/Animal/DeleteEntry/${id}`);
+      await axios.post(`${REACT_APP_API_URL}/Organisation/DeleteEntry/${id}`);
       if (index !== -1) {
         animals.splice(index, 1);
       }

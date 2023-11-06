@@ -9,6 +9,7 @@ body {
 
 h1{
   margin-bottom: 30px !important;
+  margin-top: 20px !important;
 }
 
 code {
@@ -27,3 +28,13 @@ label{
   width: 100%;
   flex-direction: column;
 }
+
+/* td{
+  word-break: break-all;
+  max-width: 200px;
+  width: auto;
+} */
+
+/* th{
+  width: fit-content;
+} */

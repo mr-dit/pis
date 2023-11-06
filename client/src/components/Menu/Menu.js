@@ -21,6 +21,13 @@ const Menu = () => {
                 {/* </a> */}
               </li>
             </NavLink>
+            <NavLink className={'nav-link'} to="/Organisation">
+              <li className="nav-item">
+                {/* <a className="nav-link" href="#"> */}
+                  Организации
+                {/* </a> */}
+              </li>
+            </NavLink>
 
             <li className="nav-item">
               <a className="nav-link" href="#">
