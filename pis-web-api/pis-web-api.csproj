@@ -20,10 +20,15 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="EPPlus" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Services\" />
+    <None Remove="Microsoft.Office.Interop.Excel" />
+    <None Remove="Excel" />
+    <None Remove="EPPlus" />
   </ItemGroup>
 
   <ItemGroup>
