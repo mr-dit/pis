@@ -83,14 +83,12 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] ContractPost conPost)
         {
-            var con = conPost.ConvertToContract();
-            bool status = _contractService.AddEntry(con);
-
-            if (status)
+            try
             {
+                var con = conPost.ConvertToContract();
                 return Ok(con.IdContract);
             }
-            else
+            catch (Exception)
             {
                 return BadRequest("Failed to add organisation entry.");
             }
@@ -116,7 +114,9 @@ namespace pis_web_api.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var con = conPost.ConvertToContractWithId(id);
+
                 bool status = _contractService.ChangeEntry(con);
 
                 if (status)

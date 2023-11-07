@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using NUnit.Framework;
 using pis.Repositorys;
 using pis.Services;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Models.db
@@ -70,6 +71,27 @@ namespace pis_web_api.Models.db
         {
             var a = Localities.Where(x => x.LocalityId == locality.IdLocality).Single();
             return a.Price;
+        }
+
+        public void Update(ContractPost conPost)
+        {
+            ConclusionDate = conPost.ConclusionDate;
+            ExpirationDate = conPost.ExpirationDate;
+            PerformerId = conPost.PerformerId;
+            CustomerId = conPost.CustomerId;
+            foreach (var localityPricePair in conPost.LocalitiesPriceList)
+            {
+                if(Localities.Select(x => x.LocalityId).Contains(localityPricePair.Key))
+                {
+                    var localityPrice = Localities.Where(x => x.LocalityId == localityPricePair.Key).Single();
+                    localityPrice.LocalityId = localityPricePair.Key;
+                    localityPrice.Price = localityPricePair.Value;
+                }
+                else
+                {
+                    this.AddLocalitisList(localityPricePair.Key, localityPricePair.Value);
+                }
+            }
         }
         //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
         //    DateTime expirationDate, Organisation performer, Organisation customer,

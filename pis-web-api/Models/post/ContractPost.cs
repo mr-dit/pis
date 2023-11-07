@@ -1,4 +1,5 @@
-﻿using pis_web_api.Models.db;
+﻿using pis.Services;
+using pis_web_api.Models.db;
 
 namespace pis_web_api.Models.post
 {
@@ -20,8 +21,8 @@ namespace pis_web_api.Models.post
 
         public Contract ConvertToContractWithId(int id)
         {
-            var contract = this.ConvertToContract();
-            contract.IdContract = id;
+            var contract = new ContractService().GetEntry(id);
+            contract.Update(this);
             return contract;
         }
     }
