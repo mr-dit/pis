@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pis.Services;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -80,13 +81,14 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Contract con)
+        public IActionResult AddEntry([FromBody] ContractPost conPost)
         {
+            var con = conPost.ConvertToContract();
             bool status = _contractService.AddEntry(con);
 
             if (status)
             {
-                return Ok();
+                return Ok(con.IdContract);
             }
             else
             {
@@ -110,10 +112,11 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Contract con)
+        public IActionResult ChangeEntry(int id, [FromBody] ContractPost conPost)
         {
             if (ModelState.IsValid)
             {
+                var con = conPost.ConvertToContractWithId(id);
                 bool status = _contractService.ChangeEntry(con);
 
                 if (status)

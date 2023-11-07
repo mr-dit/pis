@@ -25,12 +25,20 @@ namespace pis_web_api.Models.db
         public List<Vaccination>? Vaccinations { get; set; }
 
         public Contract() { }
-        public Contract(DateTime expirationDate, Organisation customer, Organisation performer)
+        public Contract(DateOnly conclusionDate, DateOnly expirationDate, Organisation customer, Organisation performer)
         {
-            ConclusionDate = DateOnly.FromDateTime(DateTime.Today);
-            ExpirationDate = DateOnly.FromDateTime(expirationDate);
+            ConclusionDate = conclusionDate;
+            ExpirationDate = expirationDate;
             PerformerId = performer.OrgId;
             CustomerId = customer.OrgId;
+        }
+
+        public Contract(DateOnly conclusionDate, DateOnly expirationDate, int customerId, int performerId)
+        {
+            ConclusionDate = conclusionDate;
+            ExpirationDate = expirationDate;
+            PerformerId = performerId;
+            CustomerId = customerId;
         }
 
         public bool AddLocalitisList(Locality locality, decimal price)
@@ -41,6 +49,12 @@ namespace pis_web_api.Models.db
             var conRepository = new ContractService();
             conRepository.ChangeEntry(this);
             return true;
+        }
+
+        public void AddLocalitisList(int localityId, decimal price)
+        {
+            var locality = new LocalityService().GetEntry(localityId);
+            AddLocalitisList(locality, price);
         }
 
         public bool HasLocality(int localityId)
