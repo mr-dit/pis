@@ -15,7 +15,7 @@ const createArrayOptions = (data) => {
   });
 };
 
-const EditAnimalForm = ({ animal, handleUpdate }) => {
+const EditAnimalForm = () => {
   const [animalData, setAnimalData] = useState({
     localityId: "",
     animalCategoryId: "",
@@ -35,7 +35,7 @@ const EditAnimalForm = ({ animal, handleUpdate }) => {
   const fetchAnimalById = async () => {
     try {
       const res = await axios.get(`${REACT_APP_API_URL}/Animal/${id}`);
-      setAnimalData(res.data);
+      setAnimalData({ ...res.data, photoPath: "" });
     } catch (e) {
       console.error(e);
     }
@@ -86,9 +86,6 @@ const EditAnimalForm = ({ animal, handleUpdate }) => {
     setAnimalData((prev) => ({ ...prev, genderId: value }));
   };
 
-  const filterOption = (input, option) =>
-    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -97,22 +94,26 @@ const EditAnimalForm = ({ animal, handleUpdate }) => {
           `${REACT_APP_API_URL}/Animal/ChangeEntry/${id}`,
           animalData
         );
+      } else {
+        await axios.post(`${REACT_APP_API_URL}/Animal/AddEntry`, animalData);
       }
-      toMainPage()
+      toMainPage();
     } catch (e) {
       console.error(e);
     }
   };
 
-  const toMainPage = () =>{
-    navigate('/Animal')
-  }
+  const toMainPage = () => {
+    navigate("/Animal");
+  };
 
   return (
     <>
       <div className="d-flex justify-content-between">
         {id ? <h1>Редактирование животного</h1> : <h1>Добавление животного</h1>}
-        <button className="fs-1" onClick={toMainPage}>×</button>
+        <button className="fs-1" onClick={toMainPage}>
+          ×
+        </button>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-4 flex-nowrap gap-3">
@@ -178,18 +179,16 @@ const EditAnimalForm = ({ animal, handleUpdate }) => {
               required
             />
           </label>
-          <label>
-            Номер электронного чипа
-            <input
-              className="form-control"
-              type="text"
-              value={animalData.electronicChipNumber}
-              onChange={(e) =>
-                handleChange(e.target.value, "electronicChipNumber")
-              }
-              required
-            />
-          </label>
+          <div className="input-group mb-3">
+            <label style={{ width: "350px" }}>
+              Изображение
+              <input
+                type="file"
+                className="form-control"
+                id="inputGroupFile01"
+              />
+            </label>
+          </div>
           <label>
             Особые приметы
             <input

@@ -15,6 +15,8 @@ const createOption = (label: string, id: string) => ({
 const { REACT_APP_API_URL } = process.env;
 
 export default ({
+  isCreate = true,
+  newPlaceholder = 'Выберите',
   newOptions,
   handleChange,
   newValue,
@@ -66,7 +68,9 @@ export default ({
 
   return (
     <CreatableSelect
-      isClearable
+      required
+      placeholder={newPlaceholder}
+      isClearable={isCreate}
       isDisabled={isLoading}
       isLoading={isLoading}
       onChange={(newValue) => {

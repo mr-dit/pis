@@ -3,6 +3,7 @@ import axios from "axios";
 import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
+import MySelect from "../../components/MySelect/MySelect.tsx";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -30,6 +31,13 @@ const cols = [
   { name: "specialSigns", title: "Особые приметы" },
 ];
 
+const filterOptions = [
+  { label: "Категория животного", value: "AnimalCategory" },
+  { label: "Номер электронного чипа", value: "ElectronicChipNumber" },
+  { label: "Кличка", value: "AnimalName" },
+  { label: "Населенный пункт", value: "Locality" },
+];
+
 const AnimalComponent = () => {
   const [animals, setAnimals] = useState([]);
   const [filterValue, setFilterValue] = useState("");
@@ -44,10 +52,10 @@ const AnimalComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchAnimals();
-  }, [filterValue, sortBy, isAscending, filterField, pageNumber, pageSize]);
+    fetchData();
+  }, [sortBy, isAscending, filterField, pageNumber, pageSize]);
 
-  const fetchAnimals = async () => {
+  const fetchData = async () => {
     try {
       const response = await axios.get(
         `${REACT_APP_API_URL}/Animal/OpensRegister`,
@@ -93,11 +101,8 @@ const AnimalComponent = () => {
 
   const handleDelete = async (id) => {
     try {
-      const index = animals.findIndex((n) => n.registrationNumber === id);
       await axios.post(`${REACT_APP_API_URL}/Animal/DeleteEntry/${id}`);
-      if (index !== -1) {
-        animals.splice(index, 1);
-      }
+      setAnimals((prev) => prev.filter((n) => n.registrationNumber !== id));
     } catch (e) {
       alert(e);
     }
@@ -106,8 +111,36 @@ const AnimalComponent = () => {
   return (
     <div>
       <Menu />
-      <div className="d-flex justify-content-end">
-        <button className="btn btn-primary btn-lg mb-1 mt-3" onClick={handleCreate}>
+      <div className="filter d-flex justify-content-between mb-1 mt-3">
+        <div className="d-flex align-items-center">
+          <MySelect
+            isCreate={false}
+            newPlaceholder="Поле фильтра..."
+            newOptions={filterOptions}
+            handleChange={(val) => setFilterField(val)}
+          />
+          <div className="input-group ms-2">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Значение фильтра..."
+              value={filterValue}
+              onChange={(e) => setFilterValue(e.target.value)}
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+              onClick={fetchData}
+            >
+              Поиск
+            </button>
+          </div>
+        </div>
+
+        <button className="btn btn-primary btn-lg" onClick={handleCreate}>
           Создать
         </button>
       </div>
@@ -120,6 +153,7 @@ const AnimalComponent = () => {
           setSortBy(value);
           setIsAscending((prev) => !prev);
         }}
+        sortField={sortBy}
       />
 
       {/* Pagination */}

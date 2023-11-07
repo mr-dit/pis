@@ -2,7 +2,8 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import AnimalPage from "./pages/Animal/AnimalPage";
 import EditAnimal from "./pages/Animal/EditAnimal";
-import OrganisationPage from './pages/Organisation/OrganisationPage'
+import EditOrganisation from './pages/Organisation/EditOrganisation'
+import OrganisationPage from "./pages/Organisation/OrganisationPage";
 
 export const useRoutes = () => {
   return (
@@ -13,13 +14,19 @@ export const useRoutes = () => {
         element={<EditAnimal></EditAnimal>}
       ></Route>
       <Route path="/Animal/update" element={<EditAnimal></EditAnimal>}></Route>
-      <Route path="/Organisation" element={<OrganisationPage></OrganisationPage>}></Route>
+
+      <Route
+        path="/Organisation"
+        element={<OrganisationPage></OrganisationPage>}
+      ></Route>
       <Route
         path="/Organisation/update/:id"
-        element={<EditAnimal></EditAnimal>}
+        element={<EditOrganisation></EditOrganisation>}
       ></Route>
-      <Route path="/Organisation/update" element={<EditAnimal></EditAnimal>}></Route>
-
+      <Route
+        path="/Organisation/update"
+        element={<EditOrganisation></EditOrganisation>}
+      ></Route>
 
       <Route path="*" element={<Navigate to="/Animal" replace />} />
     </Routes>
