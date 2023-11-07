@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using NUnit.Framework;
 using pis.Services;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Models.db
@@ -66,6 +67,16 @@ namespace pis_web_api.Models.db
             if (users is null || users.Count() == 0)
                 throw new Exception("В экземпляре организации нет пользователей");
             return users.Contains(user);
+        }
+
+        public void Update(OrganisationPost orgPost)
+        {
+            OrgName = orgPost.OrgName;
+            INN = orgPost.INN;
+            KPP = orgPost.KPP;
+            AdressReg = orgPost.AdressReg;
+            OrgTypeId = orgPost.OrgTypeId;
+            LocalityId = orgPost.LocalityId;
         }
     }
 }

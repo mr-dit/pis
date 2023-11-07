@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using pis.Repositorys;
 using pis.Services;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 
 namespace pis.Controllers
 {
@@ -62,13 +63,14 @@ namespace pis.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Organisation organisation)
+        public IActionResult AddEntry([FromBody] OrganisationPost organisationPost)
         {
+            var organisation = organisationPost.ConvertToOrganisation();
             bool status = _organisationService.AddEntry(organisation);
 
             if (status)
             {
-                return Ok();
+                return Ok(organisation.OrgId);
             }
             else
             {
@@ -92,7 +94,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Organisation organisation)
+        public IActionResult ChangeEntry(int id, [FromBody] OrganisationPost organisationPost)
         {
             var existingOrganisation = _organisationService.GetEntry(id);
 
@@ -100,6 +102,8 @@ namespace pis.Controllers
             {
                 return NotFound();
             }
+
+            existingOrganisation.Update(organisationPost);
 
             if (ModelState.IsValid)
             {
