@@ -10,7 +10,7 @@ namespace pis_web_api.Services
         public LocalityService()
         {
             _localityRepository = new LocalityRepository();
-            _repository = new LocalityRepository();
+            _repository = _localityRepository;
         }
 
         public (List<Locality>, int) GetLocalities(string filterValue, int pageNumber, int pageSize)
