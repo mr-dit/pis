@@ -93,18 +93,5 @@ namespace pis_web_api.Models.db
                 }
             }
         }
-        //public Contract(int contractsId, string numberContract, DateTime conclusionDate,
-        //    DateTime expirationDate, Organisation performer, Organisation customer,
-        //    List<VaccinePriceListByLocality> vacinePriceByLocality, List<Vaccination> vaccinations)
-        //{
-        //    ContractsId = contractsId;
-        //    NumberContract = numberContract;
-        //    ConclusionDate = conclusionDate;
-        //    ExpirationDate = expirationDate;
-        //    Performer = performer;
-        //    Customer = customer;
-        //    VacinePriceByLocality = vacinePriceByLocality;
-        //    Vaccinations = vaccinations;
-        //}
     }
 }

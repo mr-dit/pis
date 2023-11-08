@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using pis_web_api.Models.post;
+using System.ComponentModel.DataAnnotations;
 
 namespace pis_web_api.Models.db
 {
@@ -14,5 +15,10 @@ namespace pis_web_api.Models.db
         }
 
         public OrgType() { }
+
+        public void Update(OrgTypePost orgTypePost)
+        {
+            NameOrgType = orgTypePost.NameOrgType;
+        }
     }
 }

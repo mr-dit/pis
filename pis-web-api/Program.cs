@@ -1,5 +1,10 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using OfficeOpenXml;
+
+
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -41,6 +46,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseHttpsRedirection();
 

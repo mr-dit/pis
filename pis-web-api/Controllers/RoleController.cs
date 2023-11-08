@@ -39,7 +39,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUser(int id)
+        public IActionResult GetRole(int id)
         {
             var organisation = _roleService.GetEntry(id);
 
@@ -51,54 +51,54 @@ namespace pis_web_api.Controllers
             return Ok(organisation);
         }
 
-        [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Role role)
-        {
-            bool status = _roleService.AddEntry(role);
+        //[HttpPost("addEntry")]
+        //public IActionResult AddEntry([FromBody] Role role)
+        //{
+        //    bool status = _roleService.AddEntry(role);
 
-            if (status)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest("Failed to add organisation entry.");
-            }
-        }
+        //    if (status)
+        //    {
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest("Failed to add organisation entry.");
+        //    }
+        //}
 
-        [HttpPost("deleteEntry/{id}")]
-        public IActionResult DeleteEntry(int id)
-        {
-            var status = _roleService.DeleteEntry(id);
+        //[HttpPost("deleteEntry/{id}")]
+        //public IActionResult DeleteEntry(int id)
+        //{
+        //    var status = _roleService.DeleteEntry(id);
 
-            if (status)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest($"Failed to delete organisation entry with ID {id}");
-            }
-        }
+        //    if (status)
+        //    {
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest($"Failed to delete organisation entry with ID {id}");
+        //    }
+        //}
 
-        [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Role role)
-        {
-            if (ModelState.IsValid)
-            {
-                bool status = _roleService.ChangeEntry(role);
+        //[HttpPost("changeEntry/{id}")]
+        //public IActionResult ChangeEntry(int id, [FromBody] Role role)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        bool status = _roleService.ChangeEntry(role);
 
-                if (status)
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest("Failed to update organisation entry.");
-                }
-            }
+        //        if (status)
+        //        {
+        //            return Ok();
+        //        }
+        //        else
+        //        {
+        //            return BadRequest("Failed to update organisation entry.");
+        //        }
+        //    }
 
-            return BadRequest(ModelState);
-        }
+        //    return BadRequest(ModelState);
+        //}
     }
 }
