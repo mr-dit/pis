@@ -44,19 +44,8 @@ namespace pis.Repositorys
             GetContractsByValue(con => con.Performer.OrgName.Contains(name, StringComparison.InvariantCultureIgnoreCase),
                 dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
 
-        //public (List<Contract>, int) GetContractsByConclusionDate(DateOnly? dateStart, DateOnly? dateEnd, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
-        //    GetContractsByValue(con => con.ConclusionDate > dateStart && con.ConclusionDate < dateEnd,
-        //        pageNumber, pageSize, sortBy, isAscending);
-
-        //public (List<Contract>, int) GetContractsByExpirationDate(DateOnly? dateStart, DateOnly? dateEnd, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
-        //    GetContractsByValue(con => con.ExpirationDate > dateStart && con.ExpirationDate < dateEnd,
-        //        pageNumber, pageSize, sortBy, isAscending);
-
         public (List<Contract>, int) GetContractsByDefault(DateOnly dateStart, DateOnly dateEnd, string useless, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetContractsByValue(con => { return true; }, dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
-
-        //public (List<Contract>, int) GetContractsByDefault(DateOnly? dateStart, DateOnly? dateEnd, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
-        //    GetContractsByValue(con => { return true; }, dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
 
         public override Contract GetById(int id)
         {
