@@ -4,14 +4,15 @@ import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useNavigate } from "react-router-dom";
+import { DatePicker } from "antd";
+const { RangePicker } = DatePicker;
 
 const { REACT_APP_API_URL } = process.env;
 
 const cols = [
   {
     name: "idContract",
-    title: "id",
-    nonVisible: true,
+    title: "Номер",
   },
   {
     name: "conclusionDate",
@@ -41,12 +42,22 @@ const ContractPage = () => {
   const [pageSize, setPageSize] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [startDateFilter, setStartDateFilter] = useState();
+  const [endDateFilter, setEndDateFilter] = useState();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
-  }, [sortBy, isAscending, filterField, pageNumber, pageSize]);
+  }, [
+    startDateFilter,
+    endDateFilter,
+    sortBy,
+    isAscending,
+    filterField,
+    pageNumber,
+    pageSize,
+  ]);
 
   const fetchData = async () => {
     try {
@@ -54,6 +65,8 @@ const ContractPage = () => {
         `${REACT_APP_API_URL}/Contract/OpensRegister`,
         {
           params: {
+            startDateFilter,
+            endDateFilter,
             filterValue,
             sortBy,
             isAscending,
@@ -97,18 +110,32 @@ const ContractPage = () => {
     }
   };
 
+  const handleDate = (val) => {
+    if (val) {
+      const startDate = val[0];
+      setStartDateFilter(`${startDate.$y}-${startDate.$M + 1}-${startDate.$D}`);
+      const endDate = val[1];
+      setEndDateFilter(`${endDate.$y}-${endDate.$M + 1}-${endDate.$D}`);
+    } else {
+      setStartDateFilter();
+      setEndDateFilter();
+    }
+  };
+
   return (
     <div>
       <Menu />
-      <div className="filter d-flex justify-content-between mb-1 mt-3">
+      <div className="filter d-flex justify-content-between mb-3 mt-3">
         <div className="d-flex align-items-center">
+            <div className="mt-4">
           <MySelect
             isCreate={false}
             newPlaceholder="Поле фильтра..."
             newOptions={filterOptions}
             handleChange={(val) => setFilterField(val)}
           />
-          <div className="input-group ms-2">
+            </div>
+          <div className="input-group ms-2 mt-4">
             <input
               type="text"
               className="form-control"
@@ -126,6 +153,17 @@ const ContractPage = () => {
             >
               Поиск
             </button>
+          </div>
+          <div className="ms-3">
+            <label>
+            Диапазон для даты заключения
+            <RangePicker
+              size="large"
+              placeholder={["Начало", "Конец"]}
+              onChange={handleDate}
+              showToday
+            />
+            </label>
           </div>
         </div>
 
