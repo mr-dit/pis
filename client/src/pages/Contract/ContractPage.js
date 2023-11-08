@@ -9,35 +9,33 @@ const { REACT_APP_API_URL } = process.env;
 
 const cols = [
   {
-    name: "orgId",
+    name: "idContract",
     title: "id",
     nonVisible: true,
   },
-  { name: "orgName", title: "Название организации", sortName: "OrgName" },
   {
-    name: "inn",
-    title: "ИНН",
-    sortName: "Inn",
+    name: "conclusionDate",
+    title: "Дата заключения",
+    sortName: "ConclusionDate",
   },
-  { name: "kpp", title: "КПП", sortName: "Kpp" },
-  { name: "adressReg", title: "Адрес регистрации", sortName: "AdressReg" },
   {
-    name: "orgType",
-    title: "Тип организации",
-    sortName: "OrgType",
+    name: "expirationDate",
+    title: "Дата действия",
+    sortName: "ExpirationDate",
   },
-  { name: "locality", title: "Город", sortName: "Locality" },
+  { name: "performer", title: "Исполнитель", sortName: "Performer" },
+  { name: "customer", title: "Заказчик", sortName: "Customer" },
 ];
 const filterOptions = [
   { label: "Название организации", value: "OrgName" },
   { label: "ИНН", value: "Inn" },
   { label: "КПП", value: "Kpp" },
+  { label: "КПП", value: "Kpp" },
   { label: "Адрес регистрации", value: "AdressReg" },
-  { label: "Город", value: "Locality" },
 ];
 
-const OrganisationPage = () => {
-  const [organisations, setOrganisations] = useState([]);
+const ContractPage = () => {
+  const [contracts, setOrganisations] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [isAscending, setIsAscending] = useState(true);
@@ -56,7 +54,7 @@ const OrganisationPage = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_API_URL}/Organisation/OpensRegister`,
+        `${REACT_APP_API_URL}/Contract/OpensRegister`,
         {
           params: {
             filterValue,
@@ -85,15 +83,15 @@ const OrganisationPage = () => {
   };
 
   const handleChange = (id) => {
-    navigate(`/Organisation/update/${id}`);
+    navigate(`/Contract/update/${id}`);
   };
   const handleCreate = () => {
-    navigate(`/Organisation/update`);
+    navigate(`/Contract/update`);
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Organisation/DeleteEntry/${id}`);
+      await axios.post(`${REACT_APP_API_URL}/Contract/DeleteEntry/${id}`);
       setOrganisations((prev) => prev.filter((n) => n.orgId !== id));
     } catch (e) {
       alert(e);
@@ -170,4 +168,4 @@ const OrganisationPage = () => {
   );
 };
 
-export default OrganisationPage;
+export default ContractPage;

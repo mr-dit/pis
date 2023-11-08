@@ -15,7 +15,7 @@ const createArrayOptions = (data) => {
   });
 };
 
-const EditAnimalForm = () => {
+const EditOrganisationForm = () => {
   const [organisationData, setOrganisationData] = useState({
     orgName: "",
     inn: "",
@@ -194,4 +194,4 @@ const EditAnimalForm = () => {
   );
 };
 
-export default EditAnimalForm;
+export default EditOrganisationForm;

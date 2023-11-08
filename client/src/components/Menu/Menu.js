@@ -20,6 +20,11 @@ const Menu = () => {
                   Организации
               </li>
             </NavLink>
+            <NavLink className={'nav-link'} to="/Contract">
+              <li className="nav-item">
+                  Контракты
+              </li>
+            </NavLink>
 
 
           </ul>

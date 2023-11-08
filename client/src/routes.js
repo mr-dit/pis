@@ -28,6 +28,19 @@ export const useRoutes = () => {
         element={<EditOrganisation></EditOrganisation>}
       ></Route>
 
+      <Route
+        path="/Contract"
+        element={<OrganisationPage></OrganisationPage>}
+      ></Route>
+      <Route
+        path="/Contract/update/:id"
+        element={<EditOrganisation></EditOrganisation>}
+      ></Route>
+      <Route
+        path="/Contract/update"
+        element={<EditOrganisation></EditOrganisation>}
+      ></Route>
+
       <Route path="*" element={<Navigate to="/Animal" replace />} />
     </Routes>
   );

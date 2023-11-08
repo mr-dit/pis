@@ -35,7 +35,7 @@ const Table = ({
                 header.sortName ? handleColSortName(header.sortName) : null
               }
             >
-              {header.title}{sortField === header.sortName ? (isAscending ? " ▲" : " ▼") : null}
+              {header.title}{sortField === header.sortName ? (isAscending ? " ▼" : " ▲") : null}
             </th>
           ))}
         </tr>
