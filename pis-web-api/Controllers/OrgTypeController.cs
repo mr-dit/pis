@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -52,8 +53,9 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] OrgType orgType)
+        public IActionResult AddEntry([FromBody] OrgTypePost orgTypePost)
         {
+            var orgType = orgTypePost.ConvertToOrgType();
             bool status = _orgTypeService.AddEntry(orgType);
 
             if (status)
@@ -82,11 +84,13 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] OrgType user)
+        public IActionResult ChangeEntry(int id, [FromBody] OrgTypePost orgTypePost)
         {
             if (ModelState.IsValid)
             {
-                bool status = _orgTypeService.ChangeEntry(user);
+                var orgType = _orgTypeService.GetEntry(id);
+                orgType.Update(orgTypePost);
+                bool status = _orgTypeService.ChangeEntry(orgType);
 
                 if (status)
                 {

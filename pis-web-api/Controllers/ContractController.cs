@@ -47,53 +47,6 @@ namespace pis_web_api.Controllers
             return Ok(result);
         }
 
-
-
-        //[HttpGet("opensRegisterByFilter")]
-        //public IActionResult OpensRegisterByFilter(string filterValue = "", string filterField = "", string sortBy = nameof(Contract.Customer), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
-        //{
-        //    var (contracts, totalItems) = _contractService.GetContractsByFilter(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
-        //    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-
-        //    var result = new
-        //    {
-        //        FilterValue = filterValue,
-        //        FilterField = filterField,
-        //        SortBy = sortBy,
-        //        IsAscending = isAscending,
-        //        PageNumber = pageNumber,
-        //        PageSize = pageSize,
-        //        TotalItems = totalItems,
-        //        TotalPages = totalPages,
-        //        Contracts = contracts
-        //    };
-
-        //    return Ok(result);
-        //}
-
-        //[HttpGet("opensRegisterByDate")]
-        //public IActionResult OpensRegisterByDate(DateOnly? startDateFilter, DateOnly? endDateFilter, string filterField = "", string sortBy = nameof(Contract.ConclusionDate), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
-        //{
-        //    var (contracts, totalItems) = _contractService.GetContractsByDate(filterField, startDateFilter, endDateFilter, sortBy, isAscending, pageNumber, pageSize);
-        //    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-
-        //    var result = new
-        //    {
-        //        StartDateFilter = startDateFilter,
-        //        EndDateFilter = endDateFilter,
-        //        FilterField = filterField,
-        //        SortBy = sortBy,
-        //        IsAscending = isAscending,
-        //        PageNumber = pageNumber,
-        //        PageSize = pageSize,
-        //        TotalItems = totalItems,
-        //        TotalPages = totalPages,
-        //        Contracts = contracts
-        //    };
-
-        //    return Ok(result);
-        //}
-
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
