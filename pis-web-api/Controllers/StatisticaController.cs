@@ -8,6 +8,9 @@ using pis.Repositorys;
 using pis_web_api.Services;
 using pis_web_api.Models.db;
 using OfficeOpenXml;
+using Microsoft.Office.Interop.Excel;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,7 +21,6 @@ namespace pis.Controllers
     [ApiController]
     public class StatisticaController : Controller
     {
-
         private readonly ILogger<StatisticaController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private VaccinationService _vaccinationService;
@@ -26,15 +28,15 @@ namespace pis.Controllers
         private LocalityService _localityService;
         private VaccineService _vaccineService;
 
-    public StatisticaController(ILogger<StatisticaController> logger, IWebHostEnvironment appEnvironment)
-    {
-        _logger = logger;
-        _appEnvironment = appEnvironment;
-        _vaccinationService = new VaccinationService();
-        _contractService = new ContractService();
-        _localityService = new LocalityService();
-        _vaccineService = new VaccineService();
-    }
+        public StatisticaController(ILogger<StatisticaController> logger, IWebHostEnvironment appEnvironment)
+        {
+            _logger = logger;
+            _appEnvironment = appEnvironment;
+            _vaccinationService = new VaccinationService();
+            _contractService = new ContractService();
+            _localityService = new LocalityService();
+            _vaccineService = new VaccineService();
+        }
 
         [HttpGet("{dateStart}/{dateEnd}")]
         public IActionResult GetStatisticaByVaccination(DateOnly dateStart, DateOnly dateEnd)
@@ -71,106 +73,50 @@ namespace pis.Controllers
                 //добавляем все наши пары в общую статистику
                 statisticaHolders.Add(statisticaHolder);
             }
-            // теперь можно обращаться к данным по типу:
-            foreach (var statisticaHolder in statisticaHolders)
-            {
-                var localityName = statisticaHolder.LocalityName;
-                foreach (var statisticaItem in statisticaHolder)
-                {
-                    var vaccineName = statisticaItem.VaccineName;
-                    var vaccinePrice = statisticaItem.Price;
-                }
-            }
-            // и с помощью этого надо сделать все в экселе, эксель не люблю
-            //return Ok(statisticaHolders);
-
-
-            //decimal totalVaccines = statisticaHolders.Sum(holder => holder.Sum(item => item.Price));
-
 
             using (var package = new ExcelPackage())
             {
-
-
                 var worksheet = package.Workbook.Worksheets.Add("Vaccination Statistics");
-
-                // Add headers to the Excel sheet
-                worksheet.Cells["A1"].Value = "Населенный пункт";
-                worksheet.Cells["B1"].Value = "Вакцина";
-                worksheet.Cells["C1"].Value = "Цена";
-                worksheet.Cells["D1"].Value = "Сумма";
-
-                int row = 2;
-
-                var firstLocality = statisticaHolders.FirstOrDefault();
-
-                if (firstLocality != null)
+                int row = 1;
+                decimal globalTotal = 0;
+                foreach (var statisticaHolder in statisticaHolders)
                 {
-                    var localityName = firstLocality.LocalityName;
-                    foreach (var statisticaItem in firstLocality)
+                    decimal total = 0;
+                    worksheet.Cells[row, 1].Value = statisticaHolder.LocalityName;
+                    worksheet.Cells[row, 1].Style.Font.Bold = true;
+                    worksheet.Cells[row, 1].Style.Font.Size += 6;
+                    row++;
+                    worksheet.Cells[row, 1].Value = "Вакцина";
+                    worksheet.Cells[row, 1].Style.Font.Bold = true;
+                    worksheet.Cells[row, 2].Value = "Цена";
+                    worksheet.Cells[row, 2].Style.Font.Bold = true;
+                    row++;
+                    foreach (var statisticaItem in statisticaHolder)
                     {
-                        var vaccineName = statisticaItem.VaccineName;
-                        var vaccinePrice = statisticaItem.Price;
-                        //var totalAmount = statisticaItem.Quantity; // Use the Quantity property for total amount
-
-                        worksheet.Cells[row, 1].Value = localityName;
-                        worksheet.Cells[row, 2].Value = vaccineName;
-                        worksheet.Cells[row, 3].Value = vaccinePrice;
-                        //worksheet.Cells[row, 4].Value = totalAmount;
-
+                        worksheet.Cells[row, 1].Value = statisticaItem.VaccineName;
+                        worksheet.Cells[row, 2].Value = statisticaItem.Price;
+                        total += statisticaItem.Price;
                         row++;
                     }
+                    globalTotal += total;
+                    worksheet.Cells[row, 1].Value = "Итого:";
+                    worksheet.Cells[row, 1].Style.Font.Color.SetColor(Color.Red);
+                    worksheet.Cells[row, 2].Value = total;
+                    worksheet.Cells[row, 2].Style.Font.Color.SetColor(Color.Red);
+                    row += 2;
                 }
+                worksheet.Cells[row+1, 1].Value = "Итого за все города:";
+                worksheet.Cells[row + 1, 2].Value = globalTotal;
+                worksheet.Columns[1].AutoFit();
 
-                // Calculate the total quantity of vaccines for the first city
-                var totalVaccines = firstLocality?.Sum(item => item.Price) ?? 0;
-                worksheet.Cells[row, 1].Value = "Total Quantity for the First City";
-                worksheet.Cells[row, 4].Value = totalVaccines;
-
-                // Save the Excel package to a stream
                 using (var memoryStream = new MemoryStream())
                 {
                     package.SaveAs(memoryStream);
                     memoryStream.Position = 0;
 
-                    // Return the Excel file to the client
                     return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "VaccinationData.xlsx");
                 }
-
-                //foreach (var statisticaHolder in statisticaHolders)
-                //{
-                //    var localityName = statisticaHolder.LocalityName;
-
-                //    foreach (var statisticaItem in statisticaHolder)
-                //    {
-                //        var vaccineName = statisticaItem.VaccineName;
-                //        var vaccinePrice = statisticaItem.Price;
-
-                //        worksheet.Cells[$"A{row}"].Value = localityName;
-                //        worksheet.Cells[$"B{row}"].Value = vaccineName;
-                //        worksheet.Cells[$"C{row}"].Value = vaccinePrice;
-
-                //        row++;
-                //    }
-
-                //    // Calculate the total amount of vaccines for the current city
-                //    var totalVaccines = statisticaHolder.Sum(item => item.Price);
-                //    worksheet.Cells[$"D{row}"].Value = totalVaccines;
-                //    row++;
-                //}
-
-                //// Auto-fit columns for better readability
-                //worksheet.Cells.AutoFitColumns();
-
-                //// Generate a unique file name for the Excel file
-                //var fileName = $"VaccinationStatistics_{dateStart:yyyyMMdd}_{dateEnd:yyyyMMdd}.xlsx";
-
-                //// Return the Excel file as a downloadable file
-                //var excelBytes = package.GetAsByteArray();
-                //return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
-
-
         }
 
     }
