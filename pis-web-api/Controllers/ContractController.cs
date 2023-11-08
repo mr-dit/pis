@@ -25,7 +25,7 @@ namespace pis_web_api.Controllers
         public IActionResult OpensRegister(DateOnly startDateFilter, DateOnly endDateFilter, string filterValue = "", string filterField = "",
             string sortBy = nameof(Contract.Customer), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (contracts, totalItems) = _contractService.GetContracts(startDateFilter, endDateFilter, filterField, filterValue,
+            var (contracts, totalItems) = _contractService.GetContracts(startDateFilter, endDateFilter, filterValue, filterField,
                 sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
