@@ -21,7 +21,7 @@ namespace pis_web_api.Controllers
             _contractService = new ContractService();
         }
 
-        [HttpGet("opensRegister/{startDateFilter},{endDateFilter}")]
+        [HttpGet("opensRegister")]
         public IActionResult OpensRegister(DateOnly startDateFilter, DateOnly endDateFilter, string filterValue = "", string filterField = "",
             string sortBy = nameof(Contract.Customer), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {

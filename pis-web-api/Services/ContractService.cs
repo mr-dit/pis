@@ -26,6 +26,10 @@ namespace pis.Services
 
                 [""] = _contractRepository.GetContractsByDefault
             };
+
+            if(startDateFilter == DateOnly.MinValue && endDateFilter == DateOnly.MinValue)
+                endDateFilter = DateOnly.MaxValue;
+
             return filterFields[filterField](startDateFilter, endDateFilter, filterValue, pageNumber, pageSize, sortBy, isAscending);
         }
     }
