@@ -27,11 +27,8 @@ const cols = [
   { name: "customer", title: "Заказчик", sortName: "Customer" },
 ];
 const filterOptions = [
-  { label: "Название организации", value: "OrgName" },
-  { label: "ИНН", value: "Inn" },
-  { label: "КПП", value: "Kpp" },
-  { label: "КПП", value: "Kpp" },
-  { label: "Адрес регистрации", value: "AdressReg" },
+  { label: "Исполнитель", value: "Performer" },
+  { label: "Заказчик", value: "Customer" },
 ];
 
 const ContractPage = () => {
@@ -67,14 +64,16 @@ const ContractPage = () => {
         }
       );
 
-      const { organisations, totalItems, totalPages } = response.data;
-      const newOrganisations = organisations.map((i) => ({
-        ...i,
-        orgType: i.orgType.nameOrgType,
-        locality: i.locality.nameLocality,
+      const { contracts, totalItems, totalPages } = response.data;
+      const newContracts = contracts.map((i) => ({
+        idContract: i.idContract,
+        conclusionDate: i.conclusionDate,
+        expirationDate: i.expirationDate,
+        performer: i.performer.orgName,
+        customer: i.customer.orgName,
       }));
 
-      setOrganisations(newOrganisations);
+      setOrganisations(newContracts);
       setTotalItems(totalItems);
       setTotalPages(totalPages);
     } catch (error) {
@@ -135,7 +134,7 @@ const ContractPage = () => {
         </button>
       </div>
       <Table
-        data={organisations}
+        data={contracts}
         headers={cols}
         handleChange={handleChange}
         handleDelete={handleDelete}

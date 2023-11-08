@@ -4,6 +4,7 @@ import AnimalPage from "./pages/Animal/AnimalPage";
 import EditAnimal from "./pages/Animal/EditAnimal";
 import EditOrganisation from './pages/Organisation/EditOrganisation'
 import OrganisationPage from "./pages/Organisation/OrganisationPage";
+import ContractPage from "./pages/Contract/ContractPage";
 
 export const useRoutes = () => {
   return (
@@ -30,7 +31,7 @@ export const useRoutes = () => {
 
       <Route
         path="/Contract"
-        element={<OrganisationPage></OrganisationPage>}
+        element={<ContractPage></ContractPage>}
       ></Route>
       <Route
         path="/Contract/update/:id"
