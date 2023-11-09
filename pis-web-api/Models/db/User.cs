@@ -1,7 +1,9 @@
 ﻿using pis.Repositorys;
 using pis_web_api.Models;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace pis_web_api.Models.db
 {
@@ -38,17 +40,29 @@ namespace pis_web_api.Models.db
 
             if (unique.Count() != roles.Count())
                 return false;
+            if (IdUser == 0)
+                new UserRepository().Add(this);
 
             foreach (var role in roles)
             {
+                if (Roles.Select(x => x.RoleId).Contains(role.IdRole))
+                    continue;
                 var userRole = new UserRole(this, role);
                 UserRoleRepository.Create(userRole);
             }
             new UserRepository().Update(this);
-            //Roles ??= new List<Role>();
-            //Roles.AddRange(roles);
-
             return true;
+        }
+
+        public bool AddRoles(params int[] rolesIds)
+        {
+            var repos = new RoleRepository();
+            var roles = new List<Role>();
+            foreach (var roleId in rolesIds)
+            {
+                roles.Add(repos.GetById(roleId));
+            }
+            return AddRoles(roles.ToArray());
         }
 
         public bool IsDoctor()
@@ -66,15 +80,32 @@ namespace pis_web_api.Models.db
 
             return IdUser == compUser.IdUser;
         }
-        //public User(int idUser, string firstName, string lastName, string surname, Post post, Organisation organisation, List<Vaccination> vaccinations)
-        //{
-        //    IdUser = idUser;
-        //    FirstName = firstName;
-        //    LastName = lastName;
-        //    Surname = surname;
-        //    Post = post;
-        //    Organisation = organisation;
-        //    Vaccinations = vaccinations;
-        //}
+
+        public void Update(UserPost userPost)
+        {
+            var repos = new UserRoleRepository();
+            Surname = userPost.Surname;
+            FirstName = userPost.FirstName;
+            LastName = userPost.LastName;
+            OrganisationId = userPost.OrganisationId;
+
+            var rolesNotInUser = userPost.Roles.Where(x => !Roles.Select(x => x.RoleId).Contains(x));
+            var rolesNotInPostUser = new List<UserRole>();
+
+            foreach (var role in Roles)
+            {
+                var roleId = role.RoleId;
+                if (!userPost.Roles.Contains(roleId))
+                    rolesNotInPostUser.Add(role);
+            }
+
+            foreach (var role in rolesNotInPostUser)
+            {
+                Roles.Remove(role);
+                repos.Remove(role);
+            }
+
+            this.AddRoles(rolesNotInUser.ToArray());
+        }
     }
 }

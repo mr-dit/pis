@@ -1,10 +1,11 @@
 ﻿using pis;
 using NUnit.Framework.Constraints;
 using pis_web_api.Models.db;
+using pis_web_api.Repositorys;
 
 namespace pis.Repositorys
 {
-    public class UserRoleRepository
+    public class UserRoleRepository : Repository<UserRole>
     {
         public static bool Create(UserRole userRole)
         {
