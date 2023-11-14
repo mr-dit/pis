@@ -1,4 +1,5 @@
-﻿using pis.Services;
+﻿using pis.Repositorys;
+using pis.Services;
 using pis_web_api.Models.db;
 
 namespace pis_web_api.Models.post
@@ -9,13 +10,18 @@ namespace pis_web_api.Models.post
         public DateOnly ExpirationDate { get; set; }
         public int PerformerId { get; set; }
         public int CustomerId { get; set; }
-        public Dictionary<int, decimal> LocalitiesPriceList { get; set; }
+        public List<LocalityPrice> LocalitiesPriceList { get; set; }
 
         public Contract ConvertToContract()
         {
+            if (LocalitiesPriceList.Count() != LocalitiesPriceList.GroupBy(x => x.LocalityId).Count())
+            {
+                throw new Exception("Повторяются города в ценах");
+            }
+
             var contract = new Contract(ConclusionDate, ExpirationDate, CustomerId, PerformerId);
             foreach (var priceLocalityPare in LocalitiesPriceList)
-                contract.AddLocalitisList(priceLocalityPare.Key, priceLocalityPare.Value);
+                contract.AddLocalitisList(priceLocalityPare.LocalityId, priceLocalityPare.Price);
             return contract;
         }
 

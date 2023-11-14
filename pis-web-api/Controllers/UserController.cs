@@ -105,16 +105,16 @@ namespace pis_web_api.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost("addRole")]
-        public IActionResult AddRole(int idUser, int roleId)
-        {
-            var user = _userService.GetEntry(idUser);
-            var role =  _roleService.GetEntry(roleId);
-            var status = user.AddRoles(role);
-            if(status)
-                return Ok();
-            else
-                return BadRequest("Failed to update organisation entry.");
-        }
+        //[HttpPost("addRole")]
+        //public IActionResult AddRole(int idUser, int roleId)
+        //{
+        //    var user = _userService.GetEntry(idUser);
+        //    var role =  _roleService.GetEntry(roleId);
+        //    var status = user.AddRoles(role);
+        //    if(status)
+        //        return Ok();
+        //    else
+        //        return BadRequest("Failed to update organisation entry.");
+        //}
     }
 }
