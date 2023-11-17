@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using pis_web_api.Models.post;
+using System.ComponentModel.DataAnnotations;
 
 namespace pis_web_api.Models.db
 {
@@ -13,6 +14,12 @@ namespace pis_web_api.Models.db
         {
             NameVaccine = nameVaccine;
             ValidDaysVaccine = validDaysVaccine;
+        }
+
+        public void Update(VaccinePost vaccinePost)
+        {
+            NameVaccine = vaccinePost.NameVaccine;
+            ValidDaysVaccine = vaccinePost.ValidDaysVaccine;
         }
     }
 }

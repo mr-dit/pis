@@ -67,7 +67,7 @@ namespace pis_web_api.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Failed to add organisation entry.");
+                return BadRequest("Failed to add user entry.");
             }
         }
 

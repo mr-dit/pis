@@ -33,5 +33,10 @@ namespace pis_web_api.Services
 
         public List<User> GetUsersByOrganisation(int orgId) =>
             _userRepository.GetUsersByOrganisation(orgId);
+
+        public User LoginUser(string login, string password)
+        {
+            return _userRepository.GetUserByLogin(login, password);
+        }
     }
 }

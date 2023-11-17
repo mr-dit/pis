@@ -94,7 +94,6 @@ namespace pis_web_api.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 var con = conPost.ConvertToContractWithId(id);
 
                 bool status = _contractService.ChangeEntry(con);

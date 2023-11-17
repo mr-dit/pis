@@ -1,4 +1,5 @@
-﻿using pis.Repositorys;
+﻿using NUnit.Framework;
+using pis.Repositorys;
 using pis_web_api.Models;
 using pis_web_api.Models.post;
 using pis_web_api.Services;
@@ -20,18 +21,24 @@ namespace pis_web_api.Models.db
 
         public int OrganisationId { get; set; }
 
+        public string Login { get; set; }
+        
+        public string Password { get; set; }
+
         public Organisation? Organisation { get; set; }
 
         public List<UserRole>? Roles { get; set; }
 
         public User() { }
 
-        public User(string surName, string firstName, string lastName, int organizationId)
+        public User(string surName, string firstName, string lastName, int organizationId, string login, string password)
         {
             Surname = surName;
             FirstName = firstName;
             LastName = lastName;
             OrganisationId = organizationId;
+            Login = login;
+            Password = password;
         }
 
         public bool AddRoles(params Role[] roles)
@@ -45,6 +52,7 @@ namespace pis_web_api.Models.db
 
             foreach (var role in roles)
             {
+                Roles ??= new List<UserRole>();
                 if (Roles.Select(x => x.RoleId).Contains(role.IdRole))
                     continue;
                 var userRole = new UserRole(this, role);

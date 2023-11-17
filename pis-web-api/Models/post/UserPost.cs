@@ -13,11 +13,15 @@ namespace pis_web_api.Models.post
 
         public int OrganisationId { get; set; }
 
+        public string Login { get; set; }
+
+        public string Password { get; set; }
+
         public List<int> Roles { get; set; }
 
         public User ConvertToUser()
         {
-            var user = new User(Surname, FirstName, LastName, OrganisationId);
+            var user = new User(Surname, FirstName, LastName, OrganisationId, Login, Password);
             user.AddRoles(Roles.ToArray());
             return user;
         }
