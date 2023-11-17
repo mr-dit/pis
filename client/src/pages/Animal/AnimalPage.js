@@ -3,7 +3,7 @@ import axios from "axios";
 import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
-import MySelect from "../../components/MySelect/MySelect.tsx";
+import Select from "react-select";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -113,11 +113,12 @@ const AnimalComponent = () => {
       <Menu />
       <div className="filter d-flex justify-content-between mb-1 mt-3">
         <div className="d-flex align-items-center">
-          <MySelect
-            isCreate={false}
-            newPlaceholder="Поле фильтра..."
-            newOptions={filterOptions}
-            handleChange={(val) => setFilterField(val)}
+          <Select
+            isClearable
+            isSearchable
+            placeholder="Поле фильтра..."
+            options={filterOptions}
+            onChange={(val) => setFilterField(val?.value)}
           />
           <div className="input-group ms-2">
             <input

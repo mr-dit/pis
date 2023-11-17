@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
+import { DatePicker } from "antd";
+import PriceList from "./PriceList.js";
 const { REACT_APP_API_URL } = process.env;
 
 const createArrayOptions = (data) => {
@@ -9,52 +11,50 @@ const createArrayOptions = (data) => {
     const values = Object.values(item);
 
     return {
-      label: values[1],
       value: `${values[0]}`,
+      label: values[1],
     };
   });
 };
 
 const EditContractsForm = () => {
-  const [сontractsData, setContractsData] = useState({
-    orgName: "",
-    inn: "",
-    kpp: "",
-    adressReg: "",
-    orgTypeId: "",
-    localityId: "",
+  const [contractsData, setContractsData] = useState({
+    conclusionDate: "",
+    expirationDate: "",
+    performerId: 0,
+    customerId: 0,
+    localitiesPriceList: {},
   });
+  const [localitiesPriceList, setLocalitiesPriceList] = useState([]);
   const [organisationTypeOptions, setOrganisationTypeOptions] = useState([]);
   const [localityOptions, setLocalityOptions] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const fetchOrganisationById = async () => {
-    try {
-      const res = await axios.get(`${REACT_APP_API_URL}/Contract/${id}`);
-      setContractsData({ ...res.data });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   const fetchData = async () => {
     try {
-      const fetchOrganisationTypeRes = await axios.get(
-        `${REACT_APP_API_URL}/OrgType/opensRegister`
+      if (id) {
+        const res = await axios.get(`${REACT_APP_API_URL}/Contract/${id}`);
+        setContractsData({ ...res.data });
+        setLocalitiesPriceList(res.data.localities);
+      }
+
+      const fetchOrganisationRes = await axios.get(
+        `${REACT_APP_API_URL}/Organisation/opensRegister`
       );
       setOrganisationTypeOptions(
-        createArrayOptions(fetchOrganisationTypeRes.data.users)
+        createArrayOptions(
+          fetchOrganisationRes.data.organisations.map((i) => ({
+            value: i.orgId,
+            title: i.orgName,
+          }))
+        )
       );
 
       const localityRes = await axios.get(
         `${REACT_APP_API_URL}/Locality/opensRegister`
       );
       setLocalityOptions(createArrayOptions(localityRes.data.localities));
-
-      if (id) {
-        fetchOrganisationById(id);
-      }
     } catch (e) {
       console.error(e);
     }
@@ -68,8 +68,8 @@ const EditContractsForm = () => {
     setContractsData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleOrganisationCategory = (value) => {
-    setContractsData((prev) => ({ ...prev, orgTypeId: value }));
+  const handleOrganisationCategory = (value, key) => {
+    setContractsData((prev) => ({ ...prev, key: value }));
   };
 
   const handleLocality = (value) => {
@@ -82,12 +82,12 @@ const EditContractsForm = () => {
       if (id) {
         await axios.post(
           `${REACT_APP_API_URL}/Contract/ChangeEntry/${id}`,
-          сontractsData
+          contractsData
         );
       } else {
         await axios.post(
           `${REACT_APP_API_URL}/Contract/AddEntry`,
-          сontractsData
+          contractsData
         );
       }
       toMainPage();
@@ -100,14 +100,15 @@ const EditContractsForm = () => {
     navigate("/Contract");
   };
 
+  const handlePriceListChange = (updatedPriceList) => {
+    // setLocalitiesPriceList(updatedPriceList);
+    console.log(updatedPriceList);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between">
-        {id ? (
-          <h1>Редактирование Контракта</h1>
-        ) : (
-          <h1>Добавление контракта</h1>
-        )}
+        {id ? <h1>Редактирование Контракта</h1> : <h1>Добавление контракта</h1>}
         <button className="fs-1" onClick={toMainPage}>
           ×
         </button>
@@ -115,83 +116,58 @@ const EditContractsForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-4 flex-nowrap gap-3">
           <label>
-            Тип организации
+            Исполнитель
             <MySelect
               newOptions={organisationTypeOptions}
-              handleChange={handleOrganisationCategory}
-              newValue={сontractsData.orgTypeId}
-              labelField={"nameOrgType"}
-              valueField={"idOrgType"}
-              apiRoute={"OrgType"}
+              handleChange={(val) =>
+                handleOrganisationCategory(val, "performerId")
+              }
+              newValue={contractsData.performer?.orgId}
+              labelField={"orgName"}
+              valueField={"orgId"}
+              apiRoute={"Organisation"}
             />
           </label>
 
           <label>
-            Город
+            Заказчик
             <MySelect
-              newOptions={localityOptions}
-              handleChange={handleLocality}
-              newValue={сontractsData.localityId}
-              labelField={"nameLocality"}
-              valueField={"idLocality"}
-              apiRoute={"Locality"}
-            />
-          </label>
-
-          <label>
-            Название организации
-            <input
-              className="form-control"
-              type="text"
-              value={сontractsData.orgName}
-              onChange={(e) => handleChange(e.target.value, "orgName")}
-              required
+              newOptions={organisationTypeOptions}
+              handleChange={(val) =>
+                handleOrganisationCategory(val, "customerId")
+              }
+              newValue={contractsData.customer?.orgId}
+              labelField={"orgName"}
+              valueField={"orgId"}
+              apiRoute={"Organisation"}
             />
           </label>
         </div>
 
         <div className="input-group mb-4 flex-nowrap gap-3">
           <label>
-            ИНН
-            <input
-              className="form-control"
-              type="text"
-              value={сontractsData.inn}
-              onChange={(e) => handleChange(e.target.value, "inn")}
-              required
-              maxLength={13}
-            />
-          </label>
-
-          <label>
-            КПП
-            <input
-              className="form-control"
-              type="text"
-              value={сontractsData.kpp}
-              onChange={(e) => handleChange(e.target.value, "kpp")}
-              required
-              maxLength={15}
-            />
+            Дата заключения
+            <DatePicker size="large" aria-required />
           </label>
           <label>
-            Адрес регистрации
-            <input
-              className="form-control"
-              type="text"
-              value={сontractsData.adressReg}
-              onChange={(e) => handleChange(e.target.value, "adressReg")}
-              required
-            />
+            Дата действия
+            <DatePicker size="large" aria-required />
           </label>
         </div>
+        <PriceList
+          priceList={localitiesPriceList}
+          options={localityOptions}
+          handlePriceList={handlePriceListChange}
+        />
 
-        <button className="btn btn-primary btn-lg" type="submit">
-          Сохранить
-        </button>
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-primary btn-lg" type="submit">
+            Сохранить
+          </button>
+        </div>
       </form>
     </>
   );
 };
 
-export default EditOrganisationForm;
+export default EditContractsForm;

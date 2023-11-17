@@ -15,8 +15,8 @@ const createOption = (label: string, id: string) => ({
 const { REACT_APP_API_URL } = process.env;
 
 export default ({
-  isCreate = true,
-  newPlaceholder = 'Выберите',
+  isClearable = true,
+  newPlaceholder = "Выберите",
   newOptions,
   handleChange,
   newValue,
@@ -55,8 +55,11 @@ export default ({
     setIsLoading(true);
     const data = { nameAnimalCategory: inputValue };
     try {
-      await axios.post(`${REACT_APP_API_URL}/${apiRoute}/addEntry`, data);
-      const newOption = createOption(inputValue, "777"); //----------------------------------------------------------
+      const res = await axios.post(
+        `${REACT_APP_API_URL}/${apiRoute}/addEntry`,
+        data
+      );
+      const newOption = createOption(inputValue, res.data); //----------------------------------------------------------
       setIsLoading(false);
       setOptions((prev) => [...prev, newOption]);
       setValue(newOption);
@@ -70,7 +73,7 @@ export default ({
     <CreatableSelect
       required
       placeholder={newPlaceholder}
-      isClearable={isCreate}
+      isClearable={isClearable}
       isDisabled={isLoading}
       isLoading={isLoading}
       onChange={(newValue) => {

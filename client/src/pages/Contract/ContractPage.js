@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
-import MySelect from "../../components/MySelect/MySelect.tsx";
+import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
@@ -127,14 +127,15 @@ const ContractPage = () => {
       <Menu />
       <div className="filter d-flex justify-content-between mb-3 mt-3">
         <div className="d-flex align-items-center">
-            <div className="mt-4">
-          <MySelect
-            isCreate={false}
-            newPlaceholder="Поле фильтра..."
-            newOptions={filterOptions}
-            handleChange={(val) => setFilterField(val)}
-          />
-            </div>
+          <div className="mt-4">
+            <Select
+              isClearable
+              isSearchable
+              placeholder="Поле фильтра..."
+              options={filterOptions}
+              onChange={(val) => setFilterField(val?.value)}
+            />
+          </div>
           <div className="input-group ms-2 mt-4">
             <input
               type="text"
@@ -156,13 +157,13 @@ const ContractPage = () => {
           </div>
           <div className="ms-3">
             <label>
-            Диапазон для даты заключения
-            <RangePicker
-              size="large"
-              placeholder={["Начало", "Конец"]}
-              onChange={handleDate}
-              showToday
-            />
+              Диапазон для даты заключения
+              <RangePicker
+                size="large"
+                placeholder={["Начало", "Конец"]}
+                onChange={handleDate}
+                showToday
+              />
             </label>
           </div>
         </div>

@@ -186,9 +186,11 @@ const EditOrganisationForm = () => {
           </label>
         </div>
 
-        <button className="btn btn-primary btn-lg" type="submit">
-          Сохранить
-        </button>
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-primary btn-lg" type="submit">
+            Сохранить
+          </button>
+        </div>
       </form>
     </>
   );
