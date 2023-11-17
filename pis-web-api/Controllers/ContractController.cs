@@ -68,9 +68,9 @@ namespace pis_web_api.Controllers
                 var con = conPost.ConvertToContract();
                 return Ok(con.IdContract);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Failed to add organisation entry.");
+                return BadRequest(ex.Message);
             }
         }
 

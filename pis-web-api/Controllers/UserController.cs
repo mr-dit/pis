@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -57,15 +58,14 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] User user)
+        public IActionResult AddEntry([FromBody] UserPost userPost)
         {
-            bool status = _userService.AddEntry(user);
-
-            if (status)
+            try
             {
-                return Ok();
+                var user = userPost.ConvertToUser();
+                return Ok(user.IdUser);
             }
-            else
+            catch (Exception)
             {
                 return BadRequest("Failed to add organisation entry.");
             }
@@ -87,17 +87,16 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] User user)
+        public IActionResult ChangeEntry(int id, [FromBody] UserPost userPost)
         {
             if (ModelState.IsValid)
             {
-                bool status = _userService.ChangeEntry(user);
-
-                if (status)
+                try
                 {
+                    var user = userPost.ConvertToUserWithId(id);
                     return Ok();
                 }
-                else
+                catch (Exception)
                 {
                     return BadRequest("Failed to update organisation entry.");
                 }
@@ -106,16 +105,16 @@ namespace pis_web_api.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost("addRole/{id}")]
-        public IActionResult AddRole(int idUser, int roleId)
-        {
-            var user = _userService.GetEntry(idUser);
-            var role =  _roleService.GetEntry(roleId);
-            var status = user.AddRoles(role);
-            if(status)
-                return Ok();
-            else
-                return BadRequest("Failed to update organisation entry.");
-        }
+        //[HttpPost("addRole")]
+        //public IActionResult AddRole(int idUser, int roleId)
+        //{
+        //    var user = _userService.GetEntry(idUser);
+        //    var role =  _roleService.GetEntry(roleId);
+        //    var status = user.AddRoles(role);
+        //    if(status)
+        //        return Ok();
+        //    else
+        //        return BadRequest("Failed to update organisation entry.");
+        //}
     }
 }

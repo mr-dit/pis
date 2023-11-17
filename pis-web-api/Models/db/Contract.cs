@@ -81,15 +81,15 @@ namespace pis_web_api.Models.db
             CustomerId = conPost.CustomerId;
             foreach (var localityPricePair in conPost.LocalitiesPriceList)
             {
-                if(Localities.Select(x => x.LocalityId).Contains(localityPricePair.Key))
+                if(Localities.Select(x => x.LocalityId).Contains(localityPricePair.LocalityId))
                 {
-                    var localityPrice = Localities.Where(x => x.LocalityId == localityPricePair.Key).Single();
-                    localityPrice.LocalityId = localityPricePair.Key;
-                    localityPrice.Price = localityPricePair.Value;
+                    var localityPrice = Localities.Where(x => x.LocalityId == localityPricePair.LocalityId).Single();
+                    localityPrice.LocalityId = localityPricePair.LocalityId;
+                    localityPrice.Price = localityPricePair.Price;
                 }
                 else
                 {
-                    this.AddLocalitisList(localityPricePair.Key, localityPricePair.Value);
+                    this.AddLocalitisList(localityPricePair.LocalityId, localityPricePair.Price);
                 }
             }
         }
