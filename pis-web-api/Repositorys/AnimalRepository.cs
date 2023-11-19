@@ -5,12 +5,11 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Repositorys;
 
 namespace pis.Repositorys
 {
-
-
     public class AnimalRepository : Repository<Animal>
     {
         public AnimalRepository() : base()
@@ -34,6 +33,28 @@ namespace pis.Repositorys
             }
         }
 
+        private (List<Animal>, int) GetAnimalsByValue(Func<Animal, bool> value, int pageNumber, int pageSize, 
+            string sortBy, bool isAscending, UserPost user)
+        {
+            var animalIds = db.Vaccinations
+                .Where(x => x.Contract.PerformerId == user.OrganisationId)
+                .Where(x => x.Contract.CustomerId == user.OrganisationId)
+                .Select(x => x.AnimalId);
+
+            using (Context db = new Context())
+            {
+                var allAnimals = db.Animals
+                    .Where(x => animalIds.Contains(x.RegistrationNumber))
+                    .Include(x => x.Locality)
+                    .Include(x => x.AnimalCategory)
+                    .Include(x => x.Gender)
+                    .Where(value)
+                    .SortBy(sortBy, isAscending);
+                var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return (animals, allAnimals.Count());
+            }
+        }
+
         public (List<Animal>, int) GetAnimalsByAnimalCategory(
             string category, int pageNumber,
             int pageSize, string sortBy, bool isAscending) =>
@@ -42,11 +63,25 @@ namespace pis.Repositorys
                                                .Contains(category, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
 
+        public (List<Animal>, int) GetAnimalsByAnimalCategory(
+            string category, int pageNumber,
+            int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetAnimalsByValue(animal => animal.AnimalCategory
+                                               .NameAnimalCategory
+                                               .Contains(category, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending, user);
+
         public (List<Animal>, int) GetAnimalsByChipNumber(
             string chipNumber, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetAnimalsByValue(animal => animal.ElectronicChipNumber
                                               .Contains(chipNumber, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByChipNumber(
+            string chipNumber, int pageNumber, int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetAnimalsByValue(animal => animal.ElectronicChipNumber
+                                              .Contains(chipNumber, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending, user);
 
         public (List<Animal>, int) GetAnimalsByName(
             string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
@@ -54,9 +89,19 @@ namespace pis.Repositorys
                                                 .Contains(name, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
 
+        public (List<Animal>, int) GetAnimalsByName(
+            string name, int pageNumber, int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetAnimalsByValue(animal => animal.AnimalName
+                                                .Contains(name, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending, user);
+
         public (List<Animal>, int) GetAnimalsByDefault(
             string uselessValue, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetAnimalsByValue(animal => { return true; }, pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByDefault(
+            string uselessValue, int pageNumber, int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetAnimalsByValue(animal => { return true; }, pageNumber, pageSize, sortBy, isAscending, user);
 
         public (List<Animal>, int) GetAnimalsByLocality(
             string locality, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
@@ -64,6 +109,13 @@ namespace pis.Repositorys
                                               .NameLocality
                                               .Contains(locality, StringComparison.InvariantCultureIgnoreCase),
                 pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Animal>, int) GetAnimalsByLocality(
+            string locality, int pageNumber, int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetAnimalsByValue(animal => animal.Locality
+                                              .NameLocality
+                                              .Contains(locality, StringComparison.InvariantCultureIgnoreCase),
+                pageNumber, pageSize, sortBy, isAscending, user);
 
         public override Animal GetById(int id)
         {
