@@ -10,6 +10,7 @@ using pis;
 using Microsoft.EntityFrameworkCore;
 using pis_web_api.Repositorys;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 
 namespace pis.Repositorys
 {
@@ -23,29 +24,64 @@ namespace pis.Repositorys
 
         private (List<Contract>, int) GetContractsByValue(Func<Contract, bool> value, DateOnly dateStart, DateOnly dateEnd, int pageNumber, int pageSize, string sortBy, bool isAscending)
         {
-            using (Context db = new Context())
-            {
-                var allCons = db.Contracts
-                    .Include(x => x.Customer)
-                    .Include(x => x.Performer)
-                    .Where(value)
-                    .Where(x => x.ConclusionDate >= dateStart && x.ConclusionDate <= dateEnd)
-                    .SortBy(sortBy, isAscending);
-                var contracts = allCons.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-                return (contracts, allCons.Count());
-            }
+            var allCons = db.Contracts
+                .Include(x => x.Customer)
+                .Include(x => x.Performer)
+                .Where(value)
+                .Where(x => x.ConclusionDate >= dateStart && x.ConclusionDate <= dateEnd)
+                .SortBy(sortBy, isAscending);
+            var contracts = allCons.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return (contracts, allCons.Count());
+            
         }
+
+        private (List<Contract>, int) GetContractsByValueForOrg(Func<Contract, bool> value, DateOnly dateStart, DateOnly dateEnd, 
+            int pageNumber, int pageSize, string sortBy, bool isAscending, UserPost user)
+        {
+            var contractsId = db.Contracts
+                .Where(x => x.CustomerId == user.OrganisationId || x.PerformerId == user.OrganisationId)
+                .Select(x => x.IdContract);
+
+            var allCons = db.Contracts
+                .Where(x => contractsId.Contains(x.IdContract))
+                .Include(x => x.Customer)
+                .Include(x => x.Performer)
+                .Where(value)
+                .Where(x => x.ConclusionDate >= dateStart && x.ConclusionDate <= dateEnd)
+                .SortBy(sortBy, isAscending);
+            var contracts = allCons.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return (contracts, allCons.Count());
+        }
+
 
         public (List<Contract>, int) GetContractsByCustomerName(DateOnly dateStart, DateOnly dateEnd, string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetContractsByValue(con => con.Customer.OrgName.Contains(name, StringComparison.InvariantCultureIgnoreCase),
                 dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
 
+        public (List<Contract>, int) GetContractsByCustomerNameByOrg(DateOnly dateStart, DateOnly dateEnd, string name, int pageNumber, 
+            int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetContractsByValueForOrg(con => con.Customer.OrgName.Contains(name, StringComparison.InvariantCultureIgnoreCase),
+                dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending, user);
+
+
+
         public (List<Contract>, int) GetContractsByPerformerName(DateOnly dateStart, DateOnly dateEnd, string name, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetContractsByValue(con => con.Performer.OrgName.Contains(name, StringComparison.InvariantCultureIgnoreCase),
                 dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
 
+        public (List<Contract>, int) GetContractsByPerformerNameByOrg(DateOnly dateStart, DateOnly dateEnd, string name, int pageNumber, 
+            int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetContractsByValueForOrg(con => con.Performer.OrgName.Contains(name, StringComparison.InvariantCultureIgnoreCase),
+                dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending, user);
+
+
+
         public (List<Contract>, int) GetContractsByDefault(DateOnly dateStart, DateOnly dateEnd, string useless, int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetContractsByValue(con => { return true; }, dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending);
+
+        public (List<Contract>, int) GetContractsByDefaultByOrg(DateOnly dateStart, DateOnly dateEnd, string useless, int pageNumber
+            , int pageSize, string sortBy, bool isAscending, UserPost user) =>
+            GetContractsByValueForOrg(con => { return true; }, dateStart, dateEnd, pageNumber, pageSize, sortBy, isAscending, user);
 
         public override Contract GetById(int id)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using pis.Repositorys;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis.Services
@@ -31,6 +32,24 @@ namespace pis.Services
                 endDateFilter = DateOnly.MaxValue;
 
             return filterFields[filterField](startDateFilter, endDateFilter, filterValue, pageNumber, pageSize, sortBy, isAscending);
+        }
+
+        internal (List<Contract> contracts, int totalItems) GetContractsByOrg(DateOnly startDateFilter, DateOnly endDateFilter, 
+            string filterValue, string filterField, string sortBy, bool isAscending, int pageNumber, int pageSize, UserPost user)
+        {
+            var filterFields = new Dictionary<string, Func<DateOnly, DateOnly, string, int, int, string, bool, UserPost, (List<Contract>, int)>>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                [nameof(Contract.Customer)] = _contractRepository.GetContractsByCustomerNameByOrg,
+
+                [nameof(Contract.Performer)] = _contractRepository.GetContractsByPerformerNameByOrg,
+
+                [""] = _contractRepository.GetContractsByDefaultByOrg
+            };
+
+            if (startDateFilter == DateOnly.MinValue && endDateFilter == DateOnly.MinValue)
+                endDateFilter = DateOnly.MaxValue;
+
+            return filterFields[filterField](startDateFilter, endDateFilter, filterValue, pageNumber, pageSize, sortBy, isAscending, user);
         }
     }
 }
