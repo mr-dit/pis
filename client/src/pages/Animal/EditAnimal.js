@@ -118,7 +118,7 @@ const EditAnimalForm = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-4 flex-nowrap gap-3">
-          <label>
+          <label id="my-label">
             Категория животного
             <MySelect
               newOptions={animalCategoryOptions}
@@ -131,7 +131,7 @@ const EditAnimalForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             Город
             <MySelect
               newOptions={localityOptions}
@@ -144,7 +144,7 @@ const EditAnimalForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             Пол
             {/* <MySelect
               newOptions={genderOptions}
@@ -163,7 +163,7 @@ const EditAnimalForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             Год рождения
             <input
               className="form-control"
@@ -177,7 +177,7 @@ const EditAnimalForm = () => {
         </div>
 
         <div className="input-group mb-4 flex-nowrap gap-3">
-          <label>
+          <label id="my-label">
             Номер электронного чипа
             <input
               className="form-control"
@@ -199,7 +199,7 @@ const EditAnimalForm = () => {
               />
             </label>
           </div>
-          <label>
+          <label id="my-label">
             Особые приметы
             <input
               className="form-control"
@@ -208,7 +208,7 @@ const EditAnimalForm = () => {
               onChange={(e) => handleChange(e.target.value, "specialSigns")}
             />
           </label>
-          <label>
+          <label id="my-label">
             Кличка животного
             <input
               className="form-control"

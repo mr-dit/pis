@@ -123,7 +123,7 @@ const EditContractsForm = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-4 flex-nowrap gap-3">
-          <label>
+          <label id="my-label">
             Исполнитель
             <MySelect
               newOptions={organisationTypeOptions}
@@ -137,7 +137,7 @@ const EditContractsForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             Заказчик
             <MySelect
               newOptions={organisationTypeOptions}
@@ -153,7 +153,7 @@ const EditContractsForm = () => {
         </div>
 
         <div className="input-group mb-4 flex-nowrap gap-3">
-          <label>
+          <label id="my-label">
             Дата заключения
             <DatePicker
               size="large"
@@ -169,7 +169,7 @@ const EditContractsForm = () => {
               }
             />
           </label>
-          <label>
+          <label id="my-label">
             Дата действия
             <DatePicker
               size="large"

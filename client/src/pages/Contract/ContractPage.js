@@ -156,7 +156,7 @@ const ContractPage = () => {
             </button>
           </div>
           <div className="ms-3">
-            <label>
+            <label id="my-label">
               Диапазон для даты заключения
               <RangePicker
                 size="large"
