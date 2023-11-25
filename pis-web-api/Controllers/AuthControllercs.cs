@@ -29,6 +29,7 @@ namespace pis_web_api.Controllers
             try
             {
                 var user = _userService.LoginUser(login, password);
+                var userPost = new UserPost();
                 return Ok(user);
             }
             catch (Exception ex)

@@ -26,8 +26,8 @@ namespace pis.Controllers
             animalService = new AnimalService();
         }
 
-        [HttpGet("OpensRegister")]
-        public IActionResult OpensRegister(UserPost user, string filterField = "", string filterValue = "", string sortBy = nameof(Animal.AnimalName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        [HttpPost("OpensRegister")]
+        public IActionResult OpensRegister([FromBody]UserPost user, string filterField = "", string filterValue = "", string sortBy = nameof(Animal.AnimalName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
             List<Animal> animals;
             int totalItems;

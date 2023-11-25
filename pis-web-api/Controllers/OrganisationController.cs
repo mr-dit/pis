@@ -27,8 +27,8 @@ namespace pis.Controllers
             _organisationService = new OrganisationService();
         }
 
-        [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(UserPost user, string filterValue = "", string filterField = "", string sortBy = nameof(Organisation.OrgName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        [HttpPost("opensRegister")]
+        public IActionResult OpensRegister([FromBody]UserPost user, string filterValue = "", string filterField = "", string sortBy = nameof(Organisation.OrgName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
             List<Organisation> organisations;
             int totalItems;
