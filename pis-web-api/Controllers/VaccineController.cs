@@ -22,7 +22,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Vaccine.NameVaccine), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Vaccine.NameVaccine), bool isAscending = true, int pageNumber = 1, int pageSize = 100)
         {
             var (vaccines, totalItems) = _vaccineService.GetVaccines(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
