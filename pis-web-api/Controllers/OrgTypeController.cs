@@ -21,7 +21,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(string filterValue = "", int pageNumber = 1, int pageSize = 100)
         {
             var (users, totalItems) = _orgTypeService.GetOrgTypes(filterValue, pageNumber, pageSize);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
