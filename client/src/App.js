@@ -6,12 +6,14 @@ import { useRoutes } from "./routes";
 import locale from 'antd/locale/ru_RU.js';
 import { ConfigProvider } from "antd";
 import AuthPage from "./pages/AuthPage/AuthPage";
+import { getDataForRequest } from "./helpers";
 
 
 function App() {
   const routes = useRoutes();
 
-  if (true) {
+  console.log(getDataForRequest());
+  if (!getDataForRequest().roles) {
     return (
         <div className="container">
           <AuthPage />

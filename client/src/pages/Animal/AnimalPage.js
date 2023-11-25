@@ -4,6 +4,7 @@ import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { getDataForRequest } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -57,9 +58,10 @@ const AnimalComponent = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${REACT_APP_API_URL}/Animal/OpensRegister`,
         {
+          ...getDataForRequest(),
           params: {
             filterValue,
             sortBy,

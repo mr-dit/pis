@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import PriceList from "./PriceList.js";
 import dayjs from "dayjs";
+import { getDataForRequest } from "../../helpers";
 const { REACT_APP_API_URL } = process.env;
 
 const dateFormat = "YYYY-MM-DD";
@@ -28,7 +29,7 @@ const EditContractsForm = () => {
     customerId: 0,
     localitiesPriceList: {},
   });
-  const [localitiesPriceList, setLocalitiesPriceList] = useState([]);
+  const [localitiesPriceList, setLocalitiesPriceList] = useState([{localityId:'', price:''}]);
   const [organisationTypeOptions, setOrganisationTypeOptions] = useState([]);
   const [localityOptions, setLocalityOptions] = useState([]);
   const { id } = useParams();
@@ -42,8 +43,13 @@ const EditContractsForm = () => {
         setLocalitiesPriceList(res.data.localities);
       }
 
-      const fetchOrganisationRes = await axios.get(
-        `${REACT_APP_API_URL}/Organisation/opensRegister`
+      const fetchOrganisationRes = await axios.post(
+        `${REACT_APP_API_URL}/Organisation/opensRegister`, {
+          ...getDataForRequest(),
+          params: {
+            pageSize:1000,
+          },
+        }
       );
       setOrganisationTypeOptions(
         createArrayOptions(

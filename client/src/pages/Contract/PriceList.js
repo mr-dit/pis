@@ -111,6 +111,8 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
                 />
               </label>
               <button
+                disabled={idx === 0}
+                style={{'display': idx===0 ? 'none' : 'block'}}
                 onClick={handleRowDelete(idx, i.localityId)}
                 className="mt-4"
                 type="button"

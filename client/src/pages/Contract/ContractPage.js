@@ -5,6 +5,8 @@ import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
+import { getDataForRequest } from "../../helpers";
+
 const { RangePicker } = DatePicker;
 
 const { REACT_APP_API_URL } = process.env;
@@ -61,9 +63,10 @@ const ContractPage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${REACT_APP_API_URL}/Contract/OpensRegister`,
         {
+          ...getDataForRequest(),
           params: {
             startDateFilter,
             endDateFilter,

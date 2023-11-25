@@ -1,21 +1,22 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
-import axios  from "axios";
+import axios from "axios";
 import "./AuthPage.css";
+import { saveToLocalStorage } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
-
 const onFinish = async (values) => {
-    console.log(values);
+  console.log(values);
   try {
     const res = await axios.post(
       `${REACT_APP_API_URL}/AuthControllercs/login?login=${values.login}&password=${values.password}`
     );
-  } catch (error) {}
-};
-const onFinishFailed = (errorInfo) => {
-  alert("Произошла ошибка");
+    saveToLocalStorage(res);
+    console.log(res);
+  } catch (error) {
+    alert("Неверный логин и пароль");
+  }
 };
 
 const AuthPage = () => (
@@ -36,7 +37,6 @@ const AuthPage = () => (
         remember: true,
       }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item

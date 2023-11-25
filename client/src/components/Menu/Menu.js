@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { clearLocalStorage } from "../../helpers";
+
 
 const Menu = () => {
   return (
@@ -26,7 +28,7 @@ const Menu = () => {
               </li>
             </NavLink>
 
-
+            <button onClick={clearLocalStorage}>Выйти</button>
           </ul>
         </div>
       </div>
