@@ -23,6 +23,7 @@ export default ({
   labelField,
   valueField,
   apiRoute,
+  addEntryRoute
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState(newOptions);
@@ -53,7 +54,7 @@ export default ({
 
   const handleCreate = async (inputValue: string) => {
     setIsLoading(true);
-    const data = { nameAnimalCategory: inputValue };
+    const data = { [addEntryRoute]: inputValue };
     try {
       const res = await axios.post(
         `${REACT_APP_API_URL}/${apiRoute}/addEntry`,

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
+import Select from "react-select";
 const { REACT_APP_API_URL } = process.env;
 
 const createArrayOptions = (data) => {
@@ -83,7 +84,7 @@ const EditAnimalForm = () => {
   };
 
   const handleGender = (value) => {
-    setAnimalData((prev) => ({ ...prev, genderId: value }));
+    setAnimalData((prev) => ({ ...prev, genderId: value.value }));
   };
 
   const handleSubmit = async (e) => {
@@ -126,6 +127,7 @@ const EditAnimalForm = () => {
               labelField={"nameAnimalCategory"}
               valueField={"idAnimalCategory"}
               apiRoute={"AnimalCategory"}
+              addEntryRoute={"nameAnimalCategory"}
             />
           </label>
 
@@ -138,18 +140,26 @@ const EditAnimalForm = () => {
               labelField={"nameLocality"}
               valueField={"idLocality"}
               apiRoute={"Locality"}
+              addEntryRoute={"localityName"}
             />
           </label>
 
           <label>
             Пол
-            <MySelect
+            {/* <MySelect
               newOptions={genderOptions}
               handleChange={handleGender}
               newValue={animalData.genderId}
               labelField={"nameGender"}
               valueField={"idGender"}
               apiRoute={"Gender"}
+            /> */}
+            <Select
+              isClearable
+              isSearchable
+              placeholder="Выберите"
+              options={genderOptions}
+              onChange={(val) => handleGender(val)}
             />
           </label>
 
@@ -196,7 +206,6 @@ const EditAnimalForm = () => {
               type="text"
               value={animalData.specialSigns || ""}
               onChange={(e) => handleChange(e.target.value, "specialSigns")}
-              required
             />
           </label>
           <label>

@@ -4,7 +4,10 @@ import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import PriceList from "./PriceList.js";
+import dayjs from "dayjs";
 const { REACT_APP_API_URL } = process.env;
+
+const dateFormat = "YYYY-MM-DD";
 
 const createArrayOptions = (data) => {
   return data.map((item) => {
@@ -69,7 +72,7 @@ const EditContractsForm = () => {
   };
 
   const handleOrganisationCategory = (value, key) => {
-    setContractsData((prev) => ({ ...prev, key: value }));
+    setContractsData((prev) => ({ ...prev, [key]: `${value}` }));
   };
 
   const handleLocality = (value) => {
@@ -80,6 +83,7 @@ const EditContractsForm = () => {
     e.preventDefault();
     try {
       if (id) {
+        console.log(contractsData);
         await axios.post(
           `${REACT_APP_API_URL}/Contract/ChangeEntry/${id}`,
           contractsData
@@ -102,7 +106,11 @@ const EditContractsForm = () => {
 
   const handlePriceListChange = (updatedPriceList) => {
     // setLocalitiesPriceList(updatedPriceList);
-    console.log(updatedPriceList);
+    setContractsData(prev => ({...prev, localitiesPriceList: updatedPriceList}))
+  };
+
+  const handleDataUpdate = (str, key) => {
+    setContractsData((prev) => ({ ...prev, [key]: str }));
   };
 
   return (
@@ -147,11 +155,35 @@ const EditContractsForm = () => {
         <div className="input-group mb-4 flex-nowrap gap-3">
           <label>
             Дата заключения
-            <DatePicker size="large" aria-required />
+            <DatePicker
+              size="large"
+              aria-required
+              value={
+                contractsData.conclusionDate
+                  ? dayjs(contractsData.conclusionDate, dateFormat)
+                  : ""
+              }
+              format={dateFormat}
+              onChange={(dayjs, string) =>
+                handleDataUpdate(string, "conclusionDate")
+              }
+            />
           </label>
           <label>
             Дата действия
-            <DatePicker size="large" aria-required />
+            <DatePicker
+              size="large"
+              aria-required
+              value={
+                contractsData.expirationDate
+                  ? dayjs(contractsData.expirationDate, dateFormat)
+                  : ""
+              }
+              format={dateFormat}
+              onChange={(dayjs, string) =>
+                handleDataUpdate(string, "expirationDate")
+              }
+            />
           </label>
         </div>
         <PriceList

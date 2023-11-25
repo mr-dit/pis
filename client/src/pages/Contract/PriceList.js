@@ -28,7 +28,7 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
 
   useEffect(() => {
     handlePriceList(localitiesPriceList);
-  }, [localitiesPriceList, handlePriceList]);
+  }, [localitiesPriceList ]);
 
   const handleAddPrice = () => {
     setLocalitiesPriceList((prev) => [
