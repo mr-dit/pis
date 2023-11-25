@@ -114,7 +114,7 @@ const EditOrganisationForm = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-4 flex-nowrap gap-3">
-          <label>
+          <label id="my-label">
             Тип организации
             <MySelect
               newOptions={organisationTypeOptions}
@@ -126,7 +126,7 @@ const EditOrganisationForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             Город
             <MySelect
               newOptions={localityOptions}
@@ -138,7 +138,7 @@ const EditOrganisationForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             Название организации
             <input
               className="form-control"
@@ -151,7 +151,7 @@ const EditOrganisationForm = () => {
         </div>
 
         <div className="input-group mb-4 flex-nowrap gap-3">
-          <label>
+          <label id="my-label">
             ИНН
             <input
               className="form-control"
@@ -163,7 +163,7 @@ const EditOrganisationForm = () => {
             />
           </label>
 
-          <label>
+          <label id="my-label">
             КПП
             <input
               className="form-control"
@@ -174,7 +174,7 @@ const EditOrganisationForm = () => {
               maxLength={15}
             />
           </label>
-          <label>
+          <label id="my-label">
             Адрес регистрации
             <input
               className="form-control"

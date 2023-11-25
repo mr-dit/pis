@@ -22,7 +22,7 @@ button{
   border: none;
 }
 
-label{
+#my-label{
   display: flex !important;
   gap: 5px;
   width: 100%;

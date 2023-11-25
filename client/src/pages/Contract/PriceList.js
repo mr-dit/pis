@@ -88,7 +88,7 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
               className="d-flex gap-3 mb-3"
               style={{ maxWidth: "500px" }}
             >
-              <label>
+              <label id="my-label">
                 Город
                 <MySelect
                   isClearable={false}
@@ -100,7 +100,7 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
                   apiRoute={"Locality"}
                 />
               </label>
-              <label>
+              <label id="my-label">
                 Цена
                 <input
                   className="form-control"
