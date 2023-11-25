@@ -115,5 +115,16 @@ namespace pis_web_api.Models.db
 
             this.AddRoles(rolesNotInUser.ToArray());
         }
+
+        public UserPost ConvertToUserPost()
+        {
+            UserRoleRepository roleRepository = new UserRoleRepository();
+            var roles = roleRepository.db.UserRole
+                .Where(x => x.UserId == this.IdUser)
+                .Select(x => x.RoleId)
+                .ToList();
+            var userPost = new UserPost(Surname, FirstName, LastName, OrganisationId, Login, Password, roles);
+            return userPost;
+        }
     }
 }

@@ -19,6 +19,21 @@ namespace pis_web_api.Models.post
 
         public List<int> Roles { get; set; }
 
+        public UserPost() { }
+
+        public UserPost(string surname, string firstName, string lastName,
+            int orgId, string login, string password, List<int> roles)
+        {
+            Surname = surname;
+            FirstName = firstName;
+            LastName = lastName;
+            OrganisationId = orgId;
+            Login = login;
+            Password = password;
+            Roles = new List<int>();
+            Roles.AddRange(roles);
+        }
+
         public User ConvertToUser()
         {
             var user = new User(Surname, FirstName, LastName, OrganisationId, Login, Password);
