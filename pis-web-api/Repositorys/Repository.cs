@@ -8,8 +8,8 @@ namespace pis_web_api.Repositorys
     public class Repository<T> : IRepository<T> where T : class
     {
         protected delegate void ModelAction(Context db, T model);
-        private Context db;
-        private DbSet<T> dbSet;
+        public Context db;
+        public DbSet<T> dbSet;
 
         public Repository()
         {

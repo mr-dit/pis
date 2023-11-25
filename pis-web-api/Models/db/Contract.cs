@@ -17,10 +17,10 @@ namespace pis_web_api.Models.db
         public DateOnly ExpirationDate { get; set; }
 
         public int PerformerId { get; set; }
-        public Organisation? Performer { get; }
+        public Organisation? Performer { get; private set; }
 
         public int CustomerId { get; set; }
-        public Organisation? Customer { get; }
+        public Organisation? Customer { get; private set; }
 
         public List<LocalitisListForContract>? Localities { get; set; }
         public List<Vaccination>? Vaccinations { get; set; }
@@ -77,7 +77,9 @@ namespace pis_web_api.Models.db
         {
             ConclusionDate = conPost.ConclusionDate;
             ExpirationDate = conPost.ExpirationDate;
+            Performer = null;
             PerformerId = conPost.PerformerId;
+            Customer = null;
             CustomerId = conPost.CustomerId;
             foreach (var localityPricePair in conPost.LocalitiesPriceList)
             {

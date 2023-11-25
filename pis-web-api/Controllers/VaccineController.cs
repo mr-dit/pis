@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pis.Controllers;
 using pis_web_api.Models.db;
+using pis_web_api.Models.post;
 using pis_web_api.Services;
 
 namespace pis_web_api.Controllers
@@ -56,8 +57,9 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] Vaccine vaccine)
+        public IActionResult AddEntry([FromBody] VaccinePost vaccinePost)
         {
+            var vaccine = vaccinePost.ConvertToVaccine();
             bool status = _vaccineService.AddEntry(vaccine);
 
             if (status)
@@ -66,7 +68,7 @@ namespace pis_web_api.Controllers
             }
             else
             {
-                return BadRequest("Failed to add organisation entry.");
+                return BadRequest("Failed to add vaccine entry.");
             }
         }
 
@@ -81,15 +83,17 @@ namespace pis_web_api.Controllers
             }
             else
             {
-                return BadRequest($"Failed to delete organisation entry with ID {id}");
+                return BadRequest($"Failed to delete vaccine entry with ID {id}");
             }
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] Vaccine vaccine)
+        public IActionResult ChangeEntry(int id, [FromBody] VaccinePost vaccinePost)
         {
             if (ModelState.IsValid)
             {
+                var vaccine = _vaccineService.GetEntry(id);
+                vaccine.Update(vaccinePost);
                 bool status = _vaccineService.ChangeEntry(vaccine);
 
                 if (status)
@@ -98,7 +102,7 @@ namespace pis_web_api.Controllers
                 }
                 else
                 {
-                    return BadRequest("Failed to update organisation entry.");
+                    return BadRequest("Failed to update vaccine entry.");
                 }
             }
 

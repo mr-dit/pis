@@ -22,11 +22,28 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(DateOnly startDateFilter, DateOnly endDateFilter, string filterValue = "", string filterField = "",
+        public IActionResult OpensRegister(UserPost user, DateOnly startDateFilter, DateOnly endDateFilter, string filterValue = "", string filterField = "",
             string sortBy = nameof(Contract.Customer), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (contracts, totalItems) = _contractService.GetContracts(startDateFilter, endDateFilter, filterValue, filterField,
+            List<Contract> contracts;
+            int totalItems;
+
+            if(user.Roles.Intersect(new List<int>() {  1, 4, 6 }).Count() != 0)
+            {
+                (contracts, totalItems) = _contractService.GetContracts(startDateFilter, endDateFilter, filterValue, filterField,
                 sortBy, isAscending, pageNumber, pageSize);
+            }
+            else if(user.Roles.Intersect(new List<int>() { 3, 2, 8, 7, 9, 11, 10 }).Count() != 0)
+            {
+                (contracts, totalItems) = _contractService.GetContractsByOrg(startDateFilter, endDateFilter, filterValue, filterField,
+                sortBy, isAscending, pageNumber, pageSize, user);
+            }
+            else
+            {
+                return Forbid();
+            }
+
+
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
@@ -94,7 +111,6 @@ namespace pis_web_api.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 var con = conPost.ConvertToContractWithId(id);
 
                 bool status = _contractService.ChangeEntry(con);

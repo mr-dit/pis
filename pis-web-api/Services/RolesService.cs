@@ -33,6 +33,8 @@ namespace pis_web_api.Services
             => RoleRepository.GetRoleByName("Ветврач"));
         private static Lazy<Role> doctor_shelter = new Lazy<Role>(()
             => RoleRepository.GetRoleByName("Ветврач приюта"));
+        private static Lazy<Role> admin = new Lazy<Role>(()
+            => RoleRepository.GetRoleByName("Админ"));
 
         public static Role KURATOR_VETSERVICE => kurator_vetservice.Value;
         public static Role KURATOR_TRAPPING => kurator_trapping.Value;
@@ -48,5 +50,6 @@ namespace pis_web_api.Services
         public static Role OPERATOR_SHELTER => operator_shelter.Value;
         public static Role DOCTOR => doctor.Value;
         public static Role DOCTOR_SHELTER => doctor_shelter.Value;
+        public static Role ADMIN => admin.Value;
     }
 }

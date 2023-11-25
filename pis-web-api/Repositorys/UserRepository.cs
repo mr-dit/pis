@@ -81,6 +81,24 @@ namespace pis.Repositorys
                 return user;
             }
         }
+
+        public User GetUserByLogin(string login, string password)
+        {
+            using (Context db = new Context())
+            {
+                var user = db.Users
+                    .Where(x => x.Login == login)
+                    .Where(x => x.Password == password)
+                    .FirstOrDefault();
+
+                if(user is null)
+                {
+                    throw new Exception("Неверный логин или пароль");
+                }
+
+                return user;
+            }
+        }
     }
 
     static class UserExtension

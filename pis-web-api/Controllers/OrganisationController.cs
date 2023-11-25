@@ -28,9 +28,32 @@ namespace pis.Controllers
         }
 
         [HttpGet("opensRegister")]
-        public IActionResult OpensRegister(string filterValue = "", string filterField = "", string sortBy = nameof(Organisation.OrgName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
+        public IActionResult OpensRegister(UserPost user, string filterValue = "", string filterField = "", string sortBy = nameof(Organisation.OrgName), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            var (organisations, totalItems) = _organisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            List<Organisation> organisations;
+            int totalItems;
+
+            if (user.Roles.Intersect(new List<int>() { 1, 2, 3, 6, 7, 8, 15 }).Count() != 0)
+            {
+                (organisations, totalItems) = _organisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            }
+            else if (user.Roles.Intersect(new List<int>() { 9, 11 }).Count() != 0)
+            {
+                (organisations, totalItems) = _organisationService.GetOrganisationsByOrg(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize, user);
+            }
+            else if(user.Roles.Intersect(new List<int>() { 4 }).Count() != 0)
+            {
+                (organisations, totalItems) = _organisationService.GetOrganisationsForOperatorVetService(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            }
+            else if (user.Roles.Intersect(new List<int>() { 10 }).Count() != 0)
+            {
+                (organisations, totalItems) = _organisationService.GetOrganisationsForOperatorOMSU(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
+            }
+            else
+            {
+                return Forbid();
+            }
+
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
             var result = new
