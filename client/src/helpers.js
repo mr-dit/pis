@@ -11,6 +11,7 @@ export function clearLocalStorage() {
 export function getDataForRequest() {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const requestData = {
+    idUser: userData?.data.idUser,
     surname: userData?.data.surname,
     firstName: userData?.data.firstName,
     lastName: userData?.data.lastName,
@@ -20,4 +21,13 @@ export function getDataForRequest() {
     roles: userData?.data.roles,
   };
   return requestData;
+}
+
+export function isRoleEdit(roles) {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const userRoles = userData?.data.roles;
+  const containsCommonValue = roles.some((value) => userRoles.includes(value));
+
+  return containsCommonValue;
 }

@@ -30,7 +30,6 @@ const Vaccine = ({ vaccinations }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [contracts, setContracts] = useState([]);
   const [vaccines, setVaccines] = useState([]);
-  const [vaccineSeriesNumber, setVaccineSeriesNumber] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [vaccination, setVaccination] = useState({
     contractId: "",
@@ -71,20 +70,21 @@ const Vaccine = ({ vaccinations }) => {
 
   const saveVaccination = async () => {
     console.log(vaccination);
+    const userId = getDataForRequest().idUser
     try {
       axios.post(
         `${REACT_APP_API_URL}/Vaccination/add/${id}/${vaccination.vaccineId}/${
           vaccination.contractId
-        }/${getDataForRequest().login}/${vaccination.vaccineSeries}`
+        }/${userId}/${vaccination.vaccineSeries}`
       );
     } catch (error) {
       console.error(error);
     }
   };
 
-  const [newVaccineName, setNewVaccineName] = useState('');
-  const [newValidDate, setNewValidDate] = useState('');
-  
+  const [newVaccineName, setNewVaccineName] = useState("");
+  const [newValidDate, setNewValidDate] = useState("");
+
   const handleCreate = async (inputValue) => {
     setIsLoading(true);
     showModal();
@@ -97,13 +97,19 @@ const Vaccine = ({ vaccinations }) => {
   };
   const handleOk = async () => {
     if (!newValidDate) return;
-    const data = { nameVaccine: newVaccineName, validDaysVaccine: newValidDate };
+    const data = {
+      nameVaccine: newVaccineName,
+      validDaysVaccine: newValidDate,
+    };
     try {
       const res = await axios.post(
         `${REACT_APP_API_URL}/Vaccine/addEntry`,
         data
       );
-      const newOption = createOption(`${newVaccineName} / ${newValidDate} суток`, res.data); 
+      const newOption = createOption(
+        `${newVaccineName} / ${newValidDate} суток`,
+        res.data
+      );
       setIsLoading(false);
       setVaccines((prev) => [...prev, newOption]);
       setValue(newOption);
@@ -116,8 +122,8 @@ const Vaccine = ({ vaccinations }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsLoading(false);
-    setNewVaccineName('')
-    setNewValidDate('')
+    setNewVaccineName("");
+    setNewValidDate("");
   };
 
   return (
@@ -185,7 +191,9 @@ const Vaccine = ({ vaccinations }) => {
               placeholder="Выберите"
               options={contracts}
               onChange={(val) =>
-                setVaccination((prev) => ({ ...prev, contractId: val }))
+                {
+                  console.log(val);
+                  setVaccination((prev) => ({ ...prev, contractId: val?.value }))}
               }
             />
           </label>
@@ -208,23 +216,19 @@ const Vaccine = ({ vaccinations }) => {
               options={vaccines}
               value={value}
             />
-            {/* <MySelect
-              isClearable
-              isSearchable
-              placeholder="Выберите"
-              newOptions={vaccines}
-              handleChange={(val) =>
-                setVaccination((prev) => ({ ...prev, vaccineId: val }))
-              }
-            /> */}
           </label>
           <label id="my-label">
             Серия вакцины
             <input
               className="form-control"
               type="number"
-              value={vaccineSeriesNumber}
-              onChange={(e) => setVaccineSeriesNumber(e.target.value)}
+              value={vaccination.vaccineSeries}
+              onChange={(e) =>
+                setVaccination((prev) => ({
+                  ...prev,
+                  vaccineSeries: e.target.value,
+                }))
+              }
             />
           </label>
           <button
@@ -235,17 +239,6 @@ const Vaccine = ({ vaccinations }) => {
           >
             Сохранить вакцинацию
           </button>
-          {/* <label id="my-label">
-          Вакцина
-          <input
-            className="form-control"
-            type="text"
-            value={vaccine}
-            disabled
-          />
-        </label>
-
-   */}
         </div>
       ) : (
         ""

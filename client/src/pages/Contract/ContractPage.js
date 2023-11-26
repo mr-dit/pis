@@ -5,7 +5,7 @@ import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
-import { getDataForRequest } from "../../helpers";
+import { getDataForRequest, isRoleEdit } from "../../helpers";
 
 const { RangePicker } = DatePicker;
 
@@ -125,6 +125,8 @@ const ContractPage = () => {
     }
   };
 
+  const isEdit = isRoleEdit([10, 15]);
+
   return (
     <div>
       <Menu />
@@ -170,12 +172,14 @@ const ContractPage = () => {
             </label>
           </div>
         </div>
-
-        <button className="btn btn-primary btn-lg" onClick={handleCreate}>
-          Создать
-        </button>
+        {isEdit && (
+          <button className="btn btn-primary btn-lg" onClick={handleCreate}>
+            Создать
+          </button>
+        )}
       </div>
       <Table
+        isEdit={isEdit}
         data={contracts}
         headers={cols}
         handleChange={handleChange}
