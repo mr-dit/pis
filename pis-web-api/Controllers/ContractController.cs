@@ -142,7 +142,7 @@ namespace pis_web_api.Controllers
                     DateOnly.MaxValue, "", "", nameof(Contract.Customer), true, 1, 1000, user);
                 var animal = _animalService.GetEntry(animalId);
                 var resultContracts = _vaccinePriceListRepository.GetContractsByLocality(animal.LocalityId, contracts.Select(x => x.IdContract));
-                return Ok(contracts);
+                return Ok(resultContracts);
             }
 
             return BadRequest(ModelState);
