@@ -192,23 +192,25 @@ const ContractPage = () => {
       />
 
       {/* Pagination */}
-      <div>
-        <button
-          disabled={pageNumber === 1}
-          onClick={() => setPageNumber(pageNumber - 1)}
-        >
-          ←
-        </button>
-        <span>
-          Страница {pageNumber} из {totalPages}
-        </span>
-        <button
-          disabled={pageNumber === totalPages}
-          onClick={() => setPageNumber(pageNumber + 1)}
-        >
-          →
-        </button>
-      </div>
+      {totalPages > 1 && (
+        <div>
+          <button
+            disabled={pageNumber === 1}
+            onClick={() => setPageNumber(pageNumber - 1)}
+          >
+            ←
+          </button>
+          <span>
+            Страница {pageNumber} из {totalPages}
+          </span>
+          <button
+            disabled={pageNumber === totalPages}
+            onClick={() => setPageNumber(pageNumber + 1)}
+          >
+            →
+          </button>
+        </div>
+      )}
     </div>
   );
 };
