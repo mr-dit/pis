@@ -48,8 +48,9 @@ namespace pis.Repositorys
                 .Include(x => x.Customer)
                 .Include(x => x.Performer)
                 .Where(value)
-                .Where(x => x.ConclusionDate >= dateStart && x.ConclusionDate <= dateEnd)
-                .SortBy(sortBy, isAscending);
+                .Where(x => x.ExpirationDate >= dateStart && x.ExpirationDate <= dateEnd)
+                .SortBy(sortBy, isAscending)
+                .ToList();
             var contracts = allCons.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return (contracts, allCons.Count());
         }
