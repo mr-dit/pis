@@ -59,23 +59,31 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] VaccinePost vaccinePost)
         {
-            var vaccine = vaccinePost.ConvertToVaccine();
-            bool status = _vaccineService.AddEntry(vaccine);
-
-            var result = new
+            if (ModelState.IsValid)
             {
-                idVaccine = vaccine.IdVaccine,
-                validDays = vaccine.ValidDaysVaccine
-            };
+                var vaccine = vaccinePost.ConvertToVaccine();
+                bool status = _vaccineService.AddEntry(vaccine);
 
-            if (status)
-            {
-                return Ok(result);
+                var result = new
+                {
+                    idVaccine = vaccine.IdVaccine,
+                    validDays = vaccine.ValidDaysVaccine
+                };
+
+                if (status)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Failed to add vaccine entry.");
+                }
             }
             else
             {
-                return BadRequest("Failed to add vaccine entry.");
+                return BadRequest();
             }
+
         }
 
         [HttpPost("deleteEntry/{id}")]

@@ -88,16 +88,23 @@ namespace pis.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] OrganisationPost organisationPost)
         {
-            var organisation = organisationPost.ConvertToOrganisation();
-            bool status = _organisationService.AddEntry(organisation);
-
-            if (status)
+            if (ModelState.IsValid)
             {
-                return Ok(organisation.OrgId);
+                var organisation = organisationPost.ConvertToOrganisation();
+                bool status = _organisationService.AddEntry(organisation);
+
+                if (status)
+                {
+                    return Ok(organisation.OrgId);
+                }
+                else
+                {
+                    return BadRequest("Failed to add organisation entry.");
+                }
             }
             else
             {
-                return BadRequest("Failed to add organisation entry.");
+                return BadRequest();
             }
         }
 
