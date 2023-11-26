@@ -111,6 +111,7 @@ const Vaccine = ({ vaccinations }) => {
       setIsLoading(false);
       setVaccines((prev) => [...prev, newOption]);
       setValue(newOption);
+      window.location.reload();
     } catch (e) {
       console.error(e);
       setIsLoading(false);
@@ -179,7 +180,7 @@ const Vaccine = ({ vaccinations }) => {
           </label>
         </div>
       ))}
-      {isVisible ? (
+      {isVisible && contracts.length ? (
         <div className="input-group mb-4 flex-nowrap gap-3">
           <label id="my-label">
             Номер контракта
@@ -240,10 +241,9 @@ const Vaccine = ({ vaccinations }) => {
       ) : (
         ""
       )}
-      {contracts.length ? (
+      {!isVisible || contracts.length ? (
         <button
           type="button"
-          style={{ display: !isVisible ? "block" : "none" }}
           className="btn btn-outline-primary"
           onClick={() => setIsVisible(true)}
         >
