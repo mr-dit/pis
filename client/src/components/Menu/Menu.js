@@ -1,27 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { clearLocalStorage, isRoleEdit } from "../../helpers";
+import { clearLocalStorage, isRoleEdit, getDataForRequest } from "../../helpers";
 import axios from "axios";
+import { Modal, DatePicker } from "antd";
+import dayjs from "dayjs";
+
 const { REACT_APP_API_URL } = process.env;
+
+const dateFormat = "MM-DD-YYYY";
 
 
 const Menu = () => {
   const isOrgRead = isRoleEdit([1, 2, 3, 6, 7, 8, 9, 11, 4, 10, 15]);
   const isContrRead = isRoleEdit([1, 4, 6, 3, 2, 8, 7, 9, 11, 10, 15]);
 
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+
   const handleDownload = () => {
     axios({
-      url: `${REACT_APP_API_URL}/Statistica/`,
+      url: `${REACT_APP_API_URL}/Statistica/${startDate}/${endDate}`,
       method: 'GET',
       responseType: 'blob',
     }).then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'имя_файла.xlsx');
+      link.setAttribute('download', 'статистика.xlsx');
       document.body.appendChild(link);
       link.click();
     });
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = async () => {
+    handleDownload()
+    setIsModalOpen(false);
+    setEndDate()
+    setStartDate()
+  };
+  const handleCancel = () => {
+    setEndDate()
+    setStartDate()
+    setIsModalOpen(false);
   };
 
   return (
@@ -45,17 +69,55 @@ const Menu = () => {
                 <li className="nav-item">Контракты</li>
               </NavLink>
             )}
-            <li className="nav-item">
-              <button className="pe-4" onClick={handleDownload}>
-                Скачать файл
+              <button className="ps-5" onClick={showModal}>
+                Статистика 📊
               </button>
-            </li>
           </ul>
         </div>
       </div>
-      <button className="pe-4" onClick={clearLocalStorage}>
-        Выйти
+      {getDataForRequest().firstName}   {getDataForRequest().surname}
+      <button style={{'fontSize':'30px'}} className="pe-4" onClick={clearLocalStorage}>
+        🚪
       </button>
+      <Modal
+        title="Статистика за промежуток"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+          <label id="my-label">
+            Дата начала
+            <DatePicker
+              size="large"
+              aria-required
+              value={
+                startDate
+                  ? dayjs(startDate, dateFormat)
+                  : ""
+              }
+              format={dateFormat}
+              onChange={(dayjs, string) =>
+                setStartDate(string)
+              }
+            />
+          </label>
+          <label id="my-label">
+            Дата конца
+            <DatePicker
+              size="large"
+              aria-required
+              value={
+                endDate
+                  ? dayjs(endDate, dateFormat)
+                  : ""
+              }
+              format={dateFormat}
+              onChange={(dayjs, string) =>
+                setEndDate(string)
+              }
+            />
+          </label>
+      </Modal>
     </nav>
   );
 };

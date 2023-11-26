@@ -44,7 +44,7 @@ const Vaccine = ({ vaccinations }) => {
   const fetchData = async () => {
     try {
       const contractsRes = await axios.post(
-        `${REACT_APP_API_URL}/Contract/GetCurrentContractsByUser`,
+        `${REACT_APP_API_URL}/Contract/GetCurrentContractsByAnimalForVaccinations/${id}`,
         getDataForRequest()
       );
       setContracts(
@@ -70,12 +70,10 @@ const Vaccine = ({ vaccinations }) => {
 
   const saveVaccination = async () => {
     console.log(vaccination);
-    const userId = getDataForRequest().idUser
+    const userId = getDataForRequest().idUser;
     try {
       axios.post(
-        `${REACT_APP_API_URL}/Vaccination/add/${id}/${vaccination.vaccineId}/${
-          vaccination.contractId
-        }/${userId}/${vaccination.vaccineSeries}`
+        `${REACT_APP_API_URL}/Vaccination/add/${id}/${vaccination.vaccineId}/${vaccination.contractId}/${userId}/${vaccination.vaccineSeries}`
       );
     } catch (error) {
       console.error(error);
@@ -190,11 +188,10 @@ const Vaccine = ({ vaccinations }) => {
               isSearchable
               placeholder="Выберите"
               options={contracts}
-              onChange={(val) =>
-                {
-                  console.log(val);
-                  setVaccination((prev) => ({ ...prev, contractId: val?.value }))}
-              }
+              onChange={(val) => {
+                console.log(val);
+                setVaccination((prev) => ({ ...prev, contractId: val?.value }));
+              }}
             />
           </label>
           <label id="my-label">
@@ -243,14 +240,17 @@ const Vaccine = ({ vaccinations }) => {
       ) : (
         ""
       )}
-      {!isVisible && (
+      {contracts.length ? (
         <button
           type="button"
+          style={{ display: !isVisible ? "block" : "none" }}
           className="btn btn-outline-primary"
           onClick={() => setIsVisible(true)}
         >
           Добавить вакцинацию
         </button>
+      ) : (
+        <h2>Нет контрактов</h2>
       )}
       <Modal
         title="Длительность вакцины в днях"
