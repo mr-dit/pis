@@ -65,8 +65,8 @@ const ContractPage = () => {
     try {
       const response = await axios.post(
         `${REACT_APP_API_URL}/Contract/OpensRegister`,
+        getDataForRequest(),
         {
-          ...getDataForRequest(),
           params: {
             startDateFilter,
             endDateFilter,

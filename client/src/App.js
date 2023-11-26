@@ -1,6 +1,5 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useRoutes } from "./routes";
 import locale from 'antd/locale/ru_RU.js';
@@ -12,7 +11,6 @@ import { getDataForRequest } from "./helpers";
 function App() {
   const routes = useRoutes();
 
-  console.log(getDataForRequest());
   if (!getDataForRequest().roles) {
     return (
         <div className="container">

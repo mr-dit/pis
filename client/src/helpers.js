@@ -1,10 +1,12 @@
 export function saveToLocalStorage(data) {
   localStorage.setItem("userData", JSON.stringify(data));
+  window.location.reload();
 }
 
 export function clearLocalStorage() {
-    localStorage.removeItem('userData');
-  }
+  localStorage.removeItem("userData");
+  window.location.reload();
+}
 
 export function getDataForRequest() {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -15,7 +17,7 @@ export function getDataForRequest() {
     organisationId: userData?.data.organisationId,
     login: userData?.data.login,
     password: userData?.data.password,
-    roles: userData?.data.roles
+    roles: userData?.data.roles,
   };
   return requestData;
 }

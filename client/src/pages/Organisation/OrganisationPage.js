@@ -58,8 +58,8 @@ const OrganisationPage = () => {
     try {
       const response = await axios.post(
         `${REACT_APP_API_URL}/Organisation/OpensRegister`,
+        getDataForRequest(),
         {
-          ...getDataForRequest(),
           params: {
             filterValue,
             sortBy,
