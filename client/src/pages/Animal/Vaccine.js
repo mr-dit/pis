@@ -44,11 +44,11 @@ const Vaccine = ({ vaccinations }) => {
   const fetchData = async () => {
     try {
       const contractsRes = await axios.post(
-        `${REACT_APP_API_URL}/Contract/opensRegister?pageSize=1000`,
+        `${REACT_APP_API_URL}/Contract/GetCurrentContractsByUser`,
         getDataForRequest()
       );
       setContracts(
-        contractsRes.data.contracts.map((i) => ({
+        contractsRes.data.map((i) => ({
           value: i.idContract,
           label: i.idContract,
         }))

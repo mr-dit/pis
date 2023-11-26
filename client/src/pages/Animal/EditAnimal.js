@@ -4,6 +4,7 @@ import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Vaccine from "./Vaccine.js";
+import { isRoleEdit } from "../../helpers.js";
 const { REACT_APP_API_URL } = process.env;
 
 const createArrayOptions = (data) => {
@@ -74,14 +75,16 @@ const EditAnimalForm = () => {
           contractId: item.contractId,
         }))
       );
-      setVaccines(vaccinesRes.data.vaccinations.map((item) => ({
-        idVactination: item.idVactination,
-        vaccinationDate: item.vaccinationDate,
-        vaccinationValidDate: item.vaccinationValidDate,
-        vaccineSeriesNumber: item.vaccineSeriesNumber,
-        vaccine: item.vaccine.nameVaccine,
-        contractId: item.contractId,
-      })));
+      setVaccines(
+        vaccinesRes.data.vaccinations.map((item) => ({
+          idVactination: item.idVactination,
+          vaccinationDate: item.vaccinationDate,
+          vaccinationValidDate: item.vaccinationValidDate,
+          vaccineSeriesNumber: item.vaccineSeriesNumber,
+          vaccine: item.vaccine.nameVaccine,
+          contractId: item.contractId,
+        }))
+      );
 
       if (id) {
         fetchAnimalById(id);
@@ -132,6 +135,8 @@ const EditAnimalForm = () => {
     navigate("/Animal");
   };
 
+  const isNotEdit = !isRoleEdit([12, 13, 14, 15]);
+
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -152,6 +157,7 @@ const EditAnimalForm = () => {
               valueField={"idAnimalCategory"}
               apiRoute={"AnimalCategory"}
               addEntryRoute={"nameAnimalCategory"}
+              disabled={isNotEdit}
             />
           </label>
 
@@ -165,6 +171,7 @@ const EditAnimalForm = () => {
               valueField={"idLocality"}
               apiRoute={"Locality"}
               addEntryRoute={"localityName"}
+              disabled={isNotEdit}
             />
           </label>
 
@@ -184,6 +191,7 @@ const EditAnimalForm = () => {
               placeholder="Выберите"
               options={genderOptions}
               onChange={(val) => handleGender(val)}
+              isDisabled={isNotEdit}
             />
           </label>
 
@@ -194,6 +202,7 @@ const EditAnimalForm = () => {
               type="text"
               value={animalData.yearOfBirth}
               onChange={(e) => handleChange(e.target.value, "yearOfBirth")}
+              disabled={isNotEdit}
               required
               maxLength={4}
             />
@@ -210,6 +219,7 @@ const EditAnimalForm = () => {
               onChange={(e) =>
                 handleChange(e.target.value, "electronicChipNumber")
               }
+              disabled={isNotEdit}
               required
             />
           </label>
@@ -220,6 +230,7 @@ const EditAnimalForm = () => {
                 type="file"
                 className="form-control"
                 id="inputGroupFile01"
+                disabled={isNotEdit}
               />
             </label>
           </div>
@@ -230,6 +241,7 @@ const EditAnimalForm = () => {
               type="text"
               value={animalData.specialSigns || ""}
               onChange={(e) => handleChange(e.target.value, "specialSigns")}
+              disabled={isNotEdit}
             />
           </label>
           <label id="my-label">
@@ -239,16 +251,19 @@ const EditAnimalForm = () => {
               type="text"
               value={animalData.animalName}
               onChange={(e) => handleChange(e.target.value, "animalName")}
+              disabled={isNotEdit}
               required
             />
           </label>
         </div>
         <Vaccine vaccinations={vaccinations} />
-        <div className="d-flex justify-content-end mt-5">
-          <button className="btn btn-primary btn-lg" type="submit">
-            Сохранить карточку
-          </button>
-        </div>
+        {!isNotEdit && (
+          <div className="d-flex justify-content-end mt-5">
+            <button className="btn btn-primary btn-lg" type="submit">
+              Сохранить карточку
+            </button>
+          </div>
+        )}
       </form>
     </>
   );

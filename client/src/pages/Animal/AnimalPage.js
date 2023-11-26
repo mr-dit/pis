@@ -152,7 +152,7 @@ const AnimalComponent = () => {
         )}
       </div>
       <Table
-        isEdit={false}
+        isEdit={isEdit}
         data={animals}
         headers={cols}
         handleChange={handleChange}

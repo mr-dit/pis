@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import PriceList from "./PriceList.js";
 import dayjs from "dayjs";
-import { getDataForRequest } from "../../helpers";
+import { getDataForRequest, isRoleEdit } from "../../helpers";
 const { REACT_APP_API_URL } = process.env;
 
 const dateFormat = "YYYY-MM-DD";
@@ -29,7 +29,9 @@ const EditContractsForm = () => {
     customerId: 0,
     localitiesPriceList: {},
   });
-  const [localitiesPriceList, setLocalitiesPriceList] = useState([{localityId:'', price:''}]);
+  const [localitiesPriceList, setLocalitiesPriceList] = useState([
+    { localityId: "", price: "" },
+  ]);
   const [organisationTypeOptions, setOrganisationTypeOptions] = useState([]);
   const [localityOptions, setLocalityOptions] = useState([]);
   const { id } = useParams();
@@ -44,10 +46,11 @@ const EditContractsForm = () => {
       }
 
       const fetchOrganisationRes = await axios.post(
-        `${REACT_APP_API_URL}/Organisation/opensRegister`, {
+        `${REACT_APP_API_URL}/Organisation/opensRegister`,
+        {
           ...getDataForRequest(),
           params: {
-            pageSize:1000,
+            pageSize: 1000,
           },
         }
       );
@@ -112,12 +115,17 @@ const EditContractsForm = () => {
 
   const handlePriceListChange = (updatedPriceList) => {
     // setLocalitiesPriceList(updatedPriceList);
-    setContractsData(prev => ({...prev, localitiesPriceList: updatedPriceList}))
+    setContractsData((prev) => ({
+      ...prev,
+      localitiesPriceList: updatedPriceList,
+    }));
   };
 
   const handleDataUpdate = (str, key) => {
     setContractsData((prev) => ({ ...prev, [key]: str }));
   };
+
+  const isNotEdit = !isRoleEdit([10, 15]);
 
   return (
     <>
@@ -140,6 +148,7 @@ const EditContractsForm = () => {
               labelField={"orgName"}
               valueField={"orgId"}
               apiRoute={"Organisation"}
+              disabled={isNotEdit}
             />
           </label>
 
@@ -154,6 +163,7 @@ const EditContractsForm = () => {
               labelField={"orgName"}
               valueField={"orgId"}
               apiRoute={"Organisation"}
+              disabled={isNotEdit}
             />
           </label>
         </div>
@@ -173,6 +183,7 @@ const EditContractsForm = () => {
               onChange={(dayjs, string) =>
                 handleDataUpdate(string, "conclusionDate")
               }
+              disabled={isNotEdit}
             />
           </label>
           <label id="my-label">
@@ -189,20 +200,23 @@ const EditContractsForm = () => {
               onChange={(dayjs, string) =>
                 handleDataUpdate(string, "expirationDate")
               }
+              disabled={isNotEdit}
             />
           </label>
         </div>
         <PriceList
+          disabled={isNotEdit}
           priceList={localitiesPriceList}
           options={localityOptions}
           handlePriceList={handlePriceListChange}
         />
-
-        <div className="d-flex justify-content-end">
-          <button className="btn btn-primary btn-lg" type="submit">
-            Сохранить
-          </button>
-        </div>
+        {!isNotEdit && (
+          <div className="d-flex justify-content-end">
+            <button className="btn btn-primary btn-lg" type="submit">
+              Сохранить
+            </button>
+          </div>
+        )}
       </form>
     </>
   );
