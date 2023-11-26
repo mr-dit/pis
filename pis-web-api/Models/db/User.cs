@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using pis.Repositorys;
 using pis_web_api.Models;
+using pis_web_api.Models.get;
 using pis_web_api.Models.post;
 using pis_web_api.Services;
 using System.ComponentModel.DataAnnotations;
@@ -125,6 +126,17 @@ namespace pis_web_api.Models.db
                 .ToList();
             var userPost = new UserPost(Surname, FirstName, LastName, OrganisationId, Login, Password, roles);
             return userPost;
+        }
+
+        public UserGet ConvertToUserGet()
+        {
+            UserRoleRepository roleRepository = new UserRoleRepository();
+            var roles = roleRepository.db.UserRole
+                .Where(x => x.UserId == this.IdUser)
+                .Select(x => x.RoleId)
+                .ToList();
+            var userGet = new UserGet(IdUser, Surname, FirstName, LastName, OrganisationId, Login, Password, roles);
+            return userGet;
         }
     }
 }
