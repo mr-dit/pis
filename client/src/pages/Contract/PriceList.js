@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import MySelect from "../../components/MySelect/MySelect.tsx";
 
-const PriceList = ({ priceList, options, handlePriceList }) => {
+const PriceList = ({ priceList, options, handlePriceList, disabled }) => {
   const [localitiesPriceList, setLocalitiesPriceList] = useState([]);
   const [localityOptions, setLocalityOptions] = useState();
   const [usedLocalities, setUsedLocalities] = useState();
@@ -28,7 +28,7 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
 
   useEffect(() => {
     handlePriceList(localitiesPriceList);
-  }, [localitiesPriceList ]);
+  }, [localitiesPriceList]);
 
   const handleAddPrice = () => {
     setLocalitiesPriceList((prev) => [
@@ -98,6 +98,7 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
                   labelField={"nameLocality"}
                   valueField={"idLocality"}
                   apiRoute={"Locality"}
+                  disabled={disabled}
                 />
               </label>
               <label id="my-label">
@@ -107,12 +108,12 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
                   type="text"
                   value={i.price}
                   onChange={(e) => handleChange(e.target.value, idx)}
+                  disabled={disabled}
                   required
                 />
               </label>
               <button
-                disabled={idx === 0}
-                style={{'display': idx===0 ? 'none' : 'block'}}
+                style={{ display: idx === 0 || disabled ? "none" : "block" }}
                 onClick={handleRowDelete(idx, i.localityId)}
                 className="mt-4"
                 type="button"
@@ -141,13 +142,15 @@ const PriceList = ({ priceList, options, handlePriceList }) => {
             </div>
           ))
         : null}
-      <button
-        type="button"
-        className="btn btn-outline-primary"
-        onClick={handleAddPrice}
-      >
-        Добавить цену
-      </button>
+      {!disabled && (
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={handleAddPrice}
+        >
+          Добавить цену
+        </button>
+      )}
     </>
   );
 };

@@ -24,6 +24,7 @@ export default ({
   valueField,
   apiRoute,
   addEntryRoute,
+  disabled=false
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState(newOptions);
@@ -75,7 +76,7 @@ export default ({
       required
       placeholder={newPlaceholder}
       isClearable={isClearable}
-      isDisabled={isLoading}
+      isDisabled={isLoading || disabled}
       isLoading={isLoading}
       onChange={(newValue) => {
         setValue(newValue);
