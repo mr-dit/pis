@@ -127,5 +127,18 @@ namespace pis_web_api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpPost("GetCurrentContractsByUser")]
+        public IActionResult GetCurrentContractsByUser(UserPost user)
+        {
+            if (ModelState.IsValid)
+            {
+                var (contracts, count) = _contractService.GetContractsByOrg(DateOnly.FromDateTime(DateTime.Today),
+                    DateOnly.MaxValue, "", "", nameof(Contract.Customer), true, 1, 1000, user);
+                return Ok(contracts);
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }

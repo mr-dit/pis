@@ -40,15 +40,17 @@ namespace pis.Repositorys
         {
             var contractsId = db.Contracts
                 .Where(x => x.CustomerId == user.OrganisationId || x.PerformerId == user.OrganisationId)
-                .Select(x => x.IdContract);
+                .Select(x => x.IdContract)
+                .ToList();
 
             var allCons = db.Contracts
                 .Where(x => contractsId.Contains(x.IdContract))
                 .Include(x => x.Customer)
                 .Include(x => x.Performer)
                 .Where(value)
-                .Where(x => x.ConclusionDate >= dateStart && x.ConclusionDate <= dateEnd)
-                .SortBy(sortBy, isAscending);
+                .Where(x => x.ExpirationDate >= dateStart && x.ExpirationDate <= dateEnd)
+                .SortBy(sortBy, isAscending)
+                .ToList();
             var contracts = allCons.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return (contracts, allCons.Count());
         }
