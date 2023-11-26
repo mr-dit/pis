@@ -4,7 +4,7 @@ import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { getDataForRequest } from "../../helpers";
+import { getDataForRequest, isRoleEdit } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -110,6 +110,8 @@ const AnimalComponent = () => {
     }
   };
 
+  const isEdit = isRoleEdit([12, 13, 14, 15]);
+
   return (
     <div>
       <Menu />
@@ -143,11 +145,14 @@ const AnimalComponent = () => {
           </div>
         </div>
 
-        <button className="btn btn-primary btn-lg" onClick={handleCreate}>
-          Создать
-        </button>
+        {isEdit && (
+          <button className="btn btn-primary btn-lg" onClick={handleCreate}>
+            Создать
+          </button>
+        )}
       </div>
       <Table
+        isEdit={false}
         data={animals}
         headers={cols}
         handleChange={handleChange}

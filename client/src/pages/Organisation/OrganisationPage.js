@@ -4,7 +4,7 @@ import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import { getDataForRequest } from "../../helpers";
+import { getDataForRequest, isRoleEdit } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -102,6 +102,8 @@ const OrganisationPage = () => {
     }
   };
 
+  const isEdit = isRoleEdit([4, 10, 15]);
+
   return (
     <div>
       <Menu />
@@ -134,12 +136,14 @@ const OrganisationPage = () => {
             </button>
           </div>
         </div>
-
-        <button className="btn btn-primary btn-lg" onClick={handleCreate}>
-          Создать
-        </button>
+        {isEdit && (
+          <button className="btn btn-primary btn-lg" onClick={handleCreate}>
+            Создать
+          </button>
+        )}
       </div>
       <Table
+      isEdit={isEdit}
         data={organisations}
         headers={cols}
         handleChange={handleChange}
