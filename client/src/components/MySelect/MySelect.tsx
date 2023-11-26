@@ -23,7 +23,7 @@ export default ({
   labelField,
   valueField,
   apiRoute,
-  addEntryRoute
+  addEntryRoute,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState(newOptions);

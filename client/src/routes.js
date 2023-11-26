@@ -6,6 +6,7 @@ import EditOrganisation from "./pages/Organisation/EditOrganisation";
 import OrganisationPage from "./pages/Organisation/OrganisationPage";
 import ContractPage from "./pages/Contract/ContractPage";
 import EditContractsForm from "./pages/Contract/EditContract";
+import AuthPage from "./pages/AuthPage/AuthPage";
 
 export const useRoutes = () => {
   return (
@@ -27,6 +28,7 @@ export const useRoutes = () => {
         element={<EditContractsForm />}
       ></Route>
       <Route path="/Contract/update" element={<EditContractsForm />}></Route>
+      <Route path="/Auth" element={<AuthPage />}></Route>
 
       <Route path="*" element={<Navigate to="/Animal" replace />} />
     </Routes>

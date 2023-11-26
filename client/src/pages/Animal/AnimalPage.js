@@ -60,8 +60,8 @@ const AnimalComponent = () => {
     try {
       const response = await axios.post(
         `${REACT_APP_API_URL}/Animal/OpensRegister`,
+        getDataForRequest(),
         {
-          ...getDataForRequest(),
           params: {
             filterValue,
             sortBy,

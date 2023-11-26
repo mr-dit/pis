@@ -3,6 +3,7 @@ import axios from "axios";
 import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import Vaccine from "./Vaccine.js";
 const { REACT_APP_API_URL } = process.env;
 
 const createArrayOptions = (data) => {
@@ -30,6 +31,7 @@ const EditAnimalForm = () => {
   const [animalCategoryOptions, setAnimalCategoryOptions] = useState([]);
   const [localityOptions, setLocalityOptions] = useState([]);
   const [genderOptions, setGenderOptions] = useState([]);
+  const [vaccinations, setVaccines] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -58,6 +60,28 @@ const EditAnimalForm = () => {
         `${REACT_APP_API_URL}/Gender/opensRegister`
       );
       setGenderOptions(createArrayOptions(genderRes.data));
+
+      const vaccinesRes = await axios.get(
+        `${REACT_APP_API_URL}/Vaccination/getVaccinationsByAnimal/${id}`
+      );
+      console.log(
+        vaccinesRes.data.vaccinations.map((item) => ({
+          idVactination: item.idVactination,
+          vaccinationDate: item.vaccinationDate,
+          vaccinationValidDate: item.vaccinationValidDate,
+          vaccineSeriesNumber: item.vaccineSeriesNumber,
+          vaccine: item.vaccine.nameVaccine,
+          contractId: item.contractId,
+        }))
+      );
+      setVaccines(vaccinesRes.data.vaccinations.map((item) => ({
+        idVactination: item.idVactination,
+        vaccinationDate: item.vaccinationDate,
+        vaccinationValidDate: item.vaccinationValidDate,
+        vaccineSeriesNumber: item.vaccineSeriesNumber,
+        vaccine: item.vaccine.nameVaccine,
+        contractId: item.contractId,
+      })));
 
       if (id) {
         fetchAnimalById(id);
@@ -219,10 +243,10 @@ const EditAnimalForm = () => {
             />
           </label>
         </div>
-
-        <div className="d-flex justify-content-end">
+        <Vaccine vaccinations={vaccinations} />
+        <div className="d-flex justify-content-end mt-5">
           <button className="btn btn-primary btn-lg" type="submit">
-            Сохранить
+            Сохранить карточку
           </button>
         </div>
       </form>

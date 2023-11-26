@@ -28,10 +28,10 @@ const Menu = () => {
               </li>
             </NavLink>
 
-            <button onClick={clearLocalStorage}>Выйти</button>
           </ul>
         </div>
       </div>
+            <button onClick={clearLocalStorage}>Выйти</button>
     </nav>
   );
 };
