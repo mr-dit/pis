@@ -34,8 +34,4 @@
     <None Remove="Excel" />
     <None Remove="EPPlus" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\get\" />
-  </ItemGroup>
 </Project>

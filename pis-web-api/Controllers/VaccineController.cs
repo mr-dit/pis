@@ -62,9 +62,15 @@ namespace pis_web_api.Controllers
             var vaccine = vaccinePost.ConvertToVaccine();
             bool status = _vaccineService.AddEntry(vaccine);
 
+            var result = new
+            {
+                idVaccine = vaccine.IdVaccine,
+                validDays = vaccine.ValidDaysVaccine
+            };
+
             if (status)
             {
-                return Ok(vaccine.IdVaccine);
+                return Ok(result);
             }
             else
             {
