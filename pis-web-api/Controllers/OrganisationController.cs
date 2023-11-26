@@ -37,7 +37,7 @@ namespace pis.Controllers
             {
                 (organisations, totalItems) = _organisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             }
-            else if (user.Roles.Intersect(new List<int>() { 9, 11 }).Count() != 0)
+            else if (user.Roles.Intersect(new List<int>() { 9, 11, 13,  }).Count() != 0)
             {
                 (organisations, totalItems) = _organisationService.GetOrganisationsByOrg(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize, user);
             }

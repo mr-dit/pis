@@ -40,7 +40,8 @@ namespace pis.Repositorys
         {
             var contractsId = db.Contracts
                 .Where(x => x.CustomerId == user.OrganisationId || x.PerformerId == user.OrganisationId)
-                .Select(x => x.IdContract);
+                .Select(x => x.IdContract)
+                .ToList();
 
             var allCons = db.Contracts
                 .Where(x => contractsId.Contains(x.IdContract))
