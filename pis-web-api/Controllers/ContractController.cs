@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pis.Repositorys;
 using pis.Services;
 using pis_web_api.Models.db;
 using pis_web_api.Models.post;
@@ -13,12 +14,16 @@ namespace pis_web_api.Controllers
         private readonly ILogger<ContractController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private ContractService _contractService;
+        private VaccinePriceListRepository _vaccinePriceListRepository;
+        private AnimalService _animalService;
 
         public ContractController(ILogger<ContractController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
             _contractService = new ContractService();
+            _vaccinePriceListRepository = new VaccinePriceListRepository();
+            _animalService = new AnimalService();
         }
 
         [HttpPost("opensRegister")]
@@ -128,13 +133,15 @@ namespace pis_web_api.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost("GetCurrentContractsByUser")]
-        public IActionResult GetCurrentContractsByUser(UserPost user)
+        [HttpPost("GetCurrentContractsByAnimalForVaccinations/{animalId}")]
+        public IActionResult GetCurrentContractsByUser(int animalId, [FromBody]UserPost user)
         {
             if (ModelState.IsValid)
             {
                 var (contracts, count) = _contractService.GetContractsByOrg(DateOnly.FromDateTime(DateTime.Today),
                     DateOnly.MaxValue, "", "", nameof(Contract.Customer), true, 1, 1000, user);
+                var animal = _animalService.GetEntry(animalId);
+                var resultContracts = _vaccinePriceListRepository.GetContractsByLocality(animal.LocalityId, contracts.Select(x => x.IdContract));
                 return Ok(contracts);
             }
 
