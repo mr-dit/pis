@@ -72,10 +72,11 @@ const Vaccine = ({ vaccinations }) => {
     console.log(vaccination);
     const userId = getDataForRequest().idUser;
     try {
-      axios.post(
+      await axios.post(
         `${REACT_APP_API_URL}/Vaccination/add/${id}/${vaccination.vaccineId}/${vaccination.contractId}/${userId}/${vaccination.vaccineSeries}`
       );
     } catch (error) {
+      alert('Отказано в доступе')
       console.error(error);
     }
   };
@@ -244,6 +245,7 @@ const Vaccine = ({ vaccinations }) => {
       {!isVisible || contracts.length ? (
         <button
           type="button"
+          style={{'display': isVisible ? 'none' : 'block'}}
           className="btn btn-outline-primary"
           onClick={() => setIsVisible(true)}
         >
