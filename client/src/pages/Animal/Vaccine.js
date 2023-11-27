@@ -76,7 +76,7 @@ const Vaccine = ({ vaccinations }) => {
         `${REACT_APP_API_URL}/Vaccination/add/${id}/${vaccination.vaccineId}/${vaccination.contractId}/${userId}/${vaccination.vaccineSeries}`
       );
     } catch (error) {
-      alert('Отказано в доступе')
+      alert("Отказано в доступе");
       console.error(error);
     }
   };
@@ -183,9 +183,11 @@ const Vaccine = ({ vaccinations }) => {
       ))}
       {isVisible && contracts.length ? (
         <div className="input-group mb-4 flex-nowrap gap-3">
+          <form onSubmit={saveVaccination}></form>
           <label id="my-label">
             Номер контракта
             <Select
+              required
               isClearable
               isSearchable
               placeholder="Выберите"
@@ -219,6 +221,7 @@ const Vaccine = ({ vaccinations }) => {
           <label id="my-label">
             Серия вакцины
             <input
+              required
               className="form-control"
               type="number"
               value={vaccination.vaccineSeries}
@@ -231,10 +234,9 @@ const Vaccine = ({ vaccinations }) => {
             />
           </label>
           <button
-            type="button"
+            type="submit"
             className="btn btn-outline-primary"
             style={{ borderRadius: "0.5rem" }}
-            onClick={saveVaccination}
           >
             Сохранить вакцинацию
           </button>
@@ -245,7 +247,7 @@ const Vaccine = ({ vaccinations }) => {
       {!isVisible || contracts.length ? (
         <button
           type="button"
-          style={{'display': isVisible ? 'none' : 'block'}}
+          style={{ display: isVisible ? "none" : "block" }}
           className="btn btn-outline-primary"
           onClick={() => setIsVisible(true)}
         >

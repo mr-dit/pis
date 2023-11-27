@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 import { getDataForRequest, isRoleEdit } from "../../helpers";
 const { REACT_APP_API_URL } = process.env;
 
+const { RangePicker } = DatePicker;
+
 const dateFormat = "YYYY-MM-DD";
 
 const createArrayOptions = (data) => {
@@ -76,16 +78,8 @@ const EditContractsForm = () => {
     fetchData();
   }, []);
 
-  const handleChange = (value, key) => {
-    setContractsData((prev) => ({ ...prev, [key]: value }));
-  };
-
   const handleOrganisationCategory = (value, key) => {
     setContractsData((prev) => ({ ...prev, [key]: `${value}` }));
-  };
-
-  const handleLocality = (value) => {
-    setContractsData((prev) => ({ ...prev, localityId: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -123,6 +117,31 @@ const EditContractsForm = () => {
 
   const handleDataUpdate = (str, key) => {
     setContractsData((prev) => ({ ...prev, [key]: str }));
+  };
+
+  const handleDate = (val) => {
+    if (val) {
+      const startDate = val[0];
+      // contractsData.conclusionDate
+      setContractsData((prev) => ({
+        ...prev,
+        conclusionDate: `${startDate.$y}-${startDate.$M + 1}-${startDate.$D}`,
+      }));
+
+      // setStartDateFilter(`${startDate.$y}-${startDate.$M + 1}-${startDate.$D}`);
+      const endDate = val[1];
+      setContractsData((prev) => ({
+        ...prev,
+        expirationDate: `${endDate.$y}-${endDate.$M + 1}-${endDate.$D}`,
+      }));
+      // setEndDateFilter(`${endDate.$y}-${endDate.$M + 1}-${endDate.$D}`);
+    } else {
+      setContractsData((prev) => ({
+        ...prev,
+        conclusionDate: "",
+        expirationDate: "",
+      }));
+    }
   };
 
   const isNotEdit = !isRoleEdit([10, 15]);
@@ -170,6 +189,17 @@ const EditContractsForm = () => {
 
         <div className="input-group mb-4 flex-nowrap gap-3">
           <label id="my-label">
+            Даты заключения и окончания контракта
+            <RangePicker
+              size="large"
+              placeholder={["Начало", "Конец"]}
+              onChange={handleDate}
+              showToday
+              disabled={isNotEdit}
+              aria-required
+            />
+          </label>
+          {/* <label id="my-label">
             Дата заключения
             <DatePicker
               size="large"
@@ -183,6 +213,7 @@ const EditContractsForm = () => {
               onChange={(dayjs, string) =>
                 handleDataUpdate(string, "conclusionDate")
               }
+              
               disabled={isNotEdit}
             />
           </label>
@@ -202,7 +233,7 @@ const EditContractsForm = () => {
               }
               disabled={isNotEdit}
             />
-          </label>
+          </label> */}
         </div>
         <PriceList
           disabled={isNotEdit}
