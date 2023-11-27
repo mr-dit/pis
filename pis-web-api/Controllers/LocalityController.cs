@@ -55,17 +55,25 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] LocalityPost localityPost)
         {
-            var locality = localityPost.ConvertToLocality();
-            bool status = _localityService.AddEntry(locality);
-
-            if (status)
+            if (ModelState.IsValid)
             {
-                return Ok(locality.IdLocality);
+                var locality = localityPost.ConvertToLocality();
+                bool status = _localityService.AddEntry(locality);
+
+                if (status)
+                {
+                    return Ok(locality.IdLocality);
+                }
+                else
+                {
+                    return BadRequest("Failed to add organisation entry.");
+                }
             }
             else
             {
-                return BadRequest("Failed to add organisation entry.");
+                return BadRequest();
             }
+            
         }
 
         [HttpPost("deleteEntry/{id}")]

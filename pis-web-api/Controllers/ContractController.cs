@@ -85,15 +85,28 @@ namespace pis_web_api.Controllers
         [HttpPost("addEntry")]
         public IActionResult AddEntry([FromBody] ContractPost conPost)
         {
-            try
+            if(ModelState.IsValid)
             {
-                var con = conPost.ConvertToContract();
-                return Ok(con.IdContract);
+                try
+                {
+                    if(conPost.ConclusionDate > conPost.ExpirationDate)
+                    {
+                        return BadRequest("Дата заключения больше даты окончания");
+                    }
+                    if(conPost.CustomerId == conPost.PerformerId)
+                    {
+                        return BadRequest("Заказчик и исполнитель не могут быть одинаковыми");
+                    }
+                    var con = conPost.ConvertToContract();
+                    return Ok(con.IdContract);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest();
         }
 
         [HttpPost("deleteEntry/{id}")]

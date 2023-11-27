@@ -79,17 +79,24 @@ namespace pis.Controllers
         [HttpPost("AddEntry")]
         public IActionResult AddEntry([FromBody] AnimalPost animalPost)
         {
-            var animal = animalPost.ConvertToAnimal();
-
-            bool status = animalService.AddEntry(animal);
-
-            if (status)
+            if (ModelState.IsValid)
             {
-                return Ok(animal.RegistrationNumber);
+                var animal = animalPost.ConvertToAnimal();
+
+                bool status = animalService.AddEntry(animal);
+
+                if (status)
+                {
+                    return Ok(animal.RegistrationNumber);
+                }
+                else
+                {
+                    return BadRequest("Failed to add animal entry.");
+                }
             }
             else
             {
-                return BadRequest("Failed to add animal entry.");
+                return BadRequest();
             }
         }
 
