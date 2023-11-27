@@ -125,14 +125,14 @@ const EditContractsForm = () => {
       // contractsData.conclusionDate
       setContractsData((prev) => ({
         ...prev,
-        conclusionDate: `${startDate.$y}-${startDate.$M + 1}-${startDate.$D}`,
+        conclusionDate: `${startDate.$y}-${startDate.$M + 1}-${startDate.$D < 10 ? `0${startDate.$D}` : startDate.$D}`,
       }));
 
       // setStartDateFilter(`${startDate.$y}-${startDate.$M + 1}-${startDate.$D}`);
       const endDate = val[1];
       setContractsData((prev) => ({
         ...prev,
-        expirationDate: `${endDate.$y}-${endDate.$M + 1}-${endDate.$D}`,
+        expirationDate: `${endDate.$y}-${endDate.$M + 1}-${endDate.$D < 10 ? `0${endDate.$D}` : endDate.$D}`,
       }));
       // setEndDateFilter(`${endDate.$y}-${endDate.$M + 1}-${endDate.$D}`);
     } else {

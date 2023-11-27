@@ -94,6 +94,7 @@ const Vaccine = ({ vaccinations }) => {
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = async () => {
     if (!newValidDate) return;
     const data = {
@@ -119,6 +120,7 @@ const Vaccine = ({ vaccinations }) => {
     }
     setIsModalOpen(false);
   };
+  
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsLoading(false);
@@ -268,6 +270,7 @@ const Vaccine = ({ vaccinations }) => {
             type="number"
             value={newValidDate}
             onChange={(e) => setNewValidDate(e.target.value)}
+            required
           />
         </label>
       </Modal>
