@@ -7,7 +7,7 @@ const Table = ({
   handleChange,
   handleDelete,
   handleSortName,
-  sortField,
+  sortField=[],
   isEdit = false,
 }) => {
   const [isAscending, setIsAscending] = useState(false);
