@@ -106,7 +106,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("DeleteEntry/{id}")]
-        public IActionResult DeleteEntry(int id)
+        public IActionResult DeleteEntry(int id, int userId)
         {
             var status = animalService.DeleteEntry(id);
 
@@ -121,7 +121,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("ChangeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost)
+        public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost, int userId)
         {
             if (ModelState.IsValid)
             {
