@@ -12,8 +12,8 @@ using pis;
 namespace pis_web_api.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231117120242_AddPasswordLogin")]
-    partial class AddPasswordLogin
+    [Migration("20231128182554_add_journal")]
+    partial class add_journal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +137,34 @@ namespace pis_web_api.Migrations
                         .IsUnique();
 
                     b.ToTable("Genders");
+                });
+
+            modelBuilder.Entity("pis_web_api.Models.db.Journal", b =>
+                {
+                    b.Property<int>("JounalID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("JounalID"));
+
+                    b.Property<string>("DescriptionObject")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("EditID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TableName")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("JounalID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Journals");
                 });
 
             modelBuilder.Entity("pis_web_api.Models.db.LocalitisListForContract", b =>
@@ -432,6 +460,17 @@ namespace pis_web_api.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Performer");
+                });
+
+            modelBuilder.Entity("pis_web_api.Models.db.Journal", b =>
+                {
+                    b.HasOne("pis_web_api.Models.db.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("pis_web_api.Models.db.LocalitisListForContract", b =>
