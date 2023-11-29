@@ -65,16 +65,7 @@ const EditAnimalForm = () => {
       const vaccinesRes = await axios.get(
         `${REACT_APP_API_URL}/Vaccination/getVaccinationsByAnimal/${id}`
       );
-      console.log(
-        vaccinesRes.data.vaccinations.map((item) => ({
-          idVactination: item.idVactination,
-          vaccinationDate: item.vaccinationDate,
-          vaccinationValidDate: item.vaccinationValidDate,
-          vaccineSeriesNumber: item.vaccineSeriesNumber,
-          vaccine: item.vaccine.nameVaccine,
-          contractId: item.contractId,
-        }))
-      );
+
       setVaccines(
         vaccinesRes.data.vaccinations.map((item) => ({
           idVactination: item.idVactination,
@@ -177,22 +168,24 @@ const EditAnimalForm = () => {
 
           <label id="my-label">
             Пол
-            {/* <MySelect
+            <MySelect
               newOptions={genderOptions}
               handleChange={handleGender}
               newValue={animalData.genderId}
               labelField={"nameGender"}
               valueField={"idGender"}
               apiRoute={"Gender"}
-            /> */}
+            />
+            {/* {console.log(genderOptions)}
             <Select
               isClearable
               isSearchable
               placeholder="Выберите"
+              value={`${animalData.genderId}`}
               options={genderOptions}
               onChange={(val) => handleGender(val)}
               isDisabled={isNotEdit}
-            />
+            /> */}
           </label>
 
           <label id="my-label">
@@ -256,15 +249,15 @@ const EditAnimalForm = () => {
             />
           </label>
         </div>
-        <Vaccine vaccinations={vaccinations} />
         {!isNotEdit && (
-          <div className="d-flex justify-content-end mt-5">
+          <div className="d-flex justify-content-end mt-5 mb-5">
             <button className="btn btn-primary btn-lg" type="submit">
               Сохранить карточку
             </button>
           </div>
         )}
       </form>
+      <Vaccine vaccinations={vaccinations} />
     </>
   );
 };
