@@ -66,7 +66,6 @@ namespace pis
             modelBuilder.Entity<OrgType>()
                 .HasIndex(x => x.NameOrgType)
                 .IsUnique();
-
         }
 
         public DbSet<Locality> Localitis { get; set; }
@@ -83,5 +82,7 @@ namespace pis
         public DbSet<LocalitisListForContract> LocalitisListForContract { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRole {  get; set; }
+
+        public DbSet<Journal> Journals { get; set; }
     }
 }

@@ -6,8 +6,10 @@ using NUnit.Framework;
 using pis.Repositorys;
 using pis.Services;
 using pis_web_api.Models.db;
+using pis_web_api.Models.get;
 using pis_web_api.Models.post;
 using pis_web_api.Repositorys;
+using pis_web_api.Services;
 
 namespace pis.Controllers
 {
@@ -18,12 +20,14 @@ namespace pis.Controllers
         private readonly ILogger<AnimalController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private AnimalService animalService;
+        private JournalService journalService;
 
         public AnimalController(ILogger<AnimalController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
             animalService = new AnimalService();
+            journalService = new JournalService();
         }
 
         [HttpPost("OpensRegister")]
@@ -77,7 +81,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("AddEntry")]
-        public IActionResult AddEntry([FromBody] AnimalPost animalPost)
+        public IActionResult AddEntry([FromBody] AnimalPost animalPost, int userId)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +91,7 @@ namespace pis.Controllers
 
                 if (status)
                 {
+                    journalService.JournalAddAnimal(userId, animal.RegistrationNumber);
                     return Ok(animal.RegistrationNumber);
                 }
                 else
@@ -101,7 +106,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("DeleteEntry/{id}")]
-        public IActionResult DeleteEntry(int id)
+        public IActionResult DeleteEntry(int id, int userId)
         {
             var status = animalService.DeleteEntry(id);
 
@@ -116,7 +121,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("ChangeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost)
+        public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost, int userId)
         {
             if (ModelState.IsValid)
             {

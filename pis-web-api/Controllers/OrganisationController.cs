@@ -86,7 +86,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] OrganisationPost organisationPost)
+        public IActionResult AddEntry([FromBody] OrganisationPost organisationPost, int userId)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("deleteEntry/{id}")]
-        public IActionResult DeleteEntry(int id)
+        public IActionResult DeleteEntry(int id, int userId)
         {
             var status = _organisationService.DeleteEntry(id);
 
@@ -124,7 +124,7 @@ namespace pis.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] OrganisationPost organisationPost)
+        public IActionResult ChangeEntry(int id, [FromBody] OrganisationPost organisationPost, int userId)
         {
             var existingOrganisation = _organisationService.GetEntry(id);
 
