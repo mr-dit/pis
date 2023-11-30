@@ -83,7 +83,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("addEntry")]
-        public IActionResult AddEntry([FromBody] ContractPost conPost)
+        public IActionResult AddEntry([FromBody] ContractPost conPost, int userId)
         {
             if(ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("deleteEntry/{id}")]
-        public IActionResult DeleteEntry(int id)
+        public IActionResult DeleteEntry(int id, int userId)
         {
             var status = _contractService.DeleteEntry(id);
 
@@ -125,7 +125,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpPost("changeEntry/{id}")]
-        public IActionResult ChangeEntry(int id, [FromBody] ContractPost conPost)
+        public IActionResult ChangeEntry(int id, [FromBody] ContractPost conPost, int userId)
         {
             if (ModelState.IsValid)
             {
