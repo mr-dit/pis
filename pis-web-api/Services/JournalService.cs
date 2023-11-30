@@ -1,8 +1,8 @@
-﻿using pis.Repositorys;
+﻿using Microsoft.EntityFrameworkCore;
 using pis.Services;
 using pis_web_api.Models.db;
-using pis_web_api.Models.get;
 using pis_web_api.Repositorys;
+using System.Reflection.Metadata.Ecma335;
 
 namespace pis_web_api.Services
 {
@@ -10,6 +10,18 @@ namespace pis_web_api.Services
     {
         private Repository<Journal> _repository;
         private AnimalService _animalService;
+
+        private Dictionary<string, Func<Journal, string, bool>> filter = new Dictionary<string, Func<Journal, string, bool>>
+            (StringComparer.InvariantCultureIgnoreCase)
+        {
+            [""] = (journal, filterValue) => (true),
+            ["fio"] = (journal, filterValue) => ((journal.User.LastName + " " + journal.User.FirstName + " " + journal.User.Surname)
+                                            .Contains(filterValue, StringComparison.InvariantCultureIgnoreCase)),
+            ["orgName"] = (journal, filterValue) => (journal.User.Organisation.OrgName.Contains(filterValue, StringComparison.InvariantCultureIgnoreCase)),
+            ["userLogin"] = (journal, filterValue) => (journal.User.Login.Contains(filterValue, StringComparison.InvariantCultureIgnoreCase)),
+            ["idObject"] = (journal, filterValue) => (journal.EditID.ToString() == filterValue),
+            ["descObject"] = (journal, filterValue) => (journal.DescriptionObject.Contains(filterValue, StringComparison.InvariantCultureIgnoreCase))
+        };
 
         public JournalService() 
         {
@@ -32,6 +44,20 @@ namespace pis_web_api.Services
             desctription += animal.Gender.NameGender + ";";
             Journal journal = new Journal(userId, animalId, desctription, TableNames.Животные, JournalActionType.Add);
             _repository.Add(journal);
+        }
+
+        public (List<Journal>, int) GetJournals(string filterValue, string filterField, int pageNumber, int pageSize, TableNames tableName)
+        {
+            var filterRequest = filter[filterField];
+            var journals = _repository.db.Journals
+                                         .Include(x => x.User)
+                                            .ThenInclude(x => x.Organisation)
+                                         .Where(x => x.TableName == tableName)
+                                         .ToList();
+            journals = journals.Where(x => filterRequest.Invoke(x, filterValue)).ToList();
+            var count = journals.Count();
+            var pagJournals = journals.Skip((pageNumber-1) * pageSize).Take(pageSize).ToList();
+            return (pagJournals, count);
         }
     }
 }
