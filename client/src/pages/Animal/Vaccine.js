@@ -68,7 +68,8 @@ const Vaccine = ({ vaccinations }) => {
     }
   };
 
-  const saveVaccination = async () => {
+  const saveVaccination = async (e) => {
+    e.preventDefault();
     console.log(vaccination);
     const userId = getDataForRequest().idUser;
     try {
@@ -120,7 +121,7 @@ const Vaccine = ({ vaccinations }) => {
     }
     setIsModalOpen(false);
   };
-  
+
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsLoading(false);
@@ -184,8 +185,10 @@ const Vaccine = ({ vaccinations }) => {
         </div>
       ))}
       {isVisible && contracts.length ? (
-        <div className="input-group mb-4 flex-nowrap gap-3">
-          <form onSubmit={saveVaccination}></form>
+        <form
+          className="input-group mb-4 flex-nowrap gap-3"
+          onSubmit={saveVaccination}
+        >
           <label id="my-label">
             Номер контракта
             <Select
@@ -196,7 +199,10 @@ const Vaccine = ({ vaccinations }) => {
               options={contracts}
               onChange={(val) => {
                 console.log(val);
-                setVaccination((prev) => ({ ...prev, contractId: val?.value }));
+                setVaccination((prev) => ({
+                  ...prev,
+                  contractId: val?.value,
+                }));
               }}
             />
           </label>
@@ -242,7 +248,7 @@ const Vaccine = ({ vaccinations }) => {
           >
             Сохранить вакцинацию
           </button>
-        </div>
+        </form>
       ) : (
         ""
       )}

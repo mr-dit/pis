@@ -92,6 +92,9 @@ const OrganisationPage = () => {
   const handleCreate = () => {
     navigate(`/Organisation/update`);
   };
+  const handleLogging = () => {
+    navigate(`/Organisation/logging`);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -143,7 +146,7 @@ const OrganisationPage = () => {
         )}
       </div>
       <Table
-      isEdit={isEdit}
+        isEdit={isEdit}
         data={organisations}
         headers={cols}
         handleChange={handleChange}
@@ -154,7 +157,6 @@ const OrganisationPage = () => {
         }}
         sortField={sortBy}
       />
-
       {/* Pagination */}
       {totalPages > 1 && (
         <div>
@@ -175,6 +177,11 @@ const OrganisationPage = () => {
           </button>
         </div>
       )}
+      <div className="d-flex justify-content-end">
+        <button className="btn btn-primary btn-lg" onClick={handleLogging}>
+          Реестр изменений
+        </button>
+      </div>
     </div>
   );
 };
