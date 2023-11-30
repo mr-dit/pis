@@ -27,7 +27,8 @@ export const useRoutes = () => {
       <Route
         path="/Organisation/logging"
         element={<LoggingOrganisation />}
-      ></Route>
+      >
+      </Route>
 
       <Route path="/Contract" element={<ContractPage />}></Route>
       <Route

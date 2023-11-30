@@ -7,13 +7,13 @@ const Table = ({
   handleChange,
   handleDelete,
   handleSortName,
-  sortField=[],
+  sortField = [],
   isEdit = false,
   isDelete = false,
-  onRowSelect,
+  onRowSelect = () => {},
 }) => {
   const [isAscending, setIsAscending] = useState(false);
-  const [selectedRows, setSelectedRows] = useState([]); 
+  const [selectedRows, setSelectedRows] = useState([]);
 
   const handleRowChange = (registrationNumber) => () => {
     handleChange(registrationNumber);
