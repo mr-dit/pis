@@ -54,7 +54,7 @@ const Table = ({
 
   return (
     <>
-      <button onClick={handleSelectAll}>Выделить все</button>
+      <button className="btn btn-secondary" onClick={handleSelectAll}>Выделить все</button>
       <table className="table table-striped table-hover">
         <thead>
           <tr>
