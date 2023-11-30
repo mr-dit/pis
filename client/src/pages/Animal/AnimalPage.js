@@ -5,7 +5,6 @@ import Menu from "../../components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { getDataForRequest, isRoleEdit } from "../../helpers";
-import AnimalLogging from "./AnimalLogging";
 
 const { REACT_APP_API_URL } = process.env;
 

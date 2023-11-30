@@ -125,6 +125,10 @@ const ContractPage = () => {
     }
   };
 
+  const handleLogging = () => {
+    navigate(`/Contract/Logging`);
+  };
+
   const isEdit = isRoleEdit([10, 15]);
 
   return (
@@ -211,6 +215,9 @@ const ContractPage = () => {
           </button>
         </div>
       )}
+        <button onClick={handleLogging} className="btn btn-primary">
+            Журнал изменений
+          </button>
     </div>
   );
 };

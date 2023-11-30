@@ -177,9 +177,9 @@ const OrganisationPage = () => {
           </button>
         </div>
       )}
-      <div className="d-flex justify-content-end">
-        <button className="btn btn-primary btn-lg" onClick={handleLogging}>
-          Реестр изменений
+      <div className="d-flex justify-content-start">
+        <button className="btn btn-primary" onClick={handleLogging}>
+          Журнал изменений
         </button>
       </div>
     </div>

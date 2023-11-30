@@ -9,6 +9,7 @@ import EditContractsForm from "./pages/Contract/EditContract";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import LoggingOrganisation from "./pages/Organisation/LoggingOrganisation";
 import AnimalLogging from "./pages/Animal/AnimalLogging";
+import ContractLogging from "./pages/Contract/ContractLogging";
 
 export const useRoutes = () => {
   return (
@@ -36,6 +37,7 @@ export const useRoutes = () => {
         element={<EditContractsForm />}
       ></Route>
       <Route path="/Contract/update" element={<EditContractsForm />}></Route>
+      <Route path="/Contract/Logging" element={<ContractLogging />}></Route>
       <Route path="/Auth" element={<AuthPage />}></Route>
 
       <Route path="*" element={<Navigate to="/Animal" replace />} />
