@@ -32,6 +32,24 @@ namespace pis_web_api.Services
             _organisationService = new OrganisationService();
         }
 
+        public (List<Journal>, int) GetJournals(string filterValue, string filterField, int pageNumber, int pageSize, TableNames tableName)
+        {
+            var filterRequest = filter[filterField];
+            var journals = _repository.db.Journals
+                                         .Include(x => x.User)
+                                            .ThenInclude(x => x.Organisation)
+                                         .Where(x => x.TableName == tableName)
+                                         .OrderBy(x => x.DateTime)
+                                         .ToList();
+            journals = journals.Where(x => filterRequest.Invoke(x, filterValue)).ToList();
+            var count = journals.Count();
+            var pagJournals = journals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return (pagJournals, count);
+        }
+
+
+
+        // Animal Journal
         public void JournalAddAnimal(int userId, int animalId)
         {
             Animal animal = _animalService.GetEntry(animalId);
@@ -40,23 +58,10 @@ namespace pis_web_api.Services
                 throw new Exception("Данного животного не существует");
             }
             string description = CreateAnimalDescription(animal);
-            Journal journal = new Journal(userId, animalId, description, TableNames.Животные, JournalActionType.Add);
+            Journal journal = new Journal(userId, animalId, description, TableNames.Животные, JournalActionType.Добавить);
             _repository.Add(journal);
         }
 
-        public (List<Journal>, int) GetJournals(string filterValue, string filterField, int pageNumber, int pageSize, TableNames tableName)
-        {
-            var filterRequest = filter[filterField];
-            var journals = _repository.db.Journals
-                                         .Include(x => x.User)
-                                            .ThenInclude(x => x.Organisation)
-                                         .Where(x => x.TableName == tableName)
-                                         .ToList();
-            journals = journals.Where(x => filterRequest.Invoke(x, filterValue)).ToList();
-            var count = journals.Count();
-            var pagJournals = journals.Skip((pageNumber-1) * pageSize).Take(pageSize).ToList();
-            return (pagJournals, count);
-        }
         public void JournalEditAnimal(int userId, int animalId)
         {
             Animal animal = _animalService.GetEntry(animalId);
@@ -65,7 +70,7 @@ namespace pis_web_api.Services
                 throw new Exception("Данного животного не существует");
             }
             string description = CreateAnimalDescription(animal);
-            Journal journal = new Journal(userId, animalId, description, TableNames.Животные, JournalActionType.Edit);
+            Journal journal = new Journal(userId, animalId, description, TableNames.Животные, JournalActionType.Изменить);
             _repository.Add(journal);
         }
 
@@ -77,20 +82,26 @@ namespace pis_web_api.Services
                 throw new Exception("Данного животного не существует");
             }
             string description = CreateAnimalDescription(animal);
-            Journal journal = new Journal(userId, animalId, description, TableNames.Животные, JournalActionType.Delete);
+            Journal journal = new Journal(userId, animalId, description, TableNames.Животные, JournalActionType.Удалить);
             _repository.Add(journal);
         }
         private string CreateAnimalDescription(Animal animal)
         {
             string description = "";
-            description += animal.RegistrationNumber + ";";
+            description += animal.ElectronicChipNumber + ";";
             description += animal.AnimalName + ";";
             description += animal.YearOfBirth + ";";
             description += animal.AnimalCategory.NameAnimalCategory + ";";
             description += animal.Gender.NameGender + ";";
+            description += animal.SpecialSigns + ";";
+            description += animal.Locality.NameLocality + ";";
             return description;
         }
 
+
+
+
+        // Contract Journal
         public void JournalAddContract(int userId, int contractId)
         {
             Contract contract = _contractService.GetEntry(contractId);
@@ -99,7 +110,7 @@ namespace pis_web_api.Services
                 throw new Exception("Contract does not exist");
             }
             string description = CreateContractDescription(contract);
-            Journal journal = new Journal(userId, contractId, description, TableNames.Контракты, JournalActionType.Add);
+            Journal journal = new Journal(userId, contractId, description, TableNames.Контракты, JournalActionType.Добавить);
             _repository.Add(journal);
         }
 
@@ -111,7 +122,7 @@ namespace pis_web_api.Services
                 throw new Exception("Contract does not exist");
             }
             string description = CreateContractDescription(contract);
-            Journal journal = new Journal(userId, contractId, description, TableNames.Контракты, JournalActionType.Edit);
+            Journal journal = new Journal(userId, contractId, description, TableNames.Контракты, JournalActionType.Изменить);
             _repository.Add(journal);
         }
 
@@ -123,69 +134,94 @@ namespace pis_web_api.Services
                 throw new Exception("Contract does not exist");
             }
             string description = CreateContractDescription(contract);
-            Journal journal = new Journal(userId, contractId, description, TableNames.Контракты, JournalActionType.Delete);
+            Journal journal = new Journal(userId, contractId, description, TableNames.Контракты, JournalActionType.Удалить);
             _repository.Add(journal);
         }
 
         private string CreateContractDescription(Contract contract)
         {
             string localitiesDescription = contract.Localities != null
-                ? string.Join(", ", contract.Localities.Select(l => $"Locality ID: {l.LocalityId}"))
+                ? string.Join(", ", contract.Localities.Select(l => $"{l.LocalityId}:{l.Price}"))
                 : "No localities";
-            string description = $"Contract ID: {contract.IdContract}; " +
-                                 $"Conclusion Date: {contract.ConclusionDate}; " +
-                                 $"Expiration Date: {contract.ExpirationDate}; " +
-                                 $"Performer ID: {contract.PerformerId}; " +
-                                 $"Customer ID: {contract.CustomerId}; " +
+            string description = $"{contract.ConclusionDate}; " +
+                                 $"{contract.ExpirationDate}; " +
+                                 $"{contract.PerformerId}; " +
+                                 $"{contract.CustomerId}; " +
                                  $"{localitiesDescription};";
             return description;
         }
 
+
+
+
+        // Organisation Journal
         public void JournalAddOrganisation(int userId, int orgId)
         {
-            Organisation org = _organisationService.GetEntry(orgId);
+            var org = _repository.db.Organisations
+                                        .Where(x => x.OrgId == orgId)
+                                        .Include(x => x.OrgType)
+                                        .Include(x => x.Locality)
+                                        .Single();
             if (org == null)
             {
                 throw new Exception("Организация не существует");
             }
             string description = CreateOrganisationDescription(org);
-            Journal journal = new Journal(userId, orgId, description, TableNames.Организации, JournalActionType.Add);
+            Journal journal = new Journal(userId, orgId, description, TableNames.Организации, JournalActionType.Добавить);
             _repository.Add(journal);
         }
+
         public void JournalEditOrganisation(int userId, int orgId)
         {
-            Organisation org = _organisationService.GetEntry(orgId);
+            var org = _repository.db.Organisations
+                                        .Where(x => x.OrgId == orgId)
+                                        .Include(x => x.OrgType)
+                                        .Include(x => x.Locality)
+                                        .Single();
             if (org == null)
             {
                 throw new Exception("Организация не существует");
             }
             string description = CreateOrganisationDescription(org);
-            Journal journal = new Journal(userId, orgId, description, TableNames.Организации, JournalActionType.Edit);
+            Journal journal = new Journal(userId, orgId, description, TableNames.Организации, JournalActionType.Изменить);
             _repository.Add(journal);
         }
 
         public void JournalDeleteOrganisation(int userId, int orgId)
         {
-            Organisation org = _organisationService.GetEntry(orgId);
+            var org = _repository.db.Organisations
+                                        .Where(x => x.OrgId == orgId)
+                                        .Include(x => x.OrgType)
+                                        .Include(x => x.Locality)
+                                        .Single();
             if (org == null)
             {
                 throw new Exception("Организация не существует");
             }
             string description = CreateOrganisationDescription(org);
-            Journal journal = new Journal(userId, orgId, description, TableNames.Организации, JournalActionType.Delete);
+            Journal journal = new Journal(userId, orgId, description, TableNames.Организации, JournalActionType.Удалить);
             _repository.Add(journal);
         }
+
         private string CreateOrganisationDescription(Organisation org)
         {
-            string description = $"Org ID: {org.OrgId}; " +
-                                 $"Org Name: {org.OrgName}; " +
-                                 $"INN: {org.INN}; " +
-                                 $"KPP: {org.KPP}; " +
-                                 $"Address: {org.AdressReg}; " +
-                                 $"Org Type: {org.OrgType?.NameOrgType}; " +
-                                 $"Locality: {org.Locality?.NameLocality};";
+            string description = $"{org.OrgName}; " +
+                                 $"{org.INN}; " +
+                                 $"{org.KPP}; " +
+                                 $"{org.AdressReg}; " +
+                                 $"{org.OrgType?.NameOrgType}; " +
+                                 $"{org.Locality?.NameLocality};";
             return description;
         }
 
+        public bool Delete(int[] ids)
+        {
+            foreach (var id in ids)
+            {
+                var journal = _repository.db.Journals.Where(x => x.JounalID == id).Single();
+                _repository.Remove(journal);
+            }
+            return true;
+        }
     }
 }

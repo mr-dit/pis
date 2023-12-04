@@ -2,8 +2,8 @@
 {
     public enum JournalActionType
     {
-        Add = 1,
-        Edit = 2,
-        Delete = 3
+        Добавить = 1,
+        Изменить = 2,
+        Удалить = 3
     }
 }

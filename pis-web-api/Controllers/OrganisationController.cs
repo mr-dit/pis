@@ -115,11 +115,11 @@ namespace pis.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id, int userId)
         {
+            _journalService.JournalDeleteOrganisation(userId, id);
             var status = _organisationService.DeleteEntry(id);
 
             if (status)
             {
-                _journalService.JournalDeleteOrganisation(userId, id);
                 return Ok();
             }
             else

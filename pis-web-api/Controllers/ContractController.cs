@@ -100,17 +100,10 @@ namespace pis_web_api.Controllers
                         return BadRequest("Заказчик и исполнитель не могут быть одинаковыми");
                     }
                     var con = conPost.ConvertToContract();
-                    bool status = _contractService.AddEntry(con);
-
-                    if (status)
-                    {
-                        _journalService.JournalAddContract(userId, con.IdContract);
-                        return Ok(con.IdContract);
-                    }
-                    else
-                    {
-                        return BadRequest("Failed to add contract entry.");
-                    }
+                    _journalService.JournalAddContract(userId, con.IdContract);
+                    
+                    return Ok(con.IdContract);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -124,11 +117,11 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id, int userId)
         {
+            _journalService.JournalDeleteContract(userId, id);
             var status = _contractService.DeleteEntry(id);
 
             if (status)
             {
-                _journalService.JournalDeleteContract(userId, id);
                 return Ok($"Contract with ID {id} has been deleted.");
             }
             else

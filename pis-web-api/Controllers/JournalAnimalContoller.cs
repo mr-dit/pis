@@ -39,5 +39,19 @@ namespace pis_web_api.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("deleteJournals")]
+        public IActionResult Delete([FromBody] int[] ids)
+        {
+            try
+            {
+                _journalService.Delete(ids);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

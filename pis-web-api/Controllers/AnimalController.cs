@@ -108,13 +108,11 @@ namespace pis.Controllers
         [HttpPost("DeleteEntry/{id}")]
         public IActionResult DeleteEntry(int id, int userId)
         {
+            journalService.JournalDeleteAnimal(userId, id);
             var status = animalService.DeleteEntry(id);
 
             if (status)
             {
-
-
-                journalService.JournalDeleteAnimal(userId, id);
                 return Ok($"Animal with ID {id} has been deleted.");
             }
             else
