@@ -9,6 +9,7 @@ using pis.Repositorys;
 using pis.Services;
 using pis_web_api.Models.db;
 using pis_web_api.Models.post;
+using pis_web_api.Services;
 
 namespace pis.Controllers
 {
@@ -19,12 +20,14 @@ namespace pis.Controllers
         private readonly ILogger<OrganisationController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private OrganisationService _organisationService;
+        private readonly JournalService _journalService;
 
         public OrganisationController(ILogger<OrganisationController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
             _organisationService = new OrganisationService();
+            _journalService = new JournalService();
         }
 
         [HttpPost("opensRegister")]
@@ -95,6 +98,7 @@ namespace pis.Controllers
 
                 if (status)
                 {
+                    _journalService.JournalAddOrganisation(userId, organisation.OrgId);
                     return Ok(organisation.OrgId);
                 }
                 else
@@ -115,6 +119,7 @@ namespace pis.Controllers
 
             if (status)
             {
+                _journalService.JournalDeleteOrganisation(userId, id);
                 return Ok();
             }
             else
@@ -141,6 +146,7 @@ namespace pis.Controllers
 
                 if (status)
                 {
+                    _journalService.JournalEditOrganisation(userId, id);
                     return Ok();
                 }
                 else

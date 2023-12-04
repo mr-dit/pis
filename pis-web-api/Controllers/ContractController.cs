@@ -16,6 +16,7 @@ namespace pis_web_api.Controllers
         private ContractService _contractService;
         private VaccinePriceListRepository _vaccinePriceListRepository;
         private AnimalService _animalService;
+        private readonly JournalService _journalService;
 
         public ContractController(ILogger<ContractController> logger, IWebHostEnvironment appEnvironment)
         {
@@ -24,6 +25,7 @@ namespace pis_web_api.Controllers
             _contractService = new ContractService();
             _vaccinePriceListRepository = new VaccinePriceListRepository();
             _animalService = new AnimalService();
+            _journalService = new JournalService();
         }
 
         [HttpPost("opensRegister")]
@@ -98,7 +100,17 @@ namespace pis_web_api.Controllers
                         return BadRequest("Заказчик и исполнитель не могут быть одинаковыми");
                     }
                     var con = conPost.ConvertToContract();
-                    return Ok(con.IdContract);
+                    bool status = _contractService.AddEntry(con);
+
+                    if (status)
+                    {
+                        _journalService.JournalAddContract(userId, con.IdContract);
+                        return Ok(con.IdContract);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to add contract entry.");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -116,7 +128,8 @@ namespace pis_web_api.Controllers
 
             if (status)
             {
-                return Ok();
+                _journalService.JournalDeleteContract(userId, id);
+                return Ok($"Contract with ID {id} has been deleted.");
             }
             else
             {
@@ -135,11 +148,12 @@ namespace pis_web_api.Controllers
 
                 if (status)
                 {
+                    _journalService.JournalEditContract(userId,con.IdContract);
                     return Ok();
                 }
                 else
                 {
-                    return BadRequest("Failed to update organisation entry.");
+                    return BadRequest("Failed to update organisation entry."); 
                 }
             }
 

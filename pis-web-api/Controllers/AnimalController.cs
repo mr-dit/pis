@@ -112,7 +112,10 @@ namespace pis.Controllers
 
             if (status)
             {
-                return Ok();
+
+
+                journalService.JournalDeleteAnimal(userId, id);
+                return Ok($"Animal with ID {id} has been deleted.");
             }
             else
             {
@@ -130,7 +133,9 @@ namespace pis.Controllers
 
                 if (status)
                 {
-                    return Ok();
+
+                    journalService.JournalEditAnimal(userId, id);
+                    return Ok($"Animal with ID {id} has been updated.");
                 }
                 else
                 {

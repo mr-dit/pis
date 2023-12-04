@@ -25,7 +25,7 @@ namespace pis_web_api.Models.db
         public int OrgTypeId { get; set; }
         public OrgType? OrgType { get; set; }
 
-        public int LocalityId { get; set; }
+        public int LocalityId { get; set; } 
         public Locality? Locality { get; set; }
 
         public List<User>? Users { get; set; }
