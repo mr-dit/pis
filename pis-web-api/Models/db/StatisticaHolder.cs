@@ -1,12 +1,22 @@
 ﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace pis_web_api.Models.db
 {
     public class StatisticaHolder : IEnumerable<StatisticItem>
     {
+        [Key]
+        public int Id { get; set; }
+
         public string LocalityName { get; set; }
         public List<StatisticItem> VaccinePrice { get; }
 
+        public int ReportId { get; set; }
+        public Report Report { get; set; }
+
+        public StatisticaHolder()
+        {
+        }
         public StatisticaHolder(Locality locality)
         {
             LocalityName = locality.NameLocality;

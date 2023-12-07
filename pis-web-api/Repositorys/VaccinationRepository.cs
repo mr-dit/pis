@@ -39,6 +39,11 @@ namespace pis.Repositorys
             GetVaccinationsByValue(x => x.VaccinationDate >= dateStart && x.VaccinationDate <= dateEnd,
                 1, 9999, nameof(Vaccination.VaccinationDate), true).Item1;
 
+        public List<Vaccination> GetVaccinationsByDate
+            (DateOnly dateStart, DateOnly dateEnd, int orgId) =>
+            GetVaccinationsByValue(x => x.VaccinationDate >= dateStart && x.VaccinationDate <= dateEnd && x.Contract.PerformerId == orgId,
+                1, 9999, nameof(Vaccination.VaccinationDate), true).Item1;
+
         public (List<Vaccination>, int) GetVaccinationsByDefault
             (int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetVaccinationsByValue(x => { return true; }, pageNumber, pageSize, sortBy, isAscending);

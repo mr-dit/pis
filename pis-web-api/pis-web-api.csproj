@@ -13,6 +13,12 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <Compile Remove="Disk.SDK.Provider %28.NET 4.0%29\**" />
+    <Content Remove="Disk.SDK.Provider %28.NET 4.0%29\**" />
+    <EmbeddedResource Remove="Disk.SDK.Provider %28.NET 4.0%29\**" />
+    <None Remove="Disk.SDK.Provider %28.NET 4.0%29\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
@@ -26,6 +32,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="EPPlus" Version="7.0.0" />
+    <PackageReference Include="YandexDisk.Client" Version="1.3.27" />
   </ItemGroup>
 
   <ItemGroup>
