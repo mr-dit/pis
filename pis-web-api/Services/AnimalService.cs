@@ -55,6 +55,34 @@ namespace pis.Services
             return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending, user);
         }
 
+		public void CheckStatus(List<Animal> animals)
+		{
+			foreach (var animal in animals)
+			{
+				if(animal.Vaccinations?.Count() == 0)
+				{
+                    animal.Status = AnimalStatus.Не_проводилась;
+					continue;
+                }
+
+				var span = animal.Vaccinations?.Last().VaccinationValidDate.ToDateTime(new TimeOnly()) - DateTime.Now;
+
+                if (span > TimeSpan.FromDays(10))
+				{
+					animal.Status = AnimalStatus.Вакцинировано;
+				}
+				else if(span <= TimeSpan.FromDays(10) && span >= TimeSpan.Zero)
+				{
+					animal.Status = AnimalStatus.Приближается_срок_вакцинирования;
+				}
+				else
+				{
+					animal.Status = AnimalStatus.Не_проводилась;
+				}
+			}
+			_repositoryAnimal.dbSet.UpdateRange(animals);
+            _repositoryAnimal.db.SaveChanges();
+        }
     }
 }
 

@@ -33,6 +33,8 @@ namespace pis_web_api.Models.db
 
         public List<Vaccination>? Vaccinations { get; set; }
 
+        public AnimalStatus Status { get; set; } 
+
         public Animal(string animalName, Locality locality, AnimalCategory animalCategory,
             Gender gender, int yearOfBirth, string electronicChipNumber)
         {
@@ -42,6 +44,7 @@ namespace pis_web_api.Models.db
             Gender = gender;
             YearOfBirth = yearOfBirth;
             ElectronicChipNumber = electronicChipNumber;
+            Status = AnimalStatus.Не_проводилась;
         }
 
         public Animal(int regNumber, string animalName, int localityId, int animalCategoryId,
@@ -56,6 +59,7 @@ namespace pis_web_api.Models.db
             ElectronicChipNumber = electronicChipNumber;
             PhotoPath = photoPath;
             SpecialSigns = signs;
+            Status = AnimalStatus.Не_проводилась;
         }
 
         public Animal(string animalName, int localityId, int animalCategoryId,
@@ -69,6 +73,7 @@ namespace pis_web_api.Models.db
             ElectronicChipNumber = electronicChipNumber;
             PhotoPath = photoPath;
             SpecialSigns = signs;
+            Status = AnimalStatus.Не_проводилась; Status = AnimalStatus.Не_проводилась;
         }
 
         public Animal(string animalName, int localityId, int animalCategoryId,
@@ -80,6 +85,7 @@ namespace pis_web_api.Models.db
             GenderId = genderId;
             YearOfBirth = yearOfBirth;
             ElectronicChipNumber = electronicChipNumber;
+            Status = AnimalStatus.Не_проводилась;
         }
 
         public Animal()
@@ -90,6 +96,11 @@ namespace pis_web_api.Models.db
         public void AddVaccination(Vaccination vaccination)
         {
             Vaccinations.Add(vaccination);
+        }
+
+        public void ChangeStatus(AnimalStatus status)
+        {
+            Status = status;
         }
     }
 }

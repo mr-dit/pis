@@ -26,6 +26,7 @@ namespace pis.Repositorys
                     .Include(x => x.Locality)
                     .Include(x => x.AnimalCategory)
                     .Include(x => x.Gender)
+                    .Include(x => x.Vaccinations)
                     .Where(value)
                     .SortBy(sortBy, isAscending);
                 var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
@@ -48,6 +49,7 @@ namespace pis.Repositorys
                     .Include(x => x.Locality)
                     .Include(x => x.AnimalCategory)
                     .Include(x => x.Gender)
+                    .Include(x => x.Vaccinations)
                     .Where(value)
                     .SortBy(sortBy, isAscending);
                 var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
