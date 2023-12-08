@@ -66,6 +66,16 @@ namespace pis
             modelBuilder.Entity<OrgType>()
                 .HasIndex(x => x.NameOrgType)
                 .IsUnique();
+
+            modelBuilder.Entity<Report>()
+                .HasMany(x => x.StatisticaHolders)
+                .WithOne(x => x.Report)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<StatisticaHolder>()
+                .HasMany(x => x.VaccinePrice)
+                .WithOne(x => x.StatisticaHolder)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Locality> Localitis { get; set; }
@@ -84,5 +94,9 @@ namespace pis
         public DbSet<UserRole> UserRole {  get; set; }
 
         public DbSet<Journal> Journals { get; set; }
+
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<StatisticaHolder> StatisticaHolder { get; set; }
+        public DbSet<StatisticItem> StatisticItems { get; set; }
     }
 }

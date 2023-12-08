@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using pis;
@@ -11,9 +12,11 @@ using pis;
 namespace pis_web_api.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231207181848_newReportSchema")]
+    partial class newReportSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +55,6 @@ namespace pis_web_api.Migrations
 
                     b.Property<string>("SpecialSigns")
                         .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
 
                     b.Property<int>("YearOfBirth")
                         .HasColumnType("integer");
@@ -342,7 +342,7 @@ namespace pis_web_api.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("StatisticaHolderId")
+                    b.Property<int?>("StatisticaHolderId")
                         .HasColumnType("integer");
 
                     b.Property<string>("VaccineName")
@@ -368,7 +368,7 @@ namespace pis_web_api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ReportId")
+                    b.Property<int?>("ReportId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -610,24 +610,16 @@ namespace pis_web_api.Migrations
 
             modelBuilder.Entity("pis_web_api.Models.db.StatisticItem", b =>
                 {
-                    b.HasOne("pis_web_api.Models.db.StatisticaHolder", "StatisticaHolder")
+                    b.HasOne("pis_web_api.Models.db.StatisticaHolder", null)
                         .WithMany("VaccinePrice")
-                        .HasForeignKey("StatisticaHolderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StatisticaHolder");
+                        .HasForeignKey("StatisticaHolderId");
                 });
 
             modelBuilder.Entity("pis_web_api.Models.db.StatisticaHolder", b =>
                 {
-                    b.HasOne("pis_web_api.Models.db.Report", "Report")
+                    b.HasOne("pis_web_api.Models.db.Report", null)
                         .WithMany("StatisticaHolders")
-                        .HasForeignKey("ReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Report");
+                        .HasForeignKey("ReportId");
                 });
 
             modelBuilder.Entity("pis_web_api.Models.db.User", b =>

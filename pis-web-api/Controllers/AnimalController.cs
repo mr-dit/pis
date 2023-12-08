@@ -48,7 +48,8 @@ namespace pis.Controllers
             {
                 return Forbid();
             }
-            
+
+            animalService.CheckStatus(animals);
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
             
             var result = new

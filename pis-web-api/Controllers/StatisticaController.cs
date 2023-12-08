@@ -11,6 +11,11 @@ using OfficeOpenXml;
 using Microsoft.Office.Interop.Excel;
 using OfficeOpenXml.Style;
 using System.Drawing;
+using pis_web_api.Models.post;
+using System.IO;
+using YandexDisk.Client.Http;
+using YandexDisk.Client.Protocol;
+using pis_web_api.Models.get;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,6 +32,7 @@ namespace pis.Controllers
         private ContractService _contractService;
         private LocalityService _localityService;
         private VaccineService _vaccineService;
+        private ReportService _reportService;
 
         public StatisticaController(ILogger<StatisticaController> logger, IWebHostEnvironment appEnvironment)
         {
@@ -36,91 +42,203 @@ namespace pis.Controllers
             _contractService = new ContractService();
             _localityService = new LocalityService();
             _vaccineService = new VaccineService();
+            _reportService = new ReportService();
         }
 
-        [HttpGet("{dateStart}/{dateEnd}")]
-        public IActionResult GetStatisticaByVaccination(DateOnly dateStart, DateOnly dateEnd)
+        [HttpPost("openRegister")]
+        public IActionResult OpenRegister([FromBody] UserPost user, DateOnly startDateFilter, DateOnly endDateFilter, string filterField = "", string filterValue = "", string sortBy = nameof(Report.Id), bool isAscending = true, int pageNumber = 1, int pageSize = 10)
         {
-            //группировка по городам
-            //группируется по id города, а не по самому городу
-            var vaccinationsGroupedByLocality = _vaccinationService
-                .GetVaccinationsByDate(dateStart, dateEnd)
-                .GroupBy(x => x.Animal.LocalityId);
+            if (startDateFilter == DateOnly.MinValue && endDateFilter == DateOnly.MinValue)
+                endDateFilter = DateOnly.MaxValue;
 
-            //тут хранится вся статистика
-            var statisticaHolders = new List<StatisticaHolder>();
+            List<Report> reports;
+            int totalItems;
 
-            //группировка создана в виде (id города, вакцинация)
-            //поочередно проходимся по каждому id городу
-            foreach (var localities in vaccinationsGroupedByLocality)
+            if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
             {
-                //по id города находим город в БД
-                var locality = _localityService.GetEntry(localities.Key);
-                //тут хранятся все пары(имя вакцины-цена)
-                var statisticaHolder = new StatisticaHolder(locality);
-                //пробегаемся по всем вакцинациям по данному городу
-                foreach (var vaccination in localities)
-                {
-                    //в бд находим контракт, по которому была проведена вакцинация
-                    var contract = _contractService.GetEntry(vaccination.ContractId);
-                    //из контракта берем цену по населенному пункту
-                    var price = contract.GetPriceByLocality(locality);
-                    //в бд находим вакцину, которая была поставлена
-                    var vaccine = _vaccineService.GetEntry(vaccination.VaccineId);
-                    //создаем пару(вакцина-цена)
-                    statisticaHolder.AddVaccinePrice(vaccine, price);
-                }
-                //добавляем все наши пары в общую статистику
-                statisticaHolders.Add(statisticaHolder);
+                (reports, totalItems) = _reportService.GetAllReports(startDateFilter, endDateFilter, filterField,
+                    filterValue, sortBy, isAscending, pageNumber, pageSize);
+            }
+            else if (user.Roles.Intersect(new List<int>() { 1, 4, 6, 13, 14, 15 }).Count() != 0)
+            {
+                (reports, totalItems) = _reportService.GetReportsByOrg(startDateFilter, endDateFilter, filterField,
+                    filterValue, sortBy, isAscending, pageNumber, pageSize, user.OrganisationId);
+            }
+            else
+            {
+                return Forbid();
             }
 
-            using (var package = new ExcelPackage())
+            var reportsGet = new List<ReportGet>();
+            foreach (var report in reports)
             {
-                var worksheet = package.Workbook.Worksheets.Add("Vaccination Statistics");
-                int row = 1;
-                decimal globalTotal = 0;
-                foreach (var statisticaHolder in statisticaHolders)
-                {
-                    decimal total = 0;
-                    worksheet.Cells[row, 1].Value = statisticaHolder.LocalityName;
-                    worksheet.Cells[row, 1].Style.Font.Bold = true;
-                    worksheet.Cells[row, 1].Style.Font.Size += 6;
-                    row++;
-                    worksheet.Cells[row, 1].Value = "Вакцина";
-                    worksheet.Cells[row, 1].Style.Font.Bold = true;
-                    worksheet.Cells[row, 2].Value = "Цена";
-                    worksheet.Cells[row, 2].Style.Font.Bold = true;
-                    row++;
-                    foreach (var statisticaItem in statisticaHolder)
-                    {
-                        worksheet.Cells[row, 1].Value = statisticaItem.VaccineName;
-                        worksheet.Cells[row, 2].Value = statisticaItem.Price;
-                        total += statisticaItem.Price;
-                        row++;
-                    }
-                    globalTotal += total;
-                    worksheet.Cells[row, 1].Value = "Итого:";
-                    worksheet.Cells[row, 1].Style.Font.Color.SetColor(Color.Red);
-                    worksheet.Cells[row, 2].Value = total;
-                    worksheet.Cells[row, 2].Style.Font.Color.SetColor(Color.Red);
-                    row += 2;
-                }
-                worksheet.Cells[row+1, 1].Value = "Итого за все города:";
-                worksheet.Cells[row + 1, 2].Value = globalTotal;
-                worksheet.Columns[1].AutoFit();
+                reportsGet.Add(new ReportGet(report));
+            }
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    package.SaveAs(memoryStream);
-                    memoryStream.Position = 0;
+            var result = new
+            {
+                FilterValue = filterValue,
+                FilterField = filterField,
+                SortBy = sortBy,
+                IsAscending = isAscending,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = totalPages,
+                Reports = reportsGet
+            };
+            return Ok(result);
+        }
 
-                    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "VaccinationData.xlsx");
-                }
+        [HttpPost("createReport/{dateStart}/{dateEnd}/{orgId}")]
+        public IActionResult CreateReport([FromBody] UserPost user, DateOnly dateStart, DateOnly dateEnd, int orgId)
+        {
+            if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+            {
+                var statisticaHolders = _reportService.GetReportItems(dateStart, dateEnd, orgId);
+                var report = new Report(statisticaHolders, dateStart, dateEnd, orgId);
+                _reportService.AddEntry(report);
+                return Ok();
+            }
+            else
+            {
+                return Forbid();
             }
         }
 
+        [HttpPost("getReportAsFile/{id}")]
+        public IActionResult GetReportAsFile([FromBody] UserPost user, int id)
+        {
+            var report = _reportService.GetReport(id);
+            var convertor = new ReportConverterToExcel();
+            var file = convertor.ConvertToExcel(report);
+            return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                $"{id}-{report.DateStart}-{report.DateEnd}-org{report.PerformerId}.xlsx");
+        }
+
+        [HttpPost("confirm/{id}")]
+        public IActionResult Confirm([FromBody] UserPost user, int id)
+        {
+            var report = _reportService.GetReport(id);
+            if (report.Status == ReportStatus.Черновик)
+            {
+                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+                {
+                    report.ChangeStatusToSoglasovanieUPodpisanta();
+                    _reportService.ChangeEntry(report);
+                    return Ok();
+                }
+                else
+                {
+                    return Forbid();
+                }
+            }
+            else if (report.Status == ReportStatus.Согласование_у_исполнителя)
+            {
+                if (user.Roles.Intersect(new List<int>() { 1, 4, 6, 13, 14, 15 }).Count() != 0)
+                {
+                    report.ChangeStatusToSoglasovanUPodpisanta();
+                    _reportService.ChangeEntry(report);
+                    return Ok();
+                }
+                else
+                {
+                    return Forbid();
+                }
+            }
+            else if (report.Status == ReportStatus.Согласован_у_исполнителя)
+            {
+                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+                {
+                    report.ChangeStatusToSoglasovanUOMSU();
+                    _reportService.ChangeEntry(report);
+                    return Ok();
+                }
+                else
+                {
+                    return Forbid();
+                }
+            }
+            else if (report.Status == ReportStatus.Согласован_в_ОМСУ)
+            {
+                return BadRequest("Невозможно подтвердить со статусом <Согласован в ОМСУ>");
+            }
+            return BadRequest("Некорректный статус");
+        }
+
+        [HttpPost("cancel/{id}")]
+        public IActionResult Cancel([FromBody] UserPost user, int id)
+        {
+            var report = _reportService.GetReport(id);
+            if (report.Status == ReportStatus.Согласован_в_ОМСУ)
+            {
+                return BadRequest("Невозможно отменить со статусом <Согласован в ОМСУ>");
+            }
+            if (report.Status == ReportStatus.Черновик)
+            {
+                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+                {
+                    _reportService.DeleteEntry(id);
+                    return Ok();
+                }
+                else
+                {
+                    return Forbid();
+                }
+            }
+            else if (report.Status == ReportStatus.Согласование_у_исполнителя)
+            {
+                if (user.Roles.Intersect(new List<int>() { 1, 4, 6, 13, 14, 15 }).Count() != 0)
+                {
+                    report.ChangeStatusToDorabotka();
+                    _reportService.ChangeEntry(report);
+                    return Ok();
+                }
+                else
+                {
+                    return Forbid();
+                }
+            }
+            else if (report.Status == ReportStatus.Согласован_у_исполнителя)
+            {
+                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+                {
+                    report.ChangeStatusToDorabotka();
+                    _reportService.ChangeEntry(report);
+                    return Ok();
+                }
+                else
+                {
+                    return Forbid();
+                }
+            }
+            return BadRequest("Некорректный статус");
+        }
+
+        [HttpPost("getCountDorabotka")]
+        public IActionResult GetCountDorabotka([FromBody] UserPost user)
+        {
+            return Ok(_reportService.GetCountDorabotka(user.OrganisationId));
+        }
+
+        [HttpPost("recalculateReport/{id}")]
+        public IActionResult RecalculateReport([FromBody] UserPost user, int id)
+        {
+            var report = _reportService.GetReport(id);
+            if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+            {
+                _reportService.DeleteStatistica(report);
+                var statisticaHolders = _reportService.GetReportItems(report.DateStart, report.DateEnd, report.PerformerId);
+                report.Update(statisticaHolders);
+                _reportService.ChangeEntry(report);
+                return Ok();
+            }
+            else
+            {
+                return Forbid();
+            }
+        }
     }
-
-
 }
 

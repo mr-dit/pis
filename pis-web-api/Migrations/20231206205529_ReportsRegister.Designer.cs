@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using pis;
@@ -11,9 +12,11 @@ using pis;
 namespace pis_web_api.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231206205529_ReportsRegister")]
+    partial class ReportsRegister
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +55,6 @@ namespace pis_web_api.Migrations
 
                     b.Property<string>("SpecialSigns")
                         .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
 
                     b.Property<int>("YearOfBirth")
                         .HasColumnType("integer");
@@ -295,6 +295,10 @@ namespace pis_web_api.Migrations
                     b.Property<DateOnly>("DateStart")
                         .HasColumnType("date");
 
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("PerformerId")
                         .HasColumnType("integer");
 
@@ -329,53 +333,6 @@ namespace pis_web_api.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("pis_web_api.Models.db.StatisticItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("StatisticaHolderId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("VaccineName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StatisticaHolderId");
-
-                    b.ToTable("StatisticItems");
-                });
-
-            modelBuilder.Entity("pis_web_api.Models.db.StatisticaHolder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("LocalityName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ReportId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReportId");
-
-                    b.ToTable("StatisticaHolder");
                 });
 
             modelBuilder.Entity("pis_web_api.Models.db.User", b =>
@@ -608,28 +565,6 @@ namespace pis_web_api.Migrations
                     b.Navigation("Performer");
                 });
 
-            modelBuilder.Entity("pis_web_api.Models.db.StatisticItem", b =>
-                {
-                    b.HasOne("pis_web_api.Models.db.StatisticaHolder", "StatisticaHolder")
-                        .WithMany("VaccinePrice")
-                        .HasForeignKey("StatisticaHolderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StatisticaHolder");
-                });
-
-            modelBuilder.Entity("pis_web_api.Models.db.StatisticaHolder", b =>
-                {
-                    b.HasOne("pis_web_api.Models.db.Report", "Report")
-                        .WithMany("StatisticaHolders")
-                        .HasForeignKey("ReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Report");
-                });
-
             modelBuilder.Entity("pis_web_api.Models.db.User", b =>
                 {
                     b.HasOne("pis_web_api.Models.db.Organisation", "Organisation")
@@ -721,19 +656,9 @@ namespace pis_web_api.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("pis_web_api.Models.db.Report", b =>
-                {
-                    b.Navigation("StatisticaHolders");
-                });
-
             modelBuilder.Entity("pis_web_api.Models.db.Role", b =>
                 {
                     b.Navigation("UsersRole");
-                });
-
-            modelBuilder.Entity("pis_web_api.Models.db.StatisticaHolder", b =>
-                {
-                    b.Navigation("VaccinePrice");
                 });
 
             modelBuilder.Entity("pis_web_api.Models.db.User", b =>
