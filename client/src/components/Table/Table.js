@@ -83,7 +83,7 @@ const Table = ({
               {isDelete && (
                 <td className="d-flex justify-content-center">
                   <input
-                    style={{ height: "34px", width: "20px" }}
+                    style={{ height: "49px", width: "20px" }}
                     type="checkbox"
                     checked={selectedRows.includes(row[headers[0].name])}
                     onChange={handleCheckboxChange(row[headers[0].name])}

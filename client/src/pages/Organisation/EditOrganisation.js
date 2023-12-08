@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
-import { isRoleEdit } from "../../helpers";
+import { getUserId, isRoleEdit } from "../../helpers";
 const { REACT_APP_API_URL } = process.env;
 
 const createArrayOptions = (data) => {
@@ -82,12 +82,12 @@ const EditOrganisationForm = () => {
     try {
       if (id) {
         await axios.post(
-          `${REACT_APP_API_URL}/Organisation/ChangeEntry/${id}`,
+          `${REACT_APP_API_URL}/Organisation/ChangeEntry/${id}?userId=${getUserId()}`,
           organisationData
         );
       } else {
         await axios.post(
-          `${REACT_APP_API_URL}/Organisation/AddEntry`,
+          `${REACT_APP_API_URL}/Organisation/AddEntry?userId=${getUserId()}`,
           organisationData
         );
       }

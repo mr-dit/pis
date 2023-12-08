@@ -5,7 +5,7 @@ import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
-import { getDataForRequest, isRoleEdit } from "../../helpers";
+import { getDataForRequest, getUserId, isRoleEdit } from "../../helpers";
 
 const { RangePicker } = DatePicker;
 
@@ -106,7 +106,7 @@ const ContractPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Contract/DeleteEntry/${id}`);
+      await axios.post(`${REACT_APP_API_URL}/Contract/DeleteEntry/${id}?userId=${getUserId()}`);
       setOrganisations((prev) => prev.filter((n) => n.orgId !== id));
     } catch (e) {
       alert(e);

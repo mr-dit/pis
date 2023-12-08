@@ -4,7 +4,7 @@ import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import { getDataForRequest, isRoleEdit } from "../../helpers";
+import { getDataForRequest, getUserId, isRoleEdit } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -98,7 +98,9 @@ const OrganisationPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Organisation/DeleteEntry/${id}`);
+      await axios.post(
+        `${REACT_APP_API_URL}/Organisation/DeleteEntry/${id}?userId=${getUserId()}`
+      );
       setOrganisations((prev) => prev.filter((n) => n.orgId !== id));
     } catch (e) {
       alert(e);

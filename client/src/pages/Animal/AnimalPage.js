@@ -4,8 +4,7 @@ import Table from "../../components/Table/Table";
 import Menu from "../../components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { getDataForRequest, isRoleEdit } from "../../helpers";
-import AnimalLogging from "./AnimalLogging";
+import { getDataForRequest, getUserId, isRoleEdit } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -109,7 +108,7 @@ const AnimalComponent = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Animal/DeleteEntry/${id}`);
+      await axios.post(`${REACT_APP_API_URL}/Animal/DeleteEntry/${id}?userId=${getUserId()}`);
       setAnimals((prev) => prev.filter((n) => n.registrationNumber !== id));
     } catch (e) {
       alert(e);

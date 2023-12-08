@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import PriceList from "./PriceList.js";
 import dayjs from "dayjs";
-import { getDataForRequest, isRoleEdit } from "../../helpers";
+import { getDataForRequest, getUserId, isRoleEdit } from "../../helpers";
 const { REACT_APP_API_URL } = process.env;
 
 const { RangePicker } = DatePicker;
@@ -88,12 +88,12 @@ const EditContractsForm = () => {
       if (id) {
         console.log(contractsData);
         await axios.post(
-          `${REACT_APP_API_URL}/Contract/ChangeEntry/${id}`,
+          `${REACT_APP_API_URL}/Contract/ChangeEntry/${id}?userId=${getUserId()}`,
           contractsData
         );
       } else {
         await axios.post(
-          `${REACT_APP_API_URL}/Contract/AddEntry`,
+          `${REACT_APP_API_URL}/Contract/AddEntry?userId=${getUserId()}`,
           contractsData
         );
       }

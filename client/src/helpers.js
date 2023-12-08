@@ -22,6 +22,11 @@ export function getDataForRequest() {
   };
   return requestData;
 }
+export function getUserId() {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const requestData = userData?.data.idUser;
+  return requestData;
+}
 
 export function isRoleEdit(roles) {
   const userData = JSON.parse(localStorage.getItem("userData"));

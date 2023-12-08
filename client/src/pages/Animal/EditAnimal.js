@@ -4,7 +4,7 @@ import MySelect from "../../components/MySelect/MySelect.tsx";
 import { useParams, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Vaccine from "./Vaccine.js";
-import { isRoleEdit } from "../../helpers.js";
+import { getUserId, isRoleEdit } from "../../helpers.js";
 const { REACT_APP_API_URL } = process.env;
 
 const createArrayOptions = (data) => {
@@ -17,7 +17,7 @@ const createArrayOptions = (data) => {
     };
   });
 };
-//ааааажопаgjgjgjgjg
+
 const EditAnimalForm = () => {
   const [animalData, setAnimalData] = useState({
     localityId: "",
@@ -110,11 +110,11 @@ const EditAnimalForm = () => {
     try {
       if (id) {
         await axios.post(
-          `${REACT_APP_API_URL}/Animal/ChangeEntry/${id}`,
+          `${REACT_APP_API_URL}/Animal/ChangeEntry/${id}?userId=${getUserId()}`,
           animalData
         );
       } else {
-        await axios.post(`${REACT_APP_API_URL}/Animal/AddEntry`, animalData);
+        await axios.post(`${REACT_APP_API_URL}/Animal/AddEntry?userId=${getUserId()}`, animalData);
       }
       toMainPage();
     } catch (e) {
