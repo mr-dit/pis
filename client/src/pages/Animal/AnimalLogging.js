@@ -21,6 +21,7 @@ const cols = [
   { name: "idObject", title: "id животного" },
 
   { name: "descObject", title: "Описание животного" },
+
   { name: "actionType", title: "Совершенное действие" },
 ];
 
@@ -132,7 +133,7 @@ const AnimalLogging = () => {
               </button>
             </div>
           </div>
-          <button className="btn btn-danger" onClick={handleDelete}>Удалить записи</button>
+          <button className="btn btn-danger" onClick={handleDelete}>Удалить выбранные записи</button>
         </div>
 
         <Table

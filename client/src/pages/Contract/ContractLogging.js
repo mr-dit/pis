@@ -34,7 +34,7 @@ const filterOptions = [
   { label: "Описание изменения", value: "descObject" },
 ];
 
-  const LoggingOrganisation = () => {
+  const ContractLogging = () => {
     const [journals, setJournals] = useState([]);
     const [filterValue, setFilterValue] = useState("");
     const [filterField, setFilterField] = useState("");
@@ -46,7 +46,7 @@ const filterOptions = [
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${REACT_APP_API_URL}/JournalOrganisationContolller/openJournal`,
+          `${REACT_APP_API_URL}/JournalContractContolller/openJournal`,
           {
             params: {
               filterValue,
@@ -79,7 +79,7 @@ const filterOptions = [
     const handleDelete = async () => {
       try {
         await axios.post(
-          `${REACT_APP_API_URL}/JournalOrganisationContolller/deleteJournals`,
+          `${REACT_APP_API_URL}/JournalContractContolller/deleteJournals`,
           selectedRows
         );
   
@@ -91,7 +91,7 @@ const filterOptions = [
   
     const navigate = useNavigate();
     const toMainPage = () => {
-      navigate("/Organisation");
+      navigate("/Contract");
     };
 
   return (
@@ -168,4 +168,4 @@ const filterOptions = [
     );
 };
 
-export default LoggingOrganisation;
+export default ContractLogging;

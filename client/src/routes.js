@@ -9,6 +9,7 @@ import EditContractsForm from "./pages/Contract/EditContract";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import LoggingOrganisation from "./pages/Organisation/LoggingOrganisation";
 import AnimalLogging from "./pages/Animal/AnimalLogging";
+import ContractLogging from "./pages/Contract/ContractLogging";
 
 export const useRoutes = () => {
   return (
@@ -19,26 +20,16 @@ export const useRoutes = () => {
       <Route path="/Animal/Logging" element={<AnimalLogging />}></Route>
 
       <Route path="/Organisation" element={<OrganisationPage />}></Route>
-      <Route
-        path="/Organisation/update/:id"
-        element={<EditOrganisation />}
-      ></Route>
+      <Route path="/Organisation/update/:id" element={<EditOrganisation />}></Route>
       <Route path="/Organisation/update" element={<EditOrganisation />}></Route>
-      <Route
-        path="/Organisation/logging"
-        element={<LoggingOrganisation />}
-      >
-      </Route>
+      <Route path="/Organisation/logging" element={<LoggingOrganisation />}></Route>
 
       <Route path="/Contract" element={<ContractPage />}></Route>
-      <Route
-        path="/Contract/update/:id"
-        element={<EditContractsForm />}
-      ></Route>
+      <Route path="/Contract/update/:id" element={<EditContractsForm />}></Route>
       <Route path="/Contract/update" element={<EditContractsForm />}></Route>
       <Route path="/Auth" element={<AuthPage />}></Route>
+      <Route path="/Contract/logging" element={<ContractLogging />}></Route>
 
-      <Route path="*" element={<Navigate to="/Animal" replace />} />
-    </Routes>
+      <Route path="*" element={<Navigate to="/Animal" replace />}/></Routes>
   );
 };

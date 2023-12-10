@@ -100,8 +100,13 @@ const ContractPage = () => {
   const handleChange = (id) => {
     navigate(`/Contract/update/${id}`);
   };
+
   const handleCreate = () => {
     navigate(`/Contract/update`);
+  };
+
+  const handleLogging = () => {
+    navigate(`/Contract/logging`);
   };
 
   const handleDelete = async (id) => {
@@ -211,6 +216,11 @@ const ContractPage = () => {
           </button>
         </div>
       )}
+      <div className="d-flex justify-content-end">
+        <button className="btn btn-primary btn-lg" onClick={handleLogging}>
+          Реестр изменений
+        </button>
+      </div>
     </div>
   );
 };
