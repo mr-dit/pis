@@ -34,10 +34,10 @@ const cols = [
 ];
 const filterOptions = [
   { label: "Исполнитель", value: "Performer" },
-//   { label: "ИНН", value: "Inn" },
-//   { label: "КПП", value: "Kpp" },
-//   { label: "Адрес регистрации", value: "AdressReg" },
-//   { label: "Город", value: "Locality" },
+  //   { label: "ИНН", value: "Inn" },
+  //   { label: "КПП", value: "Kpp" },
+  //   { label: "Адрес регистрации", value: "AdressReg" },
+  //   { label: "Город", value: "Locality" },
 ];
 
 const ReportsPage = () => {
@@ -143,6 +143,7 @@ const ReportsPage = () => {
   };
   const handleCancel = () => {
     setIsTableOpen(false);
+    setTable({ rows: [], cols: [] });
     setEndDate();
     setStartDate();
     setOrg();
@@ -217,6 +218,7 @@ const ReportsPage = () => {
       link.setAttribute("download", "имя_файла.xlsx");
       document.body.appendChild(link);
       link.click();
+      handleCancel();
     } catch (e) {
       alert(e);
     }
