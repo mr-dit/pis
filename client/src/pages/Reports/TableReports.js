@@ -129,11 +129,7 @@ const TableReports = ({
               )}
               {isRoleEdit(row.rolesAccess) && (
                 <td>
-                  <button
-                    className="fs-2"
-                    onClick={handleRowDelete(row[headers[0].name])}
-                  >
-                    ×
+                  <button class="btn-close" onClick={handleRowDelete(row[headers[0].name])}>
                   </button>
                 </td>
               )}

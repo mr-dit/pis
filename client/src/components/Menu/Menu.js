@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
   clearLocalStorage,
@@ -9,6 +9,7 @@ import {
 const Menu = () => {
   const isOrgRead = isRoleEdit([1, 2, 3, 6, 7, 8, 9, 11, 4, 10, 15]);
   const isContrRead = isRoleEdit([1, 4, 6, 3, 2, 8, 7, 9, 11, 10, 15]);
+  const notification = isRoleEdit([9,10,11,15]);
 
   return (
     <nav
@@ -35,6 +36,12 @@ const Menu = () => {
               <NavLink className={"nav-link"} to="/Reports">
                 <li className="nav-item">Отчеты</li>
               </NavLink>
+            )}
+            {notification && 
+            (
+            <div className={"nav-link"} to="/Reports">
+              <li className="nav-item">Отчеты на доработке {countDorabotka}</li>
+            </div>
             )}
           </ul>
         </div>
