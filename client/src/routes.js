@@ -10,6 +10,7 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import LoggingOrganisation from "./pages/Organisation/LoggingOrganisation";
 import AnimalLogging from "./pages/Animal/AnimalLogging";
 import ContractLogging from "./pages/Contract/ContractLogging";
+import ReportsPage from "./pages/Reports/ReportsPage";
 
 export const useRoutes = () => {
   return (
@@ -27,6 +28,9 @@ export const useRoutes = () => {
       <Route path="/Contract" element={<ContractPage />}></Route>
       <Route path="/Contract/update/:id" element={<EditContractsForm />}></Route>
       <Route path="/Contract/update" element={<EditContractsForm />}></Route>
+
+      <Route path="/Reports" element={<ReportsPage />}></Route>
+
       <Route path="/Auth" element={<AuthPage />}></Route>
       <Route path="/Contract/logging" element={<ContractLogging />}></Route>
 

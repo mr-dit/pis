@@ -72,12 +72,17 @@ const Menu = () => {
                 <li className="nav-item">Контракты</li>
               </NavLink>
             )}
+            {isContrRead && (
+              <NavLink className={"nav-link"} to="/Reports">
+                <li className="nav-item">Отчеты</li>
+              </NavLink>
+            )}
           </ul>
         </div>
       </div>
-      <button className="btn btn-success me-4" onClick={showModal}>
+      {/* <button className="btn btn-success me-4" onClick={showModal}>
         Отчет
-      </button>
+      </button> */}
       {getDataForRequest().firstName} {getDataForRequest().surname}
       <button
         style={{ fontSize: "30px" }}
