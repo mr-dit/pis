@@ -114,25 +114,15 @@ const EditContractsForm = () => {
     }));
   };
 
-  const handleDataUpdate = (str, key) => {
-    setContractsData((prev) => ({ ...prev, [key]: str }));
-  };
-
-  const handleDate = (val) => {
+  const handleDate = (val, str) => {
     if (val) {
-      const startDate = val[0];
       setContractsData((prev) => ({
         ...prev,
-        conclusionDate: `${startDate.$y}-${startDate.$M + 1}-${
-          startDate.$D < 10 ? `0${startDate.$D}` : startDate.$D
-        }`,
+        conclusionDate: str[0],
       }));
-      const endDate = val[1];
       setContractsData((prev) => ({
         ...prev,
-        expirationDate: `${endDate.$y}-${endDate.$M + 1}-${
-          endDate.$D < 10 ? `0${endDate.$D}` : endDate.$D
-        }`,
+        expirationDate: str[1],
       }));
     } else {
       setContractsData((prev) => ({
@@ -196,43 +186,9 @@ const EditContractsForm = () => {
               showToday
               disabled={isNotEdit}
               aria-required
+              format={dateFormat}
             />
           </label>
-          {/* <label id="my-label">
-            Дата заключения
-            <DatePicker
-              size="large"
-              aria-required
-              value={
-                contractsData.conclusionDate
-                  ? dayjs(contractsData.conclusionDate, dateFormat)
-                  : ""
-              }
-              format={dateFormat}
-              onChange={(dayjs, string) =>
-                handleDataUpdate(string, "conclusionDate")
-              }
-              
-              disabled={isNotEdit}
-            />
-          </label>
-          <label id="my-label">
-            Дата действия
-            <DatePicker
-              size="large"
-              aria-required
-              value={
-                contractsData.expirationDate
-                  ? dayjs(contractsData.expirationDate, dateFormat)
-                  : ""
-              }
-              format={dateFormat}
-              onChange={(dayjs, string) =>
-                handleDataUpdate(string, "expirationDate")
-              }
-              disabled={isNotEdit}
-            />
-          </label> */}
         </div>
         <PriceList
           disabled={isNotEdit}

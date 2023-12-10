@@ -3,9 +3,9 @@ import axios from "axios";
 import TableReports from "./TableReports";
 import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
-import { useNavigate } from "react-router-dom";
-import { getDataForRequest, getUserId, isRoleEdit } from "../../helpers";
+import { getDataForRequest} from "../../helpers";
 import { Modal, DatePicker } from "antd";
+import { OutTable, ExcelRenderer } from "react-excel-renderer";
 import dayjs from "dayjs";
 
 const { REACT_APP_API_URL } = process.env;
@@ -51,7 +51,6 @@ const ReportsPage = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -121,20 +120,18 @@ const ReportsPage = () => {
   const [org, setOrg] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
-  const handleDownload = () => {
-    axios({
-      url: `${REACT_APP_API_URL}/Statistica/${startDate}/${endDate}/${org}`,
-      method: "GET",
-      responseType: "blob",
-    }).then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "статистика.xlsx");
-      document.body.appendChild(link);
-      link.click();
-    });
+  const handleCreate = async () => {
+    try {
+      await axios.post(
+        `${REACT_APP_API_URL}/Statistica/createReport/${startDate}/${endDate}/${org}`,
+        {
+          ...getDataForRequest(),
+        }
+      );
+      await fetchData();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -142,30 +139,89 @@ const ReportsPage = () => {
     setIsModalOpen(true);
   };
   const handleOk = async () => {
-    handleDownload();
-    setIsModalOpen(false);
-    setEndDate();
-    setStartDate();
+    handleCreate();
+    handleCancel();
   };
   const handleCancel = () => {
+    setIsTableOpen(false);
     setEndDate();
     setStartDate();
+    setOrg();
     setIsModalOpen(false);
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Statistica/cancel/${id}`);
-      setReports((prev) => prev.filter((n) => n.orgId !== id));
+      await axios.post(`${REACT_APP_API_URL}/Statistica/cancel/${id}`, {
+        ...getDataForRequest(),
+      });
+      await fetchData();
     } catch (e) {
       alert(e);
     }
   };
-  const handleChange = (id) => {
-    navigate(`/Statistica/confirm/${id}`);
+  const handleChange = async (id) => {
+    try {
+      await axios.post(`${REACT_APP_API_URL}/Statistica/confirm/${id}`, {
+        ...getDataForRequest(),
+      });
+      await fetchData();
+    } catch (e) {
+      alert(e);
+    }
   };
 
-  const isEdit = isRoleEdit([4, 10, 15]);
+  const [idReport, setIdReport] = useState();
+  const [isTableOpen, setIsTableOpen] = useState(false);
+  const [table, setTable] = useState({ rows: [], cols: [] });
+  const handleCheck = async (id) => {
+    try {
+      const response = await axios.post(
+        `${REACT_APP_API_URL}/Statistica/getReportAsFile/${id}`,
+        getDataForRequest(),
+        { responseType: "arraybuffer" }
+      );
+      setIdReport(id);
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      ExcelRenderer(blob, (err, resp) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log({ cols: resp.cols, rows: resp.rows });
+          setTable({
+            cols: resp.cols,
+            rows: resp.rows,
+          });
+        }
+      });
+      setIsTableOpen(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const saveFile = async () => {
+    try {
+      const response = await axios.post(
+        `${REACT_APP_API_URL}/Statistica/getReportAsFile/${idReport}`,
+        getDataForRequest(),
+        { responseType: "blob" }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      console.log(url);
+      link.href = url;
+      link.setAttribute("download", "имя_файла.xlsx");
+      document.body.appendChild(link);
+      link.click();
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   return (
     <div>
@@ -199,16 +255,16 @@ const ReportsPage = () => {
             </button>
           </div>
         </div> */}
-        <button className="btn btn-success me-4" onClick={showModal}>
+        <button className="btn btn-success mt-2 mb-3" onClick={showModal}>
           Создать отчет
         </button>
       </div>
       <TableReports
-        isEdit={isEdit}
         data={reports}
         headers={cols}
         handleChange={handleChange}
         handleDelete={handleDelete}
+        handleCheck={handleCheck}
         handleSortName={(value) => {
           setSortBy(value);
           setIsAscending((prev) => !prev);
@@ -241,35 +297,52 @@ const ReportsPage = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <label id="my-label" className="mb-3">
-          Дата начала
-          <DatePicker
-            size="large"
-            aria-required
-            value={startDate ? dayjs(startDate, dateFormat) : ""}
-            format={dateFormat}
-            onChange={(dayjs, string) => setStartDate(string)}
-          />
-        </label>
-        <label id="my-label" className="mb-3">
-          Дата конца
-          <DatePicker
-            size="large"
-            aria-required
-            value={endDate ? dayjs(endDate, dateFormat) : ""}
-            format={dateFormat}
-            onChange={(dayjs, string) => setEndDate(string)}
-          />
-        </label>
-        <label id="my-label">
-          <Select
-            isClearable
-            isSearchable
-            placeholder="Поле фильтра..."
-            options={organisationOptions}
-            onChange={(val) => setOrg(val?.value)}
-          />
-        </label>
+        <form>
+          <label id="my-label" className="mb-3">
+            Дата начала
+            <DatePicker
+              size="large"
+              aria-required
+              value={startDate ? dayjs(startDate, dateFormat) : ""}
+              format={dateFormat}
+              onChange={(dayjs, string) => setStartDate(string)}
+            />
+          </label>
+          <label id="my-label" className="mb-3">
+            Дата конца
+            <DatePicker
+              size="large"
+              aria-required
+              value={endDate ? dayjs(endDate, dateFormat) : ""}
+              format={dateFormat}
+              onChange={(dayjs, string) => setEndDate(string)}
+            />
+          </label>
+          <label id="my-label" className="mb-3">
+            Организация
+            <Select
+              isClearable
+              isSearchable
+              required
+              placeholder="По организации..."
+              options={organisationOptions}
+              onChange={(val) => setOrg(val?.value)}
+            />
+          </label>
+        </form>
+      </Modal>
+      <Modal
+        open={isTableOpen}
+        onOk={saveFile}
+        okText="Скачать Excel"
+        onCancel={handleCancel}
+      >
+        <OutTable
+          data={table.rows}
+          columns={table.cols}
+          tableClassName="ExcelTable2007"
+          tableHeaderRowClass="heading"
+        />
       </Modal>
     </div>
   );
