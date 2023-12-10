@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
   clearLocalStorage,
@@ -13,12 +13,31 @@ const { REACT_APP_API_URL } = process.env;
 
 const dateFormat = "MM-DD-YYYY";
 
+
 const Menu = () => {
   const isOrgRead = isRoleEdit([1, 2, 3, 6, 7, 8, 9, 11, 4, 10, 15]);
   const isContrRead = isRoleEdit([1, 4, 6, 3, 2, 8, 7, 9, 11, 10, 15]);
+  const notification = isRoleEdit([9,10,11,15]);
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const [a, setDorabotka] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${REACT_APP_API_URL}/api/Statistica/getCountDorabotka`)
+        const a = response.data;
+        setDorabotka(a);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [a]);
+
 
   const handleDownload = () => {
     axios({
@@ -76,6 +95,12 @@ const Menu = () => {
               <NavLink className={"nav-link"} to="/Reports">
                 <li className="nav-item">Отчеты</li>
               </NavLink>
+            )}
+            {notification && 
+            (
+            <div className={"nav-link"} to="/Reports">
+              <li className="nav-item">Отчеты на доработке {a}</li>
+            </div>
             )}
           </ul>
         </div>

@@ -64,7 +64,7 @@ const AuthPage = () => {
           rules={[
             {
               required: true,
-              message: "укажите пароль!",
+              message: "Укажите пароль!",
             },
           ]}
         >
