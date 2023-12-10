@@ -3,7 +3,7 @@ import axios from "axios";
 import TableReports from "./TableReports";
 import Menu from "../../components/Menu/Menu";
 import Select from "react-select";
-import { getDataForRequest} from "../../helpers";
+import { getDataForRequest, isRoleEdit } from "../../helpers";
 import { Modal, DatePicker } from "antd";
 import { OutTable, ExcelRenderer } from "react-excel-renderer";
 import dayjs from "dayjs";
@@ -32,13 +32,13 @@ const cols = [
   },
   { name: "dateCreate", title: "Дата создания отчета", sortName: "dateCreate" },
 ];
-// const filterOptions = [
-//   { label: "Название организации", value: "OrgName" },
+const filterOptions = [
+  { label: "Исполнитель", value: "Performer" },
 //   { label: "ИНН", value: "Inn" },
 //   { label: "КПП", value: "Kpp" },
 //   { label: "Адрес регистрации", value: "AdressReg" },
 //   { label: "Город", value: "Locality" },
-// ];
+];
 
 const ReportsPage = () => {
   const [reports, setReports] = useState([]);
@@ -50,7 +50,6 @@ const ReportsPage = () => {
   const [pageSize, setPageSize] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
 
   useEffect(() => {
     fetchData();
@@ -223,11 +222,13 @@ const ReportsPage = () => {
     }
   };
 
+  const isOmsu = isRoleEdit([9, 10, 11, 15]);
+
   return (
     <div>
       <Menu />
-      <div className="filter d-flex justify-content-between mb-1 mt-3">
-        {/* <div className="d-flex align-items-center">
+      <div className="filter d-flex justify-content-between mb-3 mt-4">
+        <div className="d-flex align-items-center">
           <Select
             isClearable
             isSearchable
@@ -254,10 +255,12 @@ const ReportsPage = () => {
               Поиск
             </button>
           </div>
-        </div> */}
-        <button className="btn btn-success mt-2 mb-3" onClick={showModal}>
-          Создать отчет
-        </button>
+        </div>
+        {isOmsu && (
+          <button className="btn btn-success mt-2" onClick={showModal}>
+            Создать отчет
+          </button>
+        )}
       </div>
       <TableReports
         data={reports}

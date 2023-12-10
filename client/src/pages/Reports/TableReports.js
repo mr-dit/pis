@@ -123,13 +123,13 @@ const TableReports = ({
                     className="fs-2"
                     onClick={handleRowChange(row[headers[0].name])}
                   >
-                    √
+                    ✓
                   </button>
                 </td>
               )}
               {isRoleEdit(row.rolesAccess) && (
                 <td>
-                  <button class="btn-close" onClick={handleRowDelete(row[headers[0].name])}>
+                  <button className="mt-2 fs-4 btn-close" onClick={handleRowDelete(row[headers[0].name])}>
                   </button>
                 </td>
               )}

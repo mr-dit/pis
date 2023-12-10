@@ -18,9 +18,9 @@ const cols = [
 
   { name: "date", title: "Дата" },
 
-  { name: "idObject", title: "Изменение" },
+  { name: "idObject", title: "id организации" },
 
-  { name: "descObject", title: "Описание изменения" },
+  { name: "descObject", title: "Описание организации" },
 
   { name: "actionType", title: "Совершенное действие" },
 ];

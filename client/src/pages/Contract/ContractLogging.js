@@ -18,9 +18,9 @@ const cols = [
 
   { name: "date", title: "Дата" },
 
-  { name: "idObject", title: "Изменение" },
+  { name: "idObject", title: "Номер контракта" },
 
-  { name: "descObject", title: "Описание изменения" },
+  { name: "descObject", title: "Описание контракта" },
 
   { name: "actionType", title: "Совершенное действие" },
 ];
