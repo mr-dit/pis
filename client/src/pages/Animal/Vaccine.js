@@ -43,16 +43,18 @@ const Vaccine = ({ vaccinations }) => {
 
   const fetchData = async () => {
     try {
-      const contractsRes = await axios.post(
-        `${REACT_APP_API_URL}/Contract/GetCurrentContractsByAnimalForVaccinations/${id}`,
-        getDataForRequest()
-      );
-      setContracts(
-        contractsRes.data.map((i) => ({
-          value: i.idContract,
-          label: i.idContract,
-        }))
-      );
+      if (id) {
+        const contractsRes = await axios.post(
+          `${REACT_APP_API_URL}/Contract/GetCurrentContractsByAnimalForVaccinations/${id}`,
+          getDataForRequest()
+        );
+        setContracts(
+          contractsRes.data.map((i) => ({
+            value: i.idContract,
+            label: i.idContract,
+          }))
+        );
+      }
 
       const vaccineRes = await axios.get(
         `${REACT_APP_API_URL}/Vaccine/opensRegister?pageSize=1000`
@@ -70,7 +72,6 @@ const Vaccine = ({ vaccinations }) => {
 
   const saveVaccination = async (e) => {
     e.preventDefault();
-    console.log(vaccination);
     const userId = getDataForRequest().idUser;
     try {
       await axios.post(
@@ -198,7 +199,6 @@ const Vaccine = ({ vaccinations }) => {
               placeholder="Выберите"
               options={contracts}
               onChange={(val) => {
-                console.log(val);
                 setVaccination((prev) => ({
                   ...prev,
                   contractId: val?.value,

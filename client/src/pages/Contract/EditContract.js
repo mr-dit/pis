@@ -86,7 +86,6 @@ const EditContractsForm = () => {
     e.preventDefault();
     try {
       if (id) {
-        console.log(contractsData);
         await axios.post(
           `${REACT_APP_API_URL}/Contract/ChangeEntry/${id}?userId=${getUserId()}`,
           contractsData

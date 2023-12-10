@@ -61,21 +61,21 @@ const EditAnimalForm = () => {
         `${REACT_APP_API_URL}/Gender/opensRegister`
       );
       setGenderOptions(createArrayOptions(genderRes.data));
-
-      const vaccinesRes = await axios.get(
-        `${REACT_APP_API_URL}/Vaccination/getVaccinationsByAnimal/${id}`
-      );
-
-      setVaccines(
-        vaccinesRes.data.vaccinations.map((item) => ({
-          idVactination: item.idVactination,
-          vaccinationDate: item.vaccinationDate,
-          vaccinationValidDate: item.vaccinationValidDate,
-          vaccineSeriesNumber: item.vaccineSeriesNumber,
-          vaccine: item.vaccine.nameVaccine,
-          contractId: item.contractId,
-        }))
-      );
+      if (id) {
+        const vaccinesRes = await axios.get(
+          `${REACT_APP_API_URL}/Vaccination/getVaccinationsByAnimal/${id}`
+        );
+        setVaccines(
+          vaccinesRes.data.vaccinations.map((item) => ({
+            idVactination: item.idVactination,
+            vaccinationDate: item.vaccinationDate,
+            vaccinationValidDate: item.vaccinationValidDate,
+            vaccineSeriesNumber: item.vaccineSeriesNumber,
+            vaccine: item.vaccine.nameVaccine,
+            contractId: item.contractId,
+          }))
+        );
+      }
 
       if (id) {
         fetchAnimalById(id);
@@ -102,7 +102,7 @@ const EditAnimalForm = () => {
   };
 
   const handleGender = (value) => {
-    setAnimalData((prev) => ({ ...prev, genderId: value.value }));
+    setAnimalData((prev) => ({ ...prev, genderId: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -114,7 +114,10 @@ const EditAnimalForm = () => {
           animalData
         );
       } else {
-        await axios.post(`${REACT_APP_API_URL}/Animal/AddEntry?userId=${getUserId()}`, animalData);
+        await axios.post(
+          `${REACT_APP_API_URL}/Animal/AddEntry?userId=${getUserId()}`,
+          animalData
+        );
       }
       toMainPage();
     } catch (e) {

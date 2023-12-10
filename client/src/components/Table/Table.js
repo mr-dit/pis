@@ -29,10 +29,14 @@ const Table = ({
   };
 
   const handleSelectAll = () => {
-    const allRegistrationNumbers = data.map((row) => {
-      return row.id;
-    });
-    setSelectedRows(allRegistrationNumbers);
+    if (!selectedRows.length) {
+      const allRegistrationNumbers = data.map((row) => {
+        return row.id;
+      });
+      setSelectedRows(allRegistrationNumbers);
+    } else {
+      setSelectedRows([]);
+    }
   };
 
   const handleCheckboxChange = (registrationNumber) => (e) => {
@@ -54,7 +58,11 @@ const Table = ({
 
   return (
     <>
-      <button onClick={handleSelectAll}>Выделить все</button>
+      {isDelete && (
+        <button className="btn btn-primary" onClick={handleSelectAll}>
+          Выделить все записи
+        </button>
+      )}
       <table className="table table-striped table-hover">
         <thead>
           <tr>
