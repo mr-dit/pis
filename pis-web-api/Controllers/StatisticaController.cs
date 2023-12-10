@@ -121,7 +121,7 @@ namespace pis.Controllers
         public IActionResult Confirm([FromBody] UserPost user, int id)
         {
             var report = _reportService.GetReport(id);
-            if (report.Status == ReportStatus.Черновик)
+            if (report.Status == ReportStatus.Черновик || report.Status == ReportStatus.Доработка)
             {
                 if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
                 {
@@ -164,6 +164,7 @@ namespace pis.Controllers
             {
                 return BadRequest("Невозможно подтвердить со статусом <Согласован в ОМСУ>");
             }
+            
             return BadRequest("Некорректный статус");
         }
 
@@ -175,7 +176,7 @@ namespace pis.Controllers
             {
                 return BadRequest("Невозможно отменить со статусом <Согласован в ОМСУ>");
             }
-            if (report.Status == ReportStatus.Черновик)
+            if (report.Status == ReportStatus.Черновик || report.Status == ReportStatus.Доработка)
             {
                 if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
                 {

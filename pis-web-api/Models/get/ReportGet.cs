@@ -14,7 +14,7 @@ namespace pis_web_api.Models.get
         public string StatusUpdate { get; set; }
         public string DateCreate { get; set; }
 
-        
+        public List<int> RolesAccess { get; set; }
 
         public ReportGet(Report report) 
         {
@@ -25,8 +25,24 @@ namespace pis_web_api.Models.get
             Status = ConvertStatusToString(report.Status);
             StatusUpdate = report.StatusUpdate.ToLongDateString();
             DateCreate = report.DateCreate.ToShortDateString();
+            RolesAccess = FillRolesByStatus(report.Status);
         }
 
+        private List<int> FillRolesByStatus(ReportStatus status)
+        {
+            if(status == ReportStatus.Черновик || status == ReportStatus.Доработка || status == ReportStatus.Согласован_у_исполнителя)
+            {
+                return new List<int>() { 9, 10, 11, 15 };
+            }
+            else if(status == ReportStatus.Согласование_у_исполнителя)
+            {
+                return new List<int>() { 1, 4, 6, 13, 14, 15 };
+            }
+            else 
+            {
+                return new List<int>(); 
+            }
+        }
 
         private string ConvertStatusToString(ReportStatus status)
         {
