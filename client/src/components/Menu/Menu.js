@@ -22,22 +22,22 @@ const Menu = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [a, setDorabotka] = useState([]);
+  const [countDorabotka, setDorabotka] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${REACT_APP_API_URL}/api/Statistica/getCountDorabotka`)
-        const a = response.data;
-        setDorabotka(a);
+      const response = await axios.post(`${REACT_APP_API_URL}/Statistica/getCountDorabotka`, {
+        ...getDataForRequest(),
+      });
+        const countDorabotka = response.data;
+        setDorabotka(countDorabotka);
     } catch (error) {
       console.error(error);
     }
-  };
+};
   useEffect(() => {
     fetchData();
-  }, [a]);
-
+  });
 
   const handleDownload = () => {
     axios({
@@ -99,7 +99,7 @@ const Menu = () => {
             {notification && 
             (
             <div className={"nav-link"} to="/Reports">
-              <li className="nav-item">Отчеты на доработке {a}</li>
+              <li className="nav-item">Отчеты на доработке {countDorabotka}</li>
             </div>
             )}
           </ul>
