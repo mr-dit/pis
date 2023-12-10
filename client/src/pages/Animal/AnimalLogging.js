@@ -3,6 +3,7 @@ import Menu from "../../components/Menu/Menu";
 import axios from "axios";
 import Table from "../../components/Table/Table";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -27,16 +28,10 @@ const filterOptions = [
   { label: "ФИО", value: "fio" },
   { label: "Организация", value: "orgName" },
   { label: "Логин", value: "userLogin" },
-  { label: "Дата", value: "date" },
-  { label: "Изменение ", value: "idObject" },
-  { label: "Описание изменения", value: "descObject" },
+  { label: "Дата изменения", value: "date" },
+  { label: "id животного", value: "idObject" },
+  { label: "Описание животного", value: "descObject" },
 ];
-// 1. ФИО
-// 2. Имя организации
-// 3. Логин пользователя
-// 4. Дата изменения
-// 5. ID Измененного объекта
-// 6. Описание измененного объекта
 
 const AnimalLogging = () => {
   const [journals, setJournals] = useState([]);
@@ -62,11 +57,6 @@ const AnimalLogging = () => {
       );
 
       const { journals, totalItems, totalPages } = response.data;
-      // const newOrganisations = organisations.map((i) => ({
-      //   ...i,
-      //   orgType: i.orgType.nameOrgType,
-      //   locality: i.locality.nameLocality,
-      // }));
 
       setJournals(journals);
       setTotalItems(totalItems);
@@ -78,7 +68,7 @@ const AnimalLogging = () => {
 
   useEffect(() => {
     fetchData();
-  }, [filterField, pageNumber, pageSize]);
+  }, [pageNumber, pageSize]);
 
   const [selectedRows, setSelectedRows] = useState([]);
   const handleRowSelection = (selectedRows) => {
@@ -92,7 +82,7 @@ const AnimalLogging = () => {
         selectedRows
       );
 
-        await fetchData()
+      await fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -113,7 +103,38 @@ const AnimalLogging = () => {
             ×
           </button>
         </div>
-        <button onClick={handleDelete}>Удалить записи</button>
+        <div className="filter d-flex justify-content-between mb-4 mt-3">
+          <div className="d-flex align-items-center">
+            <Select
+              isClearable
+              isSearchable
+              placeholder="Поле фильтра..."
+              options={filterOptions}
+              onChange={(val) => setFilterField(val?.value)}
+            />
+            <div className="input-group ms-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Значение фильтра..."
+                value={filterValue}
+                onChange={(e) => setFilterValue(e.target.value)}
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+              />
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                onClick={fetchData}
+              >
+                Поиск
+              </button>
+            </div>
+          </div>
+          <button className="btn btn-danger" onClick={handleDelete}>Удалить записи</button>
+        </div>
+
         <Table
           data={journals}
           headers={cols}

@@ -30,6 +30,7 @@ const cols = [
   { name: "animalName", title: "Кличка", sortName: "AnimalName" },
   { name: "photoPath", title: "Фотографии" },
   { name: "specialSigns", title: "Особые приметы" },
+  { name: "status", title: "Статус вакцины" },
 ];
 
 const filterOptions = [
@@ -38,6 +39,12 @@ const filterOptions = [
   { label: "Кличка", value: "AnimalName" },
   { label: "Населенный пункт", value: "Locality" },
 ];
+
+const vaccinationStatus = {
+  1: "Не проводилась",
+  2: "Вакцинировано",
+  3: "Приближается срок вакцинирования",
+};
 
 const AnimalComponent = () => {
   const [animals, setAnimals] = useState([]);
@@ -84,6 +91,7 @@ const AnimalComponent = () => {
         animalName: i.animalName,
         photoPath: i.photoPath,
         specialSigns: i.specialSigns,
+        status: vaccinationStatus[i.status],
       }));
 
       setAnimals(newAnimals);
@@ -105,10 +113,11 @@ const AnimalComponent = () => {
     navigate(`/Animal/Logging`);
   };
 
-
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Animal/DeleteEntry/${id}?userId=${getUserId()}`);
+      await axios.post(
+        `${REACT_APP_API_URL}/Animal/DeleteEntry/${id}?userId=${getUserId()}`
+      );
       setAnimals((prev) => prev.filter((n) => n.registrationNumber !== id));
     } catch (e) {
       alert(e);
@@ -116,6 +125,7 @@ const AnimalComponent = () => {
   };
 
   const isEdit = isRoleEdit([12, 13, 14, 15]);
+  const isLogging = isRoleEdit([15]);
 
   return (
     <div>
@@ -189,9 +199,13 @@ const AnimalComponent = () => {
           </button>
         </div>
       )}
-          <button onClick={handleLogging} className="btn btn-primary">
-            Журнал изменений
+      {isLogging && (
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-primary btn-lg" onClick={handleLogging}>
+            Реестр изменений
           </button>
+        </div>
+      )}
     </div>
   );
 };
