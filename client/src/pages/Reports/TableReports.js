@@ -63,14 +63,13 @@ const TableReports = ({
               {isEdit && (
                 <td>
                   <button onClick={handleRowChange(row[headers[0].name])}>
-                   √
+                  ✓
                   </button>
                 </td>
               )}
               {isEdit && (
                 <td>
-                  <button onClick={handleRowDelete(row[headers[0].name])}>
-                    ×
+                  <button class="btn-close" onClick={handleRowDelete(row[headers[0].name])}>
                   </button>
                 </td>
               )}
