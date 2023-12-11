@@ -8,6 +8,7 @@ const TableReports = ({
   handleDelete,
   handleCheck,
   handleSortName,
+  handleRecalculate,
   sortField = [],
 }) => {
   const [isAscending, setIsAscending] = useState(false);
@@ -24,6 +25,10 @@ const TableReports = ({
     handleCheck(registrationNumber);
   };
 
+  const handleRecalc = (registrationNumber) => {
+    handleRecalculate(registrationNumber);
+  };
+
   const handleColSortName = (value) => () => {
     handleSortName(value);
     setIsAscending((prev) => !prev);
@@ -38,7 +43,7 @@ const TableReports = ({
               <th
                 style={{ display: header.nonVisible ? "none" : "table-cell" }}
                 key={header.name}
-                onClick={
+                onClick={() =>
                   header.sortName ? handleColSortName(header.sortName) : null
                 }
               >
@@ -66,7 +71,7 @@ const TableReports = ({
               <td>
                 <button
                   className="mt-2"
-                  onClick={handleRowCheck(row[headers[0].name])}
+                  onClick={() => handleRowCheck(row[headers[0].name])}
                 >
                   <svg
                     width="24"
@@ -109,7 +114,7 @@ const TableReports = ({
                 <td>
                   <button
                     className="btn btn-light mt-2"
-                    onClick={handleRowChange(row[headers[0].name])}
+                    onClick={() => handleRecalc(row[headers[0].name])}
                   >
                     Пересчитать
                   </button>
@@ -121,7 +126,7 @@ const TableReports = ({
                 <td>
                   <button
                     className="fs-2"
-                    onClick={handleRowChange(row[headers[0].name])}
+                    onClick={() => handleRowChange(row[headers[0].name])}
                   >
                     ✓
                   </button>
@@ -129,8 +134,10 @@ const TableReports = ({
               )}
               {isRoleEdit(row.rolesAccess) && (
                 <td>
-                  <button className="mt-2 fs-4 btn-close" onClick={handleRowDelete(row[headers[0].name])}>
-                  </button>
+                  <button
+                    className="mt-2 fs-4 btn-close"
+                    onClick={() => handleRowDelete(row[headers[0].name])}
+                  ></button>
                 </td>
               )}
             </tr>

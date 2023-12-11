@@ -171,6 +171,20 @@ const ReportsPage = () => {
     }
   };
 
+  const handleRecalc = async (id) => {
+    try {
+      await axios.post(
+        `${REACT_APP_API_URL}/Statistica/recalculateReport/${id}`,
+        {
+          ...getDataForRequest(),
+        }
+      );
+      await fetchData();
+    } catch (e) {
+        console.error(e);
+    }
+  };
+
   const [idReport, setIdReport] = useState();
   const [isTableOpen, setIsTableOpen] = useState(false);
   const [table, setTable] = useState({ rows: [], cols: [] });
@@ -270,6 +284,7 @@ const ReportsPage = () => {
         handleChange={handleChange}
         handleDelete={handleDelete}
         handleCheck={handleCheck}
+        handleRecalculate={handleRecalc}
         handleSortName={(value) => {
           setSortBy(value);
           setIsAscending((prev) => !prev);
