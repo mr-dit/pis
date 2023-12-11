@@ -4,6 +4,7 @@ import axios from "axios";
 import Table from "../../components/Table/Table";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { getDataForRequest } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -47,6 +48,7 @@ const AnimalLogging = () => {
     try {
       const response = await axios.get(
         `${REACT_APP_API_URL}/JournalAnimalContolller/openJournal`,
+        getDataForRequest(),
         {
           params: {
             filterValue,

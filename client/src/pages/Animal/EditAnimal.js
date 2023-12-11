@@ -182,6 +182,7 @@ const EditAnimalForm = () => {
               labelField={"nameGender"}
               valueField={"idGender"}
               apiRoute={"Gender"}
+              disabled={isNotEdit}
             />
             {/* {console.log(genderOptions)}
             <Select
