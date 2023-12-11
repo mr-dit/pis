@@ -22,41 +22,10 @@ namespace pis_web_api.Models.get
             DateStart = report.DateStart.ToShortDateString();
             DateEnd = report.DateEnd.ToShortDateString();
             Performer = report.Performer.OrgName;
-            Status = ConvertStatusToString(report.Status);
+            Status = report.Status.Name;
             StatusUpdate = report.StatusUpdate.ToLongDateString();
             DateCreate = report.DateCreate.ToShortDateString();
-            RolesAccess = FillRolesByStatus(report.Status);
-        }
-
-        private List<int> FillRolesByStatus(ReportStatus status)
-        {
-            if(status == ReportStatus.Черновик || status == ReportStatus.Доработка || status == ReportStatus.Согласован_у_исполнителя)
-            {
-                return new List<int>() { 9, 10, 11, 15 };
-            }
-            else if(status == ReportStatus.Согласование_у_исполнителя)
-            {
-                return new List<int>() { 1, 4, 6, 13, 14, 15 };
-            }
-            else 
-            {
-                return new List<int>(); 
-            }
-        }
-
-        private string ConvertStatusToString(ReportStatus status)
-        {
-            if (status == ReportStatus.Черновик)
-                return "Черновик";
-            else if (status == ReportStatus.Доработка)
-                return "Доработка";
-            else if (status == ReportStatus.Согласован_в_ОМСУ)
-                return "Согласован в ОМСУ";
-            else if (status == ReportStatus.Согласован_у_исполнителя)
-                return "Согласован у исполнителя";
-            else if (status == ReportStatus.Согласование_у_исполнителя)
-                return "Согласование у исполнителя";
-            else throw new Exception("Некорректный статус");
+            RolesAccess = report.Status.AccesRoles.Select(x => x.IdRole).ToList();
         }
     }
 }

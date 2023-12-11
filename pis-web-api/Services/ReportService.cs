@@ -186,7 +186,7 @@ namespace pis_web_api.Services
         public int GetCountDorabotka(int id)
         {
             var count = _repostitoryReport.db.Reports
-                .Where(x => x.Status == ReportStatus.Доработка)
+                .Where(x => x.StatusName == "Доработка")
                 .Count();
             return count;
         }

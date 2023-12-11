@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using pis_web_api.Models.db;
+using pis_web_api.Models.db.ReportStates;
 
 namespace pis
 {
@@ -37,15 +38,6 @@ namespace pis
                 .HasOne(x => x.Performer)
                 .WithMany(x => x.ContractsAsPerformer)
                 .HasForeignKey(x => x.PerformerId);
-
-            //modelBuilder.Entity<User>()
-            //    .HasMany(x => x.Roles)
-            //    .WithMany(x => x.)
-
-            //modelBuilder.Entity<Contract>()
-            //    .HasMany(x => x.Localities)
-            //    .WithMany(x => x.Contract)
-            //    .UsingEntity(x => x.ToTable("LocalitiesListForContract"));
 
             modelBuilder.Entity<Role>()
                 .HasIndex(x => x.NameRole)
@@ -98,5 +90,6 @@ namespace pis
         public DbSet<Report> Reports { get; set; }
         public DbSet<StatisticaHolder> StatisticaHolder { get; set; }
         public DbSet<StatisticItem> StatisticItems { get; set; }
+
     }
 }

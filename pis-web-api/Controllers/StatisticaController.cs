@@ -33,6 +33,7 @@ namespace pis.Controllers
         private LocalityService _localityService;
         private VaccineService _vaccineService;
         private ReportService _reportService;
+        private RoleService _roleService;
 
         public StatisticaController(ILogger<StatisticaController> logger, IWebHostEnvironment appEnvironment)
         {
@@ -43,6 +44,7 @@ namespace pis.Controllers
             _localityService = new LocalityService();
             _vaccineService = new VaccineService();
             _reportService = new ReportService();
+            _roleService = new RoleService();
         }
 
         [HttpPost("openRegister")]
@@ -54,12 +56,12 @@ namespace pis.Controllers
             List<Report> reports;
             int totalItems;
 
-            if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+            if (_roleService.UserIsOmsu(user))
             {
                 (reports, totalItems) = _reportService.GetAllReports(startDateFilter, endDateFilter, filterField,
                     filterValue, sortBy, isAscending, pageNumber, pageSize);
             }
-            else if (user.Roles.Intersect(new List<int>() { 1, 4, 6, 13, 14, 15 }).Count() != 0)
+            else if (_roleService.UserIsVet(user))
             {
                 (reports, totalItems) = _reportService.GetReportsByOrg(startDateFilter, endDateFilter, filterField,
                     filterValue, sortBy, isAscending, pageNumber, pageSize, user.OrganisationId);
@@ -98,7 +100,7 @@ namespace pis.Controllers
             {
                 return BadRequest("Дата начала больше даты конца");
             }
-            if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+            if (_roleService.UserIsOmsu(user))
             {
                 var statisticaHolders = _reportService.GetReportItems(dateStart, dateEnd, orgId);
                 var report = new Report(statisticaHolders, dateStart, dateEnd, orgId);
@@ -124,101 +126,41 @@ namespace pis.Controllers
         [HttpPost("confirm/{id}")]
         public IActionResult Confirm([FromBody] UserPost user, int id)
         {
-            var report = _reportService.GetReport(id);
-            if (report.Status == ReportStatus.Черновик || report.Status == ReportStatus.Доработка)
+            try
             {
-                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
-                {
-                    report.ChangeStatusToSoglasovanieUPodpisanta();
-                    _reportService.ChangeEntry(report);
-                    return Ok();
-                }
-                else
-                {
-                    return Forbid();
-                }
+                var report = _reportService.GetReport(id);
+                report.Status.Confirm(user);
+                _reportService.ChangeEntry(report);
+                return Ok();
             }
-            else if (report.Status == ReportStatus.Согласование_у_исполнителя)
+            catch (UnauthorizedAccessException)
             {
-                if (user.Roles.Intersect(new List<int>() { 1, 4, 6, 13, 14, 15 }).Count() != 0)
-                {
-                    report.ChangeStatusToSoglasovanUPodpisanta();
-                    _reportService.ChangeEntry(report);
-                    return Ok();
-                }
-                else
-                {
-                    return Forbid();
-                }
+                return Forbid("Недостаточно прав!");
             }
-            else if (report.Status == ReportStatus.Согласован_у_исполнителя)
+            catch (Exception ex)
             {
-                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
-                {
-                    report.ChangeStatusToSoglasovanUOMSU();
-                    _reportService.ChangeEntry(report);
-                    return Ok();
-                }
-                else
-                {
-                    return Forbid();
-                }
+                return BadRequest(ex.Message);
             }
-            else if (report.Status == ReportStatus.Согласован_в_ОМСУ)
-            {
-                return BadRequest("Невозможно подтвердить со статусом <Согласован в ОМСУ>");
-            }
-            
-            return BadRequest("Некорректный статус");
         }
 
         [HttpPost("cancel/{id}")]
         public IActionResult Cancel([FromBody] UserPost user, int id)
         {
-            var report = _reportService.GetReport(id);
-            if (report.Status == ReportStatus.Согласован_в_ОМСУ)
+            try
             {
-                return BadRequest("Невозможно отменить со статусом <Согласован в ОМСУ>");
+                var report = _reportService.GetReport(id);
+                report.Status.Cancel(user);
+                _reportService.ChangeEntry(report);
+                return Ok();
             }
-            if (report.Status == ReportStatus.Черновик || report.Status == ReportStatus.Доработка)
+            catch (UnauthorizedAccessException) 
             {
-                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
-                {
-                    _reportService.DeleteEntry(id);
-                    return Ok();
-                }
-                else
-                {
-                    return Forbid();
-                }
+                return Forbid("Недостаточно прав!");
             }
-            else if (report.Status == ReportStatus.Согласование_у_исполнителя)
+            catch (Exception ex)
             {
-                if (user.Roles.Intersect(new List<int>() { 1, 4, 6, 13, 14, 15 }).Count() != 0)
-                {
-                    report.ChangeStatusToDorabotka();
-                    _reportService.ChangeEntry(report);
-                    return Ok();
-                }
-                else
-                {
-                    return Forbid();
-                }
+                return BadRequest(ex.Message);
             }
-            else if (report.Status == ReportStatus.Согласован_у_исполнителя)
-            {
-                if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
-                {
-                    report.ChangeStatusToDorabotka();
-                    _reportService.ChangeEntry(report);
-                    return Ok();
-                }
-                else
-                {
-                    return Forbid();
-                }
-            }
-            return BadRequest("Некорректный статус");
         }
 
         [HttpPost("getCountDorabotka")]
@@ -231,7 +173,7 @@ namespace pis.Controllers
         public IActionResult RecalculateReport([FromBody] UserPost user, int id)
         {
             var report = _reportService.GetReport(id);
-            if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
+            if (_roleService.UserIsOmsu(user))
             {
                 _reportService.DeleteStatistica(report);
                 var statisticaHolders = _reportService.GetReportItems(report.DateStart, report.DateEnd, report.PerformerId);

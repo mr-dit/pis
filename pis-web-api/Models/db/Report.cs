@@ -1,5 +1,8 @@
 ﻿using NUnit.Framework;
+using pis_web_api.Models.db.ReportStates;
+using pis_web_api.References;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pis_web_api.Models.db
 {
@@ -7,8 +10,23 @@ namespace pis_web_api.Models.db
     {
         [Key]
         public int Id { get; set; }
+        public string StatusName { get; private set; }
 
-        public ReportStatus Status { get; set; }
+        private ReportStatusAbstract? status;
+        [NotMapped]
+        public ReportStatusAbstract Status { 
+            get
+            {
+                status ??= StatusReferences.GetStatusByName(StatusName, this);
+                return status;
+            }
+            set
+            {
+                status = value;
+                StatusName = status.Name;
+            }
+        }
+
         public DateTime StatusUpdate { get; set; }
         public DateTime DateCreate { get; set; }
 
@@ -26,39 +44,20 @@ namespace pis_web_api.Models.db
             DateStart = dateStart;
             DateEnd = dateEnd;
             PerformerId = orgId;
-            Status = ReportStatus.Черновик;
+            Status = new DraftStatus(this);
             StatusUpdate = DateTime.Now;
             DateCreate = DateTime.Now;
         }
 
-        public void ChangeStatusToSoglasovanieUPodpisanta()
+        public void ChangeStatus(ReportStatusAbstract status)
         {
-            Status = ReportStatus.Согласование_у_исполнителя;
-            StatusUpdate = DateTime.Now;
-        }
-
-        public void ChangeStatusToSoglasovanUPodpisanta()
-        {
-            Status = ReportStatus.Согласован_у_исполнителя;
-            StatusUpdate = DateTime.Now;
-        }
-
-        public void ChangeStatusToSoglasovanUOMSU()
-        {
-            Status = ReportStatus.Согласован_в_ОМСУ;
-            StatusUpdate = DateTime.Now;
-        }
-
-        public void ChangeStatusToDorabotka()
-        {
-            Status = ReportStatus.Доработка;
+            Status = status;
             StatusUpdate = DateTime.Now;
         }
 
         public void Update(List<StatisticaHolder> statisticaHolders)
         {
             StatisticaHolders = statisticaHolders;
-
         }
     }
 }
