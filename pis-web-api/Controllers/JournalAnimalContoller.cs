@@ -18,7 +18,7 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("openJournal")]
-        public IActionResult OpenJournal(string filterValue = "", string filterField = "", int pageNumber = 1, int pageSize = 10) 
+        public IActionResult OpenJournal([FromBody] UserPost user, string filterValue = "", string filterField = "", int pageNumber = 1, int pageSize = 10) 
         {
             var (journals, count) = _journalService.GetJournals(filterValue, filterField, pageNumber, pageSize, TableNames.Животные);
             var converter = new JournalConverter();
