@@ -36,11 +36,11 @@ namespace pis.Controllers
             List<Organisation> organisations;
             int totalItems;
 
-            if (user.Roles.Intersect(new List<int>() { 1, 2, 3, 6, 7, 8, 15 }).Count() != 0)
+            if (user.Roles.Intersect(new List<int>() { 1, 2, 3, 6, 7, 8, 9, 10, 11, 15 }).Count() != 0)
             {
                 (organisations, totalItems) = _organisationService.GetOrganisations(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             }
-            else if (user.Roles.Intersect(new List<int>() { 9, 11, 13,  }).Count() != 0)
+            else if (user.Roles.Intersect(new List<int>() { 9, 11, 13 }).Count() != 0)
             {
                 (organisations, totalItems) = _organisationService.GetOrganisationsByOrg(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize, user);
             }
