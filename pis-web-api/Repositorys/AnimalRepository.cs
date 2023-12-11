@@ -20,18 +20,15 @@ namespace pis.Repositorys
 
         private (List<Animal>, int) GetAnimalsByValue(Func<Animal, bool> value, int pageNumber, int pageSize, string sortBy, bool isAscending)
         {
-            using (Context db = new Context())
-            {
-                var allAnimals = db.Animals
-                    .Include(x => x.Locality)
-                    .Include(x => x.AnimalCategory)
-                    .Include(x => x.Gender)
-                    .Include(x => x.Vaccinations)
-                    .Where(value)
-                    .SortBy(sortBy, isAscending);
-                var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-                return (animals, allAnimals.Count());
-            }
+            var allAnimals = db.Animals
+                .Include(x => x.Locality)
+                .Include(x => x.AnimalCategory)
+                .Include(x => x.Gender)
+                .Include(x => x.Vaccinations)
+                .Where(value)
+                .SortBy(sortBy, isAscending);
+            var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return (animals, allAnimals.Count());
         }
 
         private (List<Animal>, int) GetAnimalsByValue(Func<Animal, bool> value, int pageNumber, int pageSize, 
@@ -42,19 +39,18 @@ namespace pis.Repositorys
                 .Where(x => x.Contract.CustomerId == user.OrganisationId)
                 .Select(x => x.AnimalId);
 
-            using (Context db = new Context())
-            {
-                var allAnimals = db.Animals
-                    .Where(x => animalIds.Contains(x.RegistrationNumber))
-                    .Include(x => x.Locality)
-                    .Include(x => x.AnimalCategory)
-                    .Include(x => x.Gender)
-                    .Include(x => x.Vaccinations)
-                    .Where(value)
-                    .SortBy(sortBy, isAscending);
-                var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-                return (animals, allAnimals.Count());
-            }
+            
+            var allAnimals = db.Animals
+                .Where(x => animalIds.Contains(x.RegistrationNumber))
+                .Include(x => x.Locality)
+                .Include(x => x.AnimalCategory)
+                .Include(x => x.Gender)
+                .Include(x => x.Vaccinations)
+                .Where(value)
+                .SortBy(sortBy, isAscending);
+            var animals = allAnimals.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return (animals, allAnimals.Count());
+            
         }
 
         public (List<Animal>, int) GetAnimalsByAnimalCategory(
@@ -121,17 +117,14 @@ namespace pis.Repositorys
 
         public override Animal GetById(int id)
         {
-            using (var db = new Context())
-            {
-                var animal = db.Animals
-                    .Where(x => x.RegistrationNumber == id)
-                    .Include(x => x.Gender)
-                    .Include(x => x.AnimalCategory)
-                    .Include(x => x.Locality)
-                    .Include(x => x.Vaccinations)
-                    .Single();
-                return animal;
-            }
+            var animal = db.Animals
+                .Where(x => x.RegistrationNumber == id)
+                .Include(x => x.Gender)
+                .Include(x => x.AnimalCategory)
+                .Include(x => x.Locality)
+                .Include(x => x.Vaccinations)
+                .Single();
+            return animal;
         }
     }
 
