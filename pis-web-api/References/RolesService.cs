@@ -1,9 +1,9 @@
 ﻿using pis.Repositorys;
 using pis_web_api.Models.db;
 
-namespace pis_web_api.Services
+namespace pis_web_api.References
 {
-    public class RolesService
+    public static class RolesReferences
     {
         private static Lazy<Role> kurator_vetservice = new Lazy<Role>(()
             => RoleRepository.GetRoleByName("Куратор ВетСлужбы"));
