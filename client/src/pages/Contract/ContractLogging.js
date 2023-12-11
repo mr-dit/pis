@@ -4,6 +4,7 @@ import Table from "../../components/Table/Table";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Select from "react-select";
+import { getDataForRequest } from "../../helpers";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -45,8 +46,9 @@ const ContractLogging = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${REACT_APP_API_URL}/JournalContractContolller/openJournal`,
+				getDataForRequest(),
         {
           params: {
             filterValue,

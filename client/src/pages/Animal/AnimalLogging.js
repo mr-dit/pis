@@ -46,7 +46,7 @@ const AnimalLogging = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${REACT_APP_API_URL}/JournalAnimalContolller/openJournal`,
         getDataForRequest(),
         {
