@@ -232,6 +232,7 @@ namespace pis.Controllers
                 _reportService.DeleteStatistica(report);
                 var statisticaHolders = _reportService.GetReportItems(report.DateStart, report.DateEnd, report.PerformerId);
                 report.Update(statisticaHolders);
+                report.ChangeStatusToSoglasovanieUPodpisanta();
                 _reportService.ChangeEntry(report);
                 return Ok();
             }
