@@ -11,9 +11,9 @@ const Table = ({
   isEdit = false,
   isDelete = false,
   onRowSelect = () => {},
+  selRow = [],
 }) => {
   const [isAscending, setIsAscending] = useState(false);
-  const [selectedRows, setSelectedRows] = useState([]);
 
   const handleRowChange = (registrationNumber) => () => {
     handleChange(registrationNumber);
@@ -29,32 +29,33 @@ const Table = ({
   };
 
   const handleSelectAll = () => {
-    if (!selectedRows.length) {
+    if (!selRow.length) {
       const allRegistrationNumbers = data.map((row) => {
         return row.id;
       });
-      setSelectedRows(allRegistrationNumbers);
+      onRowSelect(allRegistrationNumbers);
     } else {
-      setSelectedRows([]);
+      onRowSelect([]);
     }
   };
 
   const handleCheckboxChange = (registrationNumber) => (e) => {
     if (e.target.checked) {
-      setSelectedRows((prevSelectedRows) => [
+      onRowSelect((prevSelectedRows) => [
         ...prevSelectedRows,
         registrationNumber,
       ]);
     } else {
-      setSelectedRows((prevSelectedRows) =>
+      onRowSelect((prevSelectedRows) =>
         prevSelectedRows.filter((row) => row !== registrationNumber)
       );
     }
   };
 
   useEffect(() => {
-    onRowSelect(selectedRows);
-  }, [selectedRows]);
+    // Используем значение из пропсов напрямую
+    onRowSelect(selRow);
+  }, [selRow]);
 
   return (
     <>
@@ -93,7 +94,7 @@ const Table = ({
                   <input
                     style={{ height: "49px", width: "20px" }}
                     type="checkbox"
-                    checked={selectedRows.includes(row[headers[0].name])}
+                    checked={selRow.includes(row[headers[0].name])}
                     onChange={handleCheckboxChange(row[headers[0].name])}
                   />
                 </td>

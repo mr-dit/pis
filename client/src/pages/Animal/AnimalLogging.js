@@ -82,8 +82,9 @@ const AnimalLogging = () => {
         `${REACT_APP_API_URL}/JournalAnimalContolller/deleteJournals`,
         selectedRows
       );
-
+      setSelectedRows([]);
       await fetchData();
+      handleRowSelection([]);
     } catch (error) {
       console.error(error);
     }
@@ -133,7 +134,9 @@ const AnimalLogging = () => {
               </button>
             </div>
           </div>
-          <button className="btn btn-danger" onClick={handleDelete}>Удалить выбранные записи</button>
+          <button className="btn btn-danger" onClick={handleDelete}>
+            Удалить выбранные записи
+          </button>
         </div>
 
         <Table
@@ -141,6 +144,7 @@ const AnimalLogging = () => {
           headers={cols}
           isDelete
           sortField={""}
+          selRow={selectedRows}
           onRowSelect={handleRowSelection}
         />
       </div>

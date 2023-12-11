@@ -133,9 +133,9 @@ const EditContractsForm = () => {
     }
   };
 
-  const createDate = () => {
-    
-  }
+  const createDate = (conclusionDate, expirationDate) => {
+    return [dayjs(conclusionDate), dayjs(expirationDate)];
+  };
 
   const isNotEdit = !isRoleEdit([10, 15]);
 
@@ -185,6 +185,10 @@ const EditContractsForm = () => {
             Даты заключения и окончания контракта
             <RangePicker
               size="large"
+              value={createDate(
+                contractsData.conclusionDate,
+                contractsData.expirationDate
+              )}
               placeholder={["Начало", "Конец"]}
               onChange={handleDate}
               showToday

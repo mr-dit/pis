@@ -34,69 +34,69 @@ const filterOptions = [
   { label: "Описание изменения", value: "descObject" },
 ];
 
-  const LoggingOrganisation = () => {
-    const [journals, setJournals] = useState([]);
-    const [filterValue, setFilterValue] = useState("");
-    const [filterField, setFilterField] = useState("");
-    const [pageNumber, setPageNumber] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
-    const [totalItems, setTotalItems] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
-  
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${REACT_APP_API_URL}/JournalOrganisationContolller/openJournal`,
-          {
-            params: {
-              filterValue,
-              filterField,
-              pageNumber,
-              pageSize,
-            },
-          }
-        );
-  
-        const { journals, totalItems, totalPages } = response.data;
-  
-        setJournals(journals);
-        setTotalItems(totalItems);
-        setTotalPages(totalPages);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    useEffect(() => {
-      fetchData();
-    }, [pageNumber, pageSize]);
-  
-    const [selectedRows, setSelectedRows] = useState([]);
-    const handleRowSelection = (selectedRows) => {
-      setSelectedRows(selectedRows);
-    };
-  
-    const handleDelete = async () => {
-      try {
-        await axios.post(
-          `${REACT_APP_API_URL}/JournalOrganisationContolller/deleteJournals`,
-          selectedRows
-        );
-  
-        await fetchData();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    const navigate = useNavigate();
-    const toMainPage = () => {
-      navigate("/Organisation");
-    };
+const LoggingOrganisation = () => {
+  const [journals, setJournals] = useState([]);
+  const [filterValue, setFilterValue] = useState("");
+  const [filterField, setFilterField] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${REACT_APP_API_URL}/JournalOrganisationContolller/openJournal`,
+        {
+          params: {
+            filterValue,
+            filterField,
+            pageNumber,
+            pageSize,
+          },
+        }
+      );
+
+      const { journals, totalItems, totalPages } = response.data;
+
+      setJournals(journals);
+      setTotalItems(totalItems);
+      setTotalPages(totalPages);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [pageNumber, pageSize]);
+
+  const [selectedRows, setSelectedRows] = useState([]);
+  const handleRowSelection = (selectedRows) => {
+    setSelectedRows(selectedRows);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.post(
+        `${REACT_APP_API_URL}/JournalOrganisationContolller/deleteJournals`,
+        selectedRows
+      );
+      setSelectedRows([]);
+      await fetchData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const navigate = useNavigate();
+  const toMainPage = () => {
+    navigate("/Organisation");
+  };
 
   return (
     <>
-    <div>
+      <div>
         <Menu />
         <div className="d-flex justify-content-between mt-3 mb-2">
           <h1>Журнал изменений</h1>
@@ -133,13 +133,16 @@ const filterOptions = [
               </button>
             </div>
           </div>
-          <button className="btn btn-danger" onClick={handleDelete}>Удалить выбранные записи</button>
+          <button className="btn btn-danger" onClick={handleDelete}>
+            Удалить выбранные записи
+          </button>
         </div>
 
         <Table
           data={journals}
           headers={cols}
           isDelete
+          selRow={selectedRows}
           sortField={""}
           onRowSelect={handleRowSelection}
         />
@@ -165,7 +168,7 @@ const filterOptions = [
         </div>
       )}
     </>
-    );
+  );
 };
 
 export default LoggingOrganisation;

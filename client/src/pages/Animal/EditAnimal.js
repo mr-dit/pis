@@ -125,6 +125,10 @@ const EditAnimalForm = () => {
     }
   };
 
+  const onChangeVaccinations = async () => {
+    await fetchData();
+  };
+
   const toMainPage = () => {
     navigate("/Animal");
   };
@@ -260,7 +264,9 @@ const EditAnimalForm = () => {
           </div>
         )}
       </form>
-      {!isNotEdit && <Vaccine vaccinations={vaccinations} />}
+      {!isNotEdit && (
+        <Vaccine vaccinations={vaccinations} onChange={onChangeVaccinations} />
+      )}
     </>
   );
 };

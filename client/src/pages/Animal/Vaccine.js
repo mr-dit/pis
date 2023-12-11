@@ -24,7 +24,7 @@ const createOption = (label, id) => ({
   value: id,
 });
 
-const Vaccine = ({ vaccinations }) => {
+const Vaccine = ({ vaccinations, onChange }) => {
   const { id } = useParams();
   const [value, setValue] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -77,6 +77,8 @@ const Vaccine = ({ vaccinations }) => {
       await axios.post(
         `${REACT_APP_API_URL}/Vaccination/add/${id}/${vaccination.vaccineId}/${vaccination.contractId}/${userId}/${vaccination.vaccineSeries}`
       );
+      setIsVisible(false)
+      onChange()
     } catch (error) {
       alert("Отказано в доступе");
       console.error(error);
