@@ -21,6 +21,7 @@ namespace pis.Controllers
         private readonly IWebHostEnvironment _appEnvironment;
         private AnimalService animalService;
         private JournalService journalService;
+        private UserService userService;
 
         public AnimalController(ILogger<AnimalController> logger, IWebHostEnvironment appEnvironment)
         {
@@ -28,6 +29,7 @@ namespace pis.Controllers
             _appEnvironment = appEnvironment;
             animalService = new AnimalService();
             journalService = new JournalService();
+            userService = new UserService();
         }
 
         [HttpPost("OpensRegister")]
@@ -84,65 +86,93 @@ namespace pis.Controllers
         [HttpPost("AddEntry")]
         public IActionResult AddEntry([FromBody] AnimalPost animalPost, int userId)
         {
-            if (ModelState.IsValid)
+            var user = userService.GetEntry(userId);
+            var userGet = user.ConvertToUserGet();
+            if (userGet.Roles.Intersect(new List<int>() { 12, 13, 14, 15 }).Count() != 0)
             {
-                var animal = animalPost.ConvertToAnimal();
-
-                bool status = animalService.AddEntry(animal);
-
-                if (status)
+                if (ModelState.IsValid)
                 {
-                    journalService.JournalAddAnimal(userId, animal.RegistrationNumber);
-                    return Ok(animal.RegistrationNumber);
+                    var animal = animalPost.ConvertToAnimal();
+
+                    bool status = animalService.AddEntry(animal);
+
+                    if (status)
+                    {
+                        journalService.JournalAddAnimal(userId, animal.RegistrationNumber);
+                        return Ok(animal.RegistrationNumber);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to add animal entry.");
+                    }
                 }
                 else
                 {
-                    return BadRequest("Failed to add animal entry.");
+                    return BadRequest();
                 }
             }
             else
             {
-                return BadRequest();
+                return Forbid("Недостаточно прав!");
             }
         }
 
         [HttpPost("DeleteEntry/{id}")]
         public IActionResult DeleteEntry(int id, int userId)
         {
-            journalService.JournalDeleteAnimal(userId, id);
-            var status = animalService.DeleteEntry(id);
+            var user = userService.GetEntry(userId);
+            var userGet = user.ConvertToUserGet();
 
-            if (status)
+            if(userGet.Roles.Intersect(new List<int>() { 12, 13, 14, 15 }).Count() != 0)
             {
-                return Ok($"Animal with ID {id} has been deleted.");
+                journalService.JournalDeleteAnimal(userId, id);
+                var status = animalService.DeleteEntry(id);
+
+                if (status)
+                {
+                    return Ok($"Animal with ID {id} has been deleted.");
+                }
+                else
+                {
+                    return BadRequest($"Failed to delete animal entry with ID {id}");
+                }
             }
             else
             {
-                return BadRequest($"Failed to delete animal entry with ID {id}");
+                return Forbid("Недостаточно прав!");
             }
         }
 
         [HttpPost("ChangeEntry/{id}")]
         public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost, int userId)
         {
-            if (ModelState.IsValid)
+            var user = userService.GetEntry(userId);
+            var userGet = user.ConvertToUserGet();
+            if(userGet.Roles.Intersect(new List<int>() { 12, 13, 14, 15 }).Count() != 0)
             {
-                var animal = animalPost.ConvertToAnimalWithId(id);
-                bool status = animalService.ChangeEntry(animal);
-
-                if (status)
+                if (ModelState.IsValid)
                 {
+                    var animal = animalPost.ConvertToAnimalWithId(id);
+                    bool status = animalService.ChangeEntry(animal);
 
-                    journalService.JournalEditAnimal(userId, id);
-                    return Ok($"Animal with ID {id} has been updated.");
+                    if (status)
+                    {
+
+                        journalService.JournalEditAnimal(userId, id);
+                        return Ok($"Animal with ID {id} has been updated.");
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update animal entry.");
+                    }
                 }
-                else
-                {
-                    return BadRequest("Failed to update animal entry.");
-                }
+
+                return BadRequest(ModelState);
             }
-
-            return BadRequest(ModelState);
+            else
+            {
+                return Forbid("Недостаточно прав!");
+            }
         }
     }
 }

@@ -18,26 +18,33 @@ namespace pis_web_api.Controllers
         }
 
         [HttpGet("openJournal")]
-        public IActionResult OpenJournal(string filterValue = "", string filterField = "", int pageNumber = 1, int pageSize = 10) 
+        public IActionResult OpenJournal([FromBody] UserPost user, string filterValue = "", string filterField = "", int pageNumber = 1, int pageSize = 10) 
         {
-            var (journals, count) = _journalService.GetJournals(filterValue, filterField, pageNumber, pageSize, TableNames.Животные);
-            var converter = new JournalConverter();
-            var journalsGet = converter.ToGet(journals);
-
-            var totalPages = (int)Math.Ceiling((double)count / pageSize);
-
-            var result = new
+            if(user.Roles.Intersect(new List<int>() { 15 }).Count() != 0)
             {
-                FilterValue = filterValue,
-                FilterField = filterField,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalItems = count,
-                TotalPages = totalPages,
-                Journals = journalsGet
-            };
+                var (journals, count) = _journalService.GetJournals(filterValue, filterField, pageNumber, pageSize, TableNames.Животные);
+                var converter = new JournalConverter();
+                var journalsGet = converter.ToGet(journals);
 
-            return Ok(result);
+                var totalPages = (int)Math.Ceiling((double)count / pageSize);
+
+                var result = new
+                {
+                    FilterValue = filterValue,
+                    FilterField = filterField,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    TotalItems = count,
+                    TotalPages = totalPages,
+                    Journals = journalsGet
+                };
+
+                return Ok(result);
+            }
+            else
+            {
+                return Forbid("Недостаточно прав");
+            }
         }
 
         [HttpPost("deleteJournals")]
