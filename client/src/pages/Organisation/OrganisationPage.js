@@ -108,6 +108,7 @@ const OrganisationPage = () => {
   };
 
   const isEdit = isRoleEdit([4, 10, 15]);
+  const isLogging = isRoleEdit([15]);
 
   return (
     <div>
@@ -179,11 +180,13 @@ const OrganisationPage = () => {
           </button>
         </div>
       )}
-      <div className="d-flex justify-content-end">
-        <button className="btn btn-primary btn-lg" onClick={handleLogging}>
-          Реестр изменений
-        </button>
-      </div>
+      {isLogging && (
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-primary btn-lg" onClick={handleLogging}>
+            Реестр изменений
+          </button>
+        </div>
+      )}
     </div>
   );
 };

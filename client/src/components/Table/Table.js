@@ -71,7 +71,7 @@ const Table = ({
               <th
                 style={{ display: header.nonVisible ? "none" : "table-cell" }}
                 key={header.name}
-                onClick={() =>
+                onClick={
                   header.sortName ? handleColSortName(header.sortName) : null
                 }
               >
@@ -108,7 +108,7 @@ const Table = ({
               ))}
               {isEdit && (
                 <td>
-                  <button onClick={() => handleRowChange(row[headers[0].name])}>
+                  <button onClick={handleRowChange(row[headers[0].name])}>
                     <svg
                       width="24"
                       strokeWidth="1.5"
@@ -149,7 +149,7 @@ const Table = ({
               )}
               {isEdit && (
                 <td>
-                  <button onClick={() => handleRowDelete(row[headers[0].name])}>
+                  <button onClick={handleRowDelete(row[headers[0].name])}>
                     <svg
                       style={{ color: "red" }}
                       xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +175,7 @@ const Table = ({
               )}
               {!isEdit && !isDelete && (
                 <td>
-                  <button onClick={() => handleRowChange(row[headers[0].name])}>
+                  <button onClick={handleRowChange(row[headers[0].name])}>
                     <img
                       style={{ width: "30px", height: "32px" }}
                       src={lupa}

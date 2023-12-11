@@ -15,7 +15,7 @@ const cols = [
   {
     name: "id",
     title: "id",
-    nonVisible: true,
+    // nonVisible: true,
   },
   { name: "dateStart", title: "Дата начала", sortName: "dateStart" },
   {

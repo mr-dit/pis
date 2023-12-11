@@ -260,7 +260,7 @@ const EditAnimalForm = () => {
           </div>
         )}
       </form>
-      <Vaccine vaccinations={vaccinations} />
+      {!isNotEdit && <Vaccine vaccinations={vaccinations} />}
     </>
   );
 };

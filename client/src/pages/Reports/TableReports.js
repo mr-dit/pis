@@ -71,7 +71,7 @@ const TableReports = ({
               <td>
                 <button
                   className="mt-2"
-                  onClick={() => handleRowCheck(row[headers[0].name])}
+                  onClick={handleRowCheck(row[headers[0].name])}
                 >
                   <svg
                     width="24"
@@ -126,7 +126,7 @@ const TableReports = ({
                 <td>
                   <button
                     className="fs-2"
-                    onClick={() => handleRowChange(row[headers[0].name])}
+                    onClick={handleRowChange(row[headers[0].name])}
                   >
                     ✓
                   </button>
@@ -136,7 +136,7 @@ const TableReports = ({
                 <td>
                   <button
                     className="mt-2 fs-4 btn-close"
-                    onClick={() => handleRowDelete(row[headers[0].name])}
+                    onClick={handleRowDelete(row[headers[0].name])}
                   ></button>
                 </td>
               )}

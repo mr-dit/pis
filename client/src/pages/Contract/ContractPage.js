@@ -111,7 +111,9 @@ const ContractPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`${REACT_APP_API_URL}/Contract/DeleteEntry/${id}?userId=${getUserId()}`);
+      await axios.post(
+        `${REACT_APP_API_URL}/Contract/DeleteEntry/${id}?userId=${getUserId()}`
+      );
       setOrganisations((prev) => prev.filter((n) => n.orgId !== id));
     } catch (e) {
       alert(e);
@@ -131,6 +133,7 @@ const ContractPage = () => {
   };
 
   const isEdit = isRoleEdit([10, 15]);
+  const isLogging = isRoleEdit([15]);
 
   return (
     <div>
@@ -216,11 +219,13 @@ const ContractPage = () => {
           </button>
         </div>
       )}
-      <div className="d-flex justify-content-end">
-        <button className="btn btn-primary btn-lg" onClick={handleLogging}>
-          Реестр изменений
-        </button>
-      </div>
+      {isLogging && (
+        <div className="d-flex justify-content-end">
+          <button className="btn btn-primary btn-lg" onClick={handleLogging}>
+            Реестр изменений
+          </button>
+        </div>
+      )}
     </div>
   );
 };

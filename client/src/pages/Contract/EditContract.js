@@ -133,6 +133,10 @@ const EditContractsForm = () => {
     }
   };
 
+  const createDate = () => {
+    
+  }
+
   const isNotEdit = !isRoleEdit([10, 15]);
 
   return (
