@@ -94,6 +94,10 @@ namespace pis.Controllers
         [HttpPost("createReport/{dateStart}/{dateEnd}/{orgId}")]
         public IActionResult CreateReport([FromBody] UserPost user, DateOnly dateStart, DateOnly dateEnd, int orgId)
         {
+            if(dateStart > dateEnd)
+            {
+                return BadRequest("Дата начала больше даты конца");
+            }
             if (user.Roles.Intersect(new List<int>() { 9, 10, 11, 15 }).Count() != 0)
             {
                 var statisticaHolders = _reportService.GetReportItems(dateStart, dateEnd, orgId);
