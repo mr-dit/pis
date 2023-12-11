@@ -17,7 +17,7 @@ namespace pis_web_api.Controllers
             _journalService = new JournalService();
         }
 
-        [HttpGet("openJournal")]
+        [HttpPost("openJournal")]
         public IActionResult OpenJournal([FromBody] UserPost user, string filterValue = "", string filterField = "", int pageNumber = 1, int pageSize = 10) 
         {
             if (user.Roles.Intersect(new List<int>() { 15 }).Count() != 0)
