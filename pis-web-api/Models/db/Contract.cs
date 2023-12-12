@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Contracts;
 using NUnit.Framework;
 using pis.Repositorys;
 using pis.Services;
@@ -9,7 +10,7 @@ using pis_web_api.Services;
 
 namespace pis_web_api.Models.db
 {
-    public class Contract
+    public class Contract : IJurnable
     {
         [Key]
         public int IdContract { get; set; }
@@ -24,6 +25,11 @@ namespace pis_web_api.Models.db
 
         public List<LocalitisListForContract>? Localities { get; set; }
         public List<Vaccination>? Vaccinations { get; set; }
+
+        [NotMapped]
+        public int Id => IdContract;
+        [NotMapped]
+        public static TableNames TableName { get => TableNames.Контракты; }
 
         public Contract() { }
         public Contract(DateOnly conclusionDate, DateOnly expirationDate, Organisation customer, Organisation performer)
@@ -94,6 +100,19 @@ namespace pis_web_api.Models.db
                     this.AddLocalitisList(localityPricePair.LocalityId, localityPricePair.Price);
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            string localitiesDescription = Localities != null
+                ? string.Join(", ", Localities.Select(l => $"{l.LocalityId}:{l.Price}"))
+                : "No localities";
+            string description = $"{ConclusionDate}; " +
+            $"{ExpirationDate}; " +
+                                 $"{PerformerId}; " +
+                                 $"{CustomerId}; " +
+                                 $"{localitiesDescription};";
+            return description;
         }
     }
 }

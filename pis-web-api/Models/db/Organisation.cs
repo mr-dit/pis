@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using NUnit.Framework;
 using pis.Services;
 using pis_web_api.Models.post;
@@ -9,7 +10,7 @@ using pis_web_api.Services;
 
 namespace pis_web_api.Models.db
 {
-    public class Organisation
+    public class Organisation : IJurnable
     {
         [Key]
         public int OrgId { get; set; }
@@ -32,6 +33,12 @@ namespace pis_web_api.Models.db
 
         public List<Contract>? ContractsAsPerformer { get; set; }
         public List<Contract>? ContractsAsCustomer { get; set; }
+
+        [NotMapped]
+        public int Id => OrgId;
+
+        [NotMapped]
+        public static TableNames TableName => TableNames.Организации;
 
 
         //public Organisation(int orgId, string orgName, string iNN, string kPP, 
@@ -77,6 +84,17 @@ namespace pis_web_api.Models.db
             AdressReg = orgPost.AdressReg;
             OrgTypeId = orgPost.OrgTypeId;
             LocalityId = orgPost.LocalityId;
+        }
+
+        public override string ToString()
+        {
+            string description = $"{OrgName}; " +
+                                 $"{INN}; " +
+                                 $"{KPP}; " +
+                                 $"{AdressReg}; " +
+                                 $"{OrgType?.NameOrgType}; " +
+                                 $"{Locality?.NameLocality};";
+            return description;
         }
     }
 }

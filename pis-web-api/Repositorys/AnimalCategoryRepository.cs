@@ -28,10 +28,7 @@ namespace pis.Repositorys
 
         public List<AnimalCategory> GetAnimalCategories()
         {
-            using (var db = new Context())
-            {
-                return db.Set<AnimalCategory>().ToList();
-            }
+            return db.Set<AnimalCategory>().ToList();
         }
     }
 }

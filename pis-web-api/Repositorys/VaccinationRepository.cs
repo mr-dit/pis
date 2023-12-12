@@ -47,6 +47,17 @@ namespace pis.Repositorys
         public (List<Vaccination>, int) GetVaccinationsByDefault
             (int pageNumber, int pageSize, string sortBy, bool isAscending) =>
             GetVaccinationsByValue(x => { return true; }, pageNumber, pageSize, sortBy, isAscending);
+
+        override public Vaccination GetById(int id)
+        {
+            return db.Vaccinations
+                .Where(x => x.IdVactination == id)
+                .Include(x => x.Vaccine)
+                .Include(x => x.Animal)
+                .Include(x => x.Contract)
+                .Include(x => x.Doctor)
+                .Single();
+        }
     }
 
     static class VaccinationExtension

@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace pis_web_api.Models.db;
 
-public class Vaccination
+public class Vaccination : IJurnable
 {
     [Key]
     public int IdVactination { get; set; }
@@ -25,6 +25,10 @@ public class Vaccination
     public int ContractId { get; set; }
     public Contract? Contract { get; set; }
 
+    public int Id => IdVactination;
+
+    public static TableNames TableName { get => TableNames.Вакцинации; }
+
     public Vaccination() { }
 
     public Vaccination(string vaccineSeriesNumber, Animal animal, Vaccine vaccine, User doctor, Contract contract)
@@ -38,13 +42,14 @@ public class Vaccination
         ContractId = contract.IdContract;
     }
 
-    //public Vaccination(int idVactination, Animal animal, DateTime vaccinationDate, VaccinePriceListByLocality vaccinePriceListByLocality, User doctor, Contract contract)
-    //{
-    //    IdVactination = idVactination;
-    //    Animal = animal;
-    //    VaccinationDate = vaccinationDate;
-    //    VaccinePriceListByLocality = vaccinePriceListByLocality;
-    //    Doctor = doctor;
-    //    Contract = contract;
-    //}
+    public override string ToString()
+    {
+        var desc = $"{VaccinationDate};" +
+            $"{VaccinationValidDate};" +
+            $"{VaccineSeriesNumber};" +
+            $"{Animal.AnimalName}" +
+            $"{Vaccine.NameVaccine};" +
+            $"{Contract.Id}";
+        return desc;
+    }
 }

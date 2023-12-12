@@ -16,7 +16,7 @@ namespace pis_web_api.Controllers
         private ContractService _contractService;
         private VaccinePriceListRepository _vaccinePriceListRepository;
         private AnimalService _animalService;
-        private readonly JournalService _journalService;
+        private readonly JournalsService<Contract> _journalService;
 
         public ContractController(ILogger<ContractController> logger, IWebHostEnvironment appEnvironment)
         {
@@ -25,7 +25,7 @@ namespace pis_web_api.Controllers
             _contractService = new ContractService();
             _vaccinePriceListRepository = new VaccinePriceListRepository();
             _animalService = new AnimalService();
-            _journalService = new JournalService();
+            _journalService = new JournalsService<Contract>();
         }
 
         [HttpPost("opensRegister")]
@@ -100,7 +100,8 @@ namespace pis_web_api.Controllers
                         return BadRequest("Заказчик и исполнитель не могут быть одинаковыми");
                     }
                     var con = conPost.ConvertToContract();
-                    _journalService.JournalAddContract(userId, con.IdContract);
+                    var conFull = _contractService.GetContract(con.IdContract);
+                    _journalService.JournalCreate(userId, conFull, JournalActionType.Добавить);
                     
                     return Ok(con.IdContract);
                     
@@ -117,7 +118,8 @@ namespace pis_web_api.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id, int userId)
         {
-            _journalService.JournalDeleteContract(userId, id);
+            var contract = _contractService.GetContract(id);
+            _journalService.JournalCreate(userId, contract, JournalActionType.Удалить);
             var status = _contractService.DeleteEntry(id);
 
             if (status)
@@ -141,7 +143,8 @@ namespace pis_web_api.Controllers
 
                 if (status)
                 {
-                    _journalService.JournalEditContract(userId,con.IdContract);
+                    var conFull = _contractService.GetContract(con.IdContract);
+                    _journalService.JournalCreate(userId, conFull, JournalActionType.Изменить);
                     return Ok();
                 }
                 else

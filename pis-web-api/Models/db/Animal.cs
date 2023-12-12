@@ -1,11 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 
 namespace pis_web_api.Models.db
 {
-    public class Animal
+    public class Animal : IJurnable
     {
+        [NotMapped]
+        public int Id { get => RegistrationNumber; }
+        [NotMapped]
+        public static TableNames TableName { get => TableNames.Животные; }
+
         [Key]
         public int RegistrationNumber { get; set; }
 
@@ -33,7 +39,8 @@ namespace pis_web_api.Models.db
 
         public List<Vaccination>? Vaccinations { get; set; }
 
-        public AnimalStatus Status { get; set; } 
+        public AnimalStatus Status { get; set; }
+        
 
         public Animal(string animalName, Locality locality, AnimalCategory animalCategory,
             Gender gender, int yearOfBirth, string electronicChipNumber)
@@ -73,7 +80,7 @@ namespace pis_web_api.Models.db
             ElectronicChipNumber = electronicChipNumber;
             PhotoPath = photoPath;
             SpecialSigns = signs;
-            Status = AnimalStatus.Не_проводилась; Status = AnimalStatus.Не_проводилась;
+            Status = AnimalStatus.Не_проводилась;
         }
 
         public Animal(string animalName, int localityId, int animalCategoryId,
@@ -101,6 +108,19 @@ namespace pis_web_api.Models.db
         public void ChangeStatus(AnimalStatus status)
         {
             Status = status;
+        }
+
+        public override string ToString()
+        {
+            string description = "";
+            description += ElectronicChipNumber + ";";
+            description += AnimalName + ";";
+            description += YearOfBirth + ";";
+            description += AnimalCategory.NameAnimalCategory + ";";
+            description += Gender.NameGender + ";";
+            description += SpecialSigns + ";";
+            description += Locality.NameLocality + ";";
+            return description;
         }
     }
 }

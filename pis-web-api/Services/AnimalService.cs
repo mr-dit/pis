@@ -83,6 +83,11 @@ namespace pis.Services
 			_repositoryAnimal.dbSet.UpdateRange(animals);
             _repositoryAnimal.db.SaveChanges();
         }
+
+		public Animal GetAnimal(int id)
+		{
+			return _repositoryAnimal.GetById(id);
+		}
     }
 }
 

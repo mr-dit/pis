@@ -25,6 +25,7 @@ namespace pis.Controllers
         private VaccineService _vaccineService;
         private ContractService _contractService;
         private UserService _userService;
+        private JournalsService<Vaccination> _journalService;
         private LocalityService _localityService;
         private OrganisationService _organisationService;
 
@@ -39,6 +40,7 @@ namespace pis.Controllers
             _userService = new UserService();
             _localityService = new LocalityService();
             _organisationService = new OrganisationService();
+            _journalService = new JournalsService<Vaccination>();
         }
 
         [HttpGet("getVaccinationsByAnimal/{idAnimal}")]
@@ -76,6 +78,9 @@ namespace pis.Controllers
 
             var vaccination = new Vaccination(vaccineSeries, animal, vaccine, doctor, contract);
             _vaccinationService.AddEntry(vaccination);
+
+            var vaccFull = _vaccinationService.GetVaccination(vaccination.Id);
+            _journalService.JournalCreate(doctorId, vaccFull, JournalActionType.Добавить);
 
             return Ok();
         }

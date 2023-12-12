@@ -8,6 +8,7 @@ using pis.Services;
 using pis_web_api.Models.db;
 using pis_web_api.Models.get;
 using pis_web_api.Models.post;
+using pis_web_api.References;
 using pis_web_api.Repositorys;
 using pis_web_api.Services;
 
@@ -20,16 +21,48 @@ namespace pis.Controllers
         private readonly ILogger<AnimalController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private AnimalService animalService;
-        private JournalService journalService;
+        private JournalsService<Animal> journalService;
         private UserService userService;
+        private RoleService roleService;
 
+        private static List<Role> openFullAccess = new List<Role>() 
+        {
+            RolesReferences.KURATOR_VETSERVICE,
+            RolesReferences.KURATOR_TRAPPING,
+            RolesReferences.KURATOR_SHELTER,
+            RolesReferences.OPERATOR_VETSERVICE,
+            RolesReferences.OPERATOR_TRAPPING,
+            RolesReferences.SIGNER_VETSERVICE,
+            RolesReferences.SIGNER_TRAPPING,
+            RolesReferences.SIGNER_SHELTER,
+            RolesReferences.OPERATOR_SHELTER,
+            RolesReferences.DOCTOR,
+            RolesReferences.DOCTOR_SHELTER,
+            RolesReferences.ADMIN
+        };
+
+        private static List<Role> openAccesByOrg = new List<Role>()
+        {
+            RolesReferences.KURATOR_OMSU,
+            RolesReferences.OPERATOR_OMSU,
+            RolesReferences.SIGNER_OMSU
+        };
+
+        private static List<Role> editAccess = new List<Role>()
+        {
+            RolesReferences.OPERATOR_SHELTER,
+            RolesReferences.DOCTOR,
+            RolesReferences.DOCTOR_SHELTER,
+            RolesReferences.ADMIN
+        };
         public AnimalController(ILogger<AnimalController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
             animalService = new AnimalService();
-            journalService = new JournalService();
+            journalService = new JournalsService<Animal>();
             userService = new UserService();
+            roleService = new RoleService();
         }
 
         [HttpPost("OpensRegister")]
@@ -38,11 +71,11 @@ namespace pis.Controllers
             List<Animal> animals;
             int totalItems;
 
-            if (user.Roles.Intersect(new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15}).Count() != 0)
+            if (roleService.IsUserHasRole(user, openFullAccess))
             {
                 (animals, totalItems) = animalService.GetAnimals(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize);
             }
-            else if (user.Roles.Intersect(new List<int>() { 9, 10, 11 }).Count() != 0)
+            else if (roleService.IsUserHasRole(user, openAccesByOrg))
             {
                 (animals, totalItems) = animalService.GetAnimalsByOrg(filterField, filterValue, sortBy, isAscending, pageNumber, pageSize, user);
             }
@@ -88,17 +121,17 @@ namespace pis.Controllers
         {
             var user = userService.GetEntry(userId);
             var userGet = user.ConvertToUserGet();
-            if (userGet.Roles.Intersect(new List<int>() { 12, 13, 14, 15 }).Count() != 0)
+            if (roleService.IsUserHasRole(userGet, editAccess))
             {
                 if (ModelState.IsValid)
                 {
                     var animal = animalPost.ConvertToAnimal();
-
                     bool status = animalService.AddEntry(animal);
 
                     if (status)
                     {
-                        journalService.JournalAddAnimal(userId, animal.RegistrationNumber);
+                        var fullAnimal = animalService.GetAnimal(animal.Id);
+                        journalService.JournalCreate(userId, fullAnimal, JournalActionType.Добавить);
                         return Ok(animal.RegistrationNumber);
                     }
                     else
@@ -123,9 +156,10 @@ namespace pis.Controllers
             var user = userService.GetEntry(userId);
             var userGet = user.ConvertToUserGet();
 
-            if(userGet.Roles.Intersect(new List<int>() { 12, 13, 14, 15 }).Count() != 0)
+            if(roleService.IsUserHasRole(userGet, editAccess))
             {
-                journalService.JournalDeleteAnimal(userId, id);
+                var animal = animalService.GetAnimal(userId);
+                journalService.JournalCreate(userId, animal, JournalActionType.Удалить);
                 var status = animalService.DeleteEntry(id);
 
                 if (status)
@@ -143,12 +177,13 @@ namespace pis.Controllers
             }
         }
 
+
         [HttpPost("ChangeEntry/{id}")]
         public IActionResult ChangeEntry(int id, [FromBody] AnimalPost animalPost, int userId)
         {
             var user = userService.GetEntry(userId);
             var userGet = user.ConvertToUserGet();
-            if(userGet.Roles.Intersect(new List<int>() { 12, 13, 14, 15 }).Count() != 0)
+            if(roleService.IsUserHasRole(userGet, editAccess))
             {
                 if (ModelState.IsValid)
                 {
@@ -157,8 +192,8 @@ namespace pis.Controllers
 
                     if (status)
                     {
-
-                        journalService.JournalEditAnimal(userId, id);
+                        var fullAnimal = animalService.GetAnimal(animal.Id);
+                        journalService.JournalCreate(userId, fullAnimal, JournalActionType.Изменить);
                         return Ok($"Animal with ID {id} has been updated.");
                     }
                     else

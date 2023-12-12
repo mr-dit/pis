@@ -28,10 +28,6 @@ namespace pis.Controllers
     {
         private readonly ILogger<StatisticaController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
-        private VaccinationService _vaccinationService;
-        private ContractService _contractService;
-        private LocalityService _localityService;
-        private VaccineService _vaccineService;
         private ReportService _reportService;
         private RoleService _roleService;
 
@@ -39,10 +35,6 @@ namespace pis.Controllers
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
-            _vaccinationService = new VaccinationService();
-            _contractService = new ContractService();
-            _localityService = new LocalityService();
-            _vaccineService = new VaccineService();
             _reportService = new ReportService();
             _roleService = new RoleService();
         }
@@ -116,11 +108,16 @@ namespace pis.Controllers
         [HttpPost("getReportAsFile/{id}")]
         public IActionResult GetReportAsFile([FromBody] UserPost user, int id)
         {
-            var report = _reportService.GetReport(id);
-            var convertor = new ReportConverterToExcel();
-            var file = convertor.ConvertToExcel(report);
-            return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                $"{id}-{report.DateStart}-{report.DateEnd}-org{report.PerformerId}.xlsx");
+            if (_roleService.UserIsOmsu(user))
+            {
+                var report = _reportService.GetReport(id);
+                var convertor = new ReportConverterToExcel();
+                var file = convertor.ConvertToExcel(report);
+                return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    $"{id}-{report.DateStart}-{report.DateEnd}-org{report.PerformerId}.xlsx");
+            }
+            else 
+                return Forbid();
         }
 
         [HttpPost("confirm/{id}")]

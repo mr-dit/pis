@@ -71,6 +71,11 @@ namespace pis.Services
             };
             return filterFields[filterField](filterValue, pageNumber, pageSize, sortBy, isAscending);
         }
+
+        public Organisation GetOrganisation(int id)
+        {
+            return _organisationRepository.GetById(id);
+        }
     }
 }
 

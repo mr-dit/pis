@@ -27,5 +27,10 @@ namespace pis.Services
 
         public List<Vaccination> GetVaccinationsByDate(DateOnly dateStart, DateOnly dateEnd, int orgId) =>
             _vaccinationRepository.GetVaccinationsByDate(dateStart, dateEnd, orgId);
+
+        public Vaccination GetVaccination(int id)
+        {
+            return _vaccinationRepository.GetById(id);
+        }
     }
 }

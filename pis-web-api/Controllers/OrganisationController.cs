@@ -20,14 +20,14 @@ namespace pis.Controllers
         private readonly ILogger<OrganisationController> _logger;
         private readonly IWebHostEnvironment _appEnvironment;
         private OrganisationService _organisationService;
-        private readonly JournalService _journalService;
+        private readonly JournalsService<Organisation> _journalService;
 
         public OrganisationController(ILogger<OrganisationController> logger, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _appEnvironment = appEnvironment;
             _organisationService = new OrganisationService();
-            _journalService = new JournalService();
+            _journalService = new JournalsService<Organisation>();
         }
 
         [HttpPost("opensRegister")]
@@ -98,7 +98,8 @@ namespace pis.Controllers
 
                 if (status)
                 {
-                    _journalService.JournalAddOrganisation(userId, organisation.OrgId);
+                    var fullOrg = _organisationService.GetOrganisation(organisation.Id);
+                    _journalService.JournalCreate(userId, fullOrg, JournalActionType.Добавить);
                     return Ok(organisation.OrgId);
                 }
                 else
@@ -115,7 +116,8 @@ namespace pis.Controllers
         [HttpPost("deleteEntry/{id}")]
         public IActionResult DeleteEntry(int id, int userId)
         {
-            _journalService.JournalDeleteOrganisation(userId, id);
+            var org = _organisationService.GetOrganisation(id);
+            _journalService.JournalCreate(userId, org, JournalActionType.Удалить);
             var status = _organisationService.DeleteEntry(id);
 
             if (status)
@@ -146,7 +148,8 @@ namespace pis.Controllers
 
                 if (status)
                 {
-                    _journalService.JournalEditOrganisation(userId, id);
+                    var fullOrg = _organisationService.GetOrganisation(existingOrganisation.Id);
+                    _journalService.JournalCreate(userId, fullOrg, JournalActionType.Изменить);
                     return Ok();
                 }
                 else

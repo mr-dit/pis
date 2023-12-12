@@ -1,5 +1,6 @@
 ﻿using pis.Repositorys;
 using pis_web_api.Models.db;
+using pis_web_api.Models.get;
 using pis_web_api.Models.post;
 using pis_web_api.References;
 
@@ -55,6 +56,11 @@ namespace pis_web_api.Services
         }
 
         public bool IsUserHasRole(UserPost user, List<Role> roles)
+        {
+            return user.Roles.Intersect(roles.Select(x => x.IdRole)).Count() != 0;
+        }
+
+        public bool IsUserHasRole(UserGet user, List<Role> roles)
         {
             return user.Roles.Intersect(roles.Select(x => x.IdRole)).Count() != 0;
         }

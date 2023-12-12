@@ -75,9 +75,6 @@ namespace pis_web_api.Services
             // Создание объекта FileInfo с уникальным именем
             var fileInfo = new FileInfo(Path.Combine(basePath, uniqueFileName));
 
-            // Сохранение файла
-            
-
             //группировка по городам
             //группируется по id города, а не по самому городу
             var vaccinationsGroupedByLocality = _vaccinationService
@@ -112,50 +109,6 @@ namespace pis_web_api.Services
             }
 
             return statisticaHolders;
-            //using (var package = new ExcelPackage())
-            //{
-            //    var worksheet = package.Workbook.Worksheets.Add("Vaccination Statistics");
-            //    int row = 1;
-            //    decimal globalTotal = 0;
-            //    foreach (var statisticaHolder in statisticaHolders)
-            //    {
-            //        decimal total = 0;
-            //        worksheet.Cells[row, 1].Value = statisticaHolder.LocalityName;
-            //        worksheet.Cells[row, 1].Style.Font.Bold = true;
-            //        worksheet.Cells[row, 1].Style.Font.Size += 6;
-            //        row++;
-            //        worksheet.Cells[row, 1].Value = "Вакцина";
-            //        worksheet.Cells[row, 1].Style.Font.Bold = true;
-            //        worksheet.Cells[row, 2].Value = "Цена";
-            //        worksheet.Cells[row, 2].Style.Font.Bold = true;
-            //        row++;
-            //        foreach (var statisticaItem in statisticaHolder)
-            //        {
-            //            worksheet.Cells[row, 1].Value = statisticaItem.VaccineName;
-            //            worksheet.Cells[row, 2].Value = statisticaItem.Price;
-            //            total += statisticaItem.Price;
-            //            row++;
-            //        }
-            //        globalTotal += total;
-            //        worksheet.Cells[row, 1].Value = "Итого:";
-            //        worksheet.Cells[row, 1].Style.Font.Color.SetColor(Color.Red);
-            //        worksheet.Cells[row, 2].Value = total;
-            //        worksheet.Cells[row, 2].Style.Font.Color.SetColor(Color.Red);
-            //        row += 2;
-            //    }
-            //    worksheet.Cells[row + 1, 1].Value = "Итого за все города:";
-            //    worksheet.Cells[row + 1, 2].Value = globalTotal;
-            //    worksheet.Columns[1].AutoFit();
-
-            //    using (var memoryStream = new MemoryStream())
-            //    {
-            //        package.SaveAs(memoryStream);
-            //        memoryStream.Position = 0;
-            //        return memoryStream;
-            //        //return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "VaccinationData.xlsx");
-            //    }
-            //}
-            
         }
 
         private static string GetUniqueFileName(string basePath, string baseFileName)

@@ -51,5 +51,10 @@ namespace pis.Services
 
             return filterFields[filterField](startDateFilter, endDateFilter, filterValue, pageNumber, pageSize, sortBy, isAscending, user);
         }
+
+        public Contract GetContract(int id)
+        {
+            return _contractRepository.GetById(id);
+        }
     }
 }
