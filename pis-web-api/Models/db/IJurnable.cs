@@ -1,4 +1,6 @@
-﻿namespace pis_web_api.Models.db
+﻿using pis_web_api.References;
+
+namespace pis_web_api.Models.db
 {
     public interface IJurnable
     {

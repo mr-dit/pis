@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using pis_web_api.References;
 
 namespace pis_web_api.Models.db
 {

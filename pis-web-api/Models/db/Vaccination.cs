@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.Contracts;
 using System.Drawing;
+using pis_web_api.References;
 
 namespace pis_web_api.Models.db;
 
