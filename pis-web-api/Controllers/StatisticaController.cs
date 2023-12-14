@@ -94,7 +94,7 @@ namespace pis.Controllers
             }
             if (_roleService.UserIsOmsu(user))
             {
-                var report = _reportService.GetReport(dateStart, dateEnd, orgId);
+                var report = _reportService.CreateReport(dateStart, dateEnd, orgId);
                 _reportService.AddEntry(report);
                 return Ok();
             }

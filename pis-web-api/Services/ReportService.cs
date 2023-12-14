@@ -111,7 +111,7 @@ namespace pis_web_api.Services
             return statisticaHolders;
         }
 
-        public Report GetReport(DateOnly dateStart, DateOnly dateEnd, int orgId)
+        public Report CreateReport(DateOnly dateStart, DateOnly dateEnd, int orgId)
         {
             var statisticaHolders = GetReportItems(dateStart, dateEnd, orgId);
             var report = new Report(statisticaHolders, dateStart, dateEnd, orgId);
