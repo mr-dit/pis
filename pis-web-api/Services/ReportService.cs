@@ -107,8 +107,15 @@ namespace pis_web_api.Services
                 //добавляем все наши пары в общую статистику
                 statisticaHolders.Add(statisticaHolder);
             }
-
+            var report = new Report(statisticaHolders, dateStart, dateEnd, orgId);
             return statisticaHolders;
+        }
+
+        public Report GetReport(DateOnly dateStart, DateOnly dateEnd, int orgId)
+        {
+            var statisticaHolders = GetReportItems(dateStart, dateEnd, orgId);
+            var report = new Report(statisticaHolders, dateStart, dateEnd, orgId);
+            return report;
         }
 
         private static string GetUniqueFileName(string basePath, string baseFileName)
