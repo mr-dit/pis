@@ -8,6 +8,8 @@ import { Modal, DatePicker } from "antd";
 import { OutTable, ExcelRenderer } from "react-excel-renderer";
 import dayjs from "dayjs";
 
+const { RangePicker } = DatePicker;
+
 const { REACT_APP_API_URL } = process.env;
 const dateFormat = "MM-DD-YYYY";
 
@@ -115,19 +117,23 @@ const ReportsPage = () => {
       console.error(error);
     }
   };
-
+  const [error, setError] = useState(false);
   const [org, setOrg] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const handleCreate = async () => {
+    if (!org || !startDate || !endDate) {
+      return setError(true);
+    }
     try {
       await axios.post(
-        `${REACT_APP_API_URL}/Statistica/createReport/${startDate}/${endDate}/${org}`,
+        `${REACT_APP_API_URL}/Statistica/createReport/${startDate}/${endDate}/${org.value}`,
         {
           ...getDataForRequest(),
         }
       );
       await fetchData();
+      handleCancel();
     } catch (error) {
       alert(error);
     }
@@ -139,15 +145,15 @@ const ReportsPage = () => {
   };
   const handleOk = async () => {
     handleCreate();
-    handleCancel();
   };
   const handleCancel = () => {
     setIsTableOpen(false);
     setTable({ rows: [], cols: [] });
     setEndDate();
     setStartDate();
-    setOrg();
+    setOrg("");
     setIsModalOpen(false);
+    setError(false);
   };
 
   const handleDelete = async (id) => {
@@ -181,7 +187,7 @@ const ReportsPage = () => {
       );
       await fetchData();
     } catch (e) {
-        console.error(e);
+      console.error(e);
     }
   };
 
@@ -236,6 +242,21 @@ const ReportsPage = () => {
     } catch (e) {
       alert(e);
     }
+  };
+
+  const handleDate = (val, str) => {
+    if (val) {
+      setStartDate(str[0]);
+      setEndDate(str[1]);
+    } else {
+      setStartDate("");
+      setEndDate("");
+    }
+  };
+
+  const createDate = (conclusionDate, expirationDate) => {
+    if (!conclusionDate) return [];
+    return [dayjs(conclusionDate), dayjs(expirationDate)];
   };
 
   const isOmsu = isRoleEdit([9, 10, 11, 15]);
@@ -318,8 +339,19 @@ const ReportsPage = () => {
         onCancel={handleCancel}
       >
         <form>
+          {error && <h4 style={{ color: "red" }}>Заполните все поля</h4>}
           <label id="my-label" className="mb-3">
-            Дата начала
+            Промежуток дат для формирования отчета
+            <RangePicker
+              size="large"
+              value={createDate(startDate, endDate)}
+              placeholder={["Начало", "Конец"]}
+              onChange={handleDate}
+              showToday
+              aria-required
+              format={dateFormat}
+            />
+            {/* Дата начала
             <DatePicker
               size="large"
               aria-required
@@ -336,7 +368,7 @@ const ReportsPage = () => {
               value={endDate ? dayjs(endDate, dateFormat) : ""}
               format={dateFormat}
               onChange={(dayjs, string) => setEndDate(string)}
-            />
+            /> */}
           </label>
           <label id="my-label" className="mb-3">
             Организация
@@ -346,7 +378,10 @@ const ReportsPage = () => {
               required
               placeholder="По организации..."
               options={organisationOptions}
-              onChange={(val) => setOrg(val?.value)}
+              value={org}
+              onChange={(val) => {
+                setOrg(val);
+              }}
             />
           </label>
         </form>

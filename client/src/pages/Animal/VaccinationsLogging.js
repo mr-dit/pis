@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Menu from "../../components/Menu/Menu";
+import axios from "axios";
 import Table from "../../components/Table/Table";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Select from "react-select";
 import { getDataForRequest } from "../../helpers";
 
@@ -17,11 +17,11 @@ const cols = [
 
   { name: "userLogin", title: "Логин" },
 
-  { name: "date", title: "Дата" },
+  { name: "date", title: "Дата изменения" },
 
-  { name: "idObject", title: "Номер контракта" },
+  { name: "idObject", title: "id вакцинации" },
 
-  { name: "descObject", title: "Описание контракта" },
+  { name: "descObject", title: "Описание вакцинации" },
 
   { name: "actionType", title: "Совершенное действие" },
 ];
@@ -30,12 +30,12 @@ const filterOptions = [
   { label: "ФИО", value: "fio" },
   { label: "Организация", value: "orgName" },
   { label: "Логин", value: "userLogin" },
-  { label: "Дата", value: "date" },
-  { label: "Изменение ", value: "idObject" },
-  { label: "Описание изменения", value: "descObject" },
+  { label: "Дата изменения", value: "date" },
+  { label: "id вакцинации", value: "idObject" },
+  { label: "Описание вакцинации", value: "descObject" },
 ];
 
-const ContractLogging = () => {
+const VaccinationsLogging = () => {
   const [journals, setJournals] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [filterField, setFilterField] = useState("");
@@ -47,8 +47,8 @@ const ContractLogging = () => {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        `${REACT_APP_API_URL}/JournalContractContolller/openJournal`,
-				getDataForRequest(),
+        `${REACT_APP_API_URL}/JournalVaccinations/openJournal`,
+        getDataForRequest(),
         {
           params: {
             filterValue,
@@ -81,11 +81,12 @@ const ContractLogging = () => {
   const handleDelete = async () => {
     try {
       await axios.post(
-        `${REACT_APP_API_URL}/JournalContractContolller/deleteJournals`,
+        `${REACT_APP_API_URL}/JournalVaccinations/deleteJournals`,
         selectedRows
       );
       setSelectedRows([]);
       await fetchData();
+      handleRowSelection([]);
     } catch (error) {
       console.error(error);
     }
@@ -93,7 +94,7 @@ const ContractLogging = () => {
 
   const navigate = useNavigate();
   const toMainPage = () => {
-    navigate("/Contract");
+    navigate("/Animal");
   };
 
   return (
@@ -101,7 +102,7 @@ const ContractLogging = () => {
       <div>
         <Menu />
         <div className="d-flex justify-content-between mt-3 mb-2">
-          <h1>Журнал изменений контрактов</h1>
+          <h1>Журнал вакцинаций</h1>
           <button className="fs-1" onClick={toMainPage}>
             ×
           </button>
@@ -144,8 +145,8 @@ const ContractLogging = () => {
           data={journals}
           headers={cols}
           isDelete
-          selRow={selectedRows}
           sortField={""}
+          selRow={selectedRows}
           onRowSelect={handleRowSelection}
         />
       </div>
@@ -173,4 +174,4 @@ const ContractLogging = () => {
   );
 };
 
-export default ContractLogging;
+export default VaccinationsLogging;

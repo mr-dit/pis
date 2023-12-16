@@ -101,7 +101,7 @@ const LoggingOrganisation = () => {
       <div>
         <Menu />
         <div className="d-flex justify-content-between mt-3 mb-2">
-          <h1>Журнал изменений</h1>
+          <h1>Журнал изменений организаций</h1>
           <button className="fs-1" onClick={toMainPage}>
             ×
           </button>

@@ -113,6 +113,10 @@ const AnimalComponent = () => {
     navigate(`/Animal/Logging`);
   };
 
+  const handleVaccinLogging = () => {
+    navigate(`/Vaccinations/Logging`);
+  };
+
   const handleDelete = async (id) => {
     try {
       await axios.post(
@@ -201,6 +205,9 @@ const AnimalComponent = () => {
       )}
       {isLogging && (
         <div className="d-flex justify-content-end">
+          <button className="btn btn-info btn-lg me-3" onClick={handleVaccinLogging}>
+            Все вакцинации
+          </button>
           <button className="btn btn-primary btn-lg" onClick={handleLogging}>
             Реестр изменений
           </button>

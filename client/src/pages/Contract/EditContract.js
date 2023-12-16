@@ -134,6 +134,7 @@ const EditContractsForm = () => {
   };
 
   const createDate = (conclusionDate, expirationDate) => {
+    if(!conclusionDate) return[]
     return [dayjs(conclusionDate), dayjs(expirationDate)];
   };
 

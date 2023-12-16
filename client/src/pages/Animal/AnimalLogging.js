@@ -102,7 +102,7 @@ const AnimalLogging = () => {
       <div>
         <Menu />
         <div className="d-flex justify-content-between mt-3 mb-2">
-          <h1>Журнал изменений</h1>
+          <h1>Журнал изменений животных</h1>
           <button className="fs-1" onClick={toMainPage}>
             ×
           </button>
