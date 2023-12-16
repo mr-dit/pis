@@ -12,8 +12,9 @@ namespace pis_web_api.References
             { "Черновик", DRAFT },
             { "Доработка", REWORK },
             { "Согласование у исполнителя", AGREEMENT_FROM_PERFORMER },
-            { "Согласовано исполнителем", AGREED_FROM_PERFORMER },
-            { "Согласовано ОМСУ", AGREED_FROM_OMSU },
+            { "Согласован у исполнителя", AGREED_FROM_PERFORMER },
+            { "Удтвержден у исполнителя", CONFIRMED_FROM_PERFORMER},
+            { "Согласован в ОМСУ", AGREED_FROM_OMSU }
         };
 
         public static ReportStatusAbstract GetStatusByName(string name, Report report)
@@ -26,10 +27,22 @@ namespace pis_web_api.References
             throw new ArgumentException("Не существует статуса с именем:", name);
         }
 
-        public static ReportStatusAbstract DRAFT(Report report) => new DraftStatus(report);
-        public static ReportStatusAbstract REWORK(Report report) => new ReworkStatus(report);
-        public static ReportStatusAbstract AGREEMENT_FROM_PERFORMER(Report report) => new AgreementFromPerformerStatus(report);
-        public static ReportStatusAbstract AGREED_FROM_PERFORMER(Report report) => new AgreedFromPerformer(report);
-        public static ReportStatusAbstract AGREED_FROM_OMSU(Report report) => new AgreedFromOMSU(report);
+        public static ReportStatusAbstract DRAFT(Report report) 
+            => new DraftStatus(report);
+
+        public static ReportStatusAbstract REWORK(Report report) 
+            => new ReworkStatus(report);
+
+        public static ReportStatusAbstract AGREEMENT_FROM_PERFORMER(Report report) 
+            => new AgreementFromPerformerStatus(report);
+
+        public static ReportStatusAbstract AGREED_FROM_PERFORMER(Report report) 
+            => new AgreedFromPerformer(report);
+
+        public static ReportStatusAbstract AGREED_FROM_OMSU(Report report)
+            => new AgreedFromOMSU(report);
+
+        public static ReportStatusAbstract CONFIRMED_FROM_PERFORMER(Report report)
+            => new ConfirmedFromPerformer(report);
     }
 }

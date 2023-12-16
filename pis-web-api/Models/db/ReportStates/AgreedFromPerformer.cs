@@ -1,4 +1,6 @@
-﻿using pis_web_api.Models.post;
+﻿using pis.Repositorys;
+using pis_web_api.Models.post;
+using pis_web_api.References;
 
 namespace pis_web_api.Models.db.ReportStates
 {
@@ -7,7 +9,11 @@ namespace pis_web_api.Models.db.ReportStates
         public AgreedFromPerformer() : base() { }
         public AgreedFromPerformer(Report report) : base(report) {}
 
-        public override List<Role> AccesRoles => _roleService.OMSU_Roles;
+        public override List<Role> AccesRoles => new List<Role>()
+        {
+            RolesReferences.SIGNER_VETSERVICE, 
+            RolesReferences.ADMIN 
+        };
 
         public override string Name { get { return "Согласован у исполнителя"; } set { } }
 
@@ -25,7 +31,7 @@ namespace pis_web_api.Models.db.ReportStates
         {
             void action()
             {
-                Report.ChangeStatus(new AgreedFromOMSU(Report));
+                Report.ChangeStatus(new ConfirmedFromPerformer(Report));
             }
 
             Work(user, AccesRoles, action);

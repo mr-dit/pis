@@ -1,20 +1,20 @@
 ﻿using pis_web_api.Models.post;
 using pis_web_api.References;
-using pis_web_api.Services;
 
 namespace pis_web_api.Models.db.ReportStates
 {
-    public class AgreementFromPerformerStatus : ReportStatusAbstract
+    public class ConfirmedFromPerformer : ReportStatusAbstract
     {
-        public AgreementFromPerformerStatus() : base() { }
-        public AgreementFromPerformerStatus(Report report) : base(report) {}
+        public ConfirmedFromPerformer() : base() { }
+        public ConfirmedFromPerformer(Report report): base(report) { }
 
-        public override List<Role> AccesRoles => new List<Role>()
+        public override string Name { get { return "Удтвержден у исполнителя"; } set { } }
+
+        public override List<Role> AccesRoles => new List<Role>() 
         {
-            RolesReferences.KURATOR_VETSERVICE,
+            RolesReferences.KURATOR_OMSU,
             RolesReferences.ADMIN
         };
-        public override string Name { get { return "Согласование у исполнителя"; } set { } }
 
         public override void Cancel(UserPost user)
         {
@@ -30,7 +30,7 @@ namespace pis_web_api.Models.db.ReportStates
         {
             void action()
             {
-                Report.ChangeStatus(new AgreedFromPerformer(Report));
+                Report.ChangeStatus(new AgreedFromOMSU(Report));
             }
 
             Work(user, AccesRoles, action);
