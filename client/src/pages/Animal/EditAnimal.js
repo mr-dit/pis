@@ -265,9 +265,16 @@ const EditAnimalForm = () => {
           </div>
         )}
       </form>
-      <h2>Вакцинации</h2>
-      {!isNotEdit && (
-        <Vaccine vaccinations={vaccinations} onChange={onChangeVaccinations} />
+      {id && (
+        <div>
+          <h2>Вакцинации</h2>
+          {!isNotEdit && (
+            <Vaccine
+              vaccinations={vaccinations}
+              onChange={onChangeVaccinations}
+            />
+          )}
+        </div>
       )}
     </>
   );
