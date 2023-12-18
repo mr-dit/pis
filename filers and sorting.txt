@@ -1,0 +1,53 @@
+Animals:
+	Фильтры:
+		+ AnimalCategory
+		+ ElectronicChipNumber
+		+ AnimalName
+		+ "" - стоит по дефолту
+		+ Locality
+	Сортировка:
+		+ RegistrationNumber
+		+ Locality
+		+ AnimalCategory
+		+ Gender
+		+ YearOfBirth
+		+ ElectronicChipNumber
+		+ AnimalName - стоит по дефолту
+		
+User:
+	Фильтры:
+		+ Surname
+		+ FirstName
+		+ LastName
+		+ Organisation 
+		+ "" - стоит по дефолту
+	Сортировка:
+		+ Surname - стоит по дефолту
+		+ Surname
+		+ FirstName
+		+ LastName
+		+ Organisation 
+		
+Organisation:
+	Фильтры:
+		+ "" - стоит по дефолту
+		+ OrgName
+		+ INN
+		+ KPP
+		+ Locality
+		+ AdressReg
+	Сортировка:
+		+ OrgName
+		+ AdressReg
+		+ INN
+		+ KPP
+		+ Locality
+		+ OrgType
+		
+Vaccination:
+	Фильтры:
+		+ "" - стоит по дефолту
+		+ NameVaccine
+	Сортировка:
+		+ NameVaccine - стоит по дефолту
+		+ IdVaccine
