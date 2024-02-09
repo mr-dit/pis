@@ -35,7 +35,7 @@ namespace pis_web_api.Controllers
             List<Contract> contracts;
             int totalItems;
 
-            if(user.Roles.Intersect(new List<int>() {  1, 4, 6 }).Count() != 0)
+            if(user.Roles.Intersect(new List<int>() {  1, 4, 6, 15 }).Count() != 0)
             {
                 (contracts, totalItems) = _contractService.GetContracts(startDateFilter, endDateFilter, filterValue, filterField,
                 sortBy, isAscending, pageNumber, pageSize);
